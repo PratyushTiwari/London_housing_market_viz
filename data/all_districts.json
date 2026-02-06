@@ -141,7 +141,7 @@
         "avg_buy_price": 301659,
         "avg_sell_price": 395626,
         "avg_holding_period": 2.52,
-        "weighted_annual_return": 11.17
+        "weighted_annual_return": 9.95
       },
       {
         "buy_cohort": "2005-2010",
@@ -150,7 +150,7 @@
         "avg_buy_price": 358336,
         "avg_sell_price": 552111,
         "avg_holding_period": 5.87,
-        "weighted_annual_return": 8.54
+        "weighted_annual_return": 7.57
       },
       {
         "buy_cohort": "2005-2010",
@@ -159,7 +159,7 @@
         "avg_buy_price": 384113,
         "avg_sell_price": 735681,
         "avg_holding_period": 10.2,
-        "weighted_annual_return": 7.22
+        "weighted_annual_return": 6.7
       },
       {
         "buy_cohort": "2005-2010",
@@ -168,7 +168,7 @@
         "avg_buy_price": 445005,
         "avg_sell_price": 845676,
         "avg_holding_period": 15.04,
-        "weighted_annual_return": 4.58
+        "weighted_annual_return": 4.18
       },
       {
         "buy_cohort": "2011-2015",
@@ -177,7 +177,7 @@
         "avg_buy_price": 415616,
         "avg_sell_price": 613080,
         "avg_holding_period": 1.87,
-        "weighted_annual_return": 21.07
+        "weighted_annual_return": 19.87
       },
       {
         "buy_cohort": "2011-2015",
@@ -186,7 +186,7 @@
         "avg_buy_price": 533115,
         "avg_sell_price": 705024,
         "avg_holding_period": 4.81,
-        "weighted_annual_return": 7.59
+        "weighted_annual_return": 5.53
       },
       {
         "buy_cohort": "2011-2015",
@@ -195,7 +195,7 @@
         "avg_buy_price": 585573,
         "avg_sell_price": 773149,
         "avg_holding_period": 9.28,
-        "weighted_annual_return": 3.43
+        "weighted_annual_return": 2.6
       },
       {
         "buy_cohort": "2016-2020",
@@ -204,7 +204,7 @@
         "avg_buy_price": 783222,
         "avg_sell_price": 887341,
         "avg_holding_period": 1.91,
-        "weighted_annual_return": 6.7
+        "weighted_annual_return": 3.01
       },
       {
         "buy_cohort": "2016-2020",
@@ -213,7 +213,7 @@
         "avg_buy_price": 745098,
         "avg_sell_price": 780005,
         "avg_holding_period": 5.23,
-        "weighted_annual_return": 1.36
+        "weighted_annual_return": 0.54
       },
       {
         "buy_cohort": "2021-2025",
@@ -222,7 +222,7 @@
         "avg_buy_price": 607783,
         "avg_sell_price": 691379,
         "avg_holding_period": 2.11,
-        "weighted_annual_return": 8.59
+        "weighted_annual_return": 6.17
       }
     ]
   },
@@ -368,7 +368,7 @@
         "avg_buy_price": 290360,
         "avg_sell_price": 375694,
         "avg_holding_period": 2.19,
-        "weighted_annual_return": 12.11
+        "weighted_annual_return": 10.42
       },
       {
         "buy_cohort": "2005-2010",
@@ -377,7 +377,7 @@
         "avg_buy_price": 340382,
         "avg_sell_price": 480734,
         "avg_holding_period": 5.89,
-        "weighted_annual_return": 7.23
+        "weighted_annual_return": 6.07
       },
       {
         "buy_cohort": "2005-2010",
@@ -386,7 +386,7 @@
         "avg_buy_price": 351731,
         "avg_sell_price": 629074,
         "avg_holding_period": 10.28,
-        "weighted_annual_return": 6.45
+        "weighted_annual_return": 6.01
       },
       {
         "buy_cohort": "2005-2010",
@@ -395,7 +395,7 @@
         "avg_buy_price": 370489,
         "avg_sell_price": 657518,
         "avg_holding_period": 15.28,
-        "weighted_annual_return": 4.18
+        "weighted_annual_return": 3.68
       },
       {
         "buy_cohort": "2011-2015",
@@ -404,7 +404,7 @@
         "avg_buy_price": 396168,
         "avg_sell_price": 559254,
         "avg_holding_period": 1.65,
-        "weighted_annual_return": 19.09
+        "weighted_annual_return": 17.27
       },
       {
         "buy_cohort": "2011-2015",
@@ -413,7 +413,7 @@
         "avg_buy_price": 465821,
         "avg_sell_price": 634007,
         "avg_holding_period": 4.56,
-        "weighted_annual_return": 8.72
+        "weighted_annual_return": 7.43
       },
       {
         "buy_cohort": "2011-2015",
@@ -422,7 +422,7 @@
         "avg_buy_price": 513151,
         "avg_sell_price": 678059,
         "avg_holding_period": 8.97,
-        "weighted_annual_return": 3.5
+        "weighted_annual_return": 2.65
       },
       {
         "buy_cohort": "2016-2020",
@@ -431,7 +431,7 @@
         "avg_buy_price": 551378,
         "avg_sell_price": 603945,
         "avg_holding_period": 1.56,
-        "weighted_annual_return": 7.62
+        "weighted_annual_return": 3.64
       },
       {
         "buy_cohort": "2016-2020",
@@ -440,7 +440,7 @@
         "avg_buy_price": 667707,
         "avg_sell_price": 695137,
         "avg_holding_period": 5.28,
-        "weighted_annual_return": 2.85
+        "weighted_annual_return": -2.07
       },
       {
         "buy_cohort": "2021-2025",
@@ -449,7 +449,7 @@
         "avg_buy_price": 782735,
         "avg_sell_price": 897208,
         "avg_holding_period": 1.38,
-        "weighted_annual_return": 9.57
+        "weighted_annual_return": 5.29
       }
     ]
   },
@@ -595,7 +595,7 @@
         "avg_buy_price": 268139,
         "avg_sell_price": 337252,
         "avg_holding_period": 2.13,
-        "weighted_annual_return": 12.36
+        "weighted_annual_return": 10.97
       },
       {
         "buy_cohort": "2005-2010",
@@ -604,7 +604,7 @@
         "avg_buy_price": 310610,
         "avg_sell_price": 482905,
         "avg_holding_period": 5.98,
-        "weighted_annual_return": 8.54
+        "weighted_annual_return": 7.36
       },
       {
         "buy_cohort": "2005-2010",
@@ -613,7 +613,7 @@
         "avg_buy_price": 310065,
         "avg_sell_price": 605518,
         "avg_holding_period": 10.13,
-        "weighted_annual_return": 7.76
+        "weighted_annual_return": 6.85
       },
       {
         "buy_cohort": "2005-2010",
@@ -622,7 +622,7 @@
         "avg_buy_price": 321120,
         "avg_sell_price": 654892,
         "avg_holding_period": 15.38,
-        "weighted_annual_return": 5.26
+        "weighted_annual_return": 4.63
       },
       {
         "buy_cohort": "2011-2015",
@@ -631,7 +631,7 @@
         "avg_buy_price": 397384,
         "avg_sell_price": 539772,
         "avg_holding_period": 1.88,
-        "weighted_annual_return": 20.79
+        "weighted_annual_return": 19.73
       },
       {
         "buy_cohort": "2011-2015",
@@ -640,7 +640,7 @@
         "avg_buy_price": 472777,
         "avg_sell_price": 666142,
         "avg_holding_period": 4.6,
-        "weighted_annual_return": 9.76
+        "weighted_annual_return": 8.19
       },
       {
         "buy_cohort": "2011-2015",
@@ -649,7 +649,7 @@
         "avg_buy_price": 550302,
         "avg_sell_price": 774997,
         "avg_holding_period": 9.04,
-        "weighted_annual_return": 4.35
+        "weighted_annual_return": 3.4
       },
       {
         "buy_cohort": "2016-2020",
@@ -658,7 +658,7 @@
         "avg_buy_price": 524389,
         "avg_sell_price": 636454,
         "avg_holding_period": 1.78,
-        "weighted_annual_return": 9.94
+        "weighted_annual_return": 6.68
       },
       {
         "buy_cohort": "2016-2020",
@@ -667,7 +667,7 @@
         "avg_buy_price": 655611,
         "avg_sell_price": 762456,
         "avg_holding_period": 5.18,
-        "weighted_annual_return": 4.72
+        "weighted_annual_return": 2.99
       },
       {
         "buy_cohort": "2021-2025",
@@ -676,7 +676,7 @@
         "avg_buy_price": 650528,
         "avg_sell_price": 773754,
         "avg_holding_period": 1.46,
-        "weighted_annual_return": 11.19
+        "weighted_annual_return": 5.75
       }
     ]
   },
@@ -822,7 +822,7 @@
         "avg_buy_price": 424000,
         "avg_sell_price": 564799,
         "avg_holding_period": 2.24,
-        "weighted_annual_return": 14.45
+        "weighted_annual_return": 12.8
       },
       {
         "buy_cohort": "2005-2010",
@@ -831,7 +831,7 @@
         "avg_buy_price": 450796,
         "avg_sell_price": 705997,
         "avg_holding_period": 5.62,
-        "weighted_annual_return": 9.19
+        "weighted_annual_return": 8.27
       },
       {
         "buy_cohort": "2005-2010",
@@ -840,7 +840,7 @@
         "avg_buy_price": 450593,
         "avg_sell_price": 797719,
         "avg_holding_period": 10.17,
-        "weighted_annual_return": 6.46
+        "weighted_annual_return": 5.7
       },
       {
         "buy_cohort": "2005-2010",
@@ -849,7 +849,7 @@
         "avg_buy_price": 520410,
         "avg_sell_price": 881681,
         "avg_holding_period": 15.31,
-        "weighted_annual_return": 3.75
+        "weighted_annual_return": 3.39
       },
       {
         "buy_cohort": "2011-2015",
@@ -858,7 +858,7 @@
         "avg_buy_price": 537913,
         "avg_sell_price": 738717,
         "avg_holding_period": 1.89,
-        "weighted_annual_return": 17.94
+        "weighted_annual_return": 16.78
       },
       {
         "buy_cohort": "2011-2015",
@@ -867,7 +867,7 @@
         "avg_buy_price": 691264,
         "avg_sell_price": 867537,
         "avg_holding_period": 4.87,
-        "weighted_annual_return": 6.94
+        "weighted_annual_return": 4.6
       },
       {
         "buy_cohort": "2011-2015",
@@ -876,7 +876,7 @@
         "avg_buy_price": 686757,
         "avg_sell_price": 799312,
         "avg_holding_period": 9.49,
-        "weighted_annual_return": 1.83
+        "weighted_annual_return": 1.36
       },
       {
         "buy_cohort": "2016-2020",
@@ -885,7 +885,7 @@
         "avg_buy_price": 732271,
         "avg_sell_price": 780342,
         "avg_holding_period": 1.52,
-        "weighted_annual_return": 10.94
+        "weighted_annual_return": 7.99
       },
       {
         "buy_cohort": "2016-2020",
@@ -894,7 +894,7 @@
         "avg_buy_price": 720092,
         "avg_sell_price": 817153,
         "avg_holding_period": 5.18,
-        "weighted_annual_return": 4.29
+        "weighted_annual_return": 2.63
       },
       {
         "buy_cohort": "2021-2025",
@@ -903,7 +903,7 @@
         "avg_buy_price": 830485,
         "avg_sell_price": 874471,
         "avg_holding_period": 1.99,
-        "weighted_annual_return": 10.98
+        "weighted_annual_return": 9.07
       }
     ]
   },
@@ -1049,7 +1049,7 @@
         "avg_buy_price": 365642,
         "avg_sell_price": 474471,
         "avg_holding_period": 2.44,
-        "weighted_annual_return": 12.24
+        "weighted_annual_return": 10.8
       },
       {
         "buy_cohort": "2005-2010",
@@ -1058,7 +1058,7 @@
         "avg_buy_price": 461357,
         "avg_sell_price": 749668,
         "avg_holding_period": 5.78,
-        "weighted_annual_return": 9.72
+        "weighted_annual_return": 8.35
       },
       {
         "buy_cohort": "2005-2010",
@@ -1067,7 +1067,7 @@
         "avg_buy_price": 528274,
         "avg_sell_price": 969860,
         "avg_holding_period": 10.35,
-        "weighted_annual_return": 6.55
+        "weighted_annual_return": 6.09
       },
       {
         "buy_cohort": "2005-2010",
@@ -1076,7 +1076,7 @@
         "avg_buy_price": 506415,
         "avg_sell_price": 966209,
         "avg_holding_period": 15.24,
-        "weighted_annual_return": 4.57
+        "weighted_annual_return": 4.23
       },
       {
         "buy_cohort": "2011-2015",
@@ -1085,7 +1085,7 @@
         "avg_buy_price": 507170,
         "avg_sell_price": 723683,
         "avg_holding_period": 1.91,
-        "weighted_annual_return": 18.66
+        "weighted_annual_return": 16.4
       },
       {
         "buy_cohort": "2011-2015",
@@ -1094,7 +1094,7 @@
         "avg_buy_price": 617093,
         "avg_sell_price": 806935,
         "avg_holding_period": 5.02,
-        "weighted_annual_return": 6.81
+        "weighted_annual_return": 5.17
       },
       {
         "buy_cohort": "2011-2015",
@@ -1103,7 +1103,7 @@
         "avg_buy_price": 783225,
         "avg_sell_price": 997410,
         "avg_holding_period": 9.41,
-        "weighted_annual_return": 2.87
+        "weighted_annual_return": 2.35
       },
       {
         "buy_cohort": "2016-2020",
@@ -1112,7 +1112,7 @@
         "avg_buy_price": 1001846,
         "avg_sell_price": 957778,
         "avg_holding_period": 1.93,
-        "weighted_annual_return": 5.97
+        "weighted_annual_return": 3.84
       },
       {
         "buy_cohort": "2016-2020",
@@ -1121,7 +1121,7 @@
         "avg_buy_price": 777012,
         "avg_sell_price": 839487,
         "avg_holding_period": 5.23,
-        "weighted_annual_return": 2.82
+        "weighted_annual_return": 1.6
       },
       {
         "buy_cohort": "2021-2025",
@@ -1130,7 +1130,7 @@
         "avg_buy_price": 638804,
         "avg_sell_price": 735829,
         "avg_holding_period": 2.04,
-        "weighted_annual_return": 7.1
+        "weighted_annual_return": 4.94
       }
     ]
   },
@@ -1276,7 +1276,7 @@
         "avg_buy_price": 514571,
         "avg_sell_price": 690589,
         "avg_holding_period": 2.52,
-        "weighted_annual_return": 12.78
+        "weighted_annual_return": 10.93
       },
       {
         "buy_cohort": "2005-2010",
@@ -1285,7 +1285,7 @@
         "avg_buy_price": 586122,
         "avg_sell_price": 950279,
         "avg_holding_period": 5.64,
-        "weighted_annual_return": 10.41
+        "weighted_annual_return": 9.12
       },
       {
         "buy_cohort": "2005-2010",
@@ -1294,7 +1294,7 @@
         "avg_buy_price": 646178,
         "avg_sell_price": 1129258,
         "avg_holding_period": 10.23,
-        "weighted_annual_return": 6.29
+        "weighted_annual_return": 5.6
       },
       {
         "buy_cohort": "2005-2010",
@@ -1303,7 +1303,7 @@
         "avg_buy_price": 641338,
         "avg_sell_price": 1203129,
         "avg_holding_period": 15.14,
-        "weighted_annual_return": 4.6
+        "weighted_annual_return": 4.03
       },
       {
         "buy_cohort": "2011-2015",
@@ -1312,7 +1312,7 @@
         "avg_buy_price": 685474,
         "avg_sell_price": 998436,
         "avg_holding_period": 2.0,
-        "weighted_annual_return": 20.52
+        "weighted_annual_return": 18.76
       },
       {
         "buy_cohort": "2011-2015",
@@ -1321,7 +1321,7 @@
         "avg_buy_price": 844762,
         "avg_sell_price": 1042230,
         "avg_holding_period": 5.17,
-        "weighted_annual_return": 5.8
+        "weighted_annual_return": 4.09
       },
       {
         "buy_cohort": "2011-2015",
@@ -1330,7 +1330,7 @@
         "avg_buy_price": 995197,
         "avg_sell_price": 1211728,
         "avg_holding_period": 9.39,
-        "weighted_annual_return": 2.37
+        "weighted_annual_return": 1.68
       },
       {
         "buy_cohort": "2016-2020",
@@ -1339,7 +1339,7 @@
         "avg_buy_price": 928398,
         "avg_sell_price": 1026566,
         "avg_holding_period": 2.2,
-        "weighted_annual_return": 6.97
+        "weighted_annual_return": 2.96
       },
       {
         "buy_cohort": "2016-2020",
@@ -1348,7 +1348,7 @@
         "avg_buy_price": 940021,
         "avg_sell_price": 1060630,
         "avg_holding_period": 5.22,
-        "weighted_annual_return": 4.2
+        "weighted_annual_return": 2.38
       },
       {
         "buy_cohort": "2021-2025",
@@ -1357,7 +1357,7 @@
         "avg_buy_price": 1003702,
         "avg_sell_price": 1154975,
         "avg_holding_period": 2.1,
-        "weighted_annual_return": 9.41
+        "weighted_annual_return": 6.36
       }
     ]
   },
@@ -1503,7 +1503,7 @@
         "avg_buy_price": 331562,
         "avg_sell_price": 415565,
         "avg_holding_period": 2.72,
-        "weighted_annual_return": 9.4
+        "weighted_annual_return": 7.67
       },
       {
         "buy_cohort": "2005-2010",
@@ -1512,7 +1512,7 @@
         "avg_buy_price": 370574,
         "avg_sell_price": 580160,
         "avg_holding_period": 5.81,
-        "weighted_annual_return": 8.6
+        "weighted_annual_return": 7.75
       },
       {
         "buy_cohort": "2005-2010",
@@ -1521,7 +1521,7 @@
         "avg_buy_price": 400274,
         "avg_sell_price": 760789,
         "avg_holding_period": 10.08,
-        "weighted_annual_return": 6.97
+        "weighted_annual_return": 6.61
       },
       {
         "buy_cohort": "2005-2010",
@@ -1530,7 +1530,7 @@
         "avg_buy_price": 422653,
         "avg_sell_price": 860139,
         "avg_holding_period": 15.2,
-        "weighted_annual_return": 4.95
+        "weighted_annual_return": 4.67
       },
       {
         "buy_cohort": "2011-2015",
@@ -1539,7 +1539,7 @@
         "avg_buy_price": 446854,
         "avg_sell_price": 622104,
         "avg_holding_period": 2.14,
-        "weighted_annual_return": 16.75
+        "weighted_annual_return": 14.82
       },
       {
         "buy_cohort": "2011-2015",
@@ -1548,7 +1548,7 @@
         "avg_buy_price": 599279,
         "avg_sell_price": 773188,
         "avg_holding_period": 5.19,
-        "weighted_annual_return": 6.31
+        "weighted_annual_return": 4.89
       },
       {
         "buy_cohort": "2011-2015",
@@ -1557,7 +1557,7 @@
         "avg_buy_price": 667011,
         "avg_sell_price": 872891,
         "avg_holding_period": 9.22,
-        "weighted_annual_return": 3.17
+        "weighted_annual_return": 2.53
       },
       {
         "buy_cohort": "2016-2020",
@@ -1566,7 +1566,7 @@
         "avg_buy_price": 1104085,
         "avg_sell_price": 841385,
         "avg_holding_period": 2.48,
-        "weighted_annual_return": 3.53
+        "weighted_annual_return": 2.72
       },
       {
         "buy_cohort": "2016-2020",
@@ -1575,7 +1575,7 @@
         "avg_buy_price": 721491,
         "avg_sell_price": 803137,
         "avg_holding_period": 5.01,
-        "weighted_annual_return": 2.96
+        "weighted_annual_return": 1.75
       },
       {
         "buy_cohort": "2021-2025",
@@ -1584,7 +1584,7 @@
         "avg_buy_price": 722003,
         "avg_sell_price": 823076,
         "avg_holding_period": 2.11,
-        "weighted_annual_return": 6.15
+        "weighted_annual_return": 2.91
       }
     ]
   },
@@ -1730,7 +1730,7 @@
         "avg_buy_price": 275302,
         "avg_sell_price": 336051,
         "avg_holding_period": 2.4,
-        "weighted_annual_return": 10.68
+        "weighted_annual_return": 9.38
       },
       {
         "buy_cohort": "2005-2010",
@@ -1739,7 +1739,7 @@
         "avg_buy_price": 309042,
         "avg_sell_price": 457095,
         "avg_holding_period": 5.93,
-        "weighted_annual_return": 7.58
+        "weighted_annual_return": 6.5
       },
       {
         "buy_cohort": "2005-2010",
@@ -1748,7 +1748,7 @@
         "avg_buy_price": 315774,
         "avg_sell_price": 566513,
         "avg_holding_period": 9.88,
-        "weighted_annual_return": 7.01
+        "weighted_annual_return": 6.06
       },
       {
         "buy_cohort": "2005-2010",
@@ -1757,7 +1757,7 @@
         "avg_buy_price": 318944,
         "avg_sell_price": 601993,
         "avg_holding_period": 15.16,
-        "weighted_annual_return": 4.53
+        "weighted_annual_return": 4.18
       },
       {
         "buy_cohort": "2011-2015",
@@ -1766,7 +1766,7 @@
         "avg_buy_price": 386991,
         "avg_sell_price": 544859,
         "avg_holding_period": 2.16,
-        "weighted_annual_return": 16.99
+        "weighted_annual_return": 16.31
       },
       {
         "buy_cohort": "2011-2015",
@@ -1775,7 +1775,7 @@
         "avg_buy_price": 488645,
         "avg_sell_price": 602748,
         "avg_holding_period": 4.9,
-        "weighted_annual_return": 7.14
+        "weighted_annual_return": 2.36
       },
       {
         "buy_cohort": "2011-2015",
@@ -1784,7 +1784,7 @@
         "avg_buy_price": 497867,
         "avg_sell_price": 627510,
         "avg_holding_period": 9.12,
-        "weighted_annual_return": 2.82
+        "weighted_annual_return": 2.15
       },
       {
         "buy_cohort": "2016-2020",
@@ -1793,7 +1793,7 @@
         "avg_buy_price": 676772,
         "avg_sell_price": 609751,
         "avg_holding_period": 2.02,
-        "weighted_annual_return": 6.45
+        "weighted_annual_return": 4.1
       },
       {
         "buy_cohort": "2016-2020",
@@ -1802,7 +1802,7 @@
         "avg_buy_price": 602365,
         "avg_sell_price": 652613,
         "avg_holding_period": 5.28,
-        "weighted_annual_return": 2.19
+        "weighted_annual_return": 1.31
       },
       {
         "buy_cohort": "2021-2025",
@@ -1811,7 +1811,7 @@
         "avg_buy_price": 735035,
         "avg_sell_price": 810915,
         "avg_holding_period": 1.93,
-        "weighted_annual_return": 5.88
+        "weighted_annual_return": 3.96
       }
     ]
   },
@@ -1957,7 +1957,7 @@
         "avg_buy_price": 307100,
         "avg_sell_price": 376499,
         "avg_holding_period": 2.38,
-        "weighted_annual_return": 10.69
+        "weighted_annual_return": 8.75
       },
       {
         "buy_cohort": "2005-2010",
@@ -1966,7 +1966,7 @@
         "avg_buy_price": 330476,
         "avg_sell_price": 488816,
         "avg_holding_period": 5.66,
-        "weighted_annual_return": 7.97
+        "weighted_annual_return": 7.1
       },
       {
         "buy_cohort": "2005-2010",
@@ -1975,7 +1975,7 @@
         "avg_buy_price": 335442,
         "avg_sell_price": 627592,
         "avg_holding_period": 10.32,
-        "weighted_annual_return": 6.97
+        "weighted_annual_return": 6.36
       },
       {
         "buy_cohort": "2005-2010",
@@ -1984,7 +1984,7 @@
         "avg_buy_price": 367302,
         "avg_sell_price": 733715,
         "avg_holding_period": 15.1,
-        "weighted_annual_return": 5.09
+        "weighted_annual_return": 4.58
       },
       {
         "buy_cohort": "2011-2015",
@@ -1993,7 +1993,7 @@
         "avg_buy_price": 428889,
         "avg_sell_price": 617851,
         "avg_holding_period": 2.11,
-        "weighted_annual_return": 17.11
+        "weighted_annual_return": 16.38
       },
       {
         "buy_cohort": "2011-2015",
@@ -2002,7 +2002,7 @@
         "avg_buy_price": 478393,
         "avg_sell_price": 662986,
         "avg_holding_period": 5.11,
-        "weighted_annual_return": 8.8
+        "weighted_annual_return": 7.46
       },
       {
         "buy_cohort": "2011-2015",
@@ -2011,7 +2011,7 @@
         "avg_buy_price": 527593,
         "avg_sell_price": 729244,
         "avg_holding_period": 9.34,
-        "weighted_annual_return": 3.69
+        "weighted_annual_return": 3.07
       },
       {
         "buy_cohort": "2016-2020",
@@ -2020,7 +2020,7 @@
         "avg_buy_price": 740084,
         "avg_sell_price": 761934,
         "avg_holding_period": 2.02,
-        "weighted_annual_return": 5.99
+        "weighted_annual_return": 5.01
       },
       {
         "buy_cohort": "2016-2020",
@@ -2029,7 +2029,7 @@
         "avg_buy_price": 672905,
         "avg_sell_price": 730586,
         "avg_holding_period": 5.31,
-        "weighted_annual_return": 2.46
+        "weighted_annual_return": -0.9
       },
       {
         "buy_cohort": "2021-2025",
@@ -2038,7 +2038,7 @@
         "avg_buy_price": 641942,
         "avg_sell_price": 679868,
         "avg_holding_period": 1.94,
-        "weighted_annual_return": 10.22
+        "weighted_annual_return": 8.49
       }
     ]
   },
@@ -2184,7 +2184,7 @@
         "avg_buy_price": 485511,
         "avg_sell_price": 605056,
         "avg_holding_period": 2.53,
-        "weighted_annual_return": 11.6
+        "weighted_annual_return": 10.33
       },
       {
         "buy_cohort": "2005-2010",
@@ -2193,7 +2193,7 @@
         "avg_buy_price": 517655,
         "avg_sell_price": 767640,
         "avg_holding_period": 5.6,
-        "weighted_annual_return": 8.22
+        "weighted_annual_return": 7.29
       },
       {
         "buy_cohort": "2005-2010",
@@ -2202,7 +2202,7 @@
         "avg_buy_price": 595758,
         "avg_sell_price": 1053231,
         "avg_holding_period": 10.11,
-        "weighted_annual_return": 6.24
+        "weighted_annual_return": 5.56
       },
       {
         "buy_cohort": "2005-2010",
@@ -2211,7 +2211,7 @@
         "avg_buy_price": 530248,
         "avg_sell_price": 1029949,
         "avg_holding_period": 15.2,
-        "weighted_annual_return": 4.72
+        "weighted_annual_return": 4.34
       },
       {
         "buy_cohort": "2011-2015",
@@ -2220,7 +2220,7 @@
         "avg_buy_price": 588052,
         "avg_sell_price": 785470,
         "avg_holding_period": 2.09,
-        "weighted_annual_return": 16.5
+        "weighted_annual_return": 14.6
       },
       {
         "buy_cohort": "2011-2015",
@@ -2229,7 +2229,7 @@
         "avg_buy_price": 678064,
         "avg_sell_price": 880395,
         "avg_holding_period": 5.18,
-        "weighted_annual_return": 6.21
+        "weighted_annual_return": 5.36
       },
       {
         "buy_cohort": "2011-2015",
@@ -2238,7 +2238,7 @@
         "avg_buy_price": 794092,
         "avg_sell_price": 1061161,
         "avg_holding_period": 9.3,
-        "weighted_annual_return": 3.43
+        "weighted_annual_return": 2.96
       },
       {
         "buy_cohort": "2016-2020",
@@ -2247,7 +2247,7 @@
         "avg_buy_price": 695435,
         "avg_sell_price": 794611,
         "avg_holding_period": 1.96,
-        "weighted_annual_return": 7.39
+        "weighted_annual_return": 4.3
       },
       {
         "buy_cohort": "2016-2020",
@@ -2256,7 +2256,7 @@
         "avg_buy_price": 794367,
         "avg_sell_price": 918956,
         "avg_holding_period": 5.11,
-        "weighted_annual_return": 3.33
+        "weighted_annual_return": 2.17
       },
       {
         "buy_cohort": "2021-2025",
@@ -2265,7 +2265,7 @@
         "avg_buy_price": 868722,
         "avg_sell_price": 1043987,
         "avg_holding_period": 1.94,
-        "weighted_annual_return": 5.49
+        "weighted_annual_return": 4.49
       }
     ]
   },
@@ -2411,7 +2411,7 @@
         "avg_buy_price": 261828,
         "avg_sell_price": 323920,
         "avg_holding_period": 2.26,
-        "weighted_annual_return": 11.13
+        "weighted_annual_return": 8.85
       },
       {
         "buy_cohort": "2005-2010",
@@ -2420,7 +2420,7 @@
         "avg_buy_price": 297863,
         "avg_sell_price": 467315,
         "avg_holding_period": 5.96,
-        "weighted_annual_return": 8.52
+        "weighted_annual_return": 7.24
       },
       {
         "buy_cohort": "2005-2010",
@@ -2429,7 +2429,7 @@
         "avg_buy_price": 320273,
         "avg_sell_price": 667022,
         "avg_holding_period": 10.21,
-        "weighted_annual_return": 8.09
+        "weighted_annual_return": 7.44
       },
       {
         "buy_cohort": "2005-2010",
@@ -2438,7 +2438,7 @@
         "avg_buy_price": 331258,
         "avg_sell_price": 715935,
         "avg_holding_period": 15.1,
-        "weighted_annual_return": 5.67
+        "weighted_annual_return": 5.08
       },
       {
         "buy_cohort": "2011-2015",
@@ -2447,7 +2447,7 @@
         "avg_buy_price": 367596,
         "avg_sell_price": 541261,
         "avg_holding_period": 1.99,
-        "weighted_annual_return": 19.37
+        "weighted_annual_return": 18.1
       },
       {
         "buy_cohort": "2011-2015",
@@ -2456,7 +2456,7 @@
         "avg_buy_price": 441094,
         "avg_sell_price": 618722,
         "avg_holding_period": 4.85,
-        "weighted_annual_return": 8.01
+        "weighted_annual_return": 6.76
       },
       {
         "buy_cohort": "2011-2015",
@@ -2465,7 +2465,7 @@
         "avg_buy_price": 499203,
         "avg_sell_price": 716430,
         "avg_holding_period": 9.04,
-        "weighted_annual_return": 4.51
+        "weighted_annual_return": 3.56
       },
       {
         "buy_cohort": "2016-2020",
@@ -2474,7 +2474,7 @@
         "avg_buy_price": 711555,
         "avg_sell_price": 790648,
         "avg_holding_period": 1.63,
-        "weighted_annual_return": 6.02
+        "weighted_annual_return": 0.75
       },
       {
         "buy_cohort": "2016-2020",
@@ -2483,7 +2483,7 @@
         "avg_buy_price": 595646,
         "avg_sell_price": 680729,
         "avg_holding_period": 5.23,
-        "weighted_annual_return": 4.11
+        "weighted_annual_return": 2.39
       },
       {
         "buy_cohort": "2021-2025",
@@ -2492,7 +2492,7 @@
         "avg_buy_price": 678940,
         "avg_sell_price": 754610,
         "avg_holding_period": 1.99,
-        "weighted_annual_return": 8.79
+        "weighted_annual_return": 4.09
       }
     ]
   },
@@ -2638,7 +2638,7 @@
         "avg_buy_price": 304815,
         "avg_sell_price": 364983,
         "avg_holding_period": 2.24,
-        "weighted_annual_return": 9.33
+        "weighted_annual_return": 7.82
       },
       {
         "buy_cohort": "2005-2010",
@@ -2647,7 +2647,7 @@
         "avg_buy_price": 328111,
         "avg_sell_price": 451204,
         "avg_holding_period": 5.99,
-        "weighted_annual_return": 6.19
+        "weighted_annual_return": 5.26
       },
       {
         "buy_cohort": "2005-2010",
@@ -2656,7 +2656,7 @@
         "avg_buy_price": 367120,
         "avg_sell_price": 629740,
         "avg_holding_period": 10.07,
-        "weighted_annual_return": 6.11
+        "weighted_annual_return": 5.46
       },
       {
         "buy_cohort": "2005-2010",
@@ -2665,7 +2665,7 @@
         "avg_buy_price": 379405,
         "avg_sell_price": 731733,
         "avg_holding_period": 15.17,
-        "weighted_annual_return": 4.72
+        "weighted_annual_return": 4.31
       },
       {
         "buy_cohort": "2011-2015",
@@ -2674,7 +2674,7 @@
         "avg_buy_price": 367991,
         "avg_sell_price": 503866,
         "avg_holding_period": 2.01,
-        "weighted_annual_return": 16.43
+        "weighted_annual_return": 14.8
       },
       {
         "buy_cohort": "2011-2015",
@@ -2683,7 +2683,7 @@
         "avg_buy_price": 438370,
         "avg_sell_price": 603862,
         "avg_holding_period": 4.88,
-        "weighted_annual_return": 8.06
+        "weighted_annual_return": 6.67
       },
       {
         "buy_cohort": "2011-2015",
@@ -2692,7 +2692,7 @@
         "avg_buy_price": 478256,
         "avg_sell_price": 708911,
         "avg_holding_period": 9.13,
-        "weighted_annual_return": 4.82
+        "weighted_annual_return": 3.97
       },
       {
         "buy_cohort": "2016-2020",
@@ -2701,7 +2701,7 @@
         "avg_buy_price": 707000,
         "avg_sell_price": 697607,
         "avg_holding_period": 2.18,
-        "weighted_annual_return": 6.63
+        "weighted_annual_return": 4.27
       },
       {
         "buy_cohort": "2016-2020",
@@ -2710,7 +2710,7 @@
         "avg_buy_price": 616147,
         "avg_sell_price": 696272,
         "avg_holding_period": 5.08,
-        "weighted_annual_return": 3.5
+        "weighted_annual_return": 1.03
       },
       {
         "buy_cohort": "2021-2025",
@@ -2719,7 +2719,7 @@
         "avg_buy_price": 623752,
         "avg_sell_price": 696457,
         "avg_holding_period": 1.99,
-        "weighted_annual_return": 5.49
+        "weighted_annual_return": 2.99
       }
     ]
   },
@@ -2865,7 +2865,7 @@
         "avg_buy_price": 336877,
         "avg_sell_price": 420767,
         "avg_holding_period": 2.17,
-        "weighted_annual_return": 11.66
+        "weighted_annual_return": 9.18
       },
       {
         "buy_cohort": "2005-2010",
@@ -2874,7 +2874,7 @@
         "avg_buy_price": 370746,
         "avg_sell_price": 527753,
         "avg_holding_period": 5.92,
-        "weighted_annual_return": 6.89
+        "weighted_annual_return": 6.0
       },
       {
         "buy_cohort": "2005-2010",
@@ -2883,7 +2883,7 @@
         "avg_buy_price": 381744,
         "avg_sell_price": 654689,
         "avg_holding_period": 10.27,
-        "weighted_annual_return": 5.89
+        "weighted_annual_return": 5.52
       },
       {
         "buy_cohort": "2005-2010",
@@ -2892,7 +2892,7 @@
         "avg_buy_price": 427951,
         "avg_sell_price": 812743,
         "avg_holding_period": 15.26,
-        "weighted_annual_return": 4.51
+        "weighted_annual_return": 4.14
       },
       {
         "buy_cohort": "2011-2015",
@@ -2901,7 +2901,7 @@
         "avg_buy_price": 442454,
         "avg_sell_price": 590138,
         "avg_holding_period": 1.79,
-        "weighted_annual_return": 17.34
+        "weighted_annual_return": 15.84
       },
       {
         "buy_cohort": "2011-2015",
@@ -2910,7 +2910,7 @@
         "avg_buy_price": 471326,
         "avg_sell_price": 618073,
         "avg_holding_period": 4.84,
-        "weighted_annual_return": 6.45
+        "weighted_annual_return": 5.35
       },
       {
         "buy_cohort": "2011-2015",
@@ -2919,7 +2919,7 @@
         "avg_buy_price": 580279,
         "avg_sell_price": 808710,
         "avg_holding_period": 9.01,
-        "weighted_annual_return": 4.15
+        "weighted_annual_return": 3.24
       },
       {
         "buy_cohort": "2016-2020",
@@ -2928,7 +2928,7 @@
         "avg_buy_price": 863033,
         "avg_sell_price": 708686,
         "avg_holding_period": 2.07,
-        "weighted_annual_return": 6.27
+        "weighted_annual_return": 4.08
       },
       {
         "buy_cohort": "2016-2020",
@@ -2937,7 +2937,7 @@
         "avg_buy_price": 605786,
         "avg_sell_price": 662739,
         "avg_holding_period": 4.98,
-        "weighted_annual_return": 2.88
+        "weighted_annual_return": 1.61
       },
       {
         "buy_cohort": "2021-2025",
@@ -2946,7 +2946,7 @@
         "avg_buy_price": 563033,
         "avg_sell_price": 661456,
         "avg_holding_period": 1.58,
-        "weighted_annual_return": 7.04
+        "weighted_annual_return": 4.69
       }
     ]
   }
