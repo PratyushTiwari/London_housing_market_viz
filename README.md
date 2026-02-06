@@ -2,7 +2,7 @@
 
 Interactive map visualization of property transactions in the W12 (Shepherd's Bush) postcode district of London, covering 2005-2025.
 
-## 🗺️ [View Live Map](https://pratyushtiwari.github.io/w12_housing_viz/w12_market_map.html)
+## 🗺️ [View Live Map](https://pratyushtiwari.github.io/London_housing_market_viz/w12_market_map.html)
 
 ## Features
 
@@ -38,8 +38,8 @@ Simply visit the GitHub Pages link above - no setup required!
 ### Local Viewing
 ```bash
 # Clone this repository
-git clone https://github.com/PratyushTiwari/w12_housing_viz.git
-cd w12_housing_viz
+git clone https://github.com/PratyushTiwari/London_housing_market_viz.git
+cd London_housing_market_viz
 
 # Start local server
 python3 -m http.server 8000
@@ -53,7 +53,7 @@ Note: A local server is required because the map loads popup files dynamically.
 ## File Structure
 
 ```
-w12_housing_viz/
+London_housing_market_viz/
 ├── w12_market_map.html    # Main interactive map (477 KB)
 ├── data/                   # JSON data files (3.7 MB)
 │   ├── w12_postcodes.json
