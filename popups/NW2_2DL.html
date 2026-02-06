@@ -1,0 +1,1382 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>NW2 2DL</h3>
+            <div class="header-stats">
+                <span><strong>89</strong> transactions</span>
+                <span><strong>77</strong> properties</span>
+                <span>Avg: <strong>£499,430</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-NW2-2DL')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-NW2-2DL')">
+                Sector (NW2 2)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-NW2-2DL')">
+                District (NW2)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-NW2-2DL" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-NW2-2DL', 'NW2-2DL')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-NW2-2DL', 'NW2-2DL')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-NW2-2DL', 'NW2-2DL')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-NW2-2DL" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-NW2-2DL" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 25, Coleby House, 2, Woodley Crescent", "dates": ["2019-09-12", "2025-02-12"], "prices": [578000, 560000], "hover_texts": ["<b>Flat 25, Coleby House, 2, Woodley Crescent</b><br>Transaction 1 of 2<br>Date: 2019-09-12<br>Sale Price: \u00a3578,000", "<b>Flat 25, Coleby House, 2, Woodley Crescent</b><br>Transaction 2 of 2<br>Date: 2025-02-12<br>Sale Price: \u00a3560,000<br>Previous Purchase: \u00a3578,000<br>Previous Date: 2019-09-12<br>Annual Return: -0.6%/yr<br>Held for: 5.4 years"], "transaction_count": 2}, {"address": "Flat 57, Coleby House, 2, Woodley Crescent", "dates": ["2019-02-14", "2022-12-09"], "prices": [545000, 590000], "hover_texts": ["<b>Flat 57, Coleby House, 2, Woodley Crescent</b><br>Transaction 1 of 2<br>Date: 2019-02-14<br>Sale Price: \u00a3545,000", "<b>Flat 57, Coleby House, 2, Woodley Crescent</b><br>Transaction 2 of 2<br>Date: 2022-12-09<br>Sale Price: \u00a3590,000<br>Previous Purchase: \u00a3545,000<br>Previous Date: 2019-02-14<br>Annual Return: +2.1%/yr<br>Held for: 3.8 years"], "transaction_count": 2}, {"address": "Flat 37, Coleby House, 2, Woodley Crescent", "dates": ["2019-03-29", "2023-09-29"], "prices": [565000, 590000], "hover_texts": ["<b>Flat 37, Coleby House, 2, Woodley Crescent</b><br>Transaction 1 of 2<br>Date: 2019-03-29<br>Sale Price: \u00a3565,000", "<b>Flat 37, Coleby House, 2, Woodley Crescent</b><br>Transaction 2 of 2<br>Date: 2023-09-29<br>Sale Price: \u00a3590,000<br>Previous Purchase: \u00a3565,000<br>Previous Date: 2019-03-29<br>Annual Return: +1.0%/yr<br>Held for: 4.5 years"], "transaction_count": 2}, {"address": "Flat 64, Coleby House, 2, Woodley Crescent", "dates": ["2019-02-22", "2024-05-30"], "prices": [360000, 353000], "hover_texts": ["<b>Flat 64, Coleby House, 2, Woodley Crescent</b><br>Transaction 1 of 2<br>Date: 2019-02-22<br>Sale Price: \u00a3360,000", "<b>Flat 64, Coleby House, 2, Woodley Crescent</b><br>Transaction 2 of 2<br>Date: 2024-05-30<br>Sale Price: \u00a3353,000<br>Previous Purchase: \u00a3360,000<br>Previous Date: 2019-02-22<br>Annual Return: -0.4%/yr<br>Held for: 5.3 years"], "transaction_count": 2}, {"address": "Flat 75, Coleby House, 2, Woodley Crescent", "dates": ["2018-03-08", "2024-04-26"], "prices": [620000, 643500], "hover_texts": ["<b>Flat 75, Coleby House, 2, Woodley Crescent</b><br>Transaction 1 of 2<br>Date: 2018-03-08<br>Sale Price: \u00a3620,000", "<b>Flat 75, Coleby House, 2, Woodley Crescent</b><br>Transaction 2 of 2<br>Date: 2024-04-26<br>Sale Price: \u00a3643,500<br>Previous Purchase: \u00a3620,000<br>Previous Date: 2018-03-08<br>Annual Return: +0.6%/yr<br>Held for: 6.1 years"], "transaction_count": 2}, {"address": "Flat 39, Coleby House, 2, Woodley Crescent", "dates": ["2018-10-23", "2021-06-08"], "prices": [399000, 400000], "hover_texts": ["<b>Flat 39, Coleby House, 2, Woodley Crescent</b><br>Transaction 1 of 2<br>Date: 2018-10-23<br>Sale Price: \u00a3399,000", "<b>Flat 39, Coleby House, 2, Woodley Crescent</b><br>Transaction 2 of 2<br>Date: 2021-06-08<br>Sale Price: \u00a3400,000<br>Previous Purchase: \u00a3399,000<br>Previous Date: 2018-10-23<br>Annual Return: +0.1%/yr<br>Held for: 2.6 years"], "transaction_count": 2}, {"address": "Flat 69, Coleby House, 2, Woodley Crescent", "dates": ["2019-04-18", "2023-08-31"], "prices": [399000, 380000], "hover_texts": ["<b>Flat 69, Coleby House, 2, Woodley Crescent</b><br>Transaction 1 of 2<br>Date: 2019-04-18<br>Sale Price: \u00a3399,000", "<b>Flat 69, Coleby House, 2, Woodley Crescent</b><br>Transaction 2 of 2<br>Date: 2023-08-31<br>Sale Price: \u00a3380,000<br>Previous Purchase: \u00a3399,000<br>Previous Date: 2019-04-18<br>Annual Return: -1.1%/yr<br>Held for: 4.4 years"], "transaction_count": 2}, {"address": "Flat 2, Coleby House, 2, Woodley Crescent", "dates": ["2019-07-01", "2025-09-19"], "prices": [450000, 432000], "hover_texts": ["<b>Flat 2, Coleby House, 2, Woodley Crescent</b><br>Transaction 1 of 2<br>Date: 2019-07-01<br>Sale Price: \u00a3450,000", "<b>Flat 2, Coleby House, 2, Woodley Crescent</b><br>Transaction 2 of 2<br>Date: 2025-09-19<br>Sale Price: \u00a3432,000<br>Previous Purchase: \u00a3450,000<br>Previous Date: 2019-07-01<br>Annual Return: -0.7%/yr<br>Held for: 6.2 years"], "transaction_count": 2}, {"address": "Flat 26, Coleby House, 2, Woodley Crescent", "dates": ["2019-02-22", "2023-12-08"], "prices": [516800, 527000], "hover_texts": ["<b>Flat 26, Coleby House, 2, Woodley Crescent</b><br>Transaction 1 of 2<br>Date: 2019-02-22<br>Sale Price: \u00a3516,800", "<b>Flat 26, Coleby House, 2, Woodley Crescent</b><br>Transaction 2 of 2<br>Date: 2023-12-08<br>Sale Price: \u00a3527,000<br>Previous Purchase: \u00a3516,800<br>Previous Date: 2019-02-22<br>Annual Return: +0.4%/yr<br>Held for: 4.8 years"], "transaction_count": 2}, {"address": "Flat 1, Coleby House, 2, Woodley Crescent", "dates": ["2019-06-20", "2022-04-28"], "prices": [585000, 590000], "hover_texts": ["<b>Flat 1, Coleby House, 2, Woodley Crescent</b><br>Transaction 1 of 2<br>Date: 2019-06-20<br>Sale Price: \u00a3585,000", "<b>Flat 1, Coleby House, 2, Woodley Crescent</b><br>Transaction 2 of 2<br>Date: 2022-04-28<br>Sale Price: \u00a3590,000<br>Previous Purchase: \u00a3585,000<br>Previous Date: 2019-06-20<br>Annual Return: +0.3%/yr<br>Held for: 2.9 years"], "transaction_count": 2}, {"address": "Flat 20, Coleby House, 2, Woodley Crescent", "dates": ["2019-09-09", "2024-07-12"], "prices": [600000, 645000], "hover_texts": ["<b>Flat 20, Coleby House, 2, Woodley Crescent</b><br>Transaction 1 of 2<br>Date: 2019-09-09<br>Sale Price: \u00a3600,000", "<b>Flat 20, Coleby House, 2, Woodley Crescent</b><br>Transaction 2 of 2<br>Date: 2024-07-12<br>Sale Price: \u00a3645,000<br>Previous Purchase: \u00a3600,000<br>Previous Date: 2019-09-09<br>Annual Return: +1.5%/yr<br>Held for: 4.8 years"], "transaction_count": 2}, {"address": "Flat 58, Coleby House, 2, Woodley Crescent", "dates": ["2019-02-15", "2024-05-01"], "prices": [545000, 590000], "hover_texts": ["<b>Flat 58, Coleby House, 2, Woodley Crescent</b><br>Transaction 1 of 2<br>Date: 2019-02-15<br>Sale Price: \u00a3545,000", "<b>Flat 58, Coleby House, 2, Woodley Crescent</b><br>Transaction 2 of 2<br>Date: 2024-05-01<br>Sale Price: \u00a3590,000<br>Previous Purchase: \u00a3545,000<br>Previous Date: 2019-02-15<br>Annual Return: +1.5%/yr<br>Held for: 5.2 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2019-03-08", "address": "Flat 71, Coleby House, 2, Woodley Crescent", "price": 388000, "price_display": "\u00a3388,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-20", "address": "Flat 55, Coleby House, 2, Woodley Crescent", "price": 372000, "price_display": "\u00a3372,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-08-30", "address": "Flat 47, Coleby House, 2, Woodley Crescent", "price": 410000, "price_display": "\u00a3410,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-16", "address": "Flat 19, Coleby House, 2, Woodley Crescent", "price": 529500, "price_display": "\u00a3529,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-09-18", "address": "Flat 23, Coleby House, 2, Woodley Crescent", "price": 605000, "price_display": "\u00a3605,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-05-10", "address": "Flat 66, Coleby House, 2, Woodley Crescent", "price": 450000, "price_display": "\u00a3450,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-12", "address": "Flat 31, Coleby House, 2, Woodley Crescent", "price": 382500, "price_display": "\u00a3382,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-11-19", "address": "Flat 38, Coleby House, 2, Woodley Crescent", "price": 620000, "price_display": "\u00a3620,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-02-28", "address": "Flat 60, Coleby House, 2, Woodley Crescent", "price": 565000, "price_display": "\u00a3565,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-02-26", "address": "Flat 73, Coleby House, 2, Woodley Crescent", "price": 380000, "price_display": "\u00a3380,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-03-28", "address": "Flat 61, Coleby House, 2, Woodley Crescent", "price": 405000, "price_display": "\u00a3405,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-19", "address": "Flat 52, Coleby House, 2, Woodley Crescent", "price": 379000, "price_display": "\u00a3379,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-27", "address": "Flat 30, Coleby House, 2, Woodley Crescent", "price": 585000, "price_display": "\u00a3585,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-01-30", "address": "Flat 51, Coleby House, 2, Woodley Crescent", "price": 460000, "price_display": "\u00a3460,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-07", "address": "Flat 33, Coleby House, 2, Woodley Crescent", "price": 575000, "price_display": "\u00a3575,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-09-30", "address": "Flat 12, Coleby House, 2, Woodley Crescent", "price": 525000, "price_display": "\u00a3525,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-03-29", "address": "Flat 68, Coleby House, 2, Woodley Crescent", "price": 370000, "price_display": "\u00a3370,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-05-31", "address": "Flat 50, Coleby House, 2, Woodley Crescent", "price": 450000, "price_display": "\u00a3450,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-28", "address": "Flat 29, Coleby House, 2, Woodley Crescent", "price": 598000, "price_display": "\u00a3598,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-06-28", "address": "Flat 5, Coleby House, 2, Woodley Crescent", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-04-26", "address": "Flat 70, Coleby House, 2, Woodley Crescent", "price": 450000, "price_display": "\u00a3450,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-08-27", "address": "Flat 18, Coleby House, 2, Woodley Crescent", "price": 567500, "price_display": "\u00a3567,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-11-30", "address": "Flat 32, Coleby House, 2, Woodley Crescent", "price": 590000, "price_display": "\u00a3590,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-02-28", "address": "Flat 34, Coleby House, 2, Woodley Crescent", "price": 525000, "price_display": "\u00a3525,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-11-29", "address": "Flat 40, Coleby House, 2, Woodley Crescent", "price": 590000, "price_display": "\u00a3590,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-03-29", "address": "Flat 77, Coleby House, 2, Woodley Crescent", "price": 615000, "price_display": "\u00a3615,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-11-30", "address": "Flat 35, Coleby House, 2, Woodley Crescent", "price": 375000, "price_display": "\u00a3375,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-08-30", "address": "Flat 14, Coleby House, 2, Woodley Crescent", "price": 451000, "price_display": "\u00a3451,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-08-22", "address": "Flat 22, Coleby House, 2, Woodley Crescent", "price": 567500, "price_display": "\u00a3567,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-08-30", "address": "Flat 10, Coleby House, 2, Woodley Crescent", "price": 477000, "price_display": "\u00a3477,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-08-24", "address": "Flat 46, Coleby House, 2, Woodley Crescent", "price": 375000, "price_display": "\u00a3375,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-09", "address": "Flat 16, Coleby House, 2, Woodley Crescent", "price": 532000, "price_display": "\u00a3532,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-06-14", "address": "Flat 62, Coleby House, 2, Woodley Crescent", "price": 435000, "price_display": "\u00a3435,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-08-09", "address": "Flat 15, Coleby House, 2, Woodley Crescent", "price": 500000, "price_display": "\u00a3500,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-04-30", "address": "Flat 65, Coleby House, 2, Woodley Crescent", "price": 375000, "price_display": "\u00a3375,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-06-28", "address": "Flat 3, Coleby House, 2, Woodley Crescent", "price": 461000, "price_display": "\u00a3461,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-06-28", "address": "Flat 9, Coleby House, 2, Woodley Crescent", "price": 599000, "price_display": "\u00a3599,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-21", "address": "Flat 59, Coleby House, 2, Woodley Crescent", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-11", "address": "Flat 36, Coleby House, 2, Woodley Crescent", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-03-29", "address": "Flat 74, Coleby House, 2, Woodley Crescent", "price": 567000, "price_display": "\u00a3567,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-11", "address": "Flat 28, Coleby House, 2, Woodley Crescent", "price": 599000, "price_display": "\u00a3599,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-09-30", "address": "Flat 8, Coleby House, 2, Woodley Crescent", "price": 525000, "price_display": "\u00a3525,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-02-26", "address": "Flat 72, Coleby House, 2, Woodley Crescent", "price": 389000, "price_display": "\u00a3389,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-08-31", "address": "Flat 27, Coleby House, 2, Woodley Crescent", "price": 388000, "price_display": "\u00a3388,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-03-22", "address": "Flat 53, Coleby House, 2, Woodley Crescent", "price": 470000, "price_display": "\u00a3470,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-05-22", "address": "Flat 48, Coleby House, 2, Woodley Crescent", "price": 449000, "price_display": "\u00a3449,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-08-08", "address": "Flat 11, Coleby House, 2, Woodley Crescent", "price": 510000, "price_display": "\u00a3510,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-09-06", "address": "Flat 21, Coleby House, 2, Woodley Crescent", "price": 436000, "price_display": "\u00a3436,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-09-30", "address": "Flat 24, Coleby House, 2, Woodley Crescent", "price": 410000, "price_display": "\u00a3410,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-03-29", "address": "Flat 63, Coleby House, 2, Woodley Crescent", "price": 365000, "price_display": "\u00a3365,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-20", "address": "Flat 56, Coleby House, 2, Woodley Crescent", "price": 500000, "price_display": "\u00a3500,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-30", "address": "Flat 4, Coleby House, 2, Woodley Crescent", "price": 510000, "price_display": "\u00a3510,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-02-22", "address": "Flat 54, Coleby House, 2, Woodley Crescent", "price": 453000, "price_display": "\u00a3453,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-08-19", "address": "Flat 45, Coleby House, 2, Woodley Crescent", "price": 493000, "price_display": "\u00a3493,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-03-29", "address": "Flat 67, Coleby House, 2, Woodley Crescent", "price": 370000, "price_display": "\u00a3370,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-11-13", "address": "Flat 43, Coleby House, 2, Woodley Crescent", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-08-21", "address": "Flat 17, Coleby House, 2, Woodley Crescent", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-11-15", "address": "Flat 42, Coleby House, 2, Woodley Crescent", "price": 478000, "price_display": "\u00a3478,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-29", "address": "Flat 41, Coleby House, 2, Woodley Crescent", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-31", "address": "Flat 6, Coleby House, 2, Woodley Crescent", "price": 450000, "price_display": "\u00a3450,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-04-30", "address": "Flat 76, Coleby House, 2, Woodley Crescent", "price": 544000, "price_display": "\u00a3544,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-20", "address": "Flat 44, Coleby House, 2, Woodley Crescent", "price": 499000, "price_display": "\u00a3499,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-08-09", "address": "Flat 13, Coleby House, 2, Woodley Crescent", "price": 597000, "price_display": "\u00a3597,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-13", "address": "Flat 49, Coleby House, 2, Woodley Crescent", "price": 360000, "price_display": "\u00a3360,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-09-13", "address": "Flat 7, Coleby House, 2, Woodley Crescent", "price": 490000, "price_display": "\u00a3490,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-NW2-2DL', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-NW2-2DL');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-NW2-2DL', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-NW2-2DL', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-NW2-2DL" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2019-03-08</td>
+            <td>Flat 71, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£388,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-20</td>
+            <td>Flat 55, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£372,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-30</td>
+            <td>Flat 47, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£410,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-16</td>
+            <td>Flat 19, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£529,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-18</td>
+            <td>Flat 23, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£605,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-02-12</td>
+            <td>Flat 25, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£560,000</td>
+        <td class="negative" title="Previous: £578,000 (2019-09-12)">-0.6%/yr</td></tr>
+
+        <tr>
+            <td>2019-09-12</td>
+            <td>Flat 25, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£578,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-05-10</td>
+            <td>Flat 66, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-12</td>
+            <td>Flat 31, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£382,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-19</td>
+            <td>Flat 38, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£620,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-02-28</td>
+            <td>Flat 60, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£565,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-12-09</td>
+            <td>Flat 57, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£590,000</td>
+        <td class="positive" title="Previous: £545,000 (2019-02-14)">+2.1%/yr</td></tr>
+
+        <tr>
+            <td>2019-02-14</td>
+            <td>Flat 57, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£545,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-02-26</td>
+            <td>Flat 73, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£380,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-03-28</td>
+            <td>Flat 61, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£405,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-19</td>
+            <td>Flat 52, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£379,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-27</td>
+            <td>Flat 30, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£585,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-01-30</td>
+            <td>Flat 51, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£460,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-07</td>
+            <td>Flat 33, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£575,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-09-29</td>
+            <td>Flat 37, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£590,000</td>
+        <td class="positive" title="Previous: £565,000 (2019-03-29)">+1.0%/yr</td></tr>
+
+        <tr>
+            <td>2019-03-29</td>
+            <td>Flat 37, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£565,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-30</td>
+            <td>Flat 12, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£525,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-03-29</td>
+            <td>Flat 68, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£370,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-05-31</td>
+            <td>Flat 50, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-05-30</td>
+            <td>Flat 64, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£353,000</td>
+        <td class="negative" title="Previous: £360,000 (2019-02-22)">-0.4%/yr</td></tr>
+
+        <tr>
+            <td>2019-02-22</td>
+            <td>Flat 64, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£360,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-28</td>
+            <td>Flat 29, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£598,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-06-28</td>
+            <td>Flat 5, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-04-26</td>
+            <td>Flat 70, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-27</td>
+            <td>Flat 18, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£567,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-30</td>
+            <td>Flat 32, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£590,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-02-28</td>
+            <td>Flat 34, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£525,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-29</td>
+            <td>Flat 40, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£590,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-03-29</td>
+            <td>Flat 77, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£615,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-30</td>
+            <td>Flat 35, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£375,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-30</td>
+            <td>Flat 14, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£451,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-22</td>
+            <td>Flat 22, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£567,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-04-26</td>
+            <td>Flat 75, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£643,500</td>
+        <td class="positive" title="Previous: £620,000 (2018-03-08)">+0.6%/yr</td></tr>
+
+        <tr>
+            <td>2018-03-08</td>
+            <td>Flat 75, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£620,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-30</td>
+            <td>Flat 10, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£477,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-24</td>
+            <td>Flat 46, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£375,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-09</td>
+            <td>Flat 16, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£532,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-06-14</td>
+            <td>Flat 62, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£435,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-09</td>
+            <td>Flat 15, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-04-30</td>
+            <td>Flat 65, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£375,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-06-28</td>
+            <td>Flat 3, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£461,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-06-28</td>
+            <td>Flat 9, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£599,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-08</td>
+            <td>Flat 39, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£400,000</td>
+        <td class="positive" title="Previous: £399,000 (2018-10-23)">+0.1%/yr</td></tr>
+
+        <tr>
+            <td>2018-10-23</td>
+            <td>Flat 39, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£399,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-21</td>
+            <td>Flat 59, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-11</td>
+            <td>Flat 36, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-03-29</td>
+            <td>Flat 74, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£567,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-08-31</td>
+            <td>Flat 69, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£380,000</td>
+        <td class="negative" title="Previous: £399,000 (2019-04-18)">-1.1%/yr</td></tr>
+
+        <tr>
+            <td>2019-04-18</td>
+            <td>Flat 69, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£399,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-11</td>
+            <td>Flat 28, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£599,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-30</td>
+            <td>Flat 8, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£525,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-02-26</td>
+            <td>Flat 72, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£389,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-31</td>
+            <td>Flat 27, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£388,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-03-22</td>
+            <td>Flat 53, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£470,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-05-22</td>
+            <td>Flat 48, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£449,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-09-19</td>
+            <td>Flat 2, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£432,000</td>
+        <td class="negative" title="Previous: £450,000 (2019-07-01)">-0.7%/yr</td></tr>
+
+        <tr>
+            <td>2019-07-01</td>
+            <td>Flat 2, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-12-08</td>
+            <td>Flat 26, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£527,000</td>
+        <td class="positive" title="Previous: £516,800 (2019-02-22)">+0.4%/yr</td></tr>
+
+        <tr>
+            <td>2019-02-22</td>
+            <td>Flat 26, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£516,800</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-08</td>
+            <td>Flat 11, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£510,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-06</td>
+            <td>Flat 21, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£436,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-04-28</td>
+            <td>Flat 1, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£590,000</td>
+        <td class="positive" title="Previous: £585,000 (2019-06-20)">+0.3%/yr</td></tr>
+
+        <tr>
+            <td>2019-06-20</td>
+            <td>Flat 1, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£585,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-30</td>
+            <td>Flat 24, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£410,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-07-12</td>
+            <td>Flat 20, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£645,000</td>
+        <td class="positive" title="Previous: £600,000 (2019-09-09)">+1.5%/yr</td></tr>
+
+        <tr>
+            <td>2019-09-09</td>
+            <td>Flat 20, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-03-29</td>
+            <td>Flat 63, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£365,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-20</td>
+            <td>Flat 56, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-30</td>
+            <td>Flat 4, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£510,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-02-22</td>
+            <td>Flat 54, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£453,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-19</td>
+            <td>Flat 45, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£493,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-03-29</td>
+            <td>Flat 67, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£370,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-13</td>
+            <td>Flat 43, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-21</td>
+            <td>Flat 17, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-15</td>
+            <td>Flat 42, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£478,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-29</td>
+            <td>Flat 41, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-31</td>
+            <td>Flat 6, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-04-30</td>
+            <td>Flat 76, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£544,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-20</td>
+            <td>Flat 44, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£499,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-05-01</td>
+            <td>Flat 58, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£590,000</td>
+        <td class="positive" title="Previous: £545,000 (2019-02-15)">+1.5%/yr</td></tr>
+
+        <tr>
+            <td>2019-02-15</td>
+            <td>Flat 58, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£545,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-09</td>
+            <td>Flat 13, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£597,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-13</td>
+            <td>Flat 49, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£360,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-13</td>
+            <td>Flat 7, Coleby House, 2, Woodley Crescent</td>
+            <td class="price">£490,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-NW2-2DL" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-NW2-2DL" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2018, 2019, 2021, 2022, 2023, 2024, 2025],
+            y: [508021, 490079, 400000, 590000, 499000, 557875, 496000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2018, 2019, 2021, 2022, 2023, 2024, 2025],
+            y: [575000, 493000, 400000, 590000, 527000, 643500, 560000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - NW2 2DL',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-NW2-2DL', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 89</p>
+                    <p><strong>Unique Properties:</strong> 77</p>
+                    <p><strong>Average Price:</strong> £499,430</p>
+                    <p><strong>Median Price:</strong> £510,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-NW2-2DL" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector NW2 2 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector NW2 2</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-NW2-2DL', 'NW2-2DL')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-NW2-2DL', 'NW2-2DL')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-NW2-2DL" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-NW2-2DL" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [377568, 391240, 429049, 401177, 544534, 606964, 528863, 817489, 694554, 840331, 839765, 728558, 813408, 745552, 633037, 682428, 875175, 850347, 746903, 694824, 931234],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [261000, 263500, 281000, 278250, 310000, 385000, 380000, 348000, 385000, 455000, 702000, 516500, 564500, 517500, 495000, 585000, 585000, 597500, 528500, 450000, 545000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector NW2 2 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-NW2-2DL', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-NW2-2DL" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £315,356</div>
+                        <div class="cell-sell">Sell: £503,533</div>
+                        <div class="cell-return">+15.1%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £370,607</div>
+                        <div class="cell-sell">Sell: £598,964</div>
+                        <div class="cell-return">+6.1%/yr</div>
+                        <div class="cell-count">(14 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £481,857</div>
+                        <div class="cell-sell">Sell: £955,428</div>
+                        <div class="cell-return">+5.5%/yr</div>
+                        <div class="cell-count">(7 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £505,600</div>
+                        <div class="cell-sell">Sell: £1,143,600</div>
+                        <div class="cell-return">+5.4%/yr</div>
+                        <div class="cell-count">(5 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £351,254</div>
+                        <div class="cell-sell">Sell: £479,161</div>
+                        <div class="cell-return">+18.1%/yr</div>
+                        <div class="cell-count">(31 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £457,663</div>
+                        <div class="cell-sell">Sell: £578,676</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(87 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £432,045</div>
+                        <div class="cell-sell">Sell: £768,778</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(53 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £487,032</div>
+                        <div class="cell-sell">Sell: £749,717</div>
+                        <div class="cell-return">+3.4%/yr</div>
+                        <div class="cell-count">(29 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £633,189</div>
+                        <div class="cell-sell">Sell: £865,638</div>
+                        <div class="cell-return">+18.3%/yr</div>
+                        <div class="cell-count">(39 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £590,826</div>
+                        <div class="cell-sell">Sell: £755,057</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(58 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £633,673</div>
+                        <div class="cell-sell">Sell: £819,413</div>
+                        <div class="cell-return">+3.6%/yr</div>
+                        <div class="cell-count">(61 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £505,014</div>
+                        <div class="cell-sell">Sell: £581,637</div>
+                        <div class="cell-return">+5.7%/yr</div>
+                        <div class="cell-count">(27 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £669,855</div>
+                        <div class="cell-sell">Sell: £776,324</div>
+                        <div class="cell-return">+4.0%/yr</div>
+                        <div class="cell-count">(75 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £803,623</div>
+                        <div class="cell-sell">Sell: £903,860</div>
+                        <div class="cell-return">+11.4%/yr</div>
+                        <div class="cell-count">(25 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-NW2-2DL" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District NW2 Analysis</h4>
+                <p class="area-info">Viewing data for entire NW2 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-NW2-2DL', 'NW2-2DL')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-NW2-2DL', 'NW2-2DL')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-NW2-2DL" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-NW2-2DL" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [296263, 326672, 346715, 356844, 369809, 424055, 392797, 460708, 491484, 554762, 594779, 617966, 586167, 597913, 614303, 642739, 686098, 733896, 675200, 655555, 696191],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [245500, 264250, 289950, 300000, 286000, 330000, 318500, 334500, 370000, 425000, 475000, 497000, 480000, 460300, 490000, 542000, 535000, 551000, 525000, 540000, 540000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District NW2 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-NW2-2DL', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-NW2-2DL" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £186,227</div>
+                        <div class="cell-sell">Sell: £205,768</div>
+                        <div class="cell-return">-24.4%/yr</div>
+                        <div class="cell-count">(11 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £262,489</div>
+                        <div class="cell-sell">Sell: £349,127</div>
+                        <div class="cell-return">+12.3%/yr</div>
+                        <div class="cell-count">(163 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £300,925</div>
+                        <div class="cell-sell">Sell: £493,547</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(125 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £305,814</div>
+                        <div class="cell-sell">Sell: £609,384</div>
+                        <div class="cell-return">+6.0%/yr</div>
+                        <div class="cell-count">(52 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £288,818</div>
+                        <div class="cell-sell">Sell: £620,806</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(49 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £313,390</div>
+                        <div class="cell-sell">Sell: £400,794</div>
+                        <div class="cell-return">+12.2%/yr</div>
+                        <div class="cell-count">(247 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £346,976</div>
+                        <div class="cell-sell">Sell: £478,593</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(748 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £358,495</div>
+                        <div class="cell-sell">Sell: £631,974</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(353 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £386,121</div>
+                        <div class="cell-sell">Sell: £664,545</div>
+                        <div class="cell-return">+4.1%/yr</div>
+                        <div class="cell-count">(256 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £396,168</div>
+                        <div class="cell-sell">Sell: £559,254</div>
+                        <div class="cell-return">+19.1%/yr</div>
+                        <div class="cell-count">(257 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £465,821</div>
+                        <div class="cell-sell">Sell: £634,007</div>
+                        <div class="cell-return">+8.7%/yr</div>
+                        <div class="cell-count">(498 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £513,151</div>
+                        <div class="cell-sell">Sell: £678,059</div>
+                        <div class="cell-return">+3.5%/yr</div>
+                        <div class="cell-count">(469 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £551,378</div>
+                        <div class="cell-sell">Sell: £603,945</div>
+                        <div class="cell-return">+7.6%/yr</div>
+                        <div class="cell-count">(193 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £667,707</div>
+                        <div class="cell-sell">Sell: £695,137</div>
+                        <div class="cell-return">+2.9%/yr</div>
+                        <div class="cell-count">(440 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £782,735</div>
+                        <div class="cell-sell">Sell: £897,208</div>
+                        <div class="cell-return">+9.6%/yr</div>
+                        <div class="cell-count">(154 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'NW2 2'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'NW2'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

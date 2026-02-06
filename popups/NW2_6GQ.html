@@ -1,0 +1,1400 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>NW2 6GQ</h3>
+            <div class="header-stats">
+                <span><strong>92</strong> transactions</span>
+                <span><strong>84</strong> properties</span>
+                <span>Avg: <strong>£385,484</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-NW2-6GQ')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-NW2-6GQ')">
+                Sector (NW2 6)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-NW2-6GQ')">
+                District (NW2)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-NW2-6GQ" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-NW2-6GQ', 'NW2-6GQ')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-NW2-6GQ', 'NW2-6GQ')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-NW2-6GQ', 'NW2-6GQ')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-NW2-6GQ" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-NW2-6GQ" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 25, Collins Building, 2, Wilkinson Close", "dates": ["2018-09-13", "2022-03-11"], "prices": [555000, 610000], "hover_texts": ["<b>Flat 25, Collins Building, 2, Wilkinson Close</b><br>Transaction 1 of 2<br>Date: 2018-09-13<br>Sale Price: \u00a3555,000", "<b>Flat 25, Collins Building, 2, Wilkinson Close</b><br>Transaction 2 of 2<br>Date: 2022-03-11<br>Sale Price: \u00a3610,000<br>Previous Purchase: \u00a3555,000<br>Previous Date: 2018-09-13<br>Annual Return: +2.7%/yr<br>Held for: 3.5 years"], "transaction_count": 2}, {"address": "Flat 34, Collins Building, 2, Wilkinson Close", "dates": ["2018-09-26", "2019-04-12"], "prices": [433650, 433650], "hover_texts": ["<b>Flat 34, Collins Building, 2, Wilkinson Close</b><br>Transaction 1 of 2<br>Date: 2018-09-26<br>Sale Price: \u00a3433,650", "<b>Flat 34, Collins Building, 2, Wilkinson Close</b><br>Transaction 2 of 2<br>Date: 2019-04-12<br>Sale Price: \u00a3433,650<br>Previous Purchase: \u00a3433,650<br>Previous Date: 2018-09-26<br>Annual Return: +0.0%/yr<br>Held for: 0.5 years"], "transaction_count": 2}, {"address": "Flat 37, Collins Building, 2, Wilkinson Close", "dates": ["2018-10-16", "2022-03-18"], "prices": [423225, 470000], "hover_texts": ["<b>Flat 37, Collins Building, 2, Wilkinson Close</b><br>Transaction 1 of 2<br>Date: 2018-10-16<br>Sale Price: \u00a3423,225", "<b>Flat 37, Collins Building, 2, Wilkinson Close</b><br>Transaction 2 of 2<br>Date: 2022-03-18<br>Sale Price: \u00a3470,000<br>Previous Purchase: \u00a3423,225<br>Previous Date: 2018-10-16<br>Annual Return: +3.1%/yr<br>Held for: 3.4 years"], "transaction_count": 2}, {"address": "Flat 76, Collins Building 2, Wilkinson Close", "dates": ["2017-12-19", "2022-06-30"], "prices": [125214, 346000], "hover_texts": ["<b>Flat 76, Collins Building 2, Wilkinson Close</b><br>Transaction 1 of 2<br>Date: 2017-12-19<br>Sale Price: \u00a3125,214", "<b>Flat 76, Collins Building 2, Wilkinson Close</b><br>Transaction 2 of 2<br>Date: 2022-06-30<br>Sale Price: \u00a3346,000<br>Previous Purchase: \u00a3125,214<br>Previous Date: 2017-12-19<br>Annual Return: +25.2%/yr<br>Held for: 4.5 years"], "transaction_count": 2}, {"address": "Flat 43, Collins Building, 2, Wilkinson Close", "dates": ["2018-08-15", "2021-12-02"], "prices": [427500, 450000], "hover_texts": ["<b>Flat 43, Collins Building, 2, Wilkinson Close</b><br>Transaction 1 of 2<br>Date: 2018-08-15<br>Sale Price: \u00a3427,500", "<b>Flat 43, Collins Building, 2, Wilkinson Close</b><br>Transaction 2 of 2<br>Date: 2021-12-02<br>Sale Price: \u00a3450,000<br>Previous Purchase: \u00a3427,500<br>Previous Date: 2018-08-15<br>Annual Return: +1.6%/yr<br>Held for: 3.3 years"], "transaction_count": 2}, {"address": "Flat 77, Collins Building, 2, Wilkinson Close", "dates": ["2017-12-19", "2018-07-12"], "prices": [170756, 102500], "hover_texts": ["<b>Flat 77, Collins Building, 2, Wilkinson Close</b><br>Transaction 1 of 2<br>Date: 2017-12-19<br>Sale Price: \u00a3170,756", "<b>Flat 77, Collins Building, 2, Wilkinson Close</b><br>Transaction 2 of 2<br>Date: 2018-07-12<br>Sale Price: \u00a3102,500<br>Previous Purchase: \u00a3170,756<br>Previous Date: 2017-12-19<br>Annual Return: -59.7%/yr<br>Held for: 0.6 years"], "transaction_count": 2}, {"address": "Flat 29, Collins Building, 2, Wilkinson Close", "dates": ["2018-08-28", "2025-09-24"], "prices": [553700, 570000], "hover_texts": ["<b>Flat 29, Collins Building, 2, Wilkinson Close</b><br>Transaction 1 of 2<br>Date: 2018-08-28<br>Sale Price: \u00a3553,700", "<b>Flat 29, Collins Building, 2, Wilkinson Close</b><br>Transaction 2 of 2<br>Date: 2025-09-24<br>Sale Price: \u00a3570,000<br>Previous Purchase: \u00a3553,700<br>Previous Date: 2018-08-28<br>Annual Return: +0.4%/yr<br>Held for: 7.1 years"], "transaction_count": 2}, {"address": "Flat 75, Collins Building 2, Wilkinson Close", "dates": ["2017-12-19", "2022-04-13"], "prices": [126729, 340000], "hover_texts": ["<b>Flat 75, Collins Building 2, Wilkinson Close</b><br>Transaction 1 of 2<br>Date: 2017-12-19<br>Sale Price: \u00a3126,729", "<b>Flat 75, Collins Building 2, Wilkinson Close</b><br>Transaction 2 of 2<br>Date: 2022-04-13<br>Sale Price: \u00a3340,000<br>Previous Purchase: \u00a3126,729<br>Previous Date: 2017-12-19<br>Annual Return: +25.7%/yr<br>Held for: 4.3 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2018-08-03", "address": "Flat 39, Collins Building, 2, Wilkinson Close", "price": 416500, "price_display": "\u00a3416,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-25", "address": "Flat 13, Collins Building, 2, Wilkinson Close", "price": 316732, "price_display": "\u00a3316,732", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-12", "address": "Flat 46, Collins Building, 2, Wilkinson Close", "price": 423850, "price_display": "\u00a3423,850", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-08-10", "address": "Flat 66, Collins Building 2, Wilkinson Close", "price": 426300, "price_display": "\u00a3426,300", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-07", "address": "Flat 22, Collins Building, 2, Wilkinson Close", "price": 418950, "price_display": "\u00a3418,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-06", "address": "Flat 55, Collins Building, 2, Wilkinson Close", "price": 414500, "price_display": "\u00a3414,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-04", "address": "Flat 47, Collins Building, 2, Wilkinson Close", "price": 541000, "price_display": "\u00a3541,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-02-28", "address": "Flat 28, Collins Building, 2, Wilkinson Close", "price": 447500, "price_display": "\u00a3447,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-25", "address": "Flat 5, Collins Building, 2, Wilkinson Close", "price": 484585, "price_display": "\u00a3484,585", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 70, Collins Building 2, Wilkinson Close", "price": 301290, "price_display": "\u00a3301,290", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-08-09", "address": "Flat 51, Collins Building, 2, Wilkinson Close", "price": 440000, "price_display": "\u00a3440,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-05", "address": "Flat 19, Collins Building, 2, Wilkinson Close", "price": 411600, "price_display": "\u00a3411,600", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 71, Collins Building 2, Wilkinson Close", "price": 126729, "price_display": "\u00a3126,729", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-05", "address": "Flat 26, Collins Building, 2, Wilkinson Close", "price": 432500, "price_display": "\u00a3432,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-18", "address": "Flat 27, Collins Building, 2, Wilkinson Close", "price": 430000, "price_display": "\u00a3430,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-07", "address": "Flat 18, Collins Building, 2, Wilkinson Close", "price": 433125, "price_display": "\u00a3433,125", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-25", "address": "Flat 14, Collins Building, 2, Wilkinson Close", "price": 408734, "price_display": "\u00a3408,734", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-10", "address": "Flat 42, Collins Building, 2, Wilkinson Close", "price": 430000, "price_display": "\u00a3430,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-20", "address": "Flat 56, Collins Building, 2, Wilkinson Close", "price": 537500, "price_display": "\u00a3537,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-25", "address": "Flat 4, Collins Building, 2, Wilkinson Close", "price": 311270, "price_display": "\u00a3311,270", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 79, Collins Building, 2, Wilkinson Close", "price": 126729, "price_display": "\u00a3126,729", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-08-21", "address": "Flat 53, Collins Building, 2, Wilkinson Close", "price": 404250, "price_display": "\u00a3404,250", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-02", "address": "Flat 23, Collins Building, 2, Wilkinson Close", "price": 425000, "price_display": "\u00a3425,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-04", "address": "Flat 44, Collins Building, 2, Wilkinson Close", "price": 536000, "price_display": "\u00a3536,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 81, Collins Building, 2, Wilkinson Close", "price": 170756, "price_display": "\u00a3170,756", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-08-16", "address": "Flat 49, Collins Building, 2, Wilkinson Close", "price": 437500, "price_display": "\u00a3437,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 78, Collins Building 2, Wilkinson Close", "price": 301290, "price_display": "\u00a3301,290", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 73, Collins Building 2, Wilkinson Close", "price": 167120, "price_display": "\u00a3167,120", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-25", "address": "Flat 1, Collins Building, 2, Wilkinson Close", "price": 290506, "price_display": "\u00a3290,506", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-08-16", "address": "Flat 61, Collins Building, 2, Wilkinson Close", "price": 423850, "price_display": "\u00a3423,850", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-08-24", "address": "Flat 21, Collins Building, 2, Wilkinson Close", "price": 539000, "price_display": "\u00a3539,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-21", "address": "Flat 24, Collins Building, 2, Wilkinson Close", "price": 438000, "price_display": "\u00a3438,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 54, Collins Building, 2, Wilkinson Close", "price": 179137, "price_display": "\u00a3179,137", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-08-13", "address": "Flat 50, Collins Building, 2, Wilkinson Close", "price": 559350, "price_display": "\u00a3559,350", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-10", "address": "Flat 17, Collins Building, 2, Wilkinson Close", "price": 460600, "price_display": "\u00a3460,600", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-25", "address": "Flat 10, Collins Building, 2, Wilkinson Close", "price": 316732, "price_display": "\u00a3316,732", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-25", "address": "Flat 6, Collins Building, 2, Wilkinson Close", "price": 290506, "price_display": "\u00a3290,506", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 69, Collins Building 2, Wilkinson Close", "price": 126476, "price_display": "\u00a3126,476", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 82, Collins Building 2, Wilkinson Close", "price": 307425, "price_display": "\u00a3307,425", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-25", "address": "Flat 9, Collins Building 2, Wilkinson Close", "price": 298087, "price_display": "\u00a3298,087", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-25", "address": "Flat 3, Collins Building, 2, Wilkinson Close", "price": 345924, "price_display": "\u00a3345,924", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 80, Collins Building 2, Wilkinson Close", "price": 125214, "price_display": "\u00a3125,214", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-27", "address": "Flat 60, Collins Building, 2, Wilkinson Close", "price": 425000, "price_display": "\u00a3425,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-08-09", "address": "Flat 48, Collins Building, 2, Wilkinson Close", "price": 440000, "price_display": "\u00a3440,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 84, Collins Building, 2, Wilkinson Close", "price": 170756, "price_display": "\u00a3170,756", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-25", "address": "Flat 11, Collins Building, 2, Wilkinson Close", "price": 484585, "price_display": "\u00a3484,585", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 74, Collins Building 2, Wilkinson Close", "price": 301290, "price_display": "\u00a3301,290", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-13", "address": "Flat 64, Collins Building, 2, Wilkinson Close", "price": 433650, "price_display": "\u00a3433,650", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-08-21", "address": "Flat 52, Collins Building, 2, Wilkinson Close", "price": 409150, "price_display": "\u00a3409,150", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-13", "address": "Flat 16, Collins Building, 2, Wilkinson Close", "price": 412500, "price_display": "\u00a3412,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-25", "address": "Flat 12, Collins Building, 2, Wilkinson Close", "price": 298275, "price_display": "\u00a3298,275", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 72, Collins Building, 2, Wilkinson Close", "price": 125290, "price_display": "\u00a3125,290", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-25", "address": "Flat 2, Collins Building 2, Wilkinson Close", "price": 309387, "price_display": "\u00a3309,387", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-08-22", "address": "Flat 33, Collins Building, 2, Wilkinson Close", "price": 560560, "price_display": "\u00a3560,560", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-03", "address": "Flat 30, Collins Building, 2, Wilkinson Close", "price": 437500, "price_display": "\u00a3437,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-11-13", "address": "Flat 31, Collins Building, 2, Wilkinson Close", "price": 426300, "price_display": "\u00a3426,300", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 67, Collins Building, 2, Wilkinson Close", "price": 178985, "price_display": "\u00a3178,985", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-04", "address": "Flat 35, Collins Building, 2, Wilkinson Close", "price": 443450, "price_display": "\u00a3443,450", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-02-28", "address": "Flat 32, Collins Building, 2, Wilkinson Close", "price": 452500, "price_display": "\u00a3452,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 83, Collins Building 2, Wilkinson Close", "price": 253678, "price_display": "\u00a3253,678", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-24", "address": "Flat 63, Collins Building, 2, Wilkinson Close", "price": 430000, "price_display": "\u00a3430,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-17", "address": "Flat 45, Collins Building, 2, Wilkinson Close", "price": 426300, "price_display": "\u00a3426,300", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-24", "address": "Flat 62, Collins Building, 2, Wilkinson Close", "price": 541450, "price_display": "\u00a3541,450", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-20", "address": "Flat 59, Collins Building, 2, Wilkinson Close", "price": 538000, "price_display": "\u00a3538,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-25", "address": "Flat 8, Collins Building, 2, Wilkinson Close", "price": 484585, "price_display": "\u00a3484,585", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-14", "address": "Flat 57, Collins Building, 2, Wilkinson Close", "price": 411600, "price_display": "\u00a3411,600", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 68, Collins Building, 2, Wilkinson Close", "price": 354010, "price_display": "\u00a3354,010", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-13", "address": "Flat 38, Collins Building, 2, Wilkinson Close", "price": 404250, "price_display": "\u00a3404,250", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-25", "address": "Flat 7, Collins Building, 2, Wilkinson Close", "price": 316732, "price_display": "\u00a3316,732", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-06", "address": "Flat 65, Collins Building, 2, Wilkinson Close", "price": 556150, "price_display": "\u00a3556,150", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-31", "address": "Flat 15, Collins Building, 2, Wilkinson Close", "price": 431200, "price_display": "\u00a3431,200", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-08-24", "address": "Flat 41, Collins Building, 2, Wilkinson Close", "price": 524300, "price_display": "\u00a3524,300", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-11", "address": "Flat 20, Collins Building, 2, Wilkinson Close", "price": 433125, "price_display": "\u00a3433,125", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-15", "address": "Flat 36, Collins Building, 2, Wilkinson Close", "price": 640000, "price_display": "\u00a3640,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-24", "address": "Flat 58, Collins Building, 2, Wilkinson Close", "price": 427500, "price_display": "\u00a3427,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-14", "address": "Flat 40, Collins Building, 2, Wilkinson Close", "price": 422500, "price_display": "\u00a3422,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-NW2-6GQ', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-NW2-6GQ');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-NW2-6GQ', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-NW2-6GQ', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-NW2-6GQ" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2018-08-03</td>
+            <td>Flat 39, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£416,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-25</td>
+            <td>Flat 13, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£316,732</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-12</td>
+            <td>Flat 46, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£423,850</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-10</td>
+            <td>Flat 66, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£426,300</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-07</td>
+            <td>Flat 22, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£418,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-06</td>
+            <td>Flat 55, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£414,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-04</td>
+            <td>Flat 47, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£541,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-02-28</td>
+            <td>Flat 28, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£447,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-25</td>
+            <td>Flat 5, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£484,585</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 70, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£301,290</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-09</td>
+            <td>Flat 51, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£440,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-05</td>
+            <td>Flat 19, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£411,600</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 71, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£126,729</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-05</td>
+            <td>Flat 26, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£432,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-18</td>
+            <td>Flat 27, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£430,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-07</td>
+            <td>Flat 18, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£433,125</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-11</td>
+            <td>Flat 25, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£610,000</td>
+        <td class="positive" title="Previous: £555,000 (2018-09-13)">+2.7%/yr</td></tr>
+
+        <tr>
+            <td>2018-09-13</td>
+            <td>Flat 25, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£555,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-25</td>
+            <td>Flat 14, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£408,734</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-10</td>
+            <td>Flat 42, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£430,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-20</td>
+            <td>Flat 56, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£537,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-25</td>
+            <td>Flat 4, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£311,270</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 79, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£126,729</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-21</td>
+            <td>Flat 53, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£404,250</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-02</td>
+            <td>Flat 23, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£425,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-04</td>
+            <td>Flat 44, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£536,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 81, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£170,756</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-16</td>
+            <td>Flat 49, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£437,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 78, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£301,290</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 73, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£167,120</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-25</td>
+            <td>Flat 1, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£290,506</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-16</td>
+            <td>Flat 61, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£423,850</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-24</td>
+            <td>Flat 21, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£539,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-21</td>
+            <td>Flat 24, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£438,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 54, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£179,137</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-13</td>
+            <td>Flat 50, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£559,350</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-10</td>
+            <td>Flat 17, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£460,600</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-25</td>
+            <td>Flat 10, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£316,732</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-25</td>
+            <td>Flat 6, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£290,506</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 69, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£126,476</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 82, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£307,425</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-25</td>
+            <td>Flat 9, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£298,087</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-25</td>
+            <td>Flat 3, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£345,924</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 80, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£125,214</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-27</td>
+            <td>Flat 60, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£425,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-09</td>
+            <td>Flat 48, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£440,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 84, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£170,756</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-25</td>
+            <td>Flat 11, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£484,585</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 74, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£301,290</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-13</td>
+            <td>Flat 64, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£433,650</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-21</td>
+            <td>Flat 52, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£409,150</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-13</td>
+            <td>Flat 16, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£412,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-25</td>
+            <td>Flat 12, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£298,275</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 72, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£125,290</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-04-12</td>
+            <td>Flat 34, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£433,650</td>
+        <td class="negative" title="Previous: £433,650 (2018-09-26)">+0.0%/yr</td></tr>
+
+        <tr>
+            <td>2018-09-26</td>
+            <td>Flat 34, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£433,650</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-25</td>
+            <td>Flat 2, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£309,387</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-18</td>
+            <td>Flat 37, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£470,000</td>
+        <td class="positive" title="Previous: £423,225 (2018-10-16)">+3.1%/yr</td></tr>
+
+        <tr>
+            <td>2018-10-16</td>
+            <td>Flat 37, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£423,225</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-22</td>
+            <td>Flat 33, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£560,560</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-03</td>
+            <td>Flat 30, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£437,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-13</td>
+            <td>Flat 31, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£426,300</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 67, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£178,985</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-06-30</td>
+            <td>Flat 76, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£346,000</td>
+        <td class="positive" title="Previous: £125,214 (2017-12-19)">+25.2%/yr</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 76, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£125,214</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-12-02</td>
+            <td>Flat 43, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£450,000</td>
+        <td class="positive" title="Previous: £427,500 (2018-08-15)">+1.6%/yr</td></tr>
+
+        <tr>
+            <td>2018-08-15</td>
+            <td>Flat 43, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£427,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-04</td>
+            <td>Flat 35, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£443,450</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-02-28</td>
+            <td>Flat 32, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£452,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 83, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£253,678</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-12</td>
+            <td>Flat 77, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£102,500</td>
+        <td class="negative" title="Previous: £170,756 (2017-12-19)">-59.7%/yr</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 77, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£170,756</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-24</td>
+            <td>Flat 63, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£430,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-17</td>
+            <td>Flat 45, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£426,300</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-24</td>
+            <td>Flat 62, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£541,450</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-09-24</td>
+            <td>Flat 29, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£570,000</td>
+        <td class="positive" title="Previous: £553,700 (2018-08-28)">+0.4%/yr</td></tr>
+
+        <tr>
+            <td>2018-08-28</td>
+            <td>Flat 29, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£553,700</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-20</td>
+            <td>Flat 59, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£538,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-25</td>
+            <td>Flat 8, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£484,585</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-14</td>
+            <td>Flat 57, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£411,600</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 68, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£354,010</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-13</td>
+            <td>Flat 38, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£404,250</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-25</td>
+            <td>Flat 7, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£316,732</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-06</td>
+            <td>Flat 65, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£556,150</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-31</td>
+            <td>Flat 15, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£431,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-24</td>
+            <td>Flat 41, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£524,300</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-11</td>
+            <td>Flat 20, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£433,125</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-04-13</td>
+            <td>Flat 75, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£340,000</td>
+        <td class="positive" title="Previous: £126,729 (2017-12-19)">+25.7%/yr</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 75, Collins Building 2, Wilkinson Close</td>
+            <td class="price">£126,729</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-15</td>
+            <td>Flat 36, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£640,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-24</td>
+            <td>Flat 58, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£427,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-14</td>
+            <td>Flat 40, Collins Building, 2, Wilkinson Close</td>
+            <td class="price">£422,500</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-NW2-6GQ" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-NW2-6GQ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2017, 2018, 2019, 2021, 2022, 2025],
+            y: [196782, 431344, 444550, 450000, 441500, 570000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2017, 2018, 2019, 2021, 2022, 2025],
+            y: [170756, 430000, 447500, 450000, 470000, 570000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - NW2 6GQ',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-NW2-6GQ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 92</p>
+                    <p><strong>Unique Properties:</strong> 84</p>
+                    <p><strong>Average Price:</strong> £385,484</p>
+                    <p><strong>Median Price:</strong> £424,425</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-NW2-6GQ" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector NW2 6 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector NW2 6</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-NW2-6GQ', 'NW2-6GQ')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-NW2-6GQ', 'NW2-6GQ')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-NW2-6GQ" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-NW2-6GQ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [263712, 292757, 318096, 339035, 330481, 348222, 333636, 355597, 438191, 482103, 532999, 602413, 478773, 459958, 567961, 622518, 624386, 738249, 569770, 645483, 650160],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [232500, 250000, 277000, 292500, 280250, 293500, 306250, 299500, 360000, 425000, 445000, 475500, 356897, 426300, 466250, 535000, 545000, 595000, 475000, 544625, 542500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector NW2 6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-NW2-6GQ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-NW2-6GQ" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="4" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £249,658</div>
+                        <div class="cell-sell">Sell: £320,923</div>
+                        <div class="cell-return">+12.0%/yr</div>
+                        <div class="cell-count">(28 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £210,750</div>
+                        <div class="cell-sell">Sell: £317,357</div>
+                        <div class="cell-return">+5.6%/yr</div>
+                        <div class="cell-count">(20 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £327,438</div>
+                        <div class="cell-sell">Sell: £647,777</div>
+                        <div class="cell-return">+5.8%/yr</div>
+                        <div class="cell-count">(9 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £255,117</div>
+                        <div class="cell-sell">Sell: £502,444</div>
+                        <div class="cell-return">+4.0%/yr</div>
+                        <div class="cell-count">(9 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £252,023</div>
+                        <div class="cell-sell">Sell: £303,983</div>
+                        <div class="cell-return">+14.9%/yr</div>
+                        <div class="cell-count">(40 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £301,131</div>
+                        <div class="cell-sell">Sell: £407,904</div>
+                        <div class="cell-return">+6.9%/yr</div>
+                        <div class="cell-count">(127 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £342,171</div>
+                        <div class="cell-sell">Sell: £620,989</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(60 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £335,656</div>
+                        <div class="cell-sell">Sell: £618,352</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(45 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £361,812</div>
+                        <div class="cell-sell">Sell: £529,409</div>
+                        <div class="cell-return">+22.9%/yr</div>
+                        <div class="cell-count">(42 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £422,124</div>
+                        <div class="cell-sell">Sell: £602,673</div>
+                        <div class="cell-return">+11.9%/yr</div>
+                        <div class="cell-count">(82 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £483,641</div>
+                        <div class="cell-sell">Sell: £653,609</div>
+                        <div class="cell-return">+3.9%/yr</div>
+                        <div class="cell-count">(66 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £424,607</div>
+                        <div class="cell-sell">Sell: £481,799</div>
+                        <div class="cell-return">+6.9%/yr</div>
+                        <div class="cell-count">(39 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £592,846</div>
+                        <div class="cell-sell">Sell: £633,666</div>
+                        <div class="cell-return">+2.5%/yr</div>
+                        <div class="cell-count">(74 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £713,860</div>
+                        <div class="cell-sell">Sell: £896,636</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(28 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-NW2-6GQ" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District NW2 Analysis</h4>
+                <p class="area-info">Viewing data for entire NW2 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-NW2-6GQ', 'NW2-6GQ')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-NW2-6GQ', 'NW2-6GQ')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-NW2-6GQ" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-NW2-6GQ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [296263, 326672, 346715, 356844, 369809, 424055, 392797, 460708, 491484, 554762, 594779, 617966, 586167, 597913, 614303, 642739, 686098, 733896, 675200, 655555, 696191],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [245500, 264250, 289950, 300000, 286000, 330000, 318500, 334500, 370000, 425000, 475000, 497000, 480000, 460300, 490000, 542000, 535000, 551000, 525000, 540000, 540000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District NW2 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-NW2-6GQ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-NW2-6GQ" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £186,227</div>
+                        <div class="cell-sell">Sell: £205,768</div>
+                        <div class="cell-return">-24.4%/yr</div>
+                        <div class="cell-count">(11 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £262,489</div>
+                        <div class="cell-sell">Sell: £349,127</div>
+                        <div class="cell-return">+12.3%/yr</div>
+                        <div class="cell-count">(163 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £300,925</div>
+                        <div class="cell-sell">Sell: £493,547</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(125 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £305,814</div>
+                        <div class="cell-sell">Sell: £609,384</div>
+                        <div class="cell-return">+6.0%/yr</div>
+                        <div class="cell-count">(52 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £288,818</div>
+                        <div class="cell-sell">Sell: £620,806</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(49 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £313,390</div>
+                        <div class="cell-sell">Sell: £400,794</div>
+                        <div class="cell-return">+12.2%/yr</div>
+                        <div class="cell-count">(247 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £346,976</div>
+                        <div class="cell-sell">Sell: £478,593</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(748 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £358,495</div>
+                        <div class="cell-sell">Sell: £631,974</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(353 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £386,121</div>
+                        <div class="cell-sell">Sell: £664,545</div>
+                        <div class="cell-return">+4.1%/yr</div>
+                        <div class="cell-count">(256 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £396,168</div>
+                        <div class="cell-sell">Sell: £559,254</div>
+                        <div class="cell-return">+19.1%/yr</div>
+                        <div class="cell-count">(257 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £465,821</div>
+                        <div class="cell-sell">Sell: £634,007</div>
+                        <div class="cell-return">+8.7%/yr</div>
+                        <div class="cell-count">(498 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £513,151</div>
+                        <div class="cell-sell">Sell: £678,059</div>
+                        <div class="cell-return">+3.5%/yr</div>
+                        <div class="cell-count">(469 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £551,378</div>
+                        <div class="cell-sell">Sell: £603,945</div>
+                        <div class="cell-return">+7.6%/yr</div>
+                        <div class="cell-count">(193 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £667,707</div>
+                        <div class="cell-sell">Sell: £695,137</div>
+                        <div class="cell-return">+2.9%/yr</div>
+                        <div class="cell-count">(440 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £782,735</div>
+                        <div class="cell-sell">Sell: £897,208</div>
+                        <div class="cell-return">+9.6%/yr</div>
+                        <div class="cell-count">(154 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'NW2 6'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'NW2'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

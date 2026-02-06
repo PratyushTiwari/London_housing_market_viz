@@ -1,0 +1,1245 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>N7 6DW</h3>
+            <div class="header-stats">
+                <span><strong>65</strong> transactions</span>
+                <span><strong>32</strong> properties</span>
+                <span>Avg: <strong>£338,196</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-N7-6DW')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-N7-6DW')">
+                Sector (N7 6)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-N7-6DW')">
+                District (N7)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-N7-6DW" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-N7-6DW', 'N7-6DW')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-N7-6DW', 'N7-6DW')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-N7-6DW', 'N7-6DW')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-N7-6DW" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-N7-6DW" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Apartment 11, The School House, 69, Tollington Road", "dates": ["2005-04-04", "2015-01-05"], "prices": [249950, 375000], "hover_texts": ["<b>Apartment 11, The School House, 69, Tollington Road</b><br>Transaction 1 of 2<br>Date: 2005-04-04<br>Sale Price: \u00a3249,950", "<b>Apartment 11, The School House, 69, Tollington Road</b><br>Transaction 2 of 2<br>Date: 2015-01-05<br>Sale Price: \u00a3375,000<br>Previous Purchase: \u00a3249,950<br>Previous Date: 2005-04-04<br>Annual Return: +4.2%/yr<br>Held for: 9.8 years"], "transaction_count": 2}, {"address": "Apartment 17, The School House, 69, Tollington Road", "dates": ["2005-04-29", "2007-06-29"], "prices": [249950, 285000], "hover_texts": ["<b>Apartment 17, The School House, 69, Tollington Road</b><br>Transaction 1 of 2<br>Date: 2005-04-29<br>Sale Price: \u00a3249,950", "<b>Apartment 17, The School House, 69, Tollington Road</b><br>Transaction 2 of 2<br>Date: 2007-06-29<br>Sale Price: \u00a3285,000<br>Previous Purchase: \u00a3249,950<br>Previous Date: 2005-04-29<br>Annual Return: +6.2%/yr<br>Held for: 2.2 years"], "transaction_count": 2}, {"address": "Apartment 34, The School House, 69, Tollington Road", "dates": ["2005-08-15", "2007-06-07", "2012-05-11", "2020-10-28"], "prices": [365000, 465000, 460000, 590000], "hover_texts": ["<b>Apartment 34, The School House, 69, Tollington Road</b><br>Transaction 1 of 4<br>Date: 2005-08-15<br>Sale Price: \u00a3365,000", "<b>Apartment 34, The School House, 69, Tollington Road</b><br>Transaction 2 of 4<br>Date: 2007-06-07<br>Sale Price: \u00a3465,000<br>Previous Purchase: \u00a3365,000<br>Previous Date: 2005-08-15<br>Annual Return: +14.3%/yr<br>Held for: 1.8 years", "<b>Apartment 34, The School House, 69, Tollington Road</b><br>Transaction 3 of 4<br>Date: 2012-05-11<br>Sale Price: \u00a3460,000<br>Previous Purchase: \u00a3465,000<br>Previous Date: 2007-06-07<br>Annual Return: -0.2%/yr<br>Held for: 4.9 years", "<b>Apartment 34, The School House, 69, Tollington Road</b><br>Transaction 4 of 4<br>Date: 2020-10-28<br>Sale Price: \u00a3590,000<br>Previous Purchase: \u00a3460,000<br>Previous Date: 2012-05-11<br>Annual Return: +3.0%/yr<br>Held for: 8.5 years"], "transaction_count": 4}, {"address": "Apartment 4, The School House, 69, Tollington Road", "dates": ["2005-11-21", "2006-09-15", "2010-09-20", "2016-09-26"], "prices": [219950, 249950, 250000, 450000], "hover_texts": ["<b>Apartment 4, The School House, 69, Tollington Road</b><br>Transaction 1 of 4<br>Date: 2005-11-21<br>Sale Price: \u00a3219,950", "<b>Apartment 4, The School House, 69, Tollington Road</b><br>Transaction 2 of 4<br>Date: 2006-09-15<br>Sale Price: \u00a3249,950<br>Previous Purchase: \u00a3219,950<br>Previous Date: 2005-11-21<br>Annual Return: +17.0%/yr<br>Held for: 0.8 years", "<b>Apartment 4, The School House, 69, Tollington Road</b><br>Transaction 3 of 4<br>Date: 2010-09-20<br>Sale Price: \u00a3250,000<br>Previous Purchase: \u00a3249,950<br>Previous Date: 2006-09-15<br>Annual Return: +0.0%/yr<br>Held for: 4.0 years", "<b>Apartment 4, The School House, 69, Tollington Road</b><br>Transaction 4 of 4<br>Date: 2016-09-26<br>Sale Price: \u00a3450,000<br>Previous Purchase: \u00a3250,000<br>Previous Date: 2010-09-20<br>Annual Return: +10.3%/yr<br>Held for: 6.0 years"], "transaction_count": 4}, {"address": "Apartment 22, The School House, 69, Tollington Road", "dates": ["2005-05-12", "2015-06-12", "2025-06-13"], "prices": [236000, 410000, 420000], "hover_texts": ["<b>Apartment 22, The School House, 69, Tollington Road</b><br>Transaction 1 of 3<br>Date: 2005-05-12<br>Sale Price: \u00a3236,000", "<b>Apartment 22, The School House, 69, Tollington Road</b><br>Transaction 2 of 3<br>Date: 2015-06-12<br>Sale Price: \u00a3410,000<br>Previous Purchase: \u00a3236,000<br>Previous Date: 2005-05-12<br>Annual Return: +5.6%/yr<br>Held for: 10.1 years", "<b>Apartment 22, The School House, 69, Tollington Road</b><br>Transaction 3 of 3<br>Date: 2025-06-13<br>Sale Price: \u00a3420,000<br>Previous Purchase: \u00a3410,000<br>Previous Date: 2015-06-12<br>Annual Return: +0.2%/yr<br>Held for: 10.0 years"], "transaction_count": 3}, {"address": "Apartment 16, The School House, 69, Tollington Road", "dates": ["2005-07-25", "2013-09-27"], "prices": [169950, 235000], "hover_texts": ["<b>Apartment 16, The School House, 69, Tollington Road</b><br>Transaction 1 of 2<br>Date: 2005-07-25<br>Sale Price: \u00a3169,950", "<b>Apartment 16, The School House, 69, Tollington Road</b><br>Transaction 2 of 2<br>Date: 2013-09-27<br>Sale Price: \u00a3235,000<br>Previous Purchase: \u00a3169,950<br>Previous Date: 2005-07-25<br>Annual Return: +4.0%/yr<br>Held for: 8.2 years"], "transaction_count": 2}, {"address": "Apartment 2, The School House, 69, Tollington Road", "dates": ["2005-04-06", "2007-07-16", "2013-06-27"], "prices": [170000, 234000, 250000], "hover_texts": ["<b>Apartment 2, The School House, 69, Tollington Road</b><br>Transaction 1 of 3<br>Date: 2005-04-06<br>Sale Price: \u00a3170,000", "<b>Apartment 2, The School House, 69, Tollington Road</b><br>Transaction 2 of 3<br>Date: 2007-07-16<br>Sale Price: \u00a3234,000<br>Previous Purchase: \u00a3170,000<br>Previous Date: 2005-04-06<br>Annual Return: +15.1%/yr<br>Held for: 2.3 years", "<b>Apartment 2, The School House, 69, Tollington Road</b><br>Transaction 3 of 3<br>Date: 2013-06-27<br>Sale Price: \u00a3250,000<br>Previous Purchase: \u00a3234,000<br>Previous Date: 2007-07-16<br>Annual Return: +1.1%/yr<br>Held for: 6.0 years"], "transaction_count": 3}, {"address": "Apartment 24, The School House, 69, Tollington Road", "dates": ["2005-04-22", "2015-02-23"], "prices": [337500, 525000], "hover_texts": ["<b>Apartment 24, The School House, 69, Tollington Road</b><br>Transaction 1 of 2<br>Date: 2005-04-22<br>Sale Price: \u00a3337,500", "<b>Apartment 24, The School House, 69, Tollington Road</b><br>Transaction 2 of 2<br>Date: 2015-02-23<br>Sale Price: \u00a3525,000<br>Previous Purchase: \u00a3337,500<br>Previous Date: 2005-04-22<br>Annual Return: +4.6%/yr<br>Held for: 9.8 years"], "transaction_count": 2}, {"address": "Apartment 6, The School House, 69, Tollington Road", "dates": ["2005-04-08", "2013-07-08", "2016-06-24", "2022-10-13"], "prices": [240000, 320000, 426000, 442000], "hover_texts": ["<b>Apartment 6, The School House, 69, Tollington Road</b><br>Transaction 1 of 4<br>Date: 2005-04-08<br>Sale Price: \u00a3240,000", "<b>Apartment 6, The School House, 69, Tollington Road</b><br>Transaction 2 of 4<br>Date: 2013-07-08<br>Sale Price: \u00a3320,000<br>Previous Purchase: \u00a3240,000<br>Previous Date: 2005-04-08<br>Annual Return: +3.5%/yr<br>Held for: 8.2 years", "<b>Apartment 6, The School House, 69, Tollington Road</b><br>Transaction 3 of 4<br>Date: 2016-06-24<br>Sale Price: \u00a3426,000<br>Previous Purchase: \u00a3320,000<br>Previous Date: 2013-07-08<br>Annual Return: +10.1%/yr<br>Held for: 3.0 years", "<b>Apartment 6, The School House, 69, Tollington Road</b><br>Transaction 4 of 4<br>Date: 2022-10-13<br>Sale Price: \u00a3442,000<br>Previous Purchase: \u00a3426,000<br>Previous Date: 2016-06-24<br>Annual Return: +0.6%/yr<br>Held for: 6.3 years"], "transaction_count": 4}, {"address": "Apartment 14, The School House, 69, Tollington Road", "dates": ["2005-05-20", "2007-10-06"], "prices": [339950, 450000], "hover_texts": ["<b>Apartment 14, The School House, 69, Tollington Road</b><br>Transaction 1 of 2<br>Date: 2005-05-20<br>Sale Price: \u00a3339,950", "<b>Apartment 14, The School House, 69, Tollington Road</b><br>Transaction 2 of 2<br>Date: 2007-10-06<br>Sale Price: \u00a3450,000<br>Previous Purchase: \u00a3339,950<br>Previous Date: 2005-05-20<br>Annual Return: +12.5%/yr<br>Held for: 2.4 years"], "transaction_count": 2}, {"address": "Apartment 32, The School House, 69, Tollington Road", "dates": ["2005-10-07", "2007-05-18"], "prices": [365000, 400000], "hover_texts": ["<b>Apartment 32, The School House, 69, Tollington Road</b><br>Transaction 1 of 2<br>Date: 2005-10-07<br>Sale Price: \u00a3365,000", "<b>Apartment 32, The School House, 69, Tollington Road</b><br>Transaction 2 of 2<br>Date: 2007-05-18<br>Sale Price: \u00a3400,000<br>Previous Purchase: \u00a3365,000<br>Previous Date: 2005-10-07<br>Annual Return: +5.8%/yr<br>Held for: 1.6 years"], "transaction_count": 2}, {"address": "Apartment 25, The School House, 69, Tollington Road", "dates": ["2005-05-12", "2013-09-23"], "prices": [239600, 310000], "hover_texts": ["<b>Apartment 25, The School House, 69, Tollington Road</b><br>Transaction 1 of 2<br>Date: 2005-05-12<br>Sale Price: \u00a3239,600", "<b>Apartment 25, The School House, 69, Tollington Road</b><br>Transaction 2 of 2<br>Date: 2013-09-23<br>Sale Price: \u00a3310,000<br>Previous Purchase: \u00a3239,600<br>Previous Date: 2005-05-12<br>Annual Return: +3.1%/yr<br>Held for: 8.4 years"], "transaction_count": 2}, {"address": "Apartment 28, The School House, 69, Tollington Road", "dates": ["2005-05-04", "2013-08-05", "2020-02-05"], "prices": [315000, 475000, 525000], "hover_texts": ["<b>Apartment 28, The School House, 69, Tollington Road</b><br>Transaction 1 of 3<br>Date: 2005-05-04<br>Sale Price: \u00a3315,000", "<b>Apartment 28, The School House, 69, Tollington Road</b><br>Transaction 2 of 3<br>Date: 2013-08-05<br>Sale Price: \u00a3475,000<br>Previous Purchase: \u00a3315,000<br>Previous Date: 2005-05-04<br>Annual Return: +5.1%/yr<br>Held for: 8.2 years", "<b>Apartment 28, The School House, 69, Tollington Road</b><br>Transaction 3 of 3<br>Date: 2020-02-05<br>Sale Price: \u00a3525,000<br>Previous Purchase: \u00a3475,000<br>Previous Date: 2013-08-05<br>Annual Return: +1.6%/yr<br>Held for: 6.5 years"], "transaction_count": 3}, {"address": "Apartment 19, The School House, 69, Tollington Road", "dates": ["2005-04-26", "2012-04-20"], "prices": [230000, 265000], "hover_texts": ["<b>Apartment 19, The School House, 69, Tollington Road</b><br>Transaction 1 of 2<br>Date: 2005-04-26<br>Sale Price: \u00a3230,000", "<b>Apartment 19, The School House, 69, Tollington Road</b><br>Transaction 2 of 2<br>Date: 2012-04-20<br>Sale Price: \u00a3265,000<br>Previous Purchase: \u00a3230,000<br>Previous Date: 2005-04-26<br>Annual Return: +2.0%/yr<br>Held for: 7.0 years"], "transaction_count": 2}, {"address": "Apartment 31, The School House, 69, Tollington Road", "dates": ["2005-11-03", "2020-06-19"], "prices": [365000, 560000], "hover_texts": ["<b>Apartment 31, The School House, 69, Tollington Road</b><br>Transaction 1 of 2<br>Date: 2005-11-03<br>Sale Price: \u00a3365,000", "<b>Apartment 31, The School House, 69, Tollington Road</b><br>Transaction 2 of 2<br>Date: 2020-06-19<br>Sale Price: \u00a3560,000<br>Previous Purchase: \u00a3365,000<br>Previous Date: 2005-11-03<br>Annual Return: +3.0%/yr<br>Held for: 14.6 years"], "transaction_count": 2}, {"address": "Apartment 21, The School House, 69, Tollington Road", "dates": ["2005-05-13", "2013-08-20", "2018-02-16", "2021-06-29"], "prices": [236000, 285000, 428000, 450000], "hover_texts": ["<b>Apartment 21, The School House, 69, Tollington Road</b><br>Transaction 1 of 4<br>Date: 2005-05-13<br>Sale Price: \u00a3236,000", "<b>Apartment 21, The School House, 69, Tollington Road</b><br>Transaction 2 of 4<br>Date: 2013-08-20<br>Sale Price: \u00a3285,000<br>Previous Purchase: \u00a3236,000<br>Previous Date: 2005-05-13<br>Annual Return: +2.3%/yr<br>Held for: 8.3 years", "<b>Apartment 21, The School House, 69, Tollington Road</b><br>Transaction 3 of 4<br>Date: 2018-02-16<br>Sale Price: \u00a3428,000<br>Previous Purchase: \u00a3285,000<br>Previous Date: 2013-08-20<br>Annual Return: +9.5%/yr<br>Held for: 4.5 years", "<b>Apartment 21, The School House, 69, Tollington Road</b><br>Transaction 4 of 4<br>Date: 2021-06-29<br>Sale Price: \u00a3450,000<br>Previous Purchase: \u00a3428,000<br>Previous Date: 2018-02-16<br>Annual Return: +1.5%/yr<br>Held for: 3.4 years"], "transaction_count": 4}, {"address": "Apartment 18, The School House, 69, Tollington Road", "dates": ["2005-04-18", "2025-03-11"], "prices": [249950, 440000], "hover_texts": ["<b>Apartment 18, The School House, 69, Tollington Road</b><br>Transaction 1 of 2<br>Date: 2005-04-18<br>Sale Price: \u00a3249,950", "<b>Apartment 18, The School House, 69, Tollington Road</b><br>Transaction 2 of 2<br>Date: 2025-03-11<br>Sale Price: \u00a3440,000<br>Previous Purchase: \u00a3249,950<br>Previous Date: 2005-04-18<br>Annual Return: +2.9%/yr<br>Held for: 19.9 years"], "transaction_count": 2}, {"address": "Apartment 3, The School House, 69, Tollington Road", "dates": ["2005-08-04", "2014-03-17", "2018-10-05"], "prices": [249950, 331000, 395000], "hover_texts": ["<b>Apartment 3, The School House, 69, Tollington Road</b><br>Transaction 1 of 3<br>Date: 2005-08-04<br>Sale Price: \u00a3249,950", "<b>Apartment 3, The School House, 69, Tollington Road</b><br>Transaction 2 of 3<br>Date: 2014-03-17<br>Sale Price: \u00a3331,000<br>Previous Purchase: \u00a3249,950<br>Previous Date: 2005-08-04<br>Annual Return: +3.3%/yr<br>Held for: 8.6 years", "<b>Apartment 3, The School House, 69, Tollington Road</b><br>Transaction 3 of 3<br>Date: 2018-10-05<br>Sale Price: \u00a3395,000<br>Previous Purchase: \u00a3331,000<br>Previous Date: 2014-03-17<br>Annual Return: +4.0%/yr<br>Held for: 4.5 years"], "transaction_count": 3}, {"address": "Apartment 8, The School House, 69, Tollington Road", "dates": ["2005-05-11", "2007-12-19"], "prices": [199996, 285000], "hover_texts": ["<b>Apartment 8, The School House, 69, Tollington Road</b><br>Transaction 1 of 2<br>Date: 2005-05-11<br>Sale Price: \u00a3199,996", "<b>Apartment 8, The School House, 69, Tollington Road</b><br>Transaction 2 of 2<br>Date: 2007-12-19<br>Sale Price: \u00a3285,000<br>Previous Purchase: \u00a3199,996<br>Previous Date: 2005-05-11<br>Annual Return: +14.6%/yr<br>Held for: 2.6 years"], "transaction_count": 2}, {"address": "Apartment 33, The School House, 69, Tollington Road", "dates": ["2005-06-01", "2010-01-29", "2021-03-31"], "prices": [375000, 460000, 665000], "hover_texts": ["<b>Apartment 33, The School House, 69, Tollington Road</b><br>Transaction 1 of 3<br>Date: 2005-06-01<br>Sale Price: \u00a3375,000", "<b>Apartment 33, The School House, 69, Tollington Road</b><br>Transaction 2 of 3<br>Date: 2010-01-29<br>Sale Price: \u00a3460,000<br>Previous Purchase: \u00a3375,000<br>Previous Date: 2005-06-01<br>Annual Return: +4.5%/yr<br>Held for: 4.7 years", "<b>Apartment 33, The School House, 69, Tollington Road</b><br>Transaction 3 of 3<br>Date: 2021-03-31<br>Sale Price: \u00a3665,000<br>Previous Purchase: \u00a3460,000<br>Previous Date: 2010-01-29<br>Annual Return: +3.4%/yr<br>Held for: 11.2 years"], "transaction_count": 3}];
+            var singleSales = [{"date": "2015-11-11", "address": "Apartment 5, The School House, 69, Tollington Road", "price": 380000, "price_display": "\u00a3380,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-07-28", "address": "Apartment 13, The School House, 69, Tollington Road", "price": 319000, "price_display": "\u00a3319,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-03-30", "address": "Apartment 15, The School House, 69, Tollington Road", "price": 219500, "price_display": "\u00a3219,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-04-15", "address": "Apartment 1, The School House, 69, Tollington Road", "price": 219000, "price_display": "\u00a3219,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-05-19", "address": "Apartment 26, The School House, 69, Tollington Road", "price": 239600, "price_display": "\u00a3239,600", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-04-28", "address": "Apartment 10, The School House, 69, Tollington Road", "price": 245000, "price_display": "\u00a3245,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-05-12", "address": "Apartment 23, The School House, 69, Tollington Road", "price": 236000, "price_display": "\u00a3236,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-05-20", "address": "Apartment 9, The School House, 69, Tollington Road", "price": 210000, "price_display": "\u00a3210,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-04-29", "address": "Apartment 30, The School House, 69, Tollington Road", "price": 249950, "price_display": "\u00a3249,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-01-28", "address": "Apartment 7, The School House, 69, Tollington Road", "price": 310100, "price_display": "\u00a3310,100", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-27", "address": "Apartment 29, The School House, 69, Tollington Road", "price": 590000, "price_display": "\u00a3590,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-07-13", "address": "Apartment 35, The School House, 69, Tollington Road", "price": 249950, "price_display": "\u00a3249,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-N7-6DW', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-N7-6DW');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-N7-6DW', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-N7-6DW', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-N7-6DW" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2015-01-05</td>
+            <td>Apartment 11, The School House, 69, Tollington Road</td>
+            <td class="price">£375,000</td>
+        <td class="positive" title="Previous: £249,950 (2005-04-04)">+4.2%/yr</td></tr>
+
+        <tr>
+            <td>2005-04-04</td>
+            <td>Apartment 11, The School House, 69, Tollington Road</td>
+            <td class="price">£249,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-06-29</td>
+            <td>Apartment 17, The School House, 69, Tollington Road</td>
+            <td class="price">£285,000</td>
+        <td class="positive" title="Previous: £249,950 (2005-04-29)">+6.2%/yr</td></tr>
+
+        <tr>
+            <td>2005-04-29</td>
+            <td>Apartment 17, The School House, 69, Tollington Road</td>
+            <td class="price">£249,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-11-11</td>
+            <td>Apartment 5, The School House, 69, Tollington Road</td>
+            <td class="price">£380,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-10-28</td>
+            <td>Apartment 34, The School House, 69, Tollington Road</td>
+            <td class="price">£590,000</td>
+        <td class="positive" title="Previous: £460,000 (2012-05-11)">+3.0%/yr</td></tr>
+
+        <tr>
+            <td>2012-05-11</td>
+            <td>Apartment 34, The School House, 69, Tollington Road</td>
+            <td class="price">£460,000</td>
+        <td class="negative" title="Previous: £465,000 (2007-06-07)">-0.2%/yr</td></tr>
+
+        <tr>
+            <td>2007-06-07</td>
+            <td>Apartment 34, The School House, 69, Tollington Road</td>
+            <td class="price">£465,000</td>
+        <td class="positive" title="Previous: £365,000 (2005-08-15)">+14.3%/yr</td></tr>
+
+        <tr>
+            <td>2005-08-15</td>
+            <td>Apartment 34, The School House, 69, Tollington Road</td>
+            <td class="price">£365,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-07-28</td>
+            <td>Apartment 13, The School House, 69, Tollington Road</td>
+            <td class="price">£319,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-09-26</td>
+            <td>Apartment 4, The School House, 69, Tollington Road</td>
+            <td class="price">£450,000</td>
+        <td class="positive" title="Previous: £250,000 (2010-09-20)">+10.3%/yr</td></tr>
+
+        <tr>
+            <td>2010-09-20</td>
+            <td>Apartment 4, The School House, 69, Tollington Road</td>
+            <td class="price">£250,000</td>
+        <td class="negative" title="Previous: £249,950 (2006-09-15)">+0.0%/yr</td></tr>
+
+        <tr>
+            <td>2006-09-15</td>
+            <td>Apartment 4, The School House, 69, Tollington Road</td>
+            <td class="price">£249,950</td>
+        <td class="positive" title="Previous: £219,950 (2005-11-21)">+17.0%/yr</td></tr>
+
+        <tr>
+            <td>2005-11-21</td>
+            <td>Apartment 4, The School House, 69, Tollington Road</td>
+            <td class="price">£219,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-06-13</td>
+            <td>Apartment 22, The School House, 69, Tollington Road</td>
+            <td class="price">£420,000</td>
+        <td class="positive" title="Previous: £410,000 (2015-06-12)">+0.2%/yr</td></tr>
+
+        <tr>
+            <td>2015-06-12</td>
+            <td>Apartment 22, The School House, 69, Tollington Road</td>
+            <td class="price">£410,000</td>
+        <td class="positive" title="Previous: £236,000 (2005-05-12)">+5.6%/yr</td></tr>
+
+        <tr>
+            <td>2005-05-12</td>
+            <td>Apartment 22, The School House, 69, Tollington Road</td>
+            <td class="price">£236,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-03-30</td>
+            <td>Apartment 15, The School House, 69, Tollington Road</td>
+            <td class="price">£219,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-09-27</td>
+            <td>Apartment 16, The School House, 69, Tollington Road</td>
+            <td class="price">£235,000</td>
+        <td class="positive" title="Previous: £169,950 (2005-07-25)">+4.0%/yr</td></tr>
+
+        <tr>
+            <td>2005-07-25</td>
+            <td>Apartment 16, The School House, 69, Tollington Road</td>
+            <td class="price">£169,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-04-15</td>
+            <td>Apartment 1, The School House, 69, Tollington Road</td>
+            <td class="price">£219,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-06-27</td>
+            <td>Apartment 2, The School House, 69, Tollington Road</td>
+            <td class="price">£250,000</td>
+        <td class="positive" title="Previous: £234,000 (2007-07-16)">+1.1%/yr</td></tr>
+
+        <tr>
+            <td>2007-07-16</td>
+            <td>Apartment 2, The School House, 69, Tollington Road</td>
+            <td class="price">£234,000</td>
+        <td class="positive" title="Previous: £170,000 (2005-04-06)">+15.1%/yr</td></tr>
+
+        <tr>
+            <td>2005-04-06</td>
+            <td>Apartment 2, The School House, 69, Tollington Road</td>
+            <td class="price">£170,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-02-23</td>
+            <td>Apartment 24, The School House, 69, Tollington Road</td>
+            <td class="price">£525,000</td>
+        <td class="positive" title="Previous: £337,500 (2005-04-22)">+4.6%/yr</td></tr>
+
+        <tr>
+            <td>2005-04-22</td>
+            <td>Apartment 24, The School House, 69, Tollington Road</td>
+            <td class="price">£337,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-10-13</td>
+            <td>Apartment 6, The School House, 69, Tollington Road</td>
+            <td class="price">£442,000</td>
+        <td class="positive" title="Previous: £426,000 (2016-06-24)">+0.6%/yr</td></tr>
+
+        <tr>
+            <td>2016-06-24</td>
+            <td>Apartment 6, The School House, 69, Tollington Road</td>
+            <td class="price">£426,000</td>
+        <td class="positive" title="Previous: £320,000 (2013-07-08)">+10.1%/yr</td></tr>
+
+        <tr>
+            <td>2013-07-08</td>
+            <td>Apartment 6, The School House, 69, Tollington Road</td>
+            <td class="price">£320,000</td>
+        <td class="positive" title="Previous: £240,000 (2005-04-08)">+3.5%/yr</td></tr>
+
+        <tr>
+            <td>2005-04-08</td>
+            <td>Apartment 6, The School House, 69, Tollington Road</td>
+            <td class="price">£240,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-10-06</td>
+            <td>Apartment 14, The School House, 69, Tollington Road</td>
+            <td class="price">£450,000</td>
+        <td class="positive" title="Previous: £339,950 (2005-05-20)">+12.5%/yr</td></tr>
+
+        <tr>
+            <td>2005-05-20</td>
+            <td>Apartment 14, The School House, 69, Tollington Road</td>
+            <td class="price">£339,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-05-18</td>
+            <td>Apartment 32, The School House, 69, Tollington Road</td>
+            <td class="price">£400,000</td>
+        <td class="positive" title="Previous: £365,000 (2005-10-07)">+5.8%/yr</td></tr>
+
+        <tr>
+            <td>2005-10-07</td>
+            <td>Apartment 32, The School House, 69, Tollington Road</td>
+            <td class="price">£365,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-09-23</td>
+            <td>Apartment 25, The School House, 69, Tollington Road</td>
+            <td class="price">£310,000</td>
+        <td class="positive" title="Previous: £239,600 (2005-05-12)">+3.1%/yr</td></tr>
+
+        <tr>
+            <td>2005-05-12</td>
+            <td>Apartment 25, The School House, 69, Tollington Road</td>
+            <td class="price">£239,600</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-02-05</td>
+            <td>Apartment 28, The School House, 69, Tollington Road</td>
+            <td class="price">£525,000</td>
+        <td class="positive" title="Previous: £475,000 (2013-08-05)">+1.6%/yr</td></tr>
+
+        <tr>
+            <td>2013-08-05</td>
+            <td>Apartment 28, The School House, 69, Tollington Road</td>
+            <td class="price">£475,000</td>
+        <td class="positive" title="Previous: £315,000 (2005-05-04)">+5.1%/yr</td></tr>
+
+        <tr>
+            <td>2005-05-04</td>
+            <td>Apartment 28, The School House, 69, Tollington Road</td>
+            <td class="price">£315,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-05-19</td>
+            <td>Apartment 26, The School House, 69, Tollington Road</td>
+            <td class="price">£239,600</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-04-20</td>
+            <td>Apartment 19, The School House, 69, Tollington Road</td>
+            <td class="price">£265,000</td>
+        <td class="positive" title="Previous: £230,000 (2005-04-26)">+2.0%/yr</td></tr>
+
+        <tr>
+            <td>2005-04-26</td>
+            <td>Apartment 19, The School House, 69, Tollington Road</td>
+            <td class="price">£230,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-06-19</td>
+            <td>Apartment 31, The School House, 69, Tollington Road</td>
+            <td class="price">£560,000</td>
+        <td class="positive" title="Previous: £365,000 (2005-11-03)">+3.0%/yr</td></tr>
+
+        <tr>
+            <td>2005-11-03</td>
+            <td>Apartment 31, The School House, 69, Tollington Road</td>
+            <td class="price">£365,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-29</td>
+            <td>Apartment 21, The School House, 69, Tollington Road</td>
+            <td class="price">£450,000</td>
+        <td class="positive" title="Previous: £428,000 (2018-02-16)">+1.5%/yr</td></tr>
+
+        <tr>
+            <td>2018-02-16</td>
+            <td>Apartment 21, The School House, 69, Tollington Road</td>
+            <td class="price">£428,000</td>
+        <td class="positive" title="Previous: £285,000 (2013-08-20)">+9.5%/yr</td></tr>
+
+        <tr>
+            <td>2013-08-20</td>
+            <td>Apartment 21, The School House, 69, Tollington Road</td>
+            <td class="price">£285,000</td>
+        <td class="positive" title="Previous: £236,000 (2005-05-13)">+2.3%/yr</td></tr>
+
+        <tr>
+            <td>2005-05-13</td>
+            <td>Apartment 21, The School House, 69, Tollington Road</td>
+            <td class="price">£236,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-03-11</td>
+            <td>Apartment 18, The School House, 69, Tollington Road</td>
+            <td class="price">£440,000</td>
+        <td class="positive" title="Previous: £249,950 (2005-04-18)">+2.9%/yr</td></tr>
+
+        <tr>
+            <td>2005-04-18</td>
+            <td>Apartment 18, The School House, 69, Tollington Road</td>
+            <td class="price">£249,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-04-28</td>
+            <td>Apartment 10, The School House, 69, Tollington Road</td>
+            <td class="price">£245,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-05-12</td>
+            <td>Apartment 23, The School House, 69, Tollington Road</td>
+            <td class="price">£236,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-05-20</td>
+            <td>Apartment 9, The School House, 69, Tollington Road</td>
+            <td class="price">£210,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-04-29</td>
+            <td>Apartment 30, The School House, 69, Tollington Road</td>
+            <td class="price">£249,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-05</td>
+            <td>Apartment 3, The School House, 69, Tollington Road</td>
+            <td class="price">£395,000</td>
+        <td class="positive" title="Previous: £331,000 (2014-03-17)">+4.0%/yr</td></tr>
+
+        <tr>
+            <td>2014-03-17</td>
+            <td>Apartment 3, The School House, 69, Tollington Road</td>
+            <td class="price">£331,000</td>
+        <td class="positive" title="Previous: £249,950 (2005-08-04)">+3.3%/yr</td></tr>
+
+        <tr>
+            <td>2005-08-04</td>
+            <td>Apartment 3, The School House, 69, Tollington Road</td>
+            <td class="price">£249,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-01-28</td>
+            <td>Apartment 7, The School House, 69, Tollington Road</td>
+            <td class="price">£310,100</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-27</td>
+            <td>Apartment 29, The School House, 69, Tollington Road</td>
+            <td class="price">£590,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-12-19</td>
+            <td>Apartment 8, The School House, 69, Tollington Road</td>
+            <td class="price">£285,000</td>
+        <td class="positive" title="Previous: £199,996 (2005-05-11)">+14.6%/yr</td></tr>
+
+        <tr>
+            <td>2005-05-11</td>
+            <td>Apartment 8, The School House, 69, Tollington Road</td>
+            <td class="price">£199,996</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-07-13</td>
+            <td>Apartment 35, The School House, 69, Tollington Road</td>
+            <td class="price">£249,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-31</td>
+            <td>Apartment 33, The School House, 69, Tollington Road</td>
+            <td class="price">£665,000</td>
+        <td class="positive" title="Previous: £460,000 (2010-01-29)">+3.4%/yr</td></tr>
+
+        <tr>
+            <td>2010-01-29</td>
+            <td>Apartment 33, The School House, 69, Tollington Road</td>
+            <td class="price">£460,000</td>
+        <td class="positive" title="Previous: £375,000 (2005-06-01)">+4.5%/yr</td></tr>
+
+        <tr>
+            <td>2005-06-01</td>
+            <td>Apartment 33, The School House, 69, Tollington Road</td>
+            <td class="price">£375,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-N7-6DW" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-N7-6DW" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2010, 2012, 2013, 2014, 2015, 2016, 2018, 2020, 2021, 2022, 2023, 2025],
+            y: [259740, 249950, 353166, 310100, 343000, 362500, 312500, 331000, 422500, 438000, 411500, 558333, 557500, 442000, 590000, 430000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2010, 2012, 2013, 2014, 2015, 2016, 2018, 2020, 2021, 2022, 2023, 2025],
+            y: [245000, 249950, 400000, 310100, 319000, 460000, 310000, 331000, 410000, 450000, 428000, 560000, 665000, 442000, 590000, 440000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - N7 6DW',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-N7-6DW', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 65</p>
+                    <p><strong>Unique Properties:</strong> 32</p>
+                    <p><strong>Average Price:</strong> £338,196</p>
+                    <p><strong>Median Price:</strong> £315,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-N7-6DW" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector N7 6 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector N7 6</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-N7-6DW', 'N7-6DW')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-N7-6DW', 'N7-6DW')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-N7-6DW" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-N7-6DW" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [266575, 300201, 353973, 321643, 308658, 366075, 391349, 373550, 439933, 578413, 571442, 590749, 633566, 630949, 655569, 632306, 667928, 686699, 690212, 751516, 702204],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [245000, 278750, 317500, 302000, 280000, 320000, 330000, 336250, 397500, 475000, 485000, 540000, 531000, 542500, 520000, 550000, 568500, 590000, 575000, 611250, 607500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector N7 6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-N7-6DW', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-N7-6DW" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £216,983</div>
+                        <div class="cell-sell">Sell: £225,833</div>
+                        <div class="cell-return">-3.8%/yr</div>
+                        <div class="cell-count">(3 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £281,571</div>
+                        <div class="cell-sell">Sell: £380,998</div>
+                        <div class="cell-return">+11.6%/yr</div>
+                        <div class="cell-count">(32 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £250,523</div>
+                        <div class="cell-sell">Sell: £432,171</div>
+                        <div class="cell-return">+8.5%/yr</div>
+                        <div class="cell-count">(38 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £270,965</div>
+                        <div class="cell-sell">Sell: £523,400</div>
+                        <div class="cell-return">+5.5%/yr</div>
+                        <div class="cell-count">(10 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £253,440</div>
+                        <div class="cell-sell">Sell: £515,274</div>
+                        <div class="cell-return">+4.2%/yr</div>
+                        <div class="cell-count">(5 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £296,904</div>
+                        <div class="cell-sell">Sell: £338,890</div>
+                        <div class="cell-return">+7.5%/yr</div>
+                        <div class="cell-count">(41 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £309,796</div>
+                        <div class="cell-sell">Sell: £456,367</div>
+                        <div class="cell-return">+7.8%/yr</div>
+                        <div class="cell-count">(114 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £311,514</div>
+                        <div class="cell-sell">Sell: £559,018</div>
+                        <div class="cell-return">+6.6%/yr</div>
+                        <div class="cell-count">(57 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £329,091</div>
+                        <div class="cell-sell">Sell: £609,757</div>
+                        <div class="cell-return">+4.4%/yr</div>
+                        <div class="cell-count">(50 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £369,651</div>
+                        <div class="cell-sell">Sell: £489,318</div>
+                        <div class="cell-return">+18.0%/yr</div>
+                        <div class="cell-count">(43 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £443,978</div>
+                        <div class="cell-sell">Sell: £591,858</div>
+                        <div class="cell-return">+7.5%/yr</div>
+                        <div class="cell-count">(85 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £479,812</div>
+                        <div class="cell-sell">Sell: £611,334</div>
+                        <div class="cell-return">+3.1%/yr</div>
+                        <div class="cell-count">(109 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £544,079</div>
+                        <div class="cell-sell">Sell: £734,948</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(22 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £555,312</div>
+                        <div class="cell-sell">Sell: £613,388</div>
+                        <div class="cell-return">+2.4%/yr</div>
+                        <div class="cell-count">(78 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £749,175</div>
+                        <div class="cell-sell">Sell: £994,524</div>
+                        <div class="cell-return">+3.7%/yr</div>
+                        <div class="cell-count">(20 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-N7-6DW" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District N7 Analysis</h4>
+                <p class="area-info">Viewing data for entire N7 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-N7-6DW', 'N7-6DW')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-N7-6DW', 'N7-6DW')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-N7-6DW" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-N7-6DW" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [269222, 291020, 338587, 342857, 308446, 365452, 406269, 400216, 434432, 501301, 579780, 625172, 606934, 609489, 627217, 674695, 668958, 705359, 690141, 704025, 688773],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [241000, 262500, 297660, 295000, 275000, 325000, 340000, 359949, 385000, 450000, 500000, 500000, 513500, 515000, 545000, 565000, 560000, 600000, 553500, 556500, 599000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District N7 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-N7-6DW', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-N7-6DW" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £209,921</div>
+                        <div class="cell-sell">Sell: £244,278</div>
+                        <div class="cell-return">+4.0%/yr</div>
+                        <div class="cell-count">(7 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £262,996</div>
+                        <div class="cell-sell">Sell: £341,765</div>
+                        <div class="cell-return">+12.2%/yr</div>
+                        <div class="cell-count">(161 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £275,783</div>
+                        <div class="cell-sell">Sell: £442,289</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(146 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £254,739</div>
+                        <div class="cell-sell">Sell: £556,570</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(34 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £257,547</div>
+                        <div class="cell-sell">Sell: £584,540</div>
+                        <div class="cell-return">+4.9%/yr</div>
+                        <div class="cell-count">(36 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £285,136</div>
+                        <div class="cell-sell">Sell: £334,932</div>
+                        <div class="cell-return">+9.6%/yr</div>
+                        <div class="cell-count">(248 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £315,373</div>
+                        <div class="cell-sell">Sell: £459,914</div>
+                        <div class="cell-return">+7.7%/yr</div>
+                        <div class="cell-count">(767 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £321,398</div>
+                        <div class="cell-sell">Sell: £567,430</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(369 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £326,619</div>
+                        <div class="cell-sell">Sell: £604,175</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(288 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £386,991</div>
+                        <div class="cell-sell">Sell: £544,859</div>
+                        <div class="cell-return">+17.0%/yr</div>
+                        <div class="cell-count">(224 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £488,645</div>
+                        <div class="cell-sell">Sell: £602,748</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(547 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £497,867</div>
+                        <div class="cell-sell">Sell: £627,510</div>
+                        <div class="cell-return">+2.8%/yr</div>
+                        <div class="cell-count">(510 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £676,772</div>
+                        <div class="cell-sell">Sell: £609,751</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(110 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £602,365</div>
+                        <div class="cell-sell">Sell: £652,613</div>
+                        <div class="cell-return">+2.2%/yr</div>
+                        <div class="cell-count">(443 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £735,035</div>
+                        <div class="cell-sell">Sell: £810,915</div>
+                        <div class="cell-return">+5.9%/yr</div>
+                        <div class="cell-count">(125 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'N7 6'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'N7'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

@@ -1,0 +1,1485 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>N7 7FE</h3>
+            <div class="header-stats">
+                <span><strong>105</strong> transactions</span>
+                <span><strong>72</strong> properties</span>
+                <span>Avg: <strong>£440,431</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-N7-7FE')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-N7-7FE')">
+                Sector (N7 7)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-N7-7FE')">
+                District (N7)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-N7-7FE" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-N7-7FE', 'N7-7FE')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-N7-7FE', 'N7-7FE')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-N7-7FE', 'N7-7FE')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-N7-7FE" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-N7-7FE" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 56, 5, Queensland Road", "dates": ["2013-12-13", "2016-11-03"], "prices": [461720, 580000], "hover_texts": ["<b>Flat 56, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-12-13<br>Sale Price: \u00a3461,720", "<b>Flat 56, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2016-11-03<br>Sale Price: \u00a3580,000<br>Previous Purchase: \u00a3461,720<br>Previous Date: 2013-12-13<br>Annual Return: +8.2%/yr<br>Held for: 2.9 years"], "transaction_count": 2}, {"address": "Flat 71, 5, Queensland Road", "dates": ["2013-12-17", "2022-08-05"], "prices": [517000, 618700], "hover_texts": ["<b>Flat 71, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-12-17<br>Sale Price: \u00a3517,000", "<b>Flat 71, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2022-08-05<br>Sale Price: \u00a3618,700<br>Previous Purchase: \u00a3517,000<br>Previous Date: 2013-12-17<br>Annual Return: +2.1%/yr<br>Held for: 8.6 years"], "transaction_count": 2}, {"address": "Flat 23, 5, Queensland Road", "dates": ["2013-11-22", "2015-10-13"], "prices": [307000, 429995], "hover_texts": ["<b>Flat 23, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-11-22<br>Sale Price: \u00a3307,000", "<b>Flat 23, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2015-10-13<br>Sale Price: \u00a3429,995<br>Previous Purchase: \u00a3307,000<br>Previous Date: 2013-11-22<br>Annual Return: +19.5%/yr<br>Held for: 1.9 years"], "transaction_count": 2}, {"address": "Flat 49, 5, Queensland Road", "dates": ["2013-12-04", "2017-03-24"], "prices": [513000, 615000], "hover_texts": ["<b>Flat 49, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-12-04<br>Sale Price: \u00a3513,000", "<b>Flat 49, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2017-03-24<br>Sale Price: \u00a3615,000<br>Previous Purchase: \u00a3513,000<br>Previous Date: 2013-12-04<br>Annual Return: +5.7%/yr<br>Held for: 3.3 years"], "transaction_count": 2}, {"address": "Flat 1, 5, Queensland Road", "dates": ["2013-11-29", "2015-08-14"], "prices": [287000, 350000], "hover_texts": ["<b>Flat 1, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-11-29<br>Sale Price: \u00a3287,000", "<b>Flat 1, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3350,000<br>Previous Purchase: \u00a3287,000<br>Previous Date: 2013-11-29<br>Annual Return: +12.3%/yr<br>Held for: 1.7 years"], "transaction_count": 2}, {"address": "Flat 67, 5, Queensland Road", "dates": ["2013-12-17", "2022-01-31"], "prices": [499950, 625000], "hover_texts": ["<b>Flat 67, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-12-17<br>Sale Price: \u00a3499,950", "<b>Flat 67, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2022-01-31<br>Sale Price: \u00a3625,000<br>Previous Purchase: \u00a3499,950<br>Previous Date: 2013-12-17<br>Annual Return: +2.8%/yr<br>Held for: 8.1 years"], "transaction_count": 2}, {"address": "Flat 59, 5, Queensland Road", "dates": ["2013-12-13", "2020-08-28", "2022-10-17"], "prices": [329000, 455000, 435000], "hover_texts": ["<b>Flat 59, 5, Queensland Road</b><br>Transaction 1 of 3<br>Date: 2013-12-13<br>Sale Price: \u00a3329,000", "<b>Flat 59, 5, Queensland Road</b><br>Transaction 2 of 3<br>Date: 2020-08-28<br>Sale Price: \u00a3455,000<br>Previous Purchase: \u00a3329,000<br>Previous Date: 2013-12-13<br>Annual Return: +5.0%/yr<br>Held for: 6.7 years", "<b>Flat 59, 5, Queensland Road</b><br>Transaction 3 of 3<br>Date: 2022-10-17<br>Sale Price: \u00a3435,000<br>Previous Purchase: \u00a3455,000<br>Previous Date: 2020-08-28<br>Annual Return: -2.1%/yr<br>Held for: 2.1 years"], "transaction_count": 3}, {"address": "Flat 5, 5, Queensland Road", "dates": ["2013-11-29", "2015-11-06"], "prices": [301670, 500000], "hover_texts": ["<b>Flat 5, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-11-29<br>Sale Price: \u00a3301,670", "<b>Flat 5, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2015-11-06<br>Sale Price: \u00a3500,000<br>Previous Purchase: \u00a3301,670<br>Previous Date: 2013-11-29<br>Annual Return: +29.8%/yr<br>Held for: 1.9 years"], "transaction_count": 2}, {"address": "Flat 36, 5, Queensland Road", "dates": ["2013-11-27", "2021-05-21"], "prices": [472000, 585000], "hover_texts": ["<b>Flat 36, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-11-27<br>Sale Price: \u00a3472,000", "<b>Flat 36, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2021-05-21<br>Sale Price: \u00a3585,000<br>Previous Purchase: \u00a3472,000<br>Previous Date: 2013-11-27<br>Annual Return: +2.9%/yr<br>Held for: 7.5 years"], "transaction_count": 2}, {"address": "Flat 13, 5, Queensland Road", "dates": ["2013-11-29", "2023-03-01"], "prices": [321000, 412500], "hover_texts": ["<b>Flat 13, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-11-29<br>Sale Price: \u00a3321,000", "<b>Flat 13, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2023-03-01<br>Sale Price: \u00a3412,500<br>Previous Purchase: \u00a3321,000<br>Previous Date: 2013-11-29<br>Annual Return: +2.8%/yr<br>Held for: 9.2 years"], "transaction_count": 2}, {"address": "Flat 25, 5, Queensland Road", "dates": ["2013-11-22", "2021-03-26", "2024-04-30"], "prices": [307490, 418000, 450000], "hover_texts": ["<b>Flat 25, 5, Queensland Road</b><br>Transaction 1 of 3<br>Date: 2013-11-22<br>Sale Price: \u00a3307,490", "<b>Flat 25, 5, Queensland Road</b><br>Transaction 2 of 3<br>Date: 2021-03-26<br>Sale Price: \u00a3418,000<br>Previous Purchase: \u00a3307,490<br>Previous Date: 2013-11-22<br>Annual Return: +4.3%/yr<br>Held for: 7.3 years", "<b>Flat 25, 5, Queensland Road</b><br>Transaction 3 of 3<br>Date: 2024-04-30<br>Sale Price: \u00a3450,000<br>Previous Purchase: \u00a3418,000<br>Previous Date: 2021-03-26<br>Annual Return: +2.4%/yr<br>Held for: 3.1 years"], "transaction_count": 3}, {"address": "Flat 32, 5, Queensland Road", "dates": ["2013-11-27", "2019-08-20"], "prices": [320000, 420000], "hover_texts": ["<b>Flat 32, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-11-27<br>Sale Price: \u00a3320,000", "<b>Flat 32, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2019-08-20<br>Sale Price: \u00a3420,000<br>Previous Purchase: \u00a3320,000<br>Previous Date: 2013-11-27<br>Annual Return: +4.9%/yr<br>Held for: 5.7 years"], "transaction_count": 2}, {"address": "Flat 30, 5, Queensland Road", "dates": ["2013-11-27", "2014-10-28"], "prices": [469000, 600000], "hover_texts": ["<b>Flat 30, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-11-27<br>Sale Price: \u00a3469,000", "<b>Flat 30, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2014-10-28<br>Sale Price: \u00a3600,000<br>Previous Purchase: \u00a3469,000<br>Previous Date: 2013-11-27<br>Annual Return: +30.8%/yr<br>Held for: 0.9 years"], "transaction_count": 2}, {"address": "Flat 53, 5, Queensland Road", "dates": ["2013-12-13", "2020-11-09", "2025-12-08"], "prices": [483000, 590000, 600000], "hover_texts": ["<b>Flat 53, 5, Queensland Road</b><br>Transaction 1 of 3<br>Date: 2013-12-13<br>Sale Price: \u00a3483,000", "<b>Flat 53, 5, Queensland Road</b><br>Transaction 2 of 3<br>Date: 2020-11-09<br>Sale Price: \u00a3590,000<br>Previous Purchase: \u00a3483,000<br>Previous Date: 2013-12-13<br>Annual Return: +2.9%/yr<br>Held for: 6.9 years", "<b>Flat 53, 5, Queensland Road</b><br>Transaction 3 of 3<br>Date: 2025-12-08<br>Sale Price: \u00a3600,000<br>Previous Purchase: \u00a3590,000<br>Previous Date: 2020-11-09<br>Annual Return: +0.3%/yr<br>Held for: 5.1 years"], "transaction_count": 3}, {"address": "Flat 43, 5, Queensland Road", "dates": ["2013-11-22", "2021-10-15"], "prices": [323000, 410000], "hover_texts": ["<b>Flat 43, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-11-22<br>Sale Price: \u00a3323,000", "<b>Flat 43, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2021-10-15<br>Sale Price: \u00a3410,000<br>Previous Purchase: \u00a3323,000<br>Previous Date: 2013-11-22<br>Annual Return: +3.1%/yr<br>Held for: 7.9 years"], "transaction_count": 2}, {"address": "Flat 61, 5, Queensland Road", "dates": ["2013-12-16", "2017-12-15", "2021-09-29"], "prices": [489000, 632500, 612500], "hover_texts": ["<b>Flat 61, 5, Queensland Road</b><br>Transaction 1 of 3<br>Date: 2013-12-16<br>Sale Price: \u00a3489,000", "<b>Flat 61, 5, Queensland Road</b><br>Transaction 2 of 3<br>Date: 2017-12-15<br>Sale Price: \u00a3632,500<br>Previous Purchase: \u00a3489,000<br>Previous Date: 2013-12-16<br>Annual Return: +6.7%/yr<br>Held for: 4.0 years", "<b>Flat 61, 5, Queensland Road</b><br>Transaction 3 of 3<br>Date: 2021-09-29<br>Sale Price: \u00a3612,500<br>Previous Purchase: \u00a3632,500<br>Previous Date: 2017-12-15<br>Annual Return: -0.8%/yr<br>Held for: 3.8 years"], "transaction_count": 3}, {"address": "Flat 47, 5, Queensland Road", "dates": ["2013-12-11", "2021-05-14"], "prices": [483000, 580000], "hover_texts": ["<b>Flat 47, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-12-11<br>Sale Price: \u00a3483,000", "<b>Flat 47, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2021-05-14<br>Sale Price: \u00a3580,000<br>Previous Purchase: \u00a3483,000<br>Previous Date: 2013-12-11<br>Annual Return: +2.5%/yr<br>Held for: 7.4 years"], "transaction_count": 2}, {"address": "Flat 14, 5, Queensland Road", "dates": ["2013-11-27", "2017-05-12", "2021-10-28"], "prices": [446000, 596000, 595000], "hover_texts": ["<b>Flat 14, 5, Queensland Road</b><br>Transaction 1 of 3<br>Date: 2013-11-27<br>Sale Price: \u00a3446,000", "<b>Flat 14, 5, Queensland Road</b><br>Transaction 2 of 3<br>Date: 2017-05-12<br>Sale Price: \u00a3596,000<br>Previous Purchase: \u00a3446,000<br>Previous Date: 2013-11-27<br>Annual Return: +8.8%/yr<br>Held for: 3.5 years", "<b>Flat 14, 5, Queensland Road</b><br>Transaction 3 of 3<br>Date: 2021-10-28<br>Sale Price: \u00a3595,000<br>Previous Purchase: \u00a3596,000<br>Previous Date: 2017-05-12<br>Annual Return: -0.0%/yr<br>Held for: 4.5 years"], "transaction_count": 3}, {"address": "Flat 2, 5, Queensland Road", "dates": ["2013-11-26", "2016-03-29"], "prices": [312000, 364000], "hover_texts": ["<b>Flat 2, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-11-26<br>Sale Price: \u00a3312,000", "<b>Flat 2, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2016-03-29<br>Sale Price: \u00a3364,000<br>Previous Purchase: \u00a3312,000<br>Previous Date: 2013-11-26<br>Annual Return: +6.8%/yr<br>Held for: 2.3 years"], "transaction_count": 2}, {"address": "Flat 42, 5, Queensland Road", "dates": ["2013-11-27", "2014-11-21"], "prices": [475000, 620000], "hover_texts": ["<b>Flat 42, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-11-27<br>Sale Price: \u00a3475,000", "<b>Flat 42, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2014-11-21<br>Sale Price: \u00a3620,000<br>Previous Purchase: \u00a3475,000<br>Previous Date: 2013-11-27<br>Annual Return: +31.1%/yr<br>Held for: 1.0 years"], "transaction_count": 2}, {"address": "Flat 48, 5, Queensland Road", "dates": ["2013-12-13", "2022-06-27"], "prices": [326000, 425000], "hover_texts": ["<b>Flat 48, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-12-13<br>Sale Price: \u00a3326,000", "<b>Flat 48, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2022-06-27<br>Sale Price: \u00a3425,000<br>Previous Purchase: \u00a3326,000<br>Previous Date: 2013-12-13<br>Annual Return: +3.2%/yr<br>Held for: 8.5 years"], "transaction_count": 2}, {"address": "Flat 19, 5, Queensland Road", "dates": ["2013-12-06", "2017-08-11"], "prices": [485000, 740000], "hover_texts": ["<b>Flat 19, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-12-06<br>Sale Price: \u00a3485,000", "<b>Flat 19, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2017-08-11<br>Sale Price: \u00a3740,000<br>Previous Purchase: \u00a3485,000<br>Previous Date: 2013-12-06<br>Annual Return: +12.2%/yr<br>Held for: 3.7 years"], "transaction_count": 2}, {"address": "Flat 38, 5, Queensland Road", "dates": ["2013-11-19", "2021-03-05"], "prices": [497000, 595000], "hover_texts": ["<b>Flat 38, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-11-19<br>Sale Price: \u00a3497,000", "<b>Flat 38, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2021-03-05<br>Sale Price: \u00a3595,000<br>Previous Purchase: \u00a3497,000<br>Previous Date: 2013-11-19<br>Annual Return: +2.5%/yr<br>Held for: 7.3 years"], "transaction_count": 2}, {"address": "Flat 64, 5, Queensland Road", "dates": ["2013-12-19", "2015-06-24"], "prices": [332000, 499950], "hover_texts": ["<b>Flat 64, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-12-19<br>Sale Price: \u00a3332,000", "<b>Flat 64, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2015-06-24<br>Sale Price: \u00a3499,950<br>Previous Purchase: \u00a3332,000<br>Previous Date: 2013-12-19<br>Annual Return: +31.1%/yr<br>Held for: 1.5 years"], "transaction_count": 2}, {"address": "Flat 58, 5, Queensland Road", "dates": ["2013-12-13", "2016-07-11", "2020-02-19"], "prices": [485000, 600000, 580000], "hover_texts": ["<b>Flat 58, 5, Queensland Road</b><br>Transaction 1 of 3<br>Date: 2013-12-13<br>Sale Price: \u00a3485,000", "<b>Flat 58, 5, Queensland Road</b><br>Transaction 2 of 3<br>Date: 2016-07-11<br>Sale Price: \u00a3600,000<br>Previous Purchase: \u00a3485,000<br>Previous Date: 2013-12-13<br>Annual Return: +8.6%/yr<br>Held for: 2.6 years", "<b>Flat 58, 5, Queensland Road</b><br>Transaction 3 of 3<br>Date: 2020-02-19<br>Sale Price: \u00a3580,000<br>Previous Purchase: \u00a3600,000<br>Previous Date: 2016-07-11<br>Annual Return: -0.9%/yr<br>Held for: 3.6 years"], "transaction_count": 3}, {"address": "Flat 62, 5, Queensland Road", "dates": ["2013-12-17", "2024-08-16"], "prices": [332000, 435000], "hover_texts": ["<b>Flat 62, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-12-17<br>Sale Price: \u00a3332,000", "<b>Flat 62, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2024-08-16<br>Sale Price: \u00a3435,000<br>Previous Purchase: \u00a3332,000<br>Previous Date: 2013-12-17<br>Annual Return: +2.6%/yr<br>Held for: 10.7 years"], "transaction_count": 2}, {"address": "Flat 46, 5, Queensland Road", "dates": ["2013-11-28", "2022-04-29"], "prices": [475000, 597500], "hover_texts": ["<b>Flat 46, 5, Queensland Road</b><br>Transaction 1 of 2<br>Date: 2013-11-28<br>Sale Price: \u00a3475,000", "<b>Flat 46, 5, Queensland Road</b><br>Transaction 2 of 2<br>Date: 2022-04-29<br>Sale Price: \u00a3597,500<br>Previous Purchase: \u00a3475,000<br>Previous Date: 2013-11-28<br>Annual Return: +2.8%/yr<br>Held for: 8.4 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2013-11-22", "address": "Flat 21, 5, Queensland Road", "price": 466000, "price_display": "\u00a3466,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-22", "address": "Flat 31, 5, Queensland Road", "price": 310000, "price_display": "\u00a3310,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-13", "address": "Flat 15, 5, Queensland Road", "price": 324000, "price_display": "\u00a3324,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-27", "address": "Flat 40, 5, Queensland Road", "price": 323000, "price_display": "\u00a3323,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-17", "address": "Flat 68, 5, Queensland Road", "price": 517000, "price_display": "\u00a3517,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-29", "address": "Flat 20, 5, Queensland Road", "price": 304580, "price_display": "\u00a3304,580", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-29", "address": "Flat 39, 5, Queensland Road", "price": 313000, "price_display": "\u00a3313,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-04-26", "address": "Flat 45, 5, Queensland Road", "price": 425000, "price_display": "\u00a3425,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-29", "address": "Flat 8, 5, Queensland Road", "price": 290000, "price_display": "\u00a3290,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-27", "address": "Flat 29, 5, Queensland Road", "price": 317000, "price_display": "\u00a3317,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-13", "address": "Flat 50, 5, Queensland Road", "price": 316220, "price_display": "\u00a3316,220", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-17", "address": "Flat 72, 5, Queensland Road", "price": 725000, "price_display": "\u00a3725,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-27", "address": "Flat 37, 5, Queensland Road", "price": 320000, "price_display": "\u00a3320,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-29", "address": "Flat 7, 5, Queensland Road", "price": 290000, "price_display": "\u00a3290,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-13", "address": "Flat 54, 5, Queensland Road", "price": 486000, "price_display": "\u00a3486,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-21", "address": "Flat 28, 5, Queensland Road", "price": 469000, "price_display": "\u00a3469,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-27", "address": "Flat 27, 5, Queensland Road", "price": 307490, "price_display": "\u00a3307,490", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-19", "address": "Flat 63, 5, Queensland Road", "price": 499999, "price_display": "\u00a3499,999", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-13", "address": "Flat 57, 5, Queensland Road", "price": 329000, "price_display": "\u00a3329,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-29", "address": "Flat 18, 5, Queensland Road", "price": 314000, "price_display": "\u00a3314,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-20", "address": "Flat 70, 5, Queensland Road", "price": 575000, "price_display": "\u00a3575,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-13", "address": "Flat 55, 5, Queensland Road", "price": 329000, "price_display": "\u00a3329,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-22", "address": "Flat 41, 5, Queensland Road", "price": 323000, "price_display": "\u00a3323,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-27", "address": "Flat 35, 5, Queensland Road", "price": 310400, "price_display": "\u00a3310,400", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-13", "address": "Flat 12, 5, Queensland Road", "price": 292000, "price_display": "\u00a3292,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-22", "address": "Flat 17, 5, Queensland Road", "price": 314000, "price_display": "\u00a3314,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-13", "address": "Flat 26, 5, Queensland Road", "price": 445000, "price_display": "\u00a3445,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-25", "address": "Flat 22, 5, Queensland Road", "price": 490000, "price_display": "\u00a3490,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-13", "address": "Flat 60, 5, Queensland Road", "price": 511000, "price_display": "\u00a3511,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-29", "address": "Flat 10, 5, Queensland Road", "price": 324000, "price_display": "\u00a3324,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-12", "address": "Flat 73, 5, Queensland Road", "price": 700000, "price_display": "\u00a3700,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-13", "address": "Flat 4, 5, Queensland Road", "price": 282000, "price_display": "\u00a3282,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-21", "address": "Flat 44, 5, Queensland Road", "price": 475000, "price_display": "\u00a3475,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-27", "address": "Flat 34, 5, Queensland Road", "price": 472000, "price_display": "\u00a3472,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-03", "address": "Flat 52, 5, Queensland Road", "price": 326000, "price_display": "\u00a3326,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-19", "address": "Flat 65, 5, Queensland Road", "price": 464630, "price_display": "\u00a3464,630", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-03-14", "address": "Flat 3, 5, Queensland Road", "price": 290000, "price_display": "\u00a3290,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-02", "address": "Flat 24, 5, Queensland Road", "price": 307490, "price_display": "\u00a3307,490", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-06", "address": "Flat 69, 5, Queensland Road", "price": 585000, "price_display": "\u00a3585,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-29", "address": "Flat 6, 5, Queensland Road", "price": 443000, "price_display": "\u00a3443,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-27", "address": "Flat 33, 5, Queensland Road", "price": 320000, "price_display": "\u00a3320,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-12", "address": "Flat 16, 5, Queensland Road", "price": 305000, "price_display": "\u00a3305,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-05", "address": "Flat 66, 5, Queensland Road", "price": 332000, "price_display": "\u00a3332,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-13", "address": "Flat 9, 5, Queensland Road", "price": 290000, "price_display": "\u00a3290,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-13", "address": "Flat 51, 5, Queensland Road", "price": 478000, "price_display": "\u00a3478,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-N7-7FE', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-N7-7FE');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-N7-7FE', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-N7-7FE', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-N7-7FE" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2013-11-22</td>
+            <td>Flat 21, 5, Queensland Road</td>
+            <td class="price">£466,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-11-03</td>
+            <td>Flat 56, 5, Queensland Road</td>
+            <td class="price">£580,000</td>
+        <td class="positive" title="Previous: £461,720 (2013-12-13)">+8.2%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 56, 5, Queensland Road</td>
+            <td class="price">£461,720</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-22</td>
+            <td>Flat 31, 5, Queensland Road</td>
+            <td class="price">£310,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-08-05</td>
+            <td>Flat 71, 5, Queensland Road</td>
+            <td class="price">£618,700</td>
+        <td class="positive" title="Previous: £517,000 (2013-12-17)">+2.1%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-17</td>
+            <td>Flat 71, 5, Queensland Road</td>
+            <td class="price">£517,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-10-13</td>
+            <td>Flat 23, 5, Queensland Road</td>
+            <td class="price">£429,995</td>
+        <td class="positive" title="Previous: £307,000 (2013-11-22)">+19.5%/yr</td></tr>
+
+        <tr>
+            <td>2013-11-22</td>
+            <td>Flat 23, 5, Queensland Road</td>
+            <td class="price">£307,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-03-24</td>
+            <td>Flat 49, 5, Queensland Road</td>
+            <td class="price">£615,000</td>
+        <td class="positive" title="Previous: £513,000 (2013-12-04)">+5.7%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-04</td>
+            <td>Flat 49, 5, Queensland Road</td>
+            <td class="price">£513,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 15, 5, Queensland Road</td>
+            <td class="price">£324,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-27</td>
+            <td>Flat 40, 5, Queensland Road</td>
+            <td class="price">£323,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-17</td>
+            <td>Flat 68, 5, Queensland Road</td>
+            <td class="price">£517,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-29</td>
+            <td>Flat 20, 5, Queensland Road</td>
+            <td class="price">£304,580</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>Flat 1, 5, Queensland Road</td>
+            <td class="price">£350,000</td>
+        <td class="positive" title="Previous: £287,000 (2013-11-29)">+12.3%/yr</td></tr>
+
+        <tr>
+            <td>2013-11-29</td>
+            <td>Flat 1, 5, Queensland Road</td>
+            <td class="price">£287,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-01-31</td>
+            <td>Flat 67, 5, Queensland Road</td>
+            <td class="price">£625,000</td>
+        <td class="positive" title="Previous: £499,950 (2013-12-17)">+2.8%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-17</td>
+            <td>Flat 67, 5, Queensland Road</td>
+            <td class="price">£499,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-29</td>
+            <td>Flat 39, 5, Queensland Road</td>
+            <td class="price">£313,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-04-26</td>
+            <td>Flat 45, 5, Queensland Road</td>
+            <td class="price">£425,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-10-17</td>
+            <td>Flat 59, 5, Queensland Road</td>
+            <td class="price">£435,000</td>
+        <td class="negative" title="Previous: £455,000 (2020-08-28)">-2.1%/yr</td></tr>
+
+        <tr>
+            <td>2020-08-28</td>
+            <td>Flat 59, 5, Queensland Road</td>
+            <td class="price">£455,000</td>
+        <td class="positive" title="Previous: £329,000 (2013-12-13)">+5.0%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 59, 5, Queensland Road</td>
+            <td class="price">£329,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-11-06</td>
+            <td>Flat 5, 5, Queensland Road</td>
+            <td class="price">£500,000</td>
+        <td class="positive" title="Previous: £301,670 (2013-11-29)">+29.8%/yr</td></tr>
+
+        <tr>
+            <td>2013-11-29</td>
+            <td>Flat 5, 5, Queensland Road</td>
+            <td class="price">£301,670</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-29</td>
+            <td>Flat 8, 5, Queensland Road</td>
+            <td class="price">£290,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-27</td>
+            <td>Flat 29, 5, Queensland Road</td>
+            <td class="price">£317,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 50, 5, Queensland Road</td>
+            <td class="price">£316,220</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-05-21</td>
+            <td>Flat 36, 5, Queensland Road</td>
+            <td class="price">£585,000</td>
+        <td class="positive" title="Previous: £472,000 (2013-11-27)">+2.9%/yr</td></tr>
+
+        <tr>
+            <td>2013-11-27</td>
+            <td>Flat 36, 5, Queensland Road</td>
+            <td class="price">£472,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-17</td>
+            <td>Flat 72, 5, Queensland Road</td>
+            <td class="price">£725,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-27</td>
+            <td>Flat 37, 5, Queensland Road</td>
+            <td class="price">£320,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-29</td>
+            <td>Flat 7, 5, Queensland Road</td>
+            <td class="price">£290,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 54, 5, Queensland Road</td>
+            <td class="price">£486,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-03-01</td>
+            <td>Flat 13, 5, Queensland Road</td>
+            <td class="price">£412,500</td>
+        <td class="positive" title="Previous: £321,000 (2013-11-29)">+2.8%/yr</td></tr>
+
+        <tr>
+            <td>2013-11-29</td>
+            <td>Flat 13, 5, Queensland Road</td>
+            <td class="price">£321,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-21</td>
+            <td>Flat 28, 5, Queensland Road</td>
+            <td class="price">£469,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-04-30</td>
+            <td>Flat 25, 5, Queensland Road</td>
+            <td class="price">£450,000</td>
+        <td class="positive" title="Previous: £418,000 (2021-03-26)">+2.4%/yr</td></tr>
+
+        <tr>
+            <td>2021-03-26</td>
+            <td>Flat 25, 5, Queensland Road</td>
+            <td class="price">£418,000</td>
+        <td class="positive" title="Previous: £307,490 (2013-11-22)">+4.3%/yr</td></tr>
+
+        <tr>
+            <td>2013-11-22</td>
+            <td>Flat 25, 5, Queensland Road</td>
+            <td class="price">£307,490</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-27</td>
+            <td>Flat 27, 5, Queensland Road</td>
+            <td class="price">£307,490</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-20</td>
+            <td>Flat 32, 5, Queensland Road</td>
+            <td class="price">£420,000</td>
+        <td class="positive" title="Previous: £320,000 (2013-11-27)">+4.9%/yr</td></tr>
+
+        <tr>
+            <td>2013-11-27</td>
+            <td>Flat 32, 5, Queensland Road</td>
+            <td class="price">£320,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-10-28</td>
+            <td>Flat 30, 5, Queensland Road</td>
+            <td class="price">£600,000</td>
+        <td class="positive" title="Previous: £469,000 (2013-11-27)">+30.8%/yr</td></tr>
+
+        <tr>
+            <td>2013-11-27</td>
+            <td>Flat 30, 5, Queensland Road</td>
+            <td class="price">£469,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-12-08</td>
+            <td>Flat 53, 5, Queensland Road</td>
+            <td class="price">£600,000</td>
+        <td class="positive" title="Previous: £590,000 (2020-11-09)">+0.3%/yr</td></tr>
+
+        <tr>
+            <td>2020-11-09</td>
+            <td>Flat 53, 5, Queensland Road</td>
+            <td class="price">£590,000</td>
+        <td class="positive" title="Previous: £483,000 (2013-12-13)">+2.9%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 53, 5, Queensland Road</td>
+            <td class="price">£483,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-19</td>
+            <td>Flat 63, 5, Queensland Road</td>
+            <td class="price">£499,999</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-10-15</td>
+            <td>Flat 43, 5, Queensland Road</td>
+            <td class="price">£410,000</td>
+        <td class="positive" title="Previous: £323,000 (2013-11-22)">+3.1%/yr</td></tr>
+
+        <tr>
+            <td>2013-11-22</td>
+            <td>Flat 43, 5, Queensland Road</td>
+            <td class="price">£323,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 57, 5, Queensland Road</td>
+            <td class="price">£329,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-29</td>
+            <td>Flat 18, 5, Queensland Road</td>
+            <td class="price">£314,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-20</td>
+            <td>Flat 70, 5, Queensland Road</td>
+            <td class="price">£575,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 55, 5, Queensland Road</td>
+            <td class="price">£329,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-22</td>
+            <td>Flat 41, 5, Queensland Road</td>
+            <td class="price">£323,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-27</td>
+            <td>Flat 35, 5, Queensland Road</td>
+            <td class="price">£310,400</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 12, 5, Queensland Road</td>
+            <td class="price">£292,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-22</td>
+            <td>Flat 17, 5, Queensland Road</td>
+            <td class="price">£314,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-09-29</td>
+            <td>Flat 61, 5, Queensland Road</td>
+            <td class="price">£612,500</td>
+        <td class="negative" title="Previous: £632,500 (2017-12-15)">-0.8%/yr</td></tr>
+
+        <tr>
+            <td>2017-12-15</td>
+            <td>Flat 61, 5, Queensland Road</td>
+            <td class="price">£632,500</td>
+        <td class="positive" title="Previous: £489,000 (2013-12-16)">+6.7%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-16</td>
+            <td>Flat 61, 5, Queensland Road</td>
+            <td class="price">£489,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 26, 5, Queensland Road</td>
+            <td class="price">£445,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-05-14</td>
+            <td>Flat 47, 5, Queensland Road</td>
+            <td class="price">£580,000</td>
+        <td class="positive" title="Previous: £483,000 (2013-12-11)">+2.5%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-11</td>
+            <td>Flat 47, 5, Queensland Road</td>
+            <td class="price">£483,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-10-28</td>
+            <td>Flat 14, 5, Queensland Road</td>
+            <td class="price">£595,000</td>
+        <td class="negative" title="Previous: £596,000 (2017-05-12)">-0.0%/yr</td></tr>
+
+        <tr>
+            <td>2017-05-12</td>
+            <td>Flat 14, 5, Queensland Road</td>
+            <td class="price">£596,000</td>
+        <td class="positive" title="Previous: £446,000 (2013-11-27)">+8.8%/yr</td></tr>
+
+        <tr>
+            <td>2013-11-27</td>
+            <td>Flat 14, 5, Queensland Road</td>
+            <td class="price">£446,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-03-29</td>
+            <td>Flat 2, 5, Queensland Road</td>
+            <td class="price">£364,000</td>
+        <td class="positive" title="Previous: £312,000 (2013-11-26)">+6.8%/yr</td></tr>
+
+        <tr>
+            <td>2013-11-26</td>
+            <td>Flat 2, 5, Queensland Road</td>
+            <td class="price">£312,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-25</td>
+            <td>Flat 22, 5, Queensland Road</td>
+            <td class="price">£490,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-11-21</td>
+            <td>Flat 42, 5, Queensland Road</td>
+            <td class="price">£620,000</td>
+        <td class="positive" title="Previous: £475,000 (2013-11-27)">+31.1%/yr</td></tr>
+
+        <tr>
+            <td>2013-11-27</td>
+            <td>Flat 42, 5, Queensland Road</td>
+            <td class="price">£475,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 60, 5, Queensland Road</td>
+            <td class="price">£511,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-29</td>
+            <td>Flat 10, 5, Queensland Road</td>
+            <td class="price">£324,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-12</td>
+            <td>Flat 73, 5, Queensland Road</td>
+            <td class="price">£700,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 4, 5, Queensland Road</td>
+            <td class="price">£282,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-06-27</td>
+            <td>Flat 48, 5, Queensland Road</td>
+            <td class="price">£425,000</td>
+        <td class="positive" title="Previous: £326,000 (2013-12-13)">+3.2%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 48, 5, Queensland Road</td>
+            <td class="price">£326,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-08-11</td>
+            <td>Flat 19, 5, Queensland Road</td>
+            <td class="price">£740,000</td>
+        <td class="positive" title="Previous: £485,000 (2013-12-06)">+12.2%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-06</td>
+            <td>Flat 19, 5, Queensland Road</td>
+            <td class="price">£485,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-21</td>
+            <td>Flat 44, 5, Queensland Road</td>
+            <td class="price">£475,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-27</td>
+            <td>Flat 34, 5, Queensland Road</td>
+            <td class="price">£472,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-05</td>
+            <td>Flat 38, 5, Queensland Road</td>
+            <td class="price">£595,000</td>
+        <td class="positive" title="Previous: £497,000 (2013-11-19)">+2.5%/yr</td></tr>
+
+        <tr>
+            <td>2013-11-19</td>
+            <td>Flat 38, 5, Queensland Road</td>
+            <td class="price">£497,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-03</td>
+            <td>Flat 52, 5, Queensland Road</td>
+            <td class="price">£326,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-19</td>
+            <td>Flat 65, 5, Queensland Road</td>
+            <td class="price">£464,630</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-03-14</td>
+            <td>Flat 3, 5, Queensland Road</td>
+            <td class="price">£290,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-06-24</td>
+            <td>Flat 64, 5, Queensland Road</td>
+            <td class="price">£499,950</td>
+        <td class="positive" title="Previous: £332,000 (2013-12-19)">+31.1%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-19</td>
+            <td>Flat 64, 5, Queensland Road</td>
+            <td class="price">£332,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-02</td>
+            <td>Flat 24, 5, Queensland Road</td>
+            <td class="price">£307,490</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-02-19</td>
+            <td>Flat 58, 5, Queensland Road</td>
+            <td class="price">£580,000</td>
+        <td class="negative" title="Previous: £600,000 (2016-07-11)">-0.9%/yr</td></tr>
+
+        <tr>
+            <td>2016-07-11</td>
+            <td>Flat 58, 5, Queensland Road</td>
+            <td class="price">£600,000</td>
+        <td class="positive" title="Previous: £485,000 (2013-12-13)">+8.6%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 58, 5, Queensland Road</td>
+            <td class="price">£485,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-06</td>
+            <td>Flat 69, 5, Queensland Road</td>
+            <td class="price">£585,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-29</td>
+            <td>Flat 6, 5, Queensland Road</td>
+            <td class="price">£443,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-08-16</td>
+            <td>Flat 62, 5, Queensland Road</td>
+            <td class="price">£435,000</td>
+        <td class="positive" title="Previous: £332,000 (2013-12-17)">+2.6%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-17</td>
+            <td>Flat 62, 5, Queensland Road</td>
+            <td class="price">£332,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-27</td>
+            <td>Flat 33, 5, Queensland Road</td>
+            <td class="price">£320,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-12</td>
+            <td>Flat 16, 5, Queensland Road</td>
+            <td class="price">£305,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-05</td>
+            <td>Flat 66, 5, Queensland Road</td>
+            <td class="price">£332,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 9, 5, Queensland Road</td>
+            <td class="price">£290,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-13</td>
+            <td>Flat 51, 5, Queensland Road</td>
+            <td class="price">£478,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-04-29</td>
+            <td>Flat 46, 5, Queensland Road</td>
+            <td class="price">£597,500</td>
+        <td class="positive" title="Previous: £475,000 (2013-11-28)">+2.8%/yr</td></tr>
+
+        <tr>
+            <td>2013-11-28</td>
+            <td>Flat 46, 5, Queensland Road</td>
+            <td class="price">£475,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-N7-7FE" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-N7-7FE" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2013, 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [399480, 503333, 444986, 514666, 645875, 420000, 541666, 542214, 540240, 418750, 442500, 600000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2013, 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [332000, 600000, 499950, 580000, 632500, 420000, 580000, 585000, 597500, 425000, 450000, 600000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - N7 7FE',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-N7-7FE', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 105</p>
+                    <p><strong>Unique Properties:</strong> 72</p>
+                    <p><strong>Average Price:</strong> £440,431</p>
+                    <p><strong>Median Price:</strong> £446,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-N7-7FE" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector N7 7 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector N7 7</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-N7-7FE', 'N7-7FE')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-N7-7FE', 'N7-7FE')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-N7-7FE" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-N7-7FE" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [259292, 242378, 289201, 336894, 260594, 266676, 342704, 325434, 375607, 468427, 550660, 553199, 438438, 490999, 521230, 652998, 606084, 743347, 564643, 604144, 598849],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [244950, 220000, 248247, 297500, 249500, 253717, 249995, 295250, 332000, 435000, 502500, 415000, 425000, 472000, 442500, 545000, 501250, 572500, 500000, 495000, 512500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector N7 7 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-N7-7FE', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-N7-7FE" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £137,000</div>
+                        <div class="cell-sell">Sell: £160,000</div>
+                        <div class="cell-return">+33.7%/yr</div>
+                        <div class="cell-count">(1 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £254,644</div>
+                        <div class="cell-sell">Sell: £320,550</div>
+                        <div class="cell-return">+8.4%/yr</div>
+                        <div class="cell-count">(9 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £281,877</div>
+                        <div class="cell-sell">Sell: £498,388</div>
+                        <div class="cell-return">+7.4%/yr</div>
+                        <div class="cell-count">(9 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £301,000</div>
+                        <div class="cell-sell">Sell: £753,000</div>
+                        <div class="cell-return">+8.1%/yr</div>
+                        <div class="cell-count">(2 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £176,666</div>
+                        <div class="cell-sell">Sell: £386,666</div>
+                        <div class="cell-return">+4.6%/yr</div>
+                        <div class="cell-count">(3 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £239,611</div>
+                        <div class="cell-sell">Sell: £292,866</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(21 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £271,398</div>
+                        <div class="cell-sell">Sell: £396,611</div>
+                        <div class="cell-return">+8.5%/yr</div>
+                        <div class="cell-count">(90 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £272,665</div>
+                        <div class="cell-sell">Sell: £542,276</div>
+                        <div class="cell-return">+11.0%/yr</div>
+                        <div class="cell-count">(57 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £313,372</div>
+                        <div class="cell-sell">Sell: £625,445</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(24 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £339,623</div>
+                        <div class="cell-sell">Sell: £464,079</div>
+                        <div class="cell-return">+23.6%/yr</div>
+                        <div class="cell-count">(30 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £427,737</div>
+                        <div class="cell-sell">Sell: £537,458</div>
+                        <div class="cell-return">+6.2%/yr</div>
+                        <div class="cell-count">(103 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £520,786</div>
+                        <div class="cell-sell">Sell: £580,403</div>
+                        <div class="cell-return">+1.6%/yr</div>
+                        <div class="cell-count">(99 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £427,711</div>
+                        <div class="cell-sell">Sell: £437,833</div>
+                        <div class="cell-return">+1.9%/yr</div>
+                        <div class="cell-count">(21 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £540,671</div>
+                        <div class="cell-sell">Sell: £568,426</div>
+                        <div class="cell-return">+0.8%/yr</div>
+                        <div class="cell-count">(67 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £921,866</div>
+                        <div class="cell-sell">Sell: £781,720</div>
+                        <div class="cell-return">+10.3%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-N7-7FE" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District N7 Analysis</h4>
+                <p class="area-info">Viewing data for entire N7 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-N7-7FE', 'N7-7FE')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-N7-7FE', 'N7-7FE')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-N7-7FE" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-N7-7FE" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [269222, 291020, 338587, 342857, 308446, 365452, 406269, 400216, 434432, 501301, 579780, 625172, 606934, 609489, 627217, 674695, 668958, 705359, 690141, 704025, 688773],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [241000, 262500, 297660, 295000, 275000, 325000, 340000, 359949, 385000, 450000, 500000, 500000, 513500, 515000, 545000, 565000, 560000, 600000, 553500, 556500, 599000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District N7 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-N7-7FE', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-N7-7FE" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £209,921</div>
+                        <div class="cell-sell">Sell: £244,278</div>
+                        <div class="cell-return">+4.0%/yr</div>
+                        <div class="cell-count">(7 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £262,996</div>
+                        <div class="cell-sell">Sell: £341,765</div>
+                        <div class="cell-return">+12.2%/yr</div>
+                        <div class="cell-count">(161 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £275,783</div>
+                        <div class="cell-sell">Sell: £442,289</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(146 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £254,739</div>
+                        <div class="cell-sell">Sell: £556,570</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(34 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £257,547</div>
+                        <div class="cell-sell">Sell: £584,540</div>
+                        <div class="cell-return">+4.9%/yr</div>
+                        <div class="cell-count">(36 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £285,136</div>
+                        <div class="cell-sell">Sell: £334,932</div>
+                        <div class="cell-return">+9.6%/yr</div>
+                        <div class="cell-count">(248 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £315,373</div>
+                        <div class="cell-sell">Sell: £459,914</div>
+                        <div class="cell-return">+7.7%/yr</div>
+                        <div class="cell-count">(767 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £321,398</div>
+                        <div class="cell-sell">Sell: £567,430</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(369 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £326,619</div>
+                        <div class="cell-sell">Sell: £604,175</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(288 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £386,991</div>
+                        <div class="cell-sell">Sell: £544,859</div>
+                        <div class="cell-return">+17.0%/yr</div>
+                        <div class="cell-count">(224 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £488,645</div>
+                        <div class="cell-sell">Sell: £602,748</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(547 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £497,867</div>
+                        <div class="cell-sell">Sell: £627,510</div>
+                        <div class="cell-return">+2.8%/yr</div>
+                        <div class="cell-count">(510 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £676,772</div>
+                        <div class="cell-sell">Sell: £609,751</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(110 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £602,365</div>
+                        <div class="cell-sell">Sell: £652,613</div>
+                        <div class="cell-return">+2.2%/yr</div>
+                        <div class="cell-count">(443 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £735,035</div>
+                        <div class="cell-sell">Sell: £810,915</div>
+                        <div class="cell-return">+5.9%/yr</div>
+                        <div class="cell-count">(125 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'N7 7'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'N7'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

@@ -1,0 +1,1244 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W6 0RP</h3>
+            <div class="header-stats">
+                <span><strong>66</strong> transactions</span>
+                <span><strong>46</strong> properties</span>
+                <span>Avg: <strong>£254,955</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W6-0RP')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W6-0RP')">
+                Sector (W6 0)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W6-0RP')">
+                District (W6)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W6-0RP" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W6-0RP', 'W6-0RP')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W6-0RP', 'W6-0RP')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W6-0RP', 'W6-0RP')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W6-0RP" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W6-0RP" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 182, Kings Court, Hamlet Gardens", "dates": ["2007-04-11", "2018-04-06"], "prices": [209950, 288000], "hover_texts": ["<b>Flat 182, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 2<br>Date: 2007-04-11<br>Sale Price: \u00a3209,950", "<b>Flat 182, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 2<br>Date: 2018-04-06<br>Sale Price: \u00a3288,000<br>Previous Purchase: \u00a3209,950<br>Previous Date: 2007-04-11<br>Annual Return: +2.9%/yr<br>Held for: 11.0 years"], "transaction_count": 2}, {"address": "Flat 177, Kings Court, Hamlet Gardens", "dates": ["2007-07-20", "2025-02-28"], "prices": [229950, 275000], "hover_texts": ["<b>Flat 177, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 2<br>Date: 2007-07-20<br>Sale Price: \u00a3229,950", "<b>Flat 177, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 2<br>Date: 2025-02-28<br>Sale Price: \u00a3275,000<br>Previous Purchase: \u00a3229,950<br>Previous Date: 2007-07-20<br>Annual Return: +1.0%/yr<br>Held for: 17.6 years"], "transaction_count": 2}, {"address": "Flat 122, Kings Court, Hamlet Gardens", "dates": ["2013-05-10", "2017-01-06", "2019-07-31"], "prices": [167000, 265000, 248000], "hover_texts": ["<b>Flat 122, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 3<br>Date: 2013-05-10<br>Sale Price: \u00a3167,000", "<b>Flat 122, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 3<br>Date: 2017-01-06<br>Sale Price: \u00a3265,000<br>Previous Purchase: \u00a3167,000<br>Previous Date: 2013-05-10<br>Annual Return: +13.4%/yr<br>Held for: 3.7 years", "<b>Flat 122, Kings Court, Hamlet Gardens</b><br>Transaction 3 of 3<br>Date: 2019-07-31<br>Sale Price: \u00a3248,000<br>Previous Purchase: \u00a3265,000<br>Previous Date: 2017-01-06<br>Annual Return: -2.5%/yr<br>Held for: 2.6 years"], "transaction_count": 3}, {"address": "Flat 164, Kings Court, Hamlet Gardens", "dates": ["2021-09-07", "2022-03-14"], "prices": [180000, 180000], "hover_texts": ["<b>Flat 164, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 2<br>Date: 2021-09-07<br>Sale Price: \u00a3180,000", "<b>Flat 164, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 2<br>Date: 2022-03-14<br>Sale Price: \u00a3180,000<br>Previous Purchase: \u00a3180,000<br>Previous Date: 2021-09-07<br>Annual Return: +0.0%/yr<br>Held for: 0.5 years"], "transaction_count": 2}, {"address": "Flat 134, Kings Court, Hamlet Gardens", "dates": ["2019-03-27", "2023-09-29"], "prices": [350000, 365000], "hover_texts": ["<b>Flat 134, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 2<br>Date: 2019-03-27<br>Sale Price: \u00a3350,000", "<b>Flat 134, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 2<br>Date: 2023-09-29<br>Sale Price: \u00a3365,000<br>Previous Purchase: \u00a3350,000<br>Previous Date: 2019-03-27<br>Annual Return: +0.9%/yr<br>Held for: 4.5 years"], "transaction_count": 2}, {"address": "Flat 144, Kings Court, Hamlet Gardens", "dates": ["2005-10-20", "2022-07-15"], "prices": [139950, 262000], "hover_texts": ["<b>Flat 144, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 2<br>Date: 2005-10-20<br>Sale Price: \u00a3139,950", "<b>Flat 144, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 2<br>Date: 2022-07-15<br>Sale Price: \u00a3262,000<br>Previous Purchase: \u00a3139,950<br>Previous Date: 2005-10-20<br>Annual Return: +3.8%/yr<br>Held for: 16.7 years"], "transaction_count": 2}, {"address": "Flat 154, Kings Court, Hamlet Gardens", "dates": ["2017-10-19", "2020-08-05", "2024-10-30"], "prices": [260000, 310000, 325000], "hover_texts": ["<b>Flat 154, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 3<br>Date: 2017-10-19<br>Sale Price: \u00a3260,000", "<b>Flat 154, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 3<br>Date: 2020-08-05<br>Sale Price: \u00a3310,000<br>Previous Purchase: \u00a3260,000<br>Previous Date: 2017-10-19<br>Annual Return: +6.5%/yr<br>Held for: 2.8 years", "<b>Flat 154, Kings Court, Hamlet Gardens</b><br>Transaction 3 of 3<br>Date: 2024-10-30<br>Sale Price: \u00a3325,000<br>Previous Purchase: \u00a3310,000<br>Previous Date: 2020-08-05<br>Annual Return: +1.1%/yr<br>Held for: 4.2 years"], "transaction_count": 3}, {"address": "Flat 131, Kings Court, Hamlet Gardens", "dates": ["2008-12-19", "2013-07-08"], "prices": [165000, 255000], "hover_texts": ["<b>Flat 131, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 2<br>Date: 2008-12-19<br>Sale Price: \u00a3165,000", "<b>Flat 131, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 2<br>Date: 2013-07-08<br>Sale Price: \u00a3255,000<br>Previous Purchase: \u00a3165,000<br>Previous Date: 2008-12-19<br>Annual Return: +10.0%/yr<br>Held for: 4.5 years"], "transaction_count": 2}, {"address": "Flat 137, Kings Court, Hamlet Gardens", "dates": ["2006-09-22", "2013-03-28"], "prices": [192000, 250000], "hover_texts": ["<b>Flat 137, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 2<br>Date: 2006-09-22<br>Sale Price: \u00a3192,000", "<b>Flat 137, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 2<br>Date: 2013-03-28<br>Sale Price: \u00a3250,000<br>Previous Purchase: \u00a3192,000<br>Previous Date: 2006-09-22<br>Annual Return: +4.1%/yr<br>Held for: 6.5 years"], "transaction_count": 2}, {"address": "Flat 139, Kings Court, Hamlet Gardens", "dates": ["2019-11-01", "2022-06-15"], "prices": [275000, 255000], "hover_texts": ["<b>Flat 139, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 2<br>Date: 2019-11-01<br>Sale Price: \u00a3275,000", "<b>Flat 139, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 2<br>Date: 2022-06-15<br>Sale Price: \u00a3255,000<br>Previous Purchase: \u00a3275,000<br>Previous Date: 2019-11-01<br>Annual Return: -2.8%/yr<br>Held for: 2.6 years"], "transaction_count": 2}, {"address": "Flat 188, Kings Court, Hamlet Gardens", "dates": ["2021-03-31", "2022-01-07"], "prices": [245000, 315000], "hover_texts": ["<b>Flat 188, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 2<br>Date: 2021-03-31<br>Sale Price: \u00a3245,000", "<b>Flat 188, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 2<br>Date: 2022-01-07<br>Sale Price: \u00a3315,000<br>Previous Purchase: \u00a3245,000<br>Previous Date: 2021-03-31<br>Annual Return: +38.5%/yr<br>Held for: 0.8 years"], "transaction_count": 2}, {"address": "Flat 127, Kings Court, Hamlet Gardens", "dates": ["2011-11-25", "2013-08-23"], "prices": [185000, 298000], "hover_texts": ["<b>Flat 127, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 2<br>Date: 2011-11-25<br>Sale Price: \u00a3185,000", "<b>Flat 127, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 2<br>Date: 2013-08-23<br>Sale Price: \u00a3298,000<br>Previous Purchase: \u00a3185,000<br>Previous Date: 2011-11-25<br>Annual Return: +31.4%/yr<br>Held for: 1.7 years"], "transaction_count": 2}, {"address": "Flat 166, Kings Court, Hamlet Gardens", "dates": ["2006-04-28", "2007-09-03", "2023-01-23"], "prices": [166000, 230000, 290000], "hover_texts": ["<b>Flat 166, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 3<br>Date: 2006-04-28<br>Sale Price: \u00a3166,000", "<b>Flat 166, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 3<br>Date: 2007-09-03<br>Sale Price: \u00a3230,000<br>Previous Purchase: \u00a3166,000<br>Previous Date: 2006-04-28<br>Annual Return: +27.3%/yr<br>Held for: 1.4 years", "<b>Flat 166, Kings Court, Hamlet Gardens</b><br>Transaction 3 of 3<br>Date: 2023-01-23<br>Sale Price: \u00a3290,000<br>Previous Purchase: \u00a3230,000<br>Previous Date: 2007-09-03<br>Annual Return: +1.5%/yr<br>Held for: 15.4 years"], "transaction_count": 3}, {"address": "Flat 148, Kings Court, Hamlet Gardens", "dates": ["2006-07-18", "2009-09-21"], "prices": [170000, 220000], "hover_texts": ["<b>Flat 148, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 2<br>Date: 2006-07-18<br>Sale Price: \u00a3170,000", "<b>Flat 148, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 2<br>Date: 2009-09-21<br>Sale Price: \u00a3220,000<br>Previous Purchase: \u00a3170,000<br>Previous Date: 2006-07-18<br>Annual Return: +8.4%/yr<br>Held for: 3.2 years"], "transaction_count": 2}, {"address": "Flat 173, Kings Court, Hamlet Gardens", "dates": ["2007-02-19", "2022-03-11"], "prices": [199950, 364000], "hover_texts": ["<b>Flat 173, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 2<br>Date: 2007-02-19<br>Sale Price: \u00a3199,950", "<b>Flat 173, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 2<br>Date: 2022-03-11<br>Sale Price: \u00a3364,000<br>Previous Purchase: \u00a3199,950<br>Previous Date: 2007-02-19<br>Annual Return: +4.1%/yr<br>Held for: 15.1 years"], "transaction_count": 2}, {"address": "Flat 187, Kings Court, Hamlet Gardens", "dates": ["2007-10-31", "2022-05-27"], "prices": [279950, 390000], "hover_texts": ["<b>Flat 187, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 2<br>Date: 2007-10-31<br>Sale Price: \u00a3279,950", "<b>Flat 187, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 2<br>Date: 2022-05-27<br>Sale Price: \u00a3390,000<br>Previous Purchase: \u00a3279,950<br>Previous Date: 2007-10-31<br>Annual Return: +2.3%/yr<br>Held for: 14.6 years"], "transaction_count": 2}, {"address": "Flat 178, Kings Court, Hamlet Gardens", "dates": ["2006-08-24", "2010-07-22"], "prices": [141500, 172000], "hover_texts": ["<b>Flat 178, Kings Court, Hamlet Gardens</b><br>Transaction 1 of 2<br>Date: 2006-08-24<br>Sale Price: \u00a3141,500", "<b>Flat 178, Kings Court, Hamlet Gardens</b><br>Transaction 2 of 2<br>Date: 2010-07-22<br>Sale Price: \u00a3172,000<br>Previous Purchase: \u00a3141,500<br>Previous Date: 2006-08-24<br>Annual Return: +5.1%/yr<br>Held for: 3.9 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2007-05-04", "address": "Flat 185, Kings Court, Hamlet Gardens", "price": 167000, "price_display": "\u00a3167,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-02-16", "address": "Flat 184, Kings Court, Hamlet Gardens", "price": 160000, "price_display": "\u00a3160,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-05-06", "address": "Flat 125, Kings Court, Hamlet Gardens", "price": 490000, "price_display": "\u00a3490,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-25", "address": "Flat 175, Kings Court, Hamlet Gardens", "price": 348500, "price_display": "\u00a3348,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-03-06", "address": "Flat 186, Kings Court, Hamlet Gardens", "price": 355000, "price_display": "\u00a3355,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-06-30", "address": "Flat 162, Kings Court, Hamlet Gardens", "price": 202000, "price_display": "\u00a3202,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-02-21", "address": "Flat 191, Kings Court, Hamlet Gardens", "price": 365000, "price_display": "\u00a3365,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-07-29", "address": "Flat 124, Kings Court, Hamlet Gardens", "price": 325000, "price_display": "\u00a3325,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-02-28", "address": "Flat 153, Kings Court, Hamlet Gardens", "price": 280000, "price_display": "\u00a3280,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-04-11", "address": "Flat 136, Kings Court, Hamlet Gardens", "price": 215000, "price_display": "\u00a3215,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-01-17", "address": "Flat 189, Kings Court, Hamlet Gardens", "price": 323641, "price_display": "\u00a3323,641", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2012-04-27", "address": "Flat 167, Kings Court, Hamlet Gardens", "price": 230175, "price_display": "\u00a3230,175", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-03-10", "address": "Flat 156, Kings Court, Hamlet Gardens", "price": 322550, "price_display": "\u00a3322,550", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-04-07", "address": "Flat 176, Kings Court, Hamlet Gardens", "price": 255000, "price_display": "\u00a3255,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-12-01", "address": "Flat 147, Kings Court, Hamlet Gardens", "price": 197500, "price_display": "\u00a3197,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-10-19", "address": "Flat 135, Kings Court, Hamlet Gardens", "price": 260000, "price_display": "\u00a3260,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-06-22", "address": "Flat 138, Kings Court, Hamlet Gardens", "price": 300000, "price_display": "\u00a3300,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-11-11", "address": "Flat 123, Kings Court, Hamlet Gardens", "price": 290000, "price_display": "\u00a3290,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-11-25", "address": "Flat 160, Kings Court, Hamlet Gardens", "price": 250000, "price_display": "\u00a3250,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-08-04", "address": "Flat 152, Kings Court, Hamlet Gardens", "price": 205000, "price_display": "\u00a3205,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-09-03", "address": "Flat 168, Kings Court, Hamlet Gardens", "price": 165000, "price_display": "\u00a3165,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-01-10", "address": "Flat 170, Kings Court, Hamlet Gardens", "price": 193500, "price_display": "\u00a3193,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-07-07", "address": "Flat 174, Kings Court, Hamlet Gardens", "price": 341000, "price_display": "\u00a3341,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-05-26", "address": "Flat 149, Kings Court, Hamlet Gardens", "price": 265000, "price_display": "\u00a3265,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-03-25", "address": "Flat 132, Kings Court, Hamlet Gardens", "price": 305000, "price_display": "\u00a3305,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-10-31", "address": "Flat 146, Kings Court, Hamlet Gardens", "price": 243000, "price_display": "\u00a3243,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-08-09", "address": "Flat 192, Kings Court, Hamlet Gardens", "price": 245000, "price_display": "\u00a3245,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-06-10", "address": "Flat 151, Kings Court, Hamlet Gardens", "price": 240000, "price_display": "\u00a3240,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-03-27", "address": "Flat 179, Kings Court, Hamlet Gardens", "price": 174950, "price_display": "\u00a3174,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W6-0RP', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W6-0RP');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W6-0RP', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W6-0RP', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W6-0RP" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2007-05-04</td>
+            <td>Flat 185, Kings Court, Hamlet Gardens</td>
+            <td class="price">£167,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-06</td>
+            <td>Flat 182, Kings Court, Hamlet Gardens</td>
+            <td class="price">£288,000</td>
+        <td class="positive" title="Previous: £209,950 (2007-04-11)">+2.9%/yr</td></tr>
+
+        <tr>
+            <td>2007-04-11</td>
+            <td>Flat 182, Kings Court, Hamlet Gardens</td>
+            <td class="price">£209,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-02-16</td>
+            <td>Flat 184, Kings Court, Hamlet Gardens</td>
+            <td class="price">£160,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-02-28</td>
+            <td>Flat 177, Kings Court, Hamlet Gardens</td>
+            <td class="price">£275,000</td>
+        <td class="positive" title="Previous: £229,950 (2007-07-20)">+1.0%/yr</td></tr>
+
+        <tr>
+            <td>2007-07-20</td>
+            <td>Flat 177, Kings Court, Hamlet Gardens</td>
+            <td class="price">£229,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-07-31</td>
+            <td>Flat 122, Kings Court, Hamlet Gardens</td>
+            <td class="price">£248,000</td>
+        <td class="negative" title="Previous: £265,000 (2017-01-06)">-2.5%/yr</td></tr>
+
+        <tr>
+            <td>2017-01-06</td>
+            <td>Flat 122, Kings Court, Hamlet Gardens</td>
+            <td class="price">£265,000</td>
+        <td class="positive" title="Previous: £167,000 (2013-05-10)">+13.4%/yr</td></tr>
+
+        <tr>
+            <td>2013-05-10</td>
+            <td>Flat 122, Kings Court, Hamlet Gardens</td>
+            <td class="price">£167,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-05-06</td>
+            <td>Flat 125, Kings Court, Hamlet Gardens</td>
+            <td class="price">£490,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-25</td>
+            <td>Flat 175, Kings Court, Hamlet Gardens</td>
+            <td class="price">£348,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-03-06</td>
+            <td>Flat 186, Kings Court, Hamlet Gardens</td>
+            <td class="price">£355,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-14</td>
+            <td>Flat 164, Kings Court, Hamlet Gardens</td>
+            <td class="price">£180,000</td>
+        <td class="negative" title="Previous: £180,000 (2021-09-07)">+0.0%/yr</td></tr>
+
+        <tr>
+            <td>2021-09-07</td>
+            <td>Flat 164, Kings Court, Hamlet Gardens</td>
+            <td class="price">£180,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-09-29</td>
+            <td>Flat 134, Kings Court, Hamlet Gardens</td>
+            <td class="price">£365,000</td>
+        <td class="positive" title="Previous: £350,000 (2019-03-27)">+0.9%/yr</td></tr>
+
+        <tr>
+            <td>2019-03-27</td>
+            <td>Flat 134, Kings Court, Hamlet Gardens</td>
+            <td class="price">£350,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-07-15</td>
+            <td>Flat 144, Kings Court, Hamlet Gardens</td>
+            <td class="price">£262,000</td>
+        <td class="positive" title="Previous: £139,950 (2005-10-20)">+3.8%/yr</td></tr>
+
+        <tr>
+            <td>2005-10-20</td>
+            <td>Flat 144, Kings Court, Hamlet Gardens</td>
+            <td class="price">£139,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-10-30</td>
+            <td>Flat 154, Kings Court, Hamlet Gardens</td>
+            <td class="price">£325,000</td>
+        <td class="positive" title="Previous: £310,000 (2020-08-05)">+1.1%/yr</td></tr>
+
+        <tr>
+            <td>2020-08-05</td>
+            <td>Flat 154, Kings Court, Hamlet Gardens</td>
+            <td class="price">£310,000</td>
+        <td class="positive" title="Previous: £260,000 (2017-10-19)">+6.5%/yr</td></tr>
+
+        <tr>
+            <td>2017-10-19</td>
+            <td>Flat 154, Kings Court, Hamlet Gardens</td>
+            <td class="price">£260,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-30</td>
+            <td>Flat 162, Kings Court, Hamlet Gardens</td>
+            <td class="price">£202,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-07-08</td>
+            <td>Flat 131, Kings Court, Hamlet Gardens</td>
+            <td class="price">£255,000</td>
+        <td class="positive" title="Previous: £165,000 (2008-12-19)">+10.0%/yr</td></tr>
+
+        <tr>
+            <td>2008-12-19</td>
+            <td>Flat 131, Kings Court, Hamlet Gardens</td>
+            <td class="price">£165,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-02-21</td>
+            <td>Flat 191, Kings Court, Hamlet Gardens</td>
+            <td class="price">£365,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-03-28</td>
+            <td>Flat 137, Kings Court, Hamlet Gardens</td>
+            <td class="price">£250,000</td>
+        <td class="positive" title="Previous: £192,000 (2006-09-22)">+4.1%/yr</td></tr>
+
+        <tr>
+            <td>2006-09-22</td>
+            <td>Flat 137, Kings Court, Hamlet Gardens</td>
+            <td class="price">£192,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-07-29</td>
+            <td>Flat 124, Kings Court, Hamlet Gardens</td>
+            <td class="price">£325,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-02-28</td>
+            <td>Flat 153, Kings Court, Hamlet Gardens</td>
+            <td class="price">£280,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-04-11</td>
+            <td>Flat 136, Kings Court, Hamlet Gardens</td>
+            <td class="price">£215,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-01-17</td>
+            <td>Flat 189, Kings Court, Hamlet Gardens</td>
+            <td class="price">£323,641</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-04-27</td>
+            <td>Flat 167, Kings Court, Hamlet Gardens</td>
+            <td class="price">£230,175</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-03-10</td>
+            <td>Flat 156, Kings Court, Hamlet Gardens</td>
+            <td class="price">£322,550</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-04-07</td>
+            <td>Flat 176, Kings Court, Hamlet Gardens</td>
+            <td class="price">£255,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-12-01</td>
+            <td>Flat 147, Kings Court, Hamlet Gardens</td>
+            <td class="price">£197,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-06-15</td>
+            <td>Flat 139, Kings Court, Hamlet Gardens</td>
+            <td class="price">£255,000</td>
+        <td class="negative" title="Previous: £275,000 (2019-11-01)">-2.8%/yr</td></tr>
+
+        <tr>
+            <td>2019-11-01</td>
+            <td>Flat 139, Kings Court, Hamlet Gardens</td>
+            <td class="price">£275,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-10-19</td>
+            <td>Flat 135, Kings Court, Hamlet Gardens</td>
+            <td class="price">£260,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-22</td>
+            <td>Flat 138, Kings Court, Hamlet Gardens</td>
+            <td class="price">£300,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-01-07</td>
+            <td>Flat 188, Kings Court, Hamlet Gardens</td>
+            <td class="price">£315,000</td>
+        <td class="positive" title="Previous: £245,000 (2021-03-31)">+38.5%/yr</td></tr>
+
+        <tr>
+            <td>2021-03-31</td>
+            <td>Flat 188, Kings Court, Hamlet Gardens</td>
+            <td class="price">£245,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-11-11</td>
+            <td>Flat 123, Kings Court, Hamlet Gardens</td>
+            <td class="price">£290,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-11-25</td>
+            <td>Flat 160, Kings Court, Hamlet Gardens</td>
+            <td class="price">£250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-08-04</td>
+            <td>Flat 152, Kings Court, Hamlet Gardens</td>
+            <td class="price">£205,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-09-03</td>
+            <td>Flat 168, Kings Court, Hamlet Gardens</td>
+            <td class="price">£165,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-01-10</td>
+            <td>Flat 170, Kings Court, Hamlet Gardens</td>
+            <td class="price">£193,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-07-07</td>
+            <td>Flat 174, Kings Court, Hamlet Gardens</td>
+            <td class="price">£341,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-08-23</td>
+            <td>Flat 127, Kings Court, Hamlet Gardens</td>
+            <td class="price">£298,000</td>
+        <td class="positive" title="Previous: £185,000 (2011-11-25)">+31.4%/yr</td></tr>
+
+        <tr>
+            <td>2011-11-25</td>
+            <td>Flat 127, Kings Court, Hamlet Gardens</td>
+            <td class="price">£185,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-05-26</td>
+            <td>Flat 149, Kings Court, Hamlet Gardens</td>
+            <td class="price">£265,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-01-23</td>
+            <td>Flat 166, Kings Court, Hamlet Gardens</td>
+            <td class="price">£290,000</td>
+        <td class="positive" title="Previous: £230,000 (2007-09-03)">+1.5%/yr</td></tr>
+
+        <tr>
+            <td>2007-09-03</td>
+            <td>Flat 166, Kings Court, Hamlet Gardens</td>
+            <td class="price">£230,000</td>
+        <td class="positive" title="Previous: £166,000 (2006-04-28)">+27.3%/yr</td></tr>
+
+        <tr>
+            <td>2006-04-28</td>
+            <td>Flat 166, Kings Court, Hamlet Gardens</td>
+            <td class="price">£166,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-25</td>
+            <td>Flat 132, Kings Court, Hamlet Gardens</td>
+            <td class="price">£305,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-10-31</td>
+            <td>Flat 146, Kings Court, Hamlet Gardens</td>
+            <td class="price">£243,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-08-09</td>
+            <td>Flat 192, Kings Court, Hamlet Gardens</td>
+            <td class="price">£245,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-09-21</td>
+            <td>Flat 148, Kings Court, Hamlet Gardens</td>
+            <td class="price">£220,000</td>
+        <td class="positive" title="Previous: £170,000 (2006-07-18)">+8.4%/yr</td></tr>
+
+        <tr>
+            <td>2006-07-18</td>
+            <td>Flat 148, Kings Court, Hamlet Gardens</td>
+            <td class="price">£170,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-06-10</td>
+            <td>Flat 151, Kings Court, Hamlet Gardens</td>
+            <td class="price">£240,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-03-27</td>
+            <td>Flat 179, Kings Court, Hamlet Gardens</td>
+            <td class="price">£174,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-11</td>
+            <td>Flat 173, Kings Court, Hamlet Gardens</td>
+            <td class="price">£364,000</td>
+        <td class="positive" title="Previous: £199,950 (2007-02-19)">+4.1%/yr</td></tr>
+
+        <tr>
+            <td>2007-02-19</td>
+            <td>Flat 173, Kings Court, Hamlet Gardens</td>
+            <td class="price">£199,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-05-27</td>
+            <td>Flat 187, Kings Court, Hamlet Gardens</td>
+            <td class="price">£390,000</td>
+        <td class="positive" title="Previous: £279,950 (2007-10-31)">+2.3%/yr</td></tr>
+
+        <tr>
+            <td>2007-10-31</td>
+            <td>Flat 187, Kings Court, Hamlet Gardens</td>
+            <td class="price">£279,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-07-22</td>
+            <td>Flat 178, Kings Court, Hamlet Gardens</td>
+            <td class="price">£172,000</td>
+        <td class="positive" title="Previous: £141,500 (2006-08-24)">+5.1%/yr</td></tr>
+
+        <tr>
+            <td>2006-08-24</td>
+            <td>Flat 178, Kings Court, Hamlet Gardens</td>
+            <td class="price">£141,500</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W6-0RP" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W6-0RP" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [139950, 185000, 211175, 194625, 220000, 172000, 210000, 230175, 242500, 280000, 360333, 261666, 288000, 302300, 338137, 231750, 302182, 306666, 325000, 275000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [139950, 192000, 215000, 193500, 220000, 172000, 205000, 230175, 255000, 280000, 341000, 260000, 288000, 290000, 355000, 245000, 315000, 290000, 325000, 275000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W6 0RP',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W6-0RP', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 66</p>
+                    <p><strong>Unique Properties:</strong> 46</p>
+                    <p><strong>Average Price:</strong> £254,955</p>
+                    <p><strong>Median Price:</strong> £252,500</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W6-0RP" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W6 0 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W6 0</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W6-0RP', 'W6-0RP')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W6-0RP', 'W6-0RP')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W6-0RP" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W6-0RP" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [434208, 432131, 545817, 595377, 487712, 641777, 570997, 732623, 801998, 873680, 851778, 840106, 815982, 890404, 952165, 979584, 859529, 825355, 943172, 940639, 915510],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [370000, 349950, 440000, 452500, 402500, 527500, 424800, 532750, 587500, 722500, 640000, 625000, 715000, 829950, 768550, 780000, 730000, 672500, 788046, 745000, 622500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W6 0 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W6-0RP', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W6-0RP" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £363,636</div>
+                        <div class="cell-sell">Sell: £508,900</div>
+                        <div class="cell-return">+12.4%/yr</div>
+                        <div class="cell-count">(45 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £413,839</div>
+                        <div class="cell-sell">Sell: £902,805</div>
+                        <div class="cell-return">+11.9%/yr</div>
+                        <div class="cell-count">(47 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £521,357</div>
+                        <div class="cell-sell">Sell: £1,332,119</div>
+                        <div class="cell-return">+7.9%/yr</div>
+                        <div class="cell-count">(21 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £378,453</div>
+                        <div class="cell-sell">Sell: £861,750</div>
+                        <div class="cell-return">+5.0%/yr</div>
+                        <div class="cell-count">(16 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £419,850</div>
+                        <div class="cell-sell">Sell: £523,501</div>
+                        <div class="cell-return">+10.2%/yr</div>
+                        <div class="cell-count">(67 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £543,304</div>
+                        <div class="cell-sell">Sell: £850,248</div>
+                        <div class="cell-return">+10.2%/yr</div>
+                        <div class="cell-count">(220 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £600,732</div>
+                        <div class="cell-sell">Sell: £1,061,709</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(108 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £513,992</div>
+                        <div class="cell-sell">Sell: £937,502</div>
+                        <div class="cell-return">+4.4%/yr</div>
+                        <div class="cell-count">(82 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £534,678</div>
+                        <div class="cell-sell">Sell: £735,843</div>
+                        <div class="cell-return">+17.1%/yr</div>
+                        <div class="cell-count">(96 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £688,241</div>
+                        <div class="cell-sell">Sell: £875,201</div>
+                        <div class="cell-return">+6.1%/yr</div>
+                        <div class="cell-count">(143 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £834,376</div>
+                        <div class="cell-sell">Sell: £1,075,699</div>
+                        <div class="cell-return">+3.0%/yr</div>
+                        <div class="cell-count">(147 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £885,351</div>
+                        <div class="cell-sell">Sell: £883,918</div>
+                        <div class="cell-return">+8.2%/yr</div>
+                        <div class="cell-count">(49 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £761,064</div>
+                        <div class="cell-sell">Sell: £839,635</div>
+                        <div class="cell-return">+3.1%/yr</div>
+                        <div class="cell-count">(145 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £532,607</div>
+                        <div class="cell-sell">Sell: £593,133</div>
+                        <div class="cell-return">+5.7%/yr</div>
+                        <div class="cell-count">(39 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W6-0RP" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W6 Analysis</h4>
+                <p class="area-info">Viewing data for entire W6 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W6-0RP', 'W6-0RP')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W6-0RP', 'W6-0RP')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W6-0RP" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W6-0RP" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [394991, 424257, 482804, 507096, 498061, 595317, 551872, 659380, 687325, 854158, 891759, 847660, 999097, 935647, 942374, 954287, 872237, 858786, 905639, 932128, 912339],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [333250, 341000, 380000, 410000, 415000, 464500, 426800, 480000, 529975, 700000, 715000, 632000, 809975, 819950, 695000, 807500, 725000, 687169, 785000, 705000, 661000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W6-0RP', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W6-0RP" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £343,433</div>
+                        <div class="cell-sell">Sell: £321,198</div>
+                        <div class="cell-return">+34.9%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £354,647</div>
+                        <div class="cell-sell">Sell: £506,536</div>
+                        <div class="cell-return">+12.9%/yr</div>
+                        <div class="cell-count">(148 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £404,687</div>
+                        <div class="cell-sell">Sell: £836,146</div>
+                        <div class="cell-return">+10.3%/yr</div>
+                        <div class="cell-count">(119 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £439,511</div>
+                        <div class="cell-sell">Sell: £1,031,792</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(59 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £436,273</div>
+                        <div class="cell-sell">Sell: £980,135</div>
+                        <div class="cell-return">+4.9%/yr</div>
+                        <div class="cell-count">(46 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £374,635</div>
+                        <div class="cell-sell">Sell: £463,248</div>
+                        <div class="cell-return">+11.3%/yr</div>
+                        <div class="cell-count">(218 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £473,024</div>
+                        <div class="cell-sell">Sell: £731,864</div>
+                        <div class="cell-return">+9.6%/yr</div>
+                        <div class="cell-count">(578 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £547,112</div>
+                        <div class="cell-sell">Sell: £956,716</div>
+                        <div class="cell-return">+6.4%/yr</div>
+                        <div class="cell-count">(278 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £520,029</div>
+                        <div class="cell-sell">Sell: £963,506</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(237 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £507,170</div>
+                        <div class="cell-sell">Sell: £723,683</div>
+                        <div class="cell-return">+18.7%/yr</div>
+                        <div class="cell-count">(209 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £617,093</div>
+                        <div class="cell-sell">Sell: £806,935</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(375 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £783,225</div>
+                        <div class="cell-sell">Sell: £997,410</div>
+                        <div class="cell-return">+2.9%/yr</div>
+                        <div class="cell-count">(412 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,001,846</div>
+                        <div class="cell-sell">Sell: £957,778</div>
+                        <div class="cell-return">+6.0%/yr</div>
+                        <div class="cell-count">(124 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £777,012</div>
+                        <div class="cell-sell">Sell: £839,487</div>
+                        <div class="cell-return">+2.8%/yr</div>
+                        <div class="cell-count">(423 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £638,804</div>
+                        <div class="cell-sell">Sell: £735,829</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(112 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W6 0'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W6'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

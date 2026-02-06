@@ -1,16 +1,16 @@
-# W12 Housing Market Interactive Visualization
+# London Housing Market Interactive Visualization
 
-Interactive map visualization of property transactions in the W12 (Shepherd's Bush) postcode district of London, covering 2005-2025.
+Interactive map visualization of property transactions across 13 North and West London postcode districts, covering 2005-2025.
 
-## 🗺️ [View Live Map](https://pratyushtiwari.github.io/London_housing_market_viz/w12_market_map.html)
+## 🗺️ [View Live Map](https://pratyushtiwari.github.io/London_housing_market_viz/london_housing_market_map.html)
 
 ## Features
 
-- **Interactive Map**: 587 postcode markers across W12 district
+- **Interactive Map**: 9,230+ postcode markers across 13 districts
 - **Multi-Level Analysis**:
   - Postcode level: Individual transaction histories with connected dot plots
-  - Sector level: Aggregated statistics and trends for 4 sectors
-  - District level: Overall W12 market analysis
+  - Sector level: Aggregated statistics and trends for 76 sectors
+  - District level: Analysis for each of 13 districts
 - **Cohort Analysis**: Weighted average returns by purchase/sale period
 - **Hover Interactions**: Dynamic highlighting of transaction histories
 - **Area Highlighting**: Visual emphasis of sectors/districts on map
@@ -18,9 +18,10 @@ Interactive map visualization of property transactions in the W12 (Shepherd's Bu
 ## Data Coverage
 
 - **Time Period**: January 2005 - January 2025 (20 years)
-- **Transactions**: 10,887 property sales
-- **Properties**: 7,553 unique properties
-- **Postcodes**: 587 postcodes across 4 sectors
+- **Districts**: 13 postcode districts (W12, NW2, NW10, W9, W6, SW6, NW5, N7, N19, N6, N16, N2, N3)
+- **Transactions**: 165,000+ property sales
+- **Properties**: 115,000+ unique properties
+- **Postcodes**: 11,000+ postcodes across 76 sectors
 - **Repeat Sales**: Detailed analysis of properties sold multiple times
 
 ## Technical Details
@@ -45,7 +46,7 @@ cd London_housing_market_viz
 python3 -m http.server 8000
 
 # Open in browser
-open http://localhost:8000/w12_market_map.html
+open http://localhost:8000/london_housing_market_map.html
 ```
 
 Note: A local server is required because the map loads popup files dynamically.
@@ -54,25 +55,26 @@ Note: A local server is required because the map loads popup files dynamically.
 
 ```
 London_housing_market_viz/
-├── w12_market_map.html    # Main interactive map (477 KB)
-├── data/                   # JSON data files (3.7 MB)
-│   ├── w12_postcodes.json
-│   ├── w12_sectors.json
-│   ├── w12_district.json
+├── london_housing_market_map.html  # Main interactive map (7.1 MB)
+├── data/                           # JSON data files (65 MB)
+│   ├── all_postcodes.json
+│   ├── all_sectors.json
+│   ├── all_districts.json
 │   └── postcode_coords.json
-└── popups/                 # Individual postcode popups (26 MB)
+└── popups/                         # Individual postcode popups (404 MB)
     ├── W12_0AA.html
-    ├── W12_0AB.html
-    └── ... (587 files)
+    ├── NW2_1AA.html
+    └── ... (11,111 files)
 ```
 
-## Market Insights (W12 District)
+## Market Insights (Across All Districts)
 
-- **Average Price**: £641,228
-- **Median Price**: £499,950
-- **Price Growth**: From £250k (2005) to £655k (2024) median
-- **Most Active Sector**: W12 9 (3,584 transactions)
-- **Highest Appreciation**: Properties bought pre-2005, sold 2005 (~30% annual return)
+- **District Price Range**: From £397k (NW10) to £931k (SW6) average
+- **Most Transactions**: SW6 (Fulham) with 25,489 sales
+- **Largest District**: N2 (East Finchley) with 1,939 postcodes
+- **Repeat Sales**: 50-60% of transactions across most districts
+- **Typical Holding Period**: 6-6.5 years median
+- **Annual Appreciation**: 4.8-5.7% median across districts
 
 ## Data Sources & Attribution
 

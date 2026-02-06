@@ -1,0 +1,1119 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>SW6 2FQ</h3>
+            <div class="header-stats">
+                <span><strong>44</strong> transactions</span>
+                <span><strong>36</strong> properties</span>
+                <span>Avg: <strong>£985,621</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-SW6-2FQ')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-SW6-2FQ')">
+                Sector (SW6 2)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-SW6-2FQ')">
+                District (SW6)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-SW6-2FQ" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-SW6-2FQ', 'SW6-2FQ')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-SW6-2FQ', 'SW6-2FQ')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-SW6-2FQ', 'SW6-2FQ')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-SW6-2FQ" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-SW6-2FQ" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "7, Meadows House, 6, Park Street", "dates": ["2015-05-18", "2020-03-13"], "prices": [849950, 720000], "hover_texts": ["<b>7, Meadows House, 6, Park Street</b><br>Transaction 1 of 2<br>Date: 2015-05-18<br>Sale Price: \u00a3849,950", "<b>7, Meadows House, 6, Park Street</b><br>Transaction 2 of 2<br>Date: 2020-03-13<br>Sale Price: \u00a3720,000<br>Previous Purchase: \u00a3849,950<br>Previous Date: 2015-05-18<br>Annual Return: -3.4%/yr<br>Held for: 4.8 years"], "transaction_count": 2}, {"address": "12, Meadows House, 6, Park Street", "dates": ["2018-04-27", "2023-02-02"], "prices": [234957, 271813], "hover_texts": ["<b>12, Meadows House, 6, Park Street</b><br>Transaction 1 of 2<br>Date: 2018-04-27<br>Sale Price: \u00a3234,957", "<b>12, Meadows House, 6, Park Street</b><br>Transaction 2 of 2<br>Date: 2023-02-02<br>Sale Price: \u00a3271,813<br>Previous Purchase: \u00a3234,957<br>Previous Date: 2018-04-27<br>Annual Return: +3.1%/yr<br>Held for: 4.8 years"], "transaction_count": 2}, {"address": "41, Meadows House, 6, Park Street", "dates": ["2017-08-15", "2025-02-28"], "prices": [315100, 323466], "hover_texts": ["<b>41, Meadows House, 6, Park Street</b><br>Transaction 1 of 2<br>Date: 2017-08-15<br>Sale Price: \u00a3315,100", "<b>41, Meadows House, 6, Park Street</b><br>Transaction 2 of 2<br>Date: 2025-02-28<br>Sale Price: \u00a3323,466<br>Previous Purchase: \u00a3315,100<br>Previous Date: 2017-08-15<br>Annual Return: +0.3%/yr<br>Held for: 7.5 years"], "transaction_count": 2}, {"address": "47, Meadows House, 6, Park Street", "dates": ["2015-12-11", "2023-06-12"], "prices": [3424950, 2850000], "hover_texts": ["<b>47, Meadows House, 6, Park Street</b><br>Transaction 1 of 2<br>Date: 2015-12-11<br>Sale Price: \u00a33,424,950", "<b>47, Meadows House, 6, Park Street</b><br>Transaction 2 of 2<br>Date: 2023-06-12<br>Sale Price: \u00a32,850,000<br>Previous Purchase: \u00a33,424,950<br>Previous Date: 2015-12-11<br>Annual Return: -2.4%/yr<br>Held for: 7.5 years"], "transaction_count": 2}, {"address": "38, Meadows House, 6, Park Street", "dates": ["2015-06-02", "2019-04-10"], "prices": [1144950, 890000], "hover_texts": ["<b>38, Meadows House, 6, Park Street</b><br>Transaction 1 of 2<br>Date: 2015-06-02<br>Sale Price: \u00a31,144,950", "<b>38, Meadows House, 6, Park Street</b><br>Transaction 2 of 2<br>Date: 2019-04-10<br>Sale Price: \u00a3890,000<br>Previous Purchase: \u00a31,144,950<br>Previous Date: 2015-06-02<br>Annual Return: -6.3%/yr<br>Held for: 3.9 years"], "transaction_count": 2}, {"address": "28, Meadows House, 6, Park Street", "dates": ["2020-01-31", "2025-05-29"], "prices": [283122, 280500], "hover_texts": ["<b>28, Meadows House, 6, Park Street</b><br>Transaction 1 of 2<br>Date: 2020-01-31<br>Sale Price: \u00a3283,122", "<b>28, Meadows House, 6, Park Street</b><br>Transaction 2 of 2<br>Date: 2025-05-29<br>Sale Price: \u00a3280,500<br>Previous Purchase: \u00a3283,122<br>Previous Date: 2020-01-31<br>Annual Return: -0.2%/yr<br>Held for: 5.3 years"], "transaction_count": 2}, {"address": "45, Meadows House, 6, Park Street", "dates": ["2015-07-29", "2015-07-29", "2016-08-11"], "prices": [745000, 745000, 750000], "hover_texts": ["<b>45, Meadows House, 6, Park Street</b><br>Transaction 1 of 3<br>Date: 2015-07-29<br>Sale Price: \u00a3745,000", "<b>45, Meadows House, 6, Park Street</b><br>Transaction 2 of 3<br>Date: 2015-07-29<br>Sale Price: \u00a3745,000", "<b>45, Meadows House, 6, Park Street</b><br>Transaction 3 of 3<br>Date: 2016-08-11<br>Sale Price: \u00a3750,000<br>Previous Purchase: \u00a3745,000<br>Previous Date: 2015-07-29<br>Annual Return: +0.7%/yr<br>Held for: 1.0 years"], "transaction_count": 3}];
+            var singleSales = [{"date": "2015-05-21", "address": "46, Meadows House, 6, Park Street", "price": 990000, "price_display": "\u00a3990,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-11-27", "address": "20, Meadows House, 6, Park Street", "price": 286740, "price_display": "\u00a3286,740", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-03-29", "address": "34, Meadows House, 6, Park Street", "price": 273780, "price_display": "\u00a3273,780", "property_type": "O", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-09-08", "address": "44, Meadows House, 6, Park Street", "price": 2613953, "price_display": "\u00a32,613,953", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-10-07", "address": "29, Meadows House, 6, Park Street", "price": 4450000, "price_display": "\u00a34,450,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-04-30", "address": "27, Meadows House, 6, Park Street", "price": 265104, "price_display": "\u00a3265,104", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-05-22", "address": "30, Meadows House, 6, Park Street", "price": 1035000, "price_display": "\u00a31,035,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-06-29", "address": "13, Meadows House, 6, Park Street", "price": 2230000, "price_display": "\u00a32,230,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-03-26", "address": "31, Meadows House, 6, Park Street", "price": 910000, "price_display": "\u00a3910,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-12-01", "address": "43, Meadows House, 6, Park Street", "price": 283450, "price_display": "\u00a3283,450", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-26", "address": "9, Meadows House, 6, Park Street", "price": 199800, "price_display": "\u00a3199,800", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-04-14", "address": "32, Meadows House, 6, Park Street", "price": 519950, "price_display": "\u00a3519,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-17", "address": "2, Meadows House, 6, Park Street", "price": 185437, "price_display": "\u00a3185,437", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-03-29", "address": "16, Countess House, 10, Park Street", "price": 1157953, "price_display": "\u00a31,157,953", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-04-24", "address": "15, Meadows House, 6, Park Street", "price": 880000, "price_display": "\u00a3880,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-03-06", "address": "23, Meadows House, 6, Park Street", "price": 910000, "price_display": "\u00a3910,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-04-24", "address": "42, Meadows House, 6, Park Street", "price": 900000, "price_display": "\u00a3900,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-20", "address": "10, Meadows House, 6, Park Street", "price": 265913, "price_display": "\u00a3265,913", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-03-31", "address": "39, Meadows House, 6, Park Street", "price": 920000, "price_display": "\u00a3920,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-05-13", "address": "35, Meadows House, 6, Park Street", "price": 580000, "price_display": "\u00a3580,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-04-30", "address": "6, Meadows House, 6, Park Street", "price": 1169950, "price_display": "\u00a31,169,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-03-06", "address": "17, Meadows House, 6, Park Street", "price": 178979, "price_display": "\u00a3178,979", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-06-29", "address": "5, Meadows House, 6, Park Street", "price": 2370000, "price_display": "\u00a32,370,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-04-01", "address": "25, Meadows House, 6, Park Street", "price": 295512, "price_display": "\u00a3295,512", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-04-12", "address": "4, Countess House, 10, Park Street", "price": 755000, "price_display": "\u00a3755,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-05-11", "address": "22, Meadows House, 6, Park Street", "price": 1020000, "price_display": "\u00a31,020,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-05-01", "address": "40, Meadows House, 6, Park Street", "price": 524950, "price_display": "\u00a3524,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-05-29", "address": "21, Meadows House, 6, Park Street", "price": 2299200, "price_display": "\u00a32,299,200", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-05-06", "address": "14, Meadows House, 6, Park Street", "price": 1067851, "price_display": "\u00a31,067,851", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-SW6-2FQ', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-SW6-2FQ');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-SW6-2FQ', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-SW6-2FQ', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-SW6-2FQ" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2015-05-21</td>
+            <td>46, Meadows House, 6, Park Street</td>
+            <td class="price">£990,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-11-27</td>
+            <td>20, Meadows House, 6, Park Street</td>
+            <td class="price">£286,740</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-29</td>
+            <td>34, Meadows House, 6, Park Street</td>
+            <td class="price">£273,780</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-09-08</td>
+            <td>44, Meadows House, 6, Park Street</td>
+            <td class="price">£2,613,953</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-10-07</td>
+            <td>29, Meadows House, 6, Park Street</td>
+            <td class="price">£4,450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-03-13</td>
+            <td>7, Meadows House, 6, Park Street</td>
+            <td class="price">£720,000</td>
+        <td class="negative" title="Previous: £849,950 (2015-05-18)">-3.4%/yr</td></tr>
+
+        <tr>
+            <td>2015-05-18</td>
+            <td>7, Meadows House, 6, Park Street</td>
+            <td class="price">£849,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-30</td>
+            <td>27, Meadows House, 6, Park Street</td>
+            <td class="price">£265,104</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-02-02</td>
+            <td>12, Meadows House, 6, Park Street</td>
+            <td class="price">£271,813</td>
+        <td class="positive" title="Previous: £234,957 (2018-04-27)">+3.1%/yr</td></tr>
+
+        <tr>
+            <td>2018-04-27</td>
+            <td>12, Meadows House, 6, Park Street</td>
+            <td class="price">£234,957</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-05-22</td>
+            <td>30, Meadows House, 6, Park Street</td>
+            <td class="price">£1,035,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-06-29</td>
+            <td>13, Meadows House, 6, Park Street</td>
+            <td class="price">£2,230,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-03-26</td>
+            <td>31, Meadows House, 6, Park Street</td>
+            <td class="price">£910,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-12-01</td>
+            <td>43, Meadows House, 6, Park Street</td>
+            <td class="price">£283,450</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-26</td>
+            <td>9, Meadows House, 6, Park Street</td>
+            <td class="price">£199,800</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-02-28</td>
+            <td>41, Meadows House, 6, Park Street</td>
+            <td class="price">£323,466</td>
+        <td class="positive" title="Previous: £315,100 (2017-08-15)">+0.3%/yr</td></tr>
+
+        <tr>
+            <td>2017-08-15</td>
+            <td>41, Meadows House, 6, Park Street</td>
+            <td class="price">£315,100</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-06-12</td>
+            <td>47, Meadows House, 6, Park Street</td>
+            <td class="price">£2,850,000</td>
+        <td class="negative" title="Previous: £3,424,950 (2015-12-11)">-2.4%/yr</td></tr>
+
+        <tr>
+            <td>2015-12-11</td>
+            <td>47, Meadows House, 6, Park Street</td>
+            <td class="price">£3,424,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-04-14</td>
+            <td>32, Meadows House, 6, Park Street</td>
+            <td class="price">£519,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-17</td>
+            <td>2, Meadows House, 6, Park Street</td>
+            <td class="price">£185,437</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-03-29</td>
+            <td>16, Countess House, 10, Park Street</td>
+            <td class="price">£1,157,953</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-04-24</td>
+            <td>15, Meadows House, 6, Park Street</td>
+            <td class="price">£880,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-04-10</td>
+            <td>38, Meadows House, 6, Park Street</td>
+            <td class="price">£890,000</td>
+        <td class="negative" title="Previous: £1,144,950 (2015-06-02)">-6.3%/yr</td></tr>
+
+        <tr>
+            <td>2015-06-02</td>
+            <td>38, Meadows House, 6, Park Street</td>
+            <td class="price">£1,144,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-05-29</td>
+            <td>28, Meadows House, 6, Park Street</td>
+            <td class="price">£280,500</td>
+        <td class="negative" title="Previous: £283,122 (2020-01-31)">-0.2%/yr</td></tr>
+
+        <tr>
+            <td>2020-01-31</td>
+            <td>28, Meadows House, 6, Park Street</td>
+            <td class="price">£283,122</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-03-06</td>
+            <td>23, Meadows House, 6, Park Street</td>
+            <td class="price">£910,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-04-24</td>
+            <td>42, Meadows House, 6, Park Street</td>
+            <td class="price">£900,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-20</td>
+            <td>10, Meadows House, 6, Park Street</td>
+            <td class="price">£265,913</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-03-31</td>
+            <td>39, Meadows House, 6, Park Street</td>
+            <td class="price">£920,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-05-13</td>
+            <td>35, Meadows House, 6, Park Street</td>
+            <td class="price">£580,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-04-30</td>
+            <td>6, Meadows House, 6, Park Street</td>
+            <td class="price">£1,169,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-03-06</td>
+            <td>17, Meadows House, 6, Park Street</td>
+            <td class="price">£178,979</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-06-29</td>
+            <td>5, Meadows House, 6, Park Street</td>
+            <td class="price">£2,370,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-04-01</td>
+            <td>25, Meadows House, 6, Park Street</td>
+            <td class="price">£295,512</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-04-12</td>
+            <td>4, Countess House, 10, Park Street</td>
+            <td class="price">£755,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-05-11</td>
+            <td>22, Meadows House, 6, Park Street</td>
+            <td class="price">£1,020,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-08-11</td>
+            <td>45, Meadows House, 6, Park Street</td>
+            <td class="price">£750,000</td>
+        <td class="positive" title="Previous: £745,000 (2015-07-29)">+0.7%/yr</td></tr>
+
+        <tr>
+            <td>2015-07-29</td>
+            <td>45, Meadows House, 6, Park Street</td>
+            <td class="price">£745,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-07-29</td>
+            <td>45, Meadows House, 6, Park Street</td>
+            <td class="price">£745,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-05-01</td>
+            <td>40, Meadows House, 6, Park Street</td>
+            <td class="price">£524,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-05-29</td>
+            <td>21, Meadows House, 6, Park Street</td>
+            <td class="price">£2,299,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-05-06</td>
+            <td>14, Meadows House, 6, Park Street</td>
+            <td class="price">£1,067,851</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-SW6-2FQ" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-SW6-2FQ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2025],
+            y: [1361292, 958225, 250268, 250030, 592756, 429954, 241625, 273780, 1129242, 301983],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2025],
+            y: [920000, 1157953, 315100, 265104, 890000, 286740, 283450, 273780, 271813, 323466],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - SW6 2FQ',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-SW6-2FQ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 44</p>
+                    <p><strong>Unique Properties:</strong> 36</p>
+                    <p><strong>Average Price:</strong> £985,621</p>
+                    <p><strong>Median Price:</strong> £752,500</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-SW6-2FQ" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector SW6 2 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector SW6 2</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-SW6-2FQ', 'SW6-2FQ')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-SW6-2FQ', 'SW6-2FQ')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-SW6-2FQ" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-SW6-2FQ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [503949, 503826, 586337, 718930, 642086, 580433, 602698, 648699, 890417, 975231, 1093080, 1172875, 1103829, 848394, 828777, 997601, 887972, 1023057, 1090183, 1167609, 869974],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [447500, 395500, 488600, 625000, 510120, 449997, 475000, 558626, 690000, 815000, 853110, 1000000, 881950, 693444, 738000, 774100, 720000, 820800, 1000000, 920000, 730000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector SW6 2 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-SW6-2FQ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-SW6-2FQ" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £507,976</div>
+                        <div class="cell-sell">Sell: £568,737</div>
+                        <div class="cell-return">+0.0%/yr</div>
+                        <div class="cell-count">(4 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £493,009</div>
+                        <div class="cell-sell">Sell: £648,920</div>
+                        <div class="cell-return">+13.0%/yr</div>
+                        <div class="cell-count">(85 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £484,447</div>
+                        <div class="cell-sell">Sell: £874,025</div>
+                        <div class="cell-return">+8.6%/yr</div>
+                        <div class="cell-count">(75 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £511,808</div>
+                        <div class="cell-sell">Sell: £947,066</div>
+                        <div class="cell-return">+5.5%/yr</div>
+                        <div class="cell-count">(30 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £559,886</div>
+                        <div class="cell-sell">Sell: £1,074,134</div>
+                        <div class="cell-return">+4.0%/yr</div>
+                        <div class="cell-count">(26 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £516,356</div>
+                        <div class="cell-sell">Sell: £630,468</div>
+                        <div class="cell-return">+9.8%/yr</div>
+                        <div class="cell-count">(168 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £566,469</div>
+                        <div class="cell-sell">Sell: £865,627</div>
+                        <div class="cell-return">+9.5%/yr</div>
+                        <div class="cell-count">(362 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £560,235</div>
+                        <div class="cell-sell">Sell: £896,960</div>
+                        <div class="cell-return">+5.6%/yr</div>
+                        <div class="cell-count">(160 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £646,629</div>
+                        <div class="cell-sell">Sell: £1,047,473</div>
+                        <div class="cell-return">+3.9%/yr</div>
+                        <div class="cell-count">(130 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £596,069</div>
+                        <div class="cell-sell">Sell: £831,100</div>
+                        <div class="cell-return">+16.9%/yr</div>
+                        <div class="cell-count">(147 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £739,626</div>
+                        <div class="cell-sell">Sell: £892,513</div>
+                        <div class="cell-return">+4.7%/yr</div>
+                        <div class="cell-count">(265 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £901,793</div>
+                        <div class="cell-sell">Sell: £1,022,008</div>
+                        <div class="cell-return">+1.6%/yr</div>
+                        <div class="cell-count">(287 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,082,259</div>
+                        <div class="cell-sell">Sell: £932,649</div>
+                        <div class="cell-return">-5.3%/yr</div>
+                        <div class="cell-count">(52 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £841,397</div>
+                        <div class="cell-sell">Sell: £887,335</div>
+                        <div class="cell-return">+2.4%/yr</div>
+                        <div class="cell-count">(230 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £958,258</div>
+                        <div class="cell-sell">Sell: £985,175</div>
+                        <div class="cell-return">+7.5%/yr</div>
+                        <div class="cell-count">(81 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-SW6-2FQ" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District SW6 Analysis</h4>
+                <p class="area-info">Viewing data for entire SW6 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-SW6-2FQ', 'SW6-2FQ')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-SW6-2FQ', 'SW6-2FQ')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-SW6-2FQ" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-SW6-2FQ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [492447, 534187, 617479, 682883, 676682, 725666, 770297, 792775, 935087, 1071397, 1107658, 1080611, 1088332, 1024688, 1009986, 1103160, 1107305, 1133932, 1123992, 1187120, 1058589],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [395000, 426000, 485000, 525000, 525000, 550000, 560000, 599500, 694000, 805000, 880000, 863200, 845000, 780000, 772500, 840000, 840000, 830000, 915000, 900000, 747500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District SW6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-SW6-2FQ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-SW6-2FQ" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £553,160</div>
+                        <div class="cell-sell">Sell: £646,763</div>
+                        <div class="cell-return">+14.6%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £449,387</div>
+                        <div class="cell-sell">Sell: £642,183</div>
+                        <div class="cell-return">+14.7%/yr</div>
+                        <div class="cell-count">(437 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £479,875</div>
+                        <div class="cell-sell">Sell: £946,863</div>
+                        <div class="cell-return">+9.9%/yr</div>
+                        <div class="cell-count">(316 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £538,691</div>
+                        <div class="cell-sell">Sell: £1,119,126</div>
+                        <div class="cell-return">+6.2%/yr</div>
+                        <div class="cell-count">(107 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £544,862</div>
+                        <div class="cell-sell">Sell: £1,293,885</div>
+                        <div class="cell-return">+5.2%/yr</div>
+                        <div class="cell-count">(104 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £554,782</div>
+                        <div class="cell-sell">Sell: £722,017</div>
+                        <div class="cell-return">+11.5%/yr</div>
+                        <div class="cell-count">(694 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £606,495</div>
+                        <div class="cell-sell">Sell: £950,934</div>
+                        <div class="cell-return">+10.5%/yr</div>
+                        <div class="cell-count">(1648 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £662,286</div>
+                        <div class="cell-sell">Sell: £1,130,777</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(714 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £656,918</div>
+                        <div class="cell-sell">Sell: £1,188,473</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(644 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £685,474</div>
+                        <div class="cell-sell">Sell: £998,436</div>
+                        <div class="cell-return">+20.5%/yr</div>
+                        <div class="cell-count">(560 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £844,762</div>
+                        <div class="cell-sell">Sell: £1,042,230</div>
+                        <div class="cell-return">+5.8%/yr</div>
+                        <div class="cell-count">(1056 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £995,197</div>
+                        <div class="cell-sell">Sell: £1,211,728</div>
+                        <div class="cell-return">+2.4%/yr</div>
+                        <div class="cell-count">(1170 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £928,398</div>
+                        <div class="cell-sell">Sell: £1,026,566</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(272 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £940,021</div>
+                        <div class="cell-sell">Sell: £1,060,630</div>
+                        <div class="cell-return">+4.2%/yr</div>
+                        <div class="cell-count">(965 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,003,702</div>
+                        <div class="cell-sell">Sell: £1,154,975</div>
+                        <div class="cell-return">+9.4%/yr</div>
+                        <div class="cell-count">(313 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'SW6 2'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'SW6'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

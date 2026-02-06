@@ -1,0 +1,1850 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W6 0BT</h3>
+            <div class="header-stats">
+                <span><strong>167</strong> transactions</span>
+                <span><strong>146</strong> properties</span>
+                <span>Avg: <strong>£864,205</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W6-0BT')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W6-0BT')">
+                Sector (W6 0)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W6-0BT')">
+                District (W6)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W6-0BT" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W6-0BT', 'W6-0BT')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W6-0BT', 'W6-0BT')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W6-0BT', 'W6-0BT')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W6-0BT" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W6-0BT" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 13, Marquis House, 45, Beadon Road", "dates": ["2018-05-03", "2023-04-25"], "prices": [579950, 650000], "hover_texts": ["<b>Flat 13, Marquis House, 45, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-05-03<br>Sale Price: \u00a3579,950", "<b>Flat 13, Marquis House, 45, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2023-04-25<br>Sale Price: \u00a3650,000<br>Previous Purchase: \u00a3579,950<br>Previous Date: 2018-05-03<br>Annual Return: +2.3%/yr<br>Held for: 5.0 years"], "transaction_count": 2}, {"address": "Flat 34, Marquis House, 45, Beadon Road", "dates": ["2018-05-10", "2021-11-09"], "prices": [313530, 345180], "hover_texts": ["<b>Flat 34, Marquis House, 45, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-05-10<br>Sale Price: \u00a3313,530", "<b>Flat 34, Marquis House, 45, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2021-11-09<br>Sale Price: \u00a3345,180<br>Previous Purchase: \u00a3313,530<br>Previous Date: 2018-05-10<br>Annual Return: +2.8%/yr<br>Held for: 3.5 years"], "transaction_count": 2}, {"address": "Flat 45, Marquis House, 45, Beadon Road", "dates": ["2018-05-29", "2019-07-25"], "prices": [619950, 690000], "hover_texts": ["<b>Flat 45, Marquis House, 45, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-05-29<br>Sale Price: \u00a3619,950", "<b>Flat 45, Marquis House, 45, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2019-07-25<br>Sale Price: \u00a3690,000<br>Previous Purchase: \u00a3619,950<br>Previous Date: 2018-05-29<br>Annual Return: +9.7%/yr<br>Held for: 1.2 years"], "transaction_count": 2}, {"address": "Flat 19, Lancaster House, 47, Beadon Road", "dates": ["2018-01-16", "2021-11-16"], "prices": [819950, 865000], "hover_texts": ["<b>Flat 19, Lancaster House, 47, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-01-16<br>Sale Price: \u00a3819,950", "<b>Flat 19, Lancaster House, 47, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2021-11-16<br>Sale Price: \u00a3865,000<br>Previous Purchase: \u00a3819,950<br>Previous Date: 2018-01-16<br>Annual Return: +1.4%/yr<br>Held for: 3.8 years"], "transaction_count": 2}, {"address": "Flat 61, Marquis House, 45, Beadon Road", "dates": ["2019-11-29", "2020-05-07"], "prices": [1239960, 1520000], "hover_texts": ["<b>Flat 61, Marquis House, 45, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2019-11-29<br>Sale Price: \u00a31,239,960", "<b>Flat 61, Marquis House, 45, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2020-05-07<br>Sale Price: \u00a31,520,000<br>Previous Purchase: \u00a31,239,960<br>Previous Date: 2019-11-29<br>Annual Return: +59.2%/yr<br>Held for: 0.4 years"], "transaction_count": 2}, {"address": "Flat 40, Marquis House, 45, Beadon Road", "dates": ["2018-05-16", "2022-09-16"], "prices": [313530, 321943], "hover_texts": ["<b>Flat 40, Marquis House, 45, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-05-16<br>Sale Price: \u00a3313,530", "<b>Flat 40, Marquis House, 45, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2022-09-16<br>Sale Price: \u00a3321,943<br>Previous Purchase: \u00a3313,530<br>Previous Date: 2018-05-16<br>Annual Return: +0.6%/yr<br>Held for: 4.3 years"], "transaction_count": 2}, {"address": "Flat 12, Marquis House, 45, Beadon Road", "dates": ["2018-05-04", "2019-01-25"], "prices": [899950, 940000], "hover_texts": ["<b>Flat 12, Marquis House, 45, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-05-04<br>Sale Price: \u00a3899,950", "<b>Flat 12, Marquis House, 45, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2019-01-25<br>Sale Price: \u00a3940,000<br>Previous Purchase: \u00a3899,950<br>Previous Date: 2018-05-04<br>Annual Return: +6.2%/yr<br>Held for: 0.7 years"], "transaction_count": 2}, {"address": "Flat 4, Marquis House, 45, Beadon Road", "dates": ["2018-04-05", "2021-12-17", "2025-11-21"], "prices": [176360, 186560, 195500], "hover_texts": ["<b>Flat 4, Marquis House, 45, Beadon Road</b><br>Transaction 1 of 3<br>Date: 2018-04-05<br>Sale Price: \u00a3176,360", "<b>Flat 4, Marquis House, 45, Beadon Road</b><br>Transaction 2 of 3<br>Date: 2021-12-17<br>Sale Price: \u00a3186,560<br>Previous Purchase: \u00a3176,360<br>Previous Date: 2018-04-05<br>Annual Return: +1.5%/yr<br>Held for: 3.7 years", "<b>Flat 4, Marquis House, 45, Beadon Road</b><br>Transaction 3 of 3<br>Date: 2025-11-21<br>Sale Price: \u00a3195,500<br>Previous Purchase: \u00a3186,560<br>Previous Date: 2021-12-17<br>Annual Return: +1.2%/yr<br>Held for: 3.9 years"], "transaction_count": 3}, {"address": "Flat 2, Lancaster House, Beadon Road", "dates": ["2017-12-14", "2022-01-21"], "prices": [193510, 490000], "hover_texts": ["<b>Flat 2, Lancaster House, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2017-12-14<br>Sale Price: \u00a3193,510", "<b>Flat 2, Lancaster House, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2022-01-21<br>Sale Price: \u00a3490,000<br>Previous Purchase: \u00a3193,510<br>Previous Date: 2017-12-14<br>Annual Return: +25.4%/yr<br>Held for: 4.1 years"], "transaction_count": 2}, {"address": "Flat 75, Marquis House, 45, Beadon Road", "dates": ["2018-09-24", "2023-04-12"], "prices": [1499950, 1524000], "hover_texts": ["<b>Flat 75, Marquis House, 45, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-09-24<br>Sale Price: \u00a31,499,950", "<b>Flat 75, Marquis House, 45, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2023-04-12<br>Sale Price: \u00a31,524,000<br>Previous Purchase: \u00a31,499,950<br>Previous Date: 2018-09-24<br>Annual Return: +0.3%/yr<br>Held for: 4.5 years"], "transaction_count": 2}, {"address": "Flat 46, Lancaster House, 47, Beadon Road", "dates": ["2018-02-12", "2021-01-22"], "prices": [939950, 934500], "hover_texts": ["<b>Flat 46, Lancaster House, 47, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-02-12<br>Sale Price: \u00a3939,950", "<b>Flat 46, Lancaster House, 47, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2021-01-22<br>Sale Price: \u00a3934,500<br>Previous Purchase: \u00a3939,950<br>Previous Date: 2018-02-12<br>Annual Return: -0.2%/yr<br>Held for: 2.9 years"], "transaction_count": 2}, {"address": "Flat 28, Marquis House, 45, Beadon Road", "dates": ["2018-06-22", "2022-04-21"], "prices": [919950, 930000], "hover_texts": ["<b>Flat 28, Marquis House, 45, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-06-22<br>Sale Price: \u00a3919,950", "<b>Flat 28, Marquis House, 45, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2022-04-21<br>Sale Price: \u00a3930,000<br>Previous Purchase: \u00a3919,950<br>Previous Date: 2018-06-22<br>Annual Return: +0.3%/yr<br>Held for: 3.8 years"], "transaction_count": 2}, {"address": "Flat 35, Marquis House, 45, Beadon Road", "dates": ["2018-06-08", "2021-08-27"], "prices": [514950, 560000], "hover_texts": ["<b>Flat 35, Marquis House, 45, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-06-08<br>Sale Price: \u00a3514,950", "<b>Flat 35, Marquis House, 45, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2021-08-27<br>Sale Price: \u00a3560,000<br>Previous Purchase: \u00a3514,950<br>Previous Date: 2018-06-08<br>Annual Return: +2.6%/yr<br>Held for: 3.2 years"], "transaction_count": 2}, {"address": "Flat 68, Marquis House, 45, Beadon Road", "dates": ["2018-09-28", "2018-12-20"], "prices": [1200000, 950000], "hover_texts": ["<b>Flat 68, Marquis House, 45, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-09-28<br>Sale Price: \u00a31,200,000", "<b>Flat 68, Marquis House, 45, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2018-12-20<br>Sale Price: \u00a3950,000<br>Previous Purchase: \u00a31,200,000<br>Previous Date: 2018-09-28<br>Annual Return: -64.2%/yr<br>Held for: 0.2 years"], "transaction_count": 2}, {"address": "Flat 51, Marquis House, 45, Beadon Road", "dates": ["2018-06-12", "2023-11-28"], "prices": [949950, 950000], "hover_texts": ["<b>Flat 51, Marquis House, 45, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-06-12<br>Sale Price: \u00a3949,950", "<b>Flat 51, Marquis House, 45, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2023-11-28<br>Sale Price: \u00a3950,000<br>Previous Purchase: \u00a3949,950<br>Previous Date: 2018-06-12<br>Annual Return: +0.0%/yr<br>Held for: 5.5 years"], "transaction_count": 2}, {"address": "Flat 65, Lancaster House, 47, Beadon Road", "dates": ["2018-06-15", "2021-11-30"], "prices": [1174950, 1600000], "hover_texts": ["<b>Flat 65, Lancaster House, 47, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-06-15<br>Sale Price: \u00a31,174,950", "<b>Flat 65, Lancaster House, 47, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2021-11-30<br>Sale Price: \u00a31,600,000<br>Previous Purchase: \u00a31,174,950<br>Previous Date: 2018-06-15<br>Annual Return: +9.3%/yr<br>Held for: 3.5 years"], "transaction_count": 2}, {"address": "Flat 36, Lancaster House, 47, Beadon Road", "dates": ["2018-02-16", "2018-11-23"], "prices": [589950, 640000], "hover_texts": ["<b>Flat 36, Lancaster House, 47, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-02-16<br>Sale Price: \u00a3589,950", "<b>Flat 36, Lancaster House, 47, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2018-11-23<br>Sale Price: \u00a3640,000<br>Previous Purchase: \u00a3589,950<br>Previous Date: 2018-02-16<br>Annual Return: +11.2%/yr<br>Held for: 0.8 years"], "transaction_count": 2}, {"address": "Flat 44, Lancaster House, 47, Beadon Road", "dates": ["2018-02-08", "2020-04-09"], "prices": [849950, 780000], "hover_texts": ["<b>Flat 44, Lancaster House, 47, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-02-08<br>Sale Price: \u00a3849,950", "<b>Flat 44, Lancaster House, 47, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2020-04-09<br>Sale Price: \u00a3780,000<br>Previous Purchase: \u00a3849,950<br>Previous Date: 2018-02-08<br>Annual Return: -3.9%/yr<br>Held for: 2.2 years"], "transaction_count": 2}, {"address": "Flat 18, Marquis House, 45, Beadon Road", "dates": ["2018-05-31", "2022-06-01"], "prices": [313530, 355000], "hover_texts": ["<b>Flat 18, Marquis House, 45, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2018-05-31<br>Sale Price: \u00a3313,530", "<b>Flat 18, Marquis House, 45, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2022-06-01<br>Sale Price: \u00a3355,000<br>Previous Purchase: \u00a3313,530<br>Previous Date: 2018-05-31<br>Annual Return: +3.1%/yr<br>Held for: 4.0 years"], "transaction_count": 2}, {"address": "Flat 39, Marquis House, 45, Beadon Road", "dates": ["2019-05-15", "2024-08-30"], "prices": [870000, 880000], "hover_texts": ["<b>Flat 39, Marquis House, 45, Beadon Road</b><br>Transaction 1 of 2<br>Date: 2019-05-15<br>Sale Price: \u00a3870,000", "<b>Flat 39, Marquis House, 45, Beadon Road</b><br>Transaction 2 of 2<br>Date: 2024-08-30<br>Sale Price: \u00a3880,000<br>Previous Purchase: \u00a3870,000<br>Previous Date: 2019-05-15<br>Annual Return: +0.2%/yr<br>Held for: 5.3 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2018-09-07", "address": "Flat 69, Marquis House, 45, Beadon Road", "price": 1299950, "price_display": "\u00a31,299,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-20", "address": "Flat 62, Marquis House, 45, Beadon Road", "price": 979950, "price_display": "\u00a3979,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-07", "address": "Flat 38, Lancaster House, 47, Beadon Road", "price": 884950, "price_display": "\u00a3884,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-04-04", "address": "Flat 9, Marquis House, 45, Beadon Road", "price": 759950, "price_display": "\u00a3759,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-17", "address": "Flat 22, Lancaster House, 47, Beadon Road", "price": 894950, "price_display": "\u00a3894,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-11", "address": "Flat 15, Marquis House, 45, Beadon Road", "price": 969950, "price_display": "\u00a3969,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-01-08", "address": "Flat 2, Marquis House, 45, Beadon Road", "price": 1200000, "price_display": "\u00a31,200,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-29", "address": "Flat 72, Marquis House, 45, Beadon Road", "price": 1369950, "price_display": "\u00a31,369,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-28", "address": "Flat 55, Lancaster House, 47, Beadon Road", "price": 869950, "price_display": "\u00a3869,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-15", "address": "Flat 11, Lancaster House, Beadon Road", "price": 759950, "price_display": "\u00a3759,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-01", "address": "Flat 50, Lancaster House, 47, Beadon Road", "price": 584950, "price_display": "\u00a3584,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-31", "address": "Flat 41, Marquis House, 45, Beadon Road", "price": 859950, "price_display": "\u00a3859,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-20", "address": "Flat 17, Marquis House, 45, Beadon Road", "price": 759950, "price_display": "\u00a3759,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-07", "address": "Flat 52, Marquis House, 45, Beadon Road", "price": 894950, "price_display": "\u00a3894,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-08", "address": "Flat 35, Lancaster House, 47, Beadon Road", "price": 839950, "price_display": "\u00a3839,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-18", "address": "Flat 63, Lancaster House, 47, Beadon Road", "price": 925000, "price_display": "\u00a3925,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-28", "address": "Flat 71, Marquis House, 45, Beadon Road", "price": 1349950, "price_display": "\u00a31,349,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-07", "address": "Flat 77, Marquis House 45, Beadon Road", "price": 1200000, "price_display": "\u00a31,200,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-21", "address": "Flat 25, Lancaster House, 47, Beadon Road", "price": 313530, "price_display": "\u00a3313,530", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-27", "address": "Flat 74, Marquis House, 45, Beadon Road", "price": 1399950, "price_display": "\u00a31,399,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-04-26", "address": "Flat 14, Lancaster House, 47, Beadon Road", "price": 820000, "price_display": "\u00a3820,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-28", "address": "Flat 67, Marquis House, 45, Beadon Road", "price": 1499950, "price_display": "\u00a31,499,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-30", "address": "Flat 31, Marquis House, 45, Beadon Road", "price": 979950, "price_display": "\u00a3979,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-16", "address": "Flat 24, Lancaster House, 47, Beadon Road", "price": 929950, "price_display": "\u00a3929,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-15", "address": "Flat 8, Marquis House, 45, Beadon Road", "price": 244701, "price_display": "\u00a3244,701", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-12", "address": "Flat 46, Marquis House, 45, Beadon Road", "price": 819950, "price_display": "\u00a3819,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-20", "address": "Flat 64, Lancaster House, 47, Beadon Road", "price": 1299950, "price_display": "\u00a31,299,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-09", "address": "Flat 47, Lancaster House, 47, Beadon Road", "price": 599950, "price_display": "\u00a3599,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-12", "address": "Flat 59, Marquis House, 45, Beadon Road", "price": 1529950, "price_display": "\u00a31,529,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-12", "address": "Flat 49, Marquis House, 45, Beadon Road", "price": 849950, "price_display": "\u00a3849,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-28", "address": "Flat 21, Marquis House, 45, Beadon Road", "price": 569950, "price_display": "\u00a3569,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-01-18", "address": "Flat 76, Marquis House, 45, Beadon Road", "price": 1339950, "price_display": "\u00a31,339,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-08-03", "address": "Flat 47, Marquis House, 45, Beadon Road", "price": 1999950, "price_display": "\u00a31,999,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-04-06", "address": "Flat 5, Marquis House, 45, Beadon Road", "price": 313530, "price_display": "\u00a3313,530", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-03-29", "address": "Flat 43, Lancaster House, 47, Beadon Road", "price": 1330000, "price_display": "\u00a31,330,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-03", "address": "Flat 3, Lancaster House, 47, Beadon Road", "price": 313530, "price_display": "\u00a3313,530", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-08", "address": "Flat 8, Lancaster House, Beadon Road", "price": 744950, "price_display": "\u00a3744,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-13", "address": "Flat 13, Lancaster House, 47, Beadon Road", "price": 244700, "price_display": "\u00a3244,700", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-14", "address": "Flat 43, Marquis House, 45, Beadon Road", "price": 519950, "price_display": "\u00a3519,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-31", "address": "Flat 33, Marquis House, 45, Beadon Road", "price": 829950, "price_display": "\u00a3829,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-22", "address": "Flat 7, Lancaster House, 47, Beadon Road", "price": 899950, "price_display": "\u00a3899,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-25", "address": "Flat 27, Lancaster House, 47, Beadon Road", "price": 829950, "price_display": "\u00a3829,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-16", "address": "Flat 49, Lancaster House, 47, Beadon Road", "price": 649950, "price_display": "\u00a3649,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-03-15", "address": "Flat 50, Marquis House, 45, Beadon Road", "price": 882265, "price_display": "\u00a3882,265", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-07", "address": "Flat 54, Lancaster House, 47, Beadon Road", "price": 519950, "price_display": "\u00a3519,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-10", "address": "Flat 37, Marquis House, 45, Beadon Road", "price": 579950, "price_display": "\u00a3579,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-06-14", "address": "Flat 53, Marquis House, 45, Beadon Road", "price": 1300000, "price_display": "\u00a31,300,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-08", "address": "Flat 25, Marquis House, 45, Beadon Road", "price": 819950, "price_display": "\u00a3819,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-01", "address": "Flat 48, Lancaster House, 47, Beadon Road", "price": 859950, "price_display": "\u00a3859,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-15", "address": "Flat 10, Lancaster House, 47, Beadon Road", "price": 809950, "price_display": "\u00a3809,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-01-30", "address": "Flat 64, Marquis House, 45, Beadon Road", "price": 1749950, "price_display": "\u00a31,749,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-01-01", "address": "Flat 17, Lancaster House, 47, Beadon Road", "price": 313530, "price_display": "\u00a3313,530", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-28", "address": "Flat 67, Lancaster House, 47, Beadon Road", "price": 1999950, "price_display": "\u00a31,999,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-14", "address": "Flat 66, Marquis House, 45, Beadon Road", "price": 1200000, "price_display": "\u00a31,200,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-04-05", "address": "Flat 11, Marquis House, 45, Beadon Road", "price": 499950, "price_display": "\u00a3499,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-02", "address": "Flat 70, Marquis House, 45, Beadon Road", "price": 1459950, "price_display": "\u00a31,459,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-07", "address": "Flat 54, Marquis House, 45, Beadon Road", "price": 809950, "price_display": "\u00a3809,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-15", "address": "Flat 56, Lancaster House, 47, Beadon Road", "price": 659950, "price_display": "\u00a3659,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-19", "address": "Flat 62, Lancaster House, 47, Beadon Road", "price": 984950, "price_display": "\u00a3984,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-31", "address": "Flat 1, Marquis House, 45, Beadon Road", "price": 580000, "price_display": "\u00a3580,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-28", "address": "Flat 52, Lancaster House, 47, Beadon Road", "price": 889950, "price_display": "\u00a3889,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-20", "address": "Flat 60, Lancaster House, 47, Beadon Road", "price": 959950, "price_display": "\u00a3959,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-26", "address": "Flat 26, Lancaster House, 47, Beadon Road", "price": 829950, "price_display": "\u00a3829,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-25", "address": "Flat 14, Marquis House, 45, Beadon Road", "price": 759950, "price_display": "\u00a3759,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-11-29", "address": "Flat 56, Marquis House, 45, Beadon Road", "price": 909950, "price_display": "\u00a3909,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-12", "address": "Flat 39, Lancaster House, 47, Beadon Road", "price": 869950, "price_display": "\u00a3869,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-08", "address": "Flat 40, Lancaster House, 47, Beadon Road", "price": 969950, "price_display": "\u00a3969,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-19", "address": "Flat 29, Lancaster House, 47, Beadon Road", "price": 313530, "price_display": "\u00a3313,530", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-04-05", "address": "Flat 16, Marquis House, 45, Beadon Road", "price": 283160, "price_display": "\u00a3283,160", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-08", "address": "Flat 34, Lancaster House, 47, Beadon Road", "price": 839950, "price_display": "\u00a3839,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-21", "address": "Flat 21, Lancaster House, Beadon Road", "price": 283160, "price_display": "\u00a3283,160", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-06", "address": "Flat 42, Marquis House, 45, Beadon Road", "price": 313530, "price_display": "\u00a3313,530", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-18", "address": "Flat 18, Lancaster House, 47, Beadon Road", "price": 819950, "price_display": "\u00a3819,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-15", "address": "Flat 41, Lancaster House, 47, Beadon Road", "price": 549950, "price_display": "\u00a3549,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-15", "address": "Flat 7, Marquis House, 45, Beadon Road", "price": 924950, "price_display": "\u00a3924,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-24", "address": "Flat 58, Marquis House, 45, Beadon Road", "price": 949940, "price_display": "\u00a3949,940", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-27", "address": "Flat 73, Marquis House, 45, Beadon Road", "price": 1369950, "price_display": "\u00a31,369,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-15", "address": "Flat 6, Lancaster House, 47, Beadon Road", "price": 313530, "price_display": "\u00a3313,530", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-13", "address": "Flat 51, Lancaster House, 47, Beadon Road", "price": 889950, "price_display": "\u00a3889,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-20", "address": "Flat 57, Lancaster House, 47, Beadon Road", "price": 569950, "price_display": "\u00a3569,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-17", "address": "Flat 20, Lancaster House, 47, Beadon Road", "price": 909950, "price_display": "\u00a3909,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-14", "address": "Flat 44, Marquis House, 45, Beadon Road", "price": 889950, "price_display": "\u00a3889,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-30", "address": "Flat 29, Marquis House, 45, Beadon Road", "price": 609950, "price_display": "\u00a3609,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-22", "address": "Flat 28, Lancaster House, 47, Beadon Road", "price": 949950, "price_display": "\u00a3949,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-21", "address": "Flat 1, Lancaster House, 47, Beadon Road", "price": 799950, "price_display": "\u00a3799,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-12", "address": "Flat 55, Marquis House, 45, Beadon Road", "price": 899950, "price_display": "\u00a3899,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-01", "address": "Flat 53, Lancaster House, 47, Beadon Road", "price": 969950, "price_display": "\u00a3969,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-15", "address": "Flat 4, Lancaster House, 47, Beadon Road", "price": 193510, "price_display": "\u00a3193,510", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-11", "address": "Flat 5, Lancaster House, 47, Beadon Road", "price": 242500, "price_display": "\u00a3242,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-06", "address": "Flat 26, Marquis House, 45, Beadon Road", "price": 313530, "price_display": "\u00a3313,530", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-18", "address": "Flat 57, Marquis House, 45, Beadon Road", "price": 909950, "price_display": "\u00a3909,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-08", "address": "Flat 42, Lancaster House, 47, Beadon Road", "price": 849950, "price_display": "\u00a3849,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-21", "address": "Flat 59, Lancaster House, 47, Beadon Road", "price": 879950, "price_display": "\u00a3879,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-19", "address": "Flat 3, Marquis House, 45, Beadon Road", "price": 849950, "price_display": "\u00a3849,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-05", "address": "Flat 23, Lancaster House, 47, Beadon Road", "price": 819950, "price_display": "\u00a3819,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-21", "address": "Flat 58, Lancaster House, 47, Beadon Road", "price": 869950, "price_display": "\u00a3869,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-26", "address": "Flat 63, Marquis House, 45, Beadon Road", "price": 1539950, "price_display": "\u00a31,539,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-04-18", "address": "Flat 80, Marquis House, 45, Beadon Road", "price": 3902190, "price_display": "\u00a33,902,190", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-24", "address": "Flat 78, Marquis House, 45, Beadon Road", "price": 4049950, "price_display": "\u00a34,049,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-04-05", "address": "Flat 27, Marquis House, 45, Beadon Road", "price": 559950, "price_display": "\u00a3559,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-15", "address": "Flat 24, Marquis House, 45, Beadon Road", "price": 313530, "price_display": "\u00a3313,530", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-14", "address": "Flat 16, Lancaster House, 47, Beadon Road", "price": 919950, "price_display": "\u00a3919,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-09", "address": "Flat 10, Marquis House, 45, Beadon Road", "price": 313530, "price_display": "\u00a3313,530", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-25", "address": "Flat 38, Marquis House, 45, Beadon Road", "price": 799950, "price_display": "\u00a3799,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-04-03", "address": "Flat 22, Marquis House, 45, Beadon Road", "price": 779950, "price_display": "\u00a3779,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-04-19", "address": "Flat 6, Marquis House, 45, Beadon Road", "price": 799950, "price_display": "\u00a3799,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-04", "address": "Flat 23, Marquis House, 45, Beadon Road", "price": 949950, "price_display": "\u00a3949,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-19", "address": "Flat 33, Lancaster House, 47, Beadon Road", "price": 313530, "price_display": "\u00a3313,530", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-01-30", "address": "Flat 60, Marquis House, 45, Beadon Road", "price": 1600000, "price_display": "\u00a31,600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-18", "address": "Flat 31, Lancaster House, 47, Beadon Road", "price": 839950, "price_display": "\u00a3839,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-18", "address": "Flat 48, Marquis House, 45, Beadon Road", "price": 899950, "price_display": "\u00a3899,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-11-08", "address": "Flat 36, Marquis House, 45, Beadon Road", "price": 900000, "price_display": "\u00a3900,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-18", "address": "Flat 30, Lancaster House, 47, Beadon Road", "price": 809950, "price_display": "\u00a3809,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-14", "address": "Flat 9, Lancaster House, 47, Beadon Road", "price": 242500, "price_display": "\u00a3242,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-27", "address": "Flat 66, Lancaster House, 47, Beadon Road", "price": 2299950, "price_display": "\u00a32,299,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-14", "address": "Flat 12, Lancaster House, 47, Beadon Road", "price": 899950, "price_display": "\u00a3899,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-12", "address": "Flat 45, Lancaster House, 47, Beadon Road", "price": 859950, "price_display": "\u00a3859,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-04", "address": "Flat 65, Marquis House, 45, Beadon Road", "price": 1449950, "price_display": "\u00a31,449,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-20", "address": "Flat 15, Lancaster House, 47, Beadon Road", "price": 809950, "price_display": "\u00a3809,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-22", "address": "Flat 32, Lancaster House, 47, Beadon Road", "price": 959950, "price_display": "\u00a3959,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-04-13", "address": "Flat 61, Lancaster House, 47, Beadon Road", "price": 524950, "price_display": "\u00a3524,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-10", "address": "Flat 30, Marquis House, 45, Beadon Road", "price": 779950, "price_display": "\u00a3779,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-04-05", "address": "Flat 19, Marquis House, 45, Beadon Road", "price": 549950, "price_display": "\u00a3549,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-25", "address": "Flat 20, Marquis House, 45, Beadon Road", "price": 859950, "price_display": "\u00a3859,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-08", "address": "Flat 32, Marquis House, 45, Beadon Road", "price": 313530, "price_display": "\u00a3313,530", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-02", "address": "Flat 37, Lancaster House, 47, Beadon Road", "price": 313530, "price_display": "\u00a3313,530", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W6-0BT', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W6-0BT');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W6-0BT', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W6-0BT', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W6-0BT" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2018-09-07</td>
+            <td>Flat 69, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,299,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-20</td>
+            <td>Flat 62, Marquis House, 45, Beadon Road</td>
+            <td class="price">£979,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-07</td>
+            <td>Flat 38, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£884,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-04-25</td>
+            <td>Flat 13, Marquis House, 45, Beadon Road</td>
+            <td class="price">£650,000</td>
+        <td class="positive" title="Previous: £579,950 (2018-05-03)">+2.3%/yr</td></tr>
+
+        <tr>
+            <td>2018-05-03</td>
+            <td>Flat 13, Marquis House, 45, Beadon Road</td>
+            <td class="price">£579,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-04</td>
+            <td>Flat 9, Marquis House, 45, Beadon Road</td>
+            <td class="price">£759,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-17</td>
+            <td>Flat 22, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£894,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-11-09</td>
+            <td>Flat 34, Marquis House, 45, Beadon Road</td>
+            <td class="price">£345,180</td>
+        <td class="positive" title="Previous: £313,530 (2018-05-10)">+2.8%/yr</td></tr>
+
+        <tr>
+            <td>2018-05-10</td>
+            <td>Flat 34, Marquis House, 45, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-11</td>
+            <td>Flat 15, Marquis House, 45, Beadon Road</td>
+            <td class="price">£969,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-01-08</td>
+            <td>Flat 2, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,200,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-29</td>
+            <td>Flat 72, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,369,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-28</td>
+            <td>Flat 55, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£869,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-15</td>
+            <td>Flat 11, Lancaster House, Beadon Road</td>
+            <td class="price">£759,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-01</td>
+            <td>Flat 50, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£584,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-31</td>
+            <td>Flat 41, Marquis House, 45, Beadon Road</td>
+            <td class="price">£859,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-07-25</td>
+            <td>Flat 45, Marquis House, 45, Beadon Road</td>
+            <td class="price">£690,000</td>
+        <td class="positive" title="Previous: £619,950 (2018-05-29)">+9.7%/yr</td></tr>
+
+        <tr>
+            <td>2018-05-29</td>
+            <td>Flat 45, Marquis House, 45, Beadon Road</td>
+            <td class="price">£619,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-20</td>
+            <td>Flat 17, Marquis House, 45, Beadon Road</td>
+            <td class="price">£759,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-07</td>
+            <td>Flat 52, Marquis House, 45, Beadon Road</td>
+            <td class="price">£894,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-11-16</td>
+            <td>Flat 19, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£865,000</td>
+        <td class="positive" title="Previous: £819,950 (2018-01-16)">+1.4%/yr</td></tr>
+
+        <tr>
+            <td>2018-01-16</td>
+            <td>Flat 19, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£819,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-08</td>
+            <td>Flat 35, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£839,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-18</td>
+            <td>Flat 63, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£925,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-05-07</td>
+            <td>Flat 61, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,520,000</td>
+        <td class="positive" title="Previous: £1,239,960 (2019-11-29)">+59.2%/yr</td></tr>
+
+        <tr>
+            <td>2019-11-29</td>
+            <td>Flat 61, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,239,960</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-28</td>
+            <td>Flat 71, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,349,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-07</td>
+            <td>Flat 77, Marquis House 45, Beadon Road</td>
+            <td class="price">£1,200,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-09-16</td>
+            <td>Flat 40, Marquis House, 45, Beadon Road</td>
+            <td class="price">£321,943</td>
+        <td class="positive" title="Previous: £313,530 (2018-05-16)">+0.6%/yr</td></tr>
+
+        <tr>
+            <td>2018-05-16</td>
+            <td>Flat 40, Marquis House, 45, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-21</td>
+            <td>Flat 25, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-27</td>
+            <td>Flat 74, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,399,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-26</td>
+            <td>Flat 14, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£820,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-28</td>
+            <td>Flat 67, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,499,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-30</td>
+            <td>Flat 31, Marquis House, 45, Beadon Road</td>
+            <td class="price">£979,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-16</td>
+            <td>Flat 24, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£929,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-15</td>
+            <td>Flat 8, Marquis House, 45, Beadon Road</td>
+            <td class="price">£244,701</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-12</td>
+            <td>Flat 46, Marquis House, 45, Beadon Road</td>
+            <td class="price">£819,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-20</td>
+            <td>Flat 64, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£1,299,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-09</td>
+            <td>Flat 47, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£599,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-12</td>
+            <td>Flat 59, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,529,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-12</td>
+            <td>Flat 49, Marquis House, 45, Beadon Road</td>
+            <td class="price">£849,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-28</td>
+            <td>Flat 21, Marquis House, 45, Beadon Road</td>
+            <td class="price">£569,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-01-18</td>
+            <td>Flat 76, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,339,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-03</td>
+            <td>Flat 47, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,999,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-01-25</td>
+            <td>Flat 12, Marquis House, 45, Beadon Road</td>
+            <td class="price">£940,000</td>
+        <td class="positive" title="Previous: £899,950 (2018-05-04)">+6.2%/yr</td></tr>
+
+        <tr>
+            <td>2018-05-04</td>
+            <td>Flat 12, Marquis House, 45, Beadon Road</td>
+            <td class="price">£899,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-06</td>
+            <td>Flat 5, Marquis House, 45, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-03-29</td>
+            <td>Flat 43, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£1,330,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-03</td>
+            <td>Flat 3, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-11-21</td>
+            <td>Flat 4, Marquis House, 45, Beadon Road</td>
+            <td class="price">£195,500</td>
+        <td class="positive" title="Previous: £186,560 (2021-12-17)">+1.2%/yr</td></tr>
+
+        <tr>
+            <td>2021-12-17</td>
+            <td>Flat 4, Marquis House, 45, Beadon Road</td>
+            <td class="price">£186,560</td>
+        <td class="positive" title="Previous: £176,360 (2018-04-05)">+1.5%/yr</td></tr>
+
+        <tr>
+            <td>2018-04-05</td>
+            <td>Flat 4, Marquis House, 45, Beadon Road</td>
+            <td class="price">£176,360</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-08</td>
+            <td>Flat 8, Lancaster House, Beadon Road</td>
+            <td class="price">£744,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-13</td>
+            <td>Flat 13, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£244,700</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-14</td>
+            <td>Flat 43, Marquis House, 45, Beadon Road</td>
+            <td class="price">£519,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-31</td>
+            <td>Flat 33, Marquis House, 45, Beadon Road</td>
+            <td class="price">£829,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-22</td>
+            <td>Flat 7, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£899,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-25</td>
+            <td>Flat 27, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£829,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-16</td>
+            <td>Flat 49, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£649,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-03-15</td>
+            <td>Flat 50, Marquis House, 45, Beadon Road</td>
+            <td class="price">£882,265</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-07</td>
+            <td>Flat 54, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£519,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-10</td>
+            <td>Flat 37, Marquis House, 45, Beadon Road</td>
+            <td class="price">£579,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-06-14</td>
+            <td>Flat 53, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,300,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-01-21</td>
+            <td>Flat 2, Lancaster House, Beadon Road</td>
+            <td class="price">£490,000</td>
+        <td class="positive" title="Previous: £193,510 (2017-12-14)">+25.4%/yr</td></tr>
+
+        <tr>
+            <td>2017-12-14</td>
+            <td>Flat 2, Lancaster House, Beadon Road</td>
+            <td class="price">£193,510</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-08</td>
+            <td>Flat 25, Marquis House, 45, Beadon Road</td>
+            <td class="price">£819,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-01</td>
+            <td>Flat 48, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£859,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-15</td>
+            <td>Flat 10, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£809,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-01-30</td>
+            <td>Flat 64, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,749,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-01-01</td>
+            <td>Flat 17, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-28</td>
+            <td>Flat 67, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£1,999,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-14</td>
+            <td>Flat 66, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,200,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-04-12</td>
+            <td>Flat 75, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,524,000</td>
+        <td class="positive" title="Previous: £1,499,950 (2018-09-24)">+0.3%/yr</td></tr>
+
+        <tr>
+            <td>2018-09-24</td>
+            <td>Flat 75, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,499,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-05</td>
+            <td>Flat 11, Marquis House, 45, Beadon Road</td>
+            <td class="price">£499,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-02</td>
+            <td>Flat 70, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,459,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-07</td>
+            <td>Flat 54, Marquis House, 45, Beadon Road</td>
+            <td class="price">£809,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-15</td>
+            <td>Flat 56, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£659,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-19</td>
+            <td>Flat 62, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£984,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-01-22</td>
+            <td>Flat 46, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£934,500</td>
+        <td class="negative" title="Previous: £939,950 (2018-02-12)">-0.2%/yr</td></tr>
+
+        <tr>
+            <td>2018-02-12</td>
+            <td>Flat 46, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£939,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-31</td>
+            <td>Flat 1, Marquis House, 45, Beadon Road</td>
+            <td class="price">£580,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-28</td>
+            <td>Flat 52, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£889,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-04-21</td>
+            <td>Flat 28, Marquis House, 45, Beadon Road</td>
+            <td class="price">£930,000</td>
+        <td class="positive" title="Previous: £919,950 (2018-06-22)">+0.3%/yr</td></tr>
+
+        <tr>
+            <td>2018-06-22</td>
+            <td>Flat 28, Marquis House, 45, Beadon Road</td>
+            <td class="price">£919,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-20</td>
+            <td>Flat 60, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£959,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-26</td>
+            <td>Flat 26, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£829,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-25</td>
+            <td>Flat 14, Marquis House, 45, Beadon Road</td>
+            <td class="price">£759,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-29</td>
+            <td>Flat 56, Marquis House, 45, Beadon Road</td>
+            <td class="price">£909,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-12</td>
+            <td>Flat 39, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£869,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-08</td>
+            <td>Flat 40, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£969,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-19</td>
+            <td>Flat 29, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-05</td>
+            <td>Flat 16, Marquis House, 45, Beadon Road</td>
+            <td class="price">£283,160</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-08</td>
+            <td>Flat 34, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£839,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-21</td>
+            <td>Flat 21, Lancaster House, Beadon Road</td>
+            <td class="price">£283,160</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-06</td>
+            <td>Flat 42, Marquis House, 45, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-18</td>
+            <td>Flat 18, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£819,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-15</td>
+            <td>Flat 41, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£549,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-15</td>
+            <td>Flat 7, Marquis House, 45, Beadon Road</td>
+            <td class="price">£924,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-24</td>
+            <td>Flat 58, Marquis House, 45, Beadon Road</td>
+            <td class="price">£949,940</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-27</td>
+            <td>Flat 73, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,369,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-15</td>
+            <td>Flat 6, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-13</td>
+            <td>Flat 51, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£889,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-20</td>
+            <td>Flat 57, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£569,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-17</td>
+            <td>Flat 20, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£909,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-08-27</td>
+            <td>Flat 35, Marquis House, 45, Beadon Road</td>
+            <td class="price">£560,000</td>
+        <td class="positive" title="Previous: £514,950 (2018-06-08)">+2.6%/yr</td></tr>
+
+        <tr>
+            <td>2018-06-08</td>
+            <td>Flat 35, Marquis House, 45, Beadon Road</td>
+            <td class="price">£514,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-14</td>
+            <td>Flat 44, Marquis House, 45, Beadon Road</td>
+            <td class="price">£889,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-30</td>
+            <td>Flat 29, Marquis House, 45, Beadon Road</td>
+            <td class="price">£609,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-22</td>
+            <td>Flat 28, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£949,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-21</td>
+            <td>Flat 1, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£799,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-12</td>
+            <td>Flat 55, Marquis House, 45, Beadon Road</td>
+            <td class="price">£899,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-01</td>
+            <td>Flat 53, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£969,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-20</td>
+            <td>Flat 68, Marquis House, 45, Beadon Road</td>
+            <td class="price">£950,000</td>
+        <td class="negative" title="Previous: £1,200,000 (2018-09-28)">-64.2%/yr</td></tr>
+
+        <tr>
+            <td>2018-09-28</td>
+            <td>Flat 68, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,200,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-15</td>
+            <td>Flat 4, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£193,510</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-11</td>
+            <td>Flat 5, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£242,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-06</td>
+            <td>Flat 26, Marquis House, 45, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-18</td>
+            <td>Flat 57, Marquis House, 45, Beadon Road</td>
+            <td class="price">£909,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-08</td>
+            <td>Flat 42, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£849,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-21</td>
+            <td>Flat 59, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£879,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-19</td>
+            <td>Flat 3, Marquis House, 45, Beadon Road</td>
+            <td class="price">£849,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-28</td>
+            <td>Flat 51, Marquis House, 45, Beadon Road</td>
+            <td class="price">£950,000</td>
+        <td class="negative" title="Previous: £949,950 (2018-06-12)">+0.0%/yr</td></tr>
+
+        <tr>
+            <td>2018-06-12</td>
+            <td>Flat 51, Marquis House, 45, Beadon Road</td>
+            <td class="price">£949,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-05</td>
+            <td>Flat 23, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£819,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-21</td>
+            <td>Flat 58, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£869,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-26</td>
+            <td>Flat 63, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,539,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-04-18</td>
+            <td>Flat 80, Marquis House, 45, Beadon Road</td>
+            <td class="price">£3,902,190</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-24</td>
+            <td>Flat 78, Marquis House, 45, Beadon Road</td>
+            <td class="price">£4,049,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-05</td>
+            <td>Flat 27, Marquis House, 45, Beadon Road</td>
+            <td class="price">£559,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-15</td>
+            <td>Flat 24, Marquis House, 45, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-11-30</td>
+            <td>Flat 65, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£1,600,000</td>
+        <td class="positive" title="Previous: £1,174,950 (2018-06-15)">+9.3%/yr</td></tr>
+
+        <tr>
+            <td>2018-06-15</td>
+            <td>Flat 65, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£1,174,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-14</td>
+            <td>Flat 16, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£919,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-23</td>
+            <td>Flat 36, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£640,000</td>
+        <td class="positive" title="Previous: £589,950 (2018-02-16)">+11.2%/yr</td></tr>
+
+        <tr>
+            <td>2018-02-16</td>
+            <td>Flat 36, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£589,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-09</td>
+            <td>Flat 10, Marquis House, 45, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-25</td>
+            <td>Flat 38, Marquis House, 45, Beadon Road</td>
+            <td class="price">£799,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-03</td>
+            <td>Flat 22, Marquis House, 45, Beadon Road</td>
+            <td class="price">£779,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-19</td>
+            <td>Flat 6, Marquis House, 45, Beadon Road</td>
+            <td class="price">£799,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-04</td>
+            <td>Flat 23, Marquis House, 45, Beadon Road</td>
+            <td class="price">£949,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-19</td>
+            <td>Flat 33, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-01-30</td>
+            <td>Flat 60, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-18</td>
+            <td>Flat 31, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£839,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-18</td>
+            <td>Flat 48, Marquis House, 45, Beadon Road</td>
+            <td class="price">£899,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-04-09</td>
+            <td>Flat 44, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£780,000</td>
+        <td class="negative" title="Previous: £849,950 (2018-02-08)">-3.9%/yr</td></tr>
+
+        <tr>
+            <td>2018-02-08</td>
+            <td>Flat 44, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£849,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-08</td>
+            <td>Flat 36, Marquis House, 45, Beadon Road</td>
+            <td class="price">£900,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-18</td>
+            <td>Flat 30, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£809,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-14</td>
+            <td>Flat 9, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£242,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-27</td>
+            <td>Flat 66, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£2,299,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-14</td>
+            <td>Flat 12, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£899,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-12</td>
+            <td>Flat 45, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£859,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-04</td>
+            <td>Flat 65, Marquis House, 45, Beadon Road</td>
+            <td class="price">£1,449,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-20</td>
+            <td>Flat 15, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£809,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-22</td>
+            <td>Flat 32, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£959,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-13</td>
+            <td>Flat 61, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£524,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-06-01</td>
+            <td>Flat 18, Marquis House, 45, Beadon Road</td>
+            <td class="price">£355,000</td>
+        <td class="positive" title="Previous: £313,530 (2018-05-31)">+3.1%/yr</td></tr>
+
+        <tr>
+            <td>2018-05-31</td>
+            <td>Flat 18, Marquis House, 45, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-10</td>
+            <td>Flat 30, Marquis House, 45, Beadon Road</td>
+            <td class="price">£779,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-08-30</td>
+            <td>Flat 39, Marquis House, 45, Beadon Road</td>
+            <td class="price">£880,000</td>
+        <td class="positive" title="Previous: £870,000 (2019-05-15)">+0.2%/yr</td></tr>
+
+        <tr>
+            <td>2019-05-15</td>
+            <td>Flat 39, Marquis House, 45, Beadon Road</td>
+            <td class="price">£870,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-05</td>
+            <td>Flat 19, Marquis House, 45, Beadon Road</td>
+            <td class="price">£549,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-25</td>
+            <td>Flat 20, Marquis House, 45, Beadon Road</td>
+            <td class="price">£859,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-08</td>
+            <td>Flat 32, Marquis House, 45, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-02</td>
+            <td>Flat 37, Lancaster House, 47, Beadon Road</td>
+            <td class="price">£313,530</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W6-0BT" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W6-0BT" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2014, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [313530, 536363, 867112, 1424431, 1300000, 783905, 524235, 1041333, 880000, 195500],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2014, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [313530, 744950, 849950, 1300000, 1520000, 865000, 490000, 950000, 880000, 195500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W6 0BT',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W6-0BT', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 167</p>
+                    <p><strong>Unique Properties:</strong> 146</p>
+                    <p><strong>Average Price:</strong> £864,205</p>
+                    <p><strong>Median Price:</strong> £849,950</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W6-0BT" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W6 0 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W6 0</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W6-0BT', 'W6-0BT')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W6-0BT', 'W6-0BT')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W6-0BT" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W6-0BT" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [434208, 432131, 545817, 595377, 487712, 641777, 570997, 732623, 801998, 873680, 851778, 840106, 815982, 890404, 952165, 979584, 859529, 825355, 943172, 940639, 915510],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [370000, 349950, 440000, 452500, 402500, 527500, 424800, 532750, 587500, 722500, 640000, 625000, 715000, 829950, 768550, 780000, 730000, 672500, 788046, 745000, 622500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W6 0 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W6-0BT', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W6-0BT" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £363,636</div>
+                        <div class="cell-sell">Sell: £508,900</div>
+                        <div class="cell-return">+12.4%/yr</div>
+                        <div class="cell-count">(45 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £413,839</div>
+                        <div class="cell-sell">Sell: £902,805</div>
+                        <div class="cell-return">+11.9%/yr</div>
+                        <div class="cell-count">(47 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £521,357</div>
+                        <div class="cell-sell">Sell: £1,332,119</div>
+                        <div class="cell-return">+7.9%/yr</div>
+                        <div class="cell-count">(21 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £378,453</div>
+                        <div class="cell-sell">Sell: £861,750</div>
+                        <div class="cell-return">+5.0%/yr</div>
+                        <div class="cell-count">(16 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £419,850</div>
+                        <div class="cell-sell">Sell: £523,501</div>
+                        <div class="cell-return">+10.2%/yr</div>
+                        <div class="cell-count">(67 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £543,304</div>
+                        <div class="cell-sell">Sell: £850,248</div>
+                        <div class="cell-return">+10.2%/yr</div>
+                        <div class="cell-count">(220 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £600,732</div>
+                        <div class="cell-sell">Sell: £1,061,709</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(108 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £513,992</div>
+                        <div class="cell-sell">Sell: £937,502</div>
+                        <div class="cell-return">+4.4%/yr</div>
+                        <div class="cell-count">(82 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £534,678</div>
+                        <div class="cell-sell">Sell: £735,843</div>
+                        <div class="cell-return">+17.1%/yr</div>
+                        <div class="cell-count">(96 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £688,241</div>
+                        <div class="cell-sell">Sell: £875,201</div>
+                        <div class="cell-return">+6.1%/yr</div>
+                        <div class="cell-count">(143 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £834,376</div>
+                        <div class="cell-sell">Sell: £1,075,699</div>
+                        <div class="cell-return">+3.0%/yr</div>
+                        <div class="cell-count">(147 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £885,351</div>
+                        <div class="cell-sell">Sell: £883,918</div>
+                        <div class="cell-return">+8.2%/yr</div>
+                        <div class="cell-count">(49 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £761,064</div>
+                        <div class="cell-sell">Sell: £839,635</div>
+                        <div class="cell-return">+3.1%/yr</div>
+                        <div class="cell-count">(145 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £532,607</div>
+                        <div class="cell-sell">Sell: £593,133</div>
+                        <div class="cell-return">+5.7%/yr</div>
+                        <div class="cell-count">(39 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W6-0BT" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W6 Analysis</h4>
+                <p class="area-info">Viewing data for entire W6 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W6-0BT', 'W6-0BT')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W6-0BT', 'W6-0BT')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W6-0BT" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W6-0BT" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [394991, 424257, 482804, 507096, 498061, 595317, 551872, 659380, 687325, 854158, 891759, 847660, 999097, 935647, 942374, 954287, 872237, 858786, 905639, 932128, 912339],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [333250, 341000, 380000, 410000, 415000, 464500, 426800, 480000, 529975, 700000, 715000, 632000, 809975, 819950, 695000, 807500, 725000, 687169, 785000, 705000, 661000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W6-0BT', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W6-0BT" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £343,433</div>
+                        <div class="cell-sell">Sell: £321,198</div>
+                        <div class="cell-return">+34.9%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £354,647</div>
+                        <div class="cell-sell">Sell: £506,536</div>
+                        <div class="cell-return">+12.9%/yr</div>
+                        <div class="cell-count">(148 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £404,687</div>
+                        <div class="cell-sell">Sell: £836,146</div>
+                        <div class="cell-return">+10.3%/yr</div>
+                        <div class="cell-count">(119 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £439,511</div>
+                        <div class="cell-sell">Sell: £1,031,792</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(59 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £436,273</div>
+                        <div class="cell-sell">Sell: £980,135</div>
+                        <div class="cell-return">+4.9%/yr</div>
+                        <div class="cell-count">(46 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £374,635</div>
+                        <div class="cell-sell">Sell: £463,248</div>
+                        <div class="cell-return">+11.3%/yr</div>
+                        <div class="cell-count">(218 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £473,024</div>
+                        <div class="cell-sell">Sell: £731,864</div>
+                        <div class="cell-return">+9.6%/yr</div>
+                        <div class="cell-count">(578 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £547,112</div>
+                        <div class="cell-sell">Sell: £956,716</div>
+                        <div class="cell-return">+6.4%/yr</div>
+                        <div class="cell-count">(278 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £520,029</div>
+                        <div class="cell-sell">Sell: £963,506</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(237 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £507,170</div>
+                        <div class="cell-sell">Sell: £723,683</div>
+                        <div class="cell-return">+18.7%/yr</div>
+                        <div class="cell-count">(209 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £617,093</div>
+                        <div class="cell-sell">Sell: £806,935</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(375 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £783,225</div>
+                        <div class="cell-sell">Sell: £997,410</div>
+                        <div class="cell-return">+2.9%/yr</div>
+                        <div class="cell-count">(412 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,001,846</div>
+                        <div class="cell-sell">Sell: £957,778</div>
+                        <div class="cell-return">+6.0%/yr</div>
+                        <div class="cell-count">(124 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £777,012</div>
+                        <div class="cell-sell">Sell: £839,487</div>
+                        <div class="cell-return">+2.8%/yr</div>
+                        <div class="cell-count">(423 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £638,804</div>
+                        <div class="cell-sell">Sell: £735,829</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(112 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W6 0'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W6'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

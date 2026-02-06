@@ -1,0 +1,1190 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>N16 9NJ</h3>
+            <div class="header-stats">
+                <span><strong>57</strong> transactions</span>
+                <span><strong>32</strong> properties</span>
+                <span>Avg: <strong>£631,252</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-N16-9NJ')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-N16-9NJ')">
+                Sector (N16 9)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-N16-9NJ')">
+                District (N16)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-N16-9NJ" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-N16-9NJ', 'N16-9NJ')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-N16-9NJ', 'N16-9NJ')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-N16-9NJ', 'N16-9NJ')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-N16-9NJ" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-N16-9NJ" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "16B, Aden Grove", "dates": ["2006-09-20", "2010-07-02", "2014-09-05", "2018-08-17", "2021-11-26"], "prices": [205000, 250000, 415000, 458000, 457500], "hover_texts": ["<b>16B, Aden Grove</b><br>Transaction 1 of 5<br>Date: 2006-09-20<br>Sale Price: \u00a3205,000", "<b>16B, Aden Grove</b><br>Transaction 2 of 5<br>Date: 2010-07-02<br>Sale Price: \u00a3250,000<br>Previous Purchase: \u00a3205,000<br>Previous Date: 2006-09-20<br>Annual Return: +5.4%/yr<br>Held for: 3.8 years", "<b>16B, Aden Grove</b><br>Transaction 3 of 5<br>Date: 2014-09-05<br>Sale Price: \u00a3415,000<br>Previous Purchase: \u00a3250,000<br>Previous Date: 2010-07-02<br>Annual Return: +12.9%/yr<br>Held for: 4.2 years", "<b>16B, Aden Grove</b><br>Transaction 4 of 5<br>Date: 2018-08-17<br>Sale Price: \u00a3458,000<br>Previous Purchase: \u00a3415,000<br>Previous Date: 2014-09-05<br>Annual Return: +2.5%/yr<br>Held for: 4.0 years", "<b>16B, Aden Grove</b><br>Transaction 5 of 5<br>Date: 2021-11-26<br>Sale Price: \u00a3457,500<br>Previous Purchase: \u00a3458,000<br>Previous Date: 2018-08-17<br>Annual Return: -0.0%/yr<br>Held for: 3.3 years"], "transaction_count": 5}, {"address": "Flat 3, Newington Apartments, Aden Grove", "dates": ["2017-01-20", "2021-09-27"], "prices": [490000, 507100], "hover_texts": ["<b>Flat 3, Newington Apartments, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2017-01-20<br>Sale Price: \u00a3490,000", "<b>Flat 3, Newington Apartments, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2021-09-27<br>Sale Price: \u00a3507,100<br>Previous Purchase: \u00a3490,000<br>Previous Date: 2017-01-20<br>Annual Return: +0.7%/yr<br>Held for: 4.7 years"], "transaction_count": 2}, {"address": "50, Aden Grove", "dates": ["2018-04-04", "2024-09-20"], "prices": [1125000, 1850000], "hover_texts": ["<b>50, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2018-04-04<br>Sale Price: \u00a31,125,000", "<b>50, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2024-09-20<br>Sale Price: \u00a31,850,000<br>Previous Purchase: \u00a31,125,000<br>Previous Date: 2018-04-04<br>Annual Return: +8.0%/yr<br>Held for: 6.5 years"], "transaction_count": 2}, {"address": "Flat 1, Newington Apartments, Aden Grove", "dates": ["2017-04-21", "2025-04-16"], "prices": [470000, 460000], "hover_texts": ["<b>Flat 1, Newington Apartments, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2017-04-21<br>Sale Price: \u00a3470,000", "<b>Flat 1, Newington Apartments, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2025-04-16<br>Sale Price: \u00a3460,000<br>Previous Purchase: \u00a3470,000<br>Previous Date: 2017-04-21<br>Annual Return: -0.3%/yr<br>Held for: 8.0 years"], "transaction_count": 2}, {"address": "18, Aden Grove", "dates": ["2005-12-19", "2015-09-28"], "prices": [335000, 435000], "hover_texts": ["<b>18, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2005-12-19<br>Sale Price: \u00a3335,000", "<b>18, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2015-09-28<br>Sale Price: \u00a3435,000<br>Previous Purchase: \u00a3335,000<br>Previous Date: 2005-12-19<br>Annual Return: +2.7%/yr<br>Held for: 9.8 years"], "transaction_count": 2}, {"address": "58, Aden Grove", "dates": ["2019-11-04", "2025-07-18"], "prices": [990000, 1335000], "hover_texts": ["<b>58, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2019-11-04<br>Sale Price: \u00a3990,000", "<b>58, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2025-07-18<br>Sale Price: \u00a31,335,000<br>Previous Purchase: \u00a3990,000<br>Previous Date: 2019-11-04<br>Annual Return: +5.4%/yr<br>Held for: 5.7 years"], "transaction_count": 2}, {"address": "12, Aden Grove", "dates": ["2007-07-16", "2011-11-10"], "prices": [250000, 288198], "hover_texts": ["<b>12, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2007-07-16<br>Sale Price: \u00a3250,000", "<b>12, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2011-11-10<br>Sale Price: \u00a3288,198<br>Previous Purchase: \u00a3250,000<br>Previous Date: 2007-07-16<br>Annual Return: +3.4%/yr<br>Held for: 4.3 years"], "transaction_count": 2}, {"address": "22, Aden Grove", "dates": ["2007-08-24", "2021-03-26"], "prices": [765000, 1646000], "hover_texts": ["<b>22, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2007-08-24<br>Sale Price: \u00a3765,000", "<b>22, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2021-03-26<br>Sale Price: \u00a31,646,000<br>Previous Purchase: \u00a3765,000<br>Previous Date: 2007-08-24<br>Annual Return: +5.8%/yr<br>Held for: 13.6 years"], "transaction_count": 2}, {"address": "4B, Aden Grove", "dates": ["2017-10-10", "2024-08-15"], "prices": [492000, 553000], "hover_texts": ["<b>4B, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2017-10-10<br>Sale Price: \u00a3492,000", "<b>4B, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2024-08-15<br>Sale Price: \u00a3553,000<br>Previous Purchase: \u00a3492,000<br>Previous Date: 2017-10-10<br>Annual Return: +1.7%/yr<br>Held for: 6.8 years"], "transaction_count": 2}, {"address": "12B, Aden Grove", "dates": ["2010-01-29", "2012-12-03"], "prices": [208000, 270000], "hover_texts": ["<b>12B, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2010-01-29<br>Sale Price: \u00a3208,000", "<b>12B, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2012-12-03<br>Sale Price: \u00a3270,000<br>Previous Purchase: \u00a3208,000<br>Previous Date: 2010-01-29<br>Annual Return: +9.6%/yr<br>Held for: 2.8 years"], "transaction_count": 2}, {"address": "Flat 3, 16, Aden Grove", "dates": ["2005-11-04", "2012-07-11", "2017-05-05"], "prices": [182500, 292500, 515000], "hover_texts": ["<b>Flat 3, 16, Aden Grove</b><br>Transaction 1 of 3<br>Date: 2005-11-04<br>Sale Price: \u00a3182,500", "<b>Flat 3, 16, Aden Grove</b><br>Transaction 2 of 3<br>Date: 2012-07-11<br>Sale Price: \u00a3292,500<br>Previous Purchase: \u00a3182,500<br>Previous Date: 2005-11-04<br>Annual Return: +7.3%/yr<br>Held for: 6.7 years", "<b>Flat 3, 16, Aden Grove</b><br>Transaction 3 of 3<br>Date: 2017-05-05<br>Sale Price: \u00a3515,000<br>Previous Purchase: \u00a3292,500<br>Previous Date: 2012-07-11<br>Annual Return: +12.5%/yr<br>Held for: 4.8 years"], "transaction_count": 3}, {"address": "Flat 5, Newington Apartments, Aden Grove", "dates": ["2017-02-24", "2021-06-21"], "prices": [494000, 475000], "hover_texts": ["<b>Flat 5, Newington Apartments, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2017-02-24<br>Sale Price: \u00a3494,000", "<b>Flat 5, Newington Apartments, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2021-06-21<br>Sale Price: \u00a3475,000<br>Previous Purchase: \u00a3494,000<br>Previous Date: 2017-02-24<br>Annual Return: -0.9%/yr<br>Held for: 4.3 years"], "transaction_count": 2}, {"address": "42, Aden Grove", "dates": ["2016-02-26", "2017-07-31", "2024-03-07"], "prices": [905000, 1255000, 1310000], "hover_texts": ["<b>42, Aden Grove</b><br>Transaction 1 of 3<br>Date: 2016-02-26<br>Sale Price: \u00a3905,000", "<b>42, Aden Grove</b><br>Transaction 2 of 3<br>Date: 2017-07-31<br>Sale Price: \u00a31,255,000<br>Previous Purchase: \u00a3905,000<br>Previous Date: 2016-02-26<br>Annual Return: +25.8%/yr<br>Held for: 1.4 years", "<b>42, Aden Grove</b><br>Transaction 3 of 3<br>Date: 2024-03-07<br>Sale Price: \u00a31,310,000<br>Previous Purchase: \u00a31,255,000<br>Previous Date: 2017-07-31<br>Annual Return: +0.7%/yr<br>Held for: 6.6 years"], "transaction_count": 3}, {"address": "52, Aden Grove", "dates": ["2013-01-11", "2021-06-25"], "prices": [706000, 1123000], "hover_texts": ["<b>52, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2013-01-11<br>Sale Price: \u00a3706,000", "<b>52, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2021-06-25<br>Sale Price: \u00a31,123,000<br>Previous Purchase: \u00a3706,000<br>Previous Date: 2013-01-11<br>Annual Return: +5.7%/yr<br>Held for: 8.4 years"], "transaction_count": 2}, {"address": "Top Flat, 12, Aden Grove", "dates": ["2018-10-10", "2023-04-21"], "prices": [820000, 848000], "hover_texts": ["<b>Top Flat, 12, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2018-10-10<br>Sale Price: \u00a3820,000", "<b>Top Flat, 12, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2023-04-21<br>Sale Price: \u00a3848,000<br>Previous Purchase: \u00a3820,000<br>Previous Date: 2018-10-10<br>Annual Return: +0.7%/yr<br>Held for: 4.5 years"], "transaction_count": 2}, {"address": "Flat 6, Newington Apartments, Aden Grove", "dates": ["2017-02-16", "2021-06-29"], "prices": [575000, 615000], "hover_texts": ["<b>Flat 6, Newington Apartments, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2017-02-16<br>Sale Price: \u00a3575,000", "<b>Flat 6, Newington Apartments, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2021-06-29<br>Sale Price: \u00a3615,000<br>Previous Purchase: \u00a3575,000<br>Previous Date: 2017-02-16<br>Annual Return: +1.6%/yr<br>Held for: 4.4 years"], "transaction_count": 2}, {"address": "4C, Aden Grove", "dates": ["2007-01-19", "2012-04-20"], "prices": [375000, 460000], "hover_texts": ["<b>4C, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2007-01-19<br>Sale Price: \u00a3375,000", "<b>4C, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2012-04-20<br>Sale Price: \u00a3460,000<br>Previous Purchase: \u00a3375,000<br>Previous Date: 2007-01-19<br>Annual Return: +4.0%/yr<br>Held for: 5.2 years"], "transaction_count": 2}, {"address": "Flat 2, Newington Apartments, Aden Grove", "dates": ["2017-03-30", "2025-01-17"], "prices": [500000, 450000], "hover_texts": ["<b>Flat 2, Newington Apartments, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2017-03-30<br>Sale Price: \u00a3500,000", "<b>Flat 2, Newington Apartments, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2025-01-17<br>Sale Price: \u00a3450,000<br>Previous Purchase: \u00a3500,000<br>Previous Date: 2017-03-30<br>Annual Return: -1.3%/yr<br>Held for: 7.8 years"], "transaction_count": 2}, {"address": "54, Aden Grove", "dates": ["2009-07-31", "2016-11-15"], "prices": [406000, 1385000], "hover_texts": ["<b>54, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2009-07-31<br>Sale Price: \u00a3406,000", "<b>54, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2016-11-15<br>Sale Price: \u00a31,385,000<br>Previous Purchase: \u00a3406,000<br>Previous Date: 2009-07-31<br>Annual Return: +18.3%/yr<br>Held for: 7.3 years"], "transaction_count": 2}, {"address": "Flat 7, Newington Apartments, Aden Grove", "dates": ["2017-03-24", "2021-06-24"], "prices": [477000, 480000], "hover_texts": ["<b>Flat 7, Newington Apartments, Aden Grove</b><br>Transaction 1 of 2<br>Date: 2017-03-24<br>Sale Price: \u00a3477,000", "<b>Flat 7, Newington Apartments, Aden Grove</b><br>Transaction 2 of 2<br>Date: 2021-06-24<br>Sale Price: \u00a3480,000<br>Previous Purchase: \u00a3477,000<br>Previous Date: 2017-03-24<br>Annual Return: +0.1%/yr<br>Held for: 4.2 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2005-09-19", "address": "20, Aden Grove", "price": 480000, "price_display": "\u00a3480,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2017-04-20", "address": "Flat 8, Newington Apartments, Aden Grove", "price": 490000, "price_display": "\u00a3490,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-09-19", "address": "60, Aden Grove", "price": 605000, "price_display": "\u00a3605,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2007-03-02", "address": "40, Aden Grove", "price": 425000, "price_display": "\u00a3425,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2017-05-26", "address": "Flat 4, Newington Apartments, Aden Grove", "price": 577750, "price_display": "\u00a3577,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-03-07", "address": "26, Aden Grove", "price": 745000, "price_display": "\u00a3745,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2023-05-17", "address": "16C, Aden Grove", "price": 900000, "price_display": "\u00a3900,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-19", "address": "30A, Aden Grove", "price": 875000, "price_display": "\u00a3875,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2008-01-21", "address": "Basement, 12, Aden Grove", "price": 499950, "price_display": "\u00a3499,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-07-24", "address": "4, Aden Grove", "price": 220000, "price_display": "\u00a3220,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-03-08", "address": "56, Aden Grove", "price": 1010000, "price_display": "\u00a31,010,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-09-05", "address": "28, Aden Grove", "price": 249910, "price_display": "\u00a3249,910", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-N16-9NJ', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-N16-9NJ');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-N16-9NJ', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-N16-9NJ', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-N16-9NJ" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2021-11-26</td>
+            <td>16B, Aden Grove</td>
+            <td class="price">£457,500</td>
+        <td class="negative" title="Previous: £458,000 (2018-08-17)">-0.0%/yr</td></tr>
+
+        <tr>
+            <td>2018-08-17</td>
+            <td>16B, Aden Grove</td>
+            <td class="price">£458,000</td>
+        <td class="positive" title="Previous: £415,000 (2014-09-05)">+2.5%/yr</td></tr>
+
+        <tr>
+            <td>2014-09-05</td>
+            <td>16B, Aden Grove</td>
+            <td class="price">£415,000</td>
+        <td class="positive" title="Previous: £250,000 (2010-07-02)">+12.9%/yr</td></tr>
+
+        <tr>
+            <td>2010-07-02</td>
+            <td>16B, Aden Grove</td>
+            <td class="price">£250,000</td>
+        <td class="positive" title="Previous: £205,000 (2006-09-20)">+5.4%/yr</td></tr>
+
+        <tr>
+            <td>2006-09-20</td>
+            <td>16B, Aden Grove</td>
+            <td class="price">£205,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-09-19</td>
+            <td>20, Aden Grove</td>
+            <td class="price">£480,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-09-27</td>
+            <td>Flat 3, Newington Apartments, Aden Grove</td>
+            <td class="price">£507,100</td>
+        <td class="positive" title="Previous: £490,000 (2017-01-20)">+0.7%/yr</td></tr>
+
+        <tr>
+            <td>2017-01-20</td>
+            <td>Flat 3, Newington Apartments, Aden Grove</td>
+            <td class="price">£490,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-09-20</td>
+            <td>50, Aden Grove</td>
+            <td class="price">£1,850,000</td>
+        <td class="positive" title="Previous: £1,125,000 (2018-04-04)">+8.0%/yr</td></tr>
+
+        <tr>
+            <td>2018-04-04</td>
+            <td>50, Aden Grove</td>
+            <td class="price">£1,125,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-04-20</td>
+            <td>Flat 8, Newington Apartments, Aden Grove</td>
+            <td class="price">£490,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-04-16</td>
+            <td>Flat 1, Newington Apartments, Aden Grove</td>
+            <td class="price">£460,000</td>
+        <td class="negative" title="Previous: £470,000 (2017-04-21)">-0.3%/yr</td></tr>
+
+        <tr>
+            <td>2017-04-21</td>
+            <td>Flat 1, Newington Apartments, Aden Grove</td>
+            <td class="price">£470,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-09-19</td>
+            <td>60, Aden Grove</td>
+            <td class="price">£605,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-09-28</td>
+            <td>18, Aden Grove</td>
+            <td class="price">£435,000</td>
+        <td class="positive" title="Previous: £335,000 (2005-12-19)">+2.7%/yr</td></tr>
+
+        <tr>
+            <td>2005-12-19</td>
+            <td>18, Aden Grove</td>
+            <td class="price">£335,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-03-02</td>
+            <td>40, Aden Grove</td>
+            <td class="price">£425,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-07-18</td>
+            <td>58, Aden Grove</td>
+            <td class="price">£1,335,000</td>
+        <td class="positive" title="Previous: £990,000 (2019-11-04)">+5.4%/yr</td></tr>
+
+        <tr>
+            <td>2019-11-04</td>
+            <td>58, Aden Grove</td>
+            <td class="price">£990,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-11-10</td>
+            <td>12, Aden Grove</td>
+            <td class="price">£288,198</td>
+        <td class="positive" title="Previous: £250,000 (2007-07-16)">+3.4%/yr</td></tr>
+
+        <tr>
+            <td>2007-07-16</td>
+            <td>12, Aden Grove</td>
+            <td class="price">£250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-05-26</td>
+            <td>Flat 4, Newington Apartments, Aden Grove</td>
+            <td class="price">£577,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-03-07</td>
+            <td>26, Aden Grove</td>
+            <td class="price">£745,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-26</td>
+            <td>22, Aden Grove</td>
+            <td class="price">£1,646,000</td>
+        <td class="positive" title="Previous: £765,000 (2007-08-24)">+5.8%/yr</td></tr>
+
+        <tr>
+            <td>2007-08-24</td>
+            <td>22, Aden Grove</td>
+            <td class="price">£765,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-08-15</td>
+            <td>4B, Aden Grove</td>
+            <td class="price">£553,000</td>
+        <td class="positive" title="Previous: £492,000 (2017-10-10)">+1.7%/yr</td></tr>
+
+        <tr>
+            <td>2017-10-10</td>
+            <td>4B, Aden Grove</td>
+            <td class="price">£492,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-05-17</td>
+            <td>16C, Aden Grove</td>
+            <td class="price">£900,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-12-03</td>
+            <td>12B, Aden Grove</td>
+            <td class="price">£270,000</td>
+        <td class="positive" title="Previous: £208,000 (2010-01-29)">+9.6%/yr</td></tr>
+
+        <tr>
+            <td>2010-01-29</td>
+            <td>12B, Aden Grove</td>
+            <td class="price">£208,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-05-05</td>
+            <td>Flat 3, 16, Aden Grove</td>
+            <td class="price">£515,000</td>
+        <td class="positive" title="Previous: £292,500 (2012-07-11)">+12.5%/yr</td></tr>
+
+        <tr>
+            <td>2012-07-11</td>
+            <td>Flat 3, 16, Aden Grove</td>
+            <td class="price">£292,500</td>
+        <td class="positive" title="Previous: £182,500 (2005-11-04)">+7.3%/yr</td></tr>
+
+        <tr>
+            <td>2005-11-04</td>
+            <td>Flat 3, 16, Aden Grove</td>
+            <td class="price">£182,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-21</td>
+            <td>Flat 5, Newington Apartments, Aden Grove</td>
+            <td class="price">£475,000</td>
+        <td class="negative" title="Previous: £494,000 (2017-02-24)">-0.9%/yr</td></tr>
+
+        <tr>
+            <td>2017-02-24</td>
+            <td>Flat 5, Newington Apartments, Aden Grove</td>
+            <td class="price">£494,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-19</td>
+            <td>30A, Aden Grove</td>
+            <td class="price">£875,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-03-07</td>
+            <td>42, Aden Grove</td>
+            <td class="price">£1,310,000</td>
+        <td class="positive" title="Previous: £1,255,000 (2017-07-31)">+0.7%/yr</td></tr>
+
+        <tr>
+            <td>2017-07-31</td>
+            <td>42, Aden Grove</td>
+            <td class="price">£1,255,000</td>
+        <td class="positive" title="Previous: £905,000 (2016-02-26)">+25.8%/yr</td></tr>
+
+        <tr>
+            <td>2016-02-26</td>
+            <td>42, Aden Grove</td>
+            <td class="price">£905,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-01-21</td>
+            <td>Basement, 12, Aden Grove</td>
+            <td class="price">£499,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-25</td>
+            <td>52, Aden Grove</td>
+            <td class="price">£1,123,000</td>
+        <td class="positive" title="Previous: £706,000 (2013-01-11)">+5.7%/yr</td></tr>
+
+        <tr>
+            <td>2013-01-11</td>
+            <td>52, Aden Grove</td>
+            <td class="price">£706,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-07-24</td>
+            <td>4, Aden Grove</td>
+            <td class="price">£220,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-04-21</td>
+            <td>Top Flat, 12, Aden Grove</td>
+            <td class="price">£848,000</td>
+        <td class="positive" title="Previous: £820,000 (2018-10-10)">+0.7%/yr</td></tr>
+
+        <tr>
+            <td>2018-10-10</td>
+            <td>Top Flat, 12, Aden Grove</td>
+            <td class="price">£820,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-03-08</td>
+            <td>56, Aden Grove</td>
+            <td class="price">£1,010,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-09-05</td>
+            <td>28, Aden Grove</td>
+            <td class="price">£249,910</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-29</td>
+            <td>Flat 6, Newington Apartments, Aden Grove</td>
+            <td class="price">£615,000</td>
+        <td class="positive" title="Previous: £575,000 (2017-02-16)">+1.6%/yr</td></tr>
+
+        <tr>
+            <td>2017-02-16</td>
+            <td>Flat 6, Newington Apartments, Aden Grove</td>
+            <td class="price">£575,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-04-20</td>
+            <td>4C, Aden Grove</td>
+            <td class="price">£460,000</td>
+        <td class="positive" title="Previous: £375,000 (2007-01-19)">+4.0%/yr</td></tr>
+
+        <tr>
+            <td>2007-01-19</td>
+            <td>4C, Aden Grove</td>
+            <td class="price">£375,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-01-17</td>
+            <td>Flat 2, Newington Apartments, Aden Grove</td>
+            <td class="price">£450,000</td>
+        <td class="negative" title="Previous: £500,000 (2017-03-30)">-1.3%/yr</td></tr>
+
+        <tr>
+            <td>2017-03-30</td>
+            <td>Flat 2, Newington Apartments, Aden Grove</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-11-15</td>
+            <td>54, Aden Grove</td>
+            <td class="price">£1,385,000</td>
+        <td class="positive" title="Previous: £406,000 (2009-07-31)">+18.3%/yr</td></tr>
+
+        <tr>
+            <td>2009-07-31</td>
+            <td>54, Aden Grove</td>
+            <td class="price">£406,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-24</td>
+            <td>Flat 7, Newington Apartments, Aden Grove</td>
+            <td class="price">£480,000</td>
+        <td class="positive" title="Previous: £477,000 (2017-03-24)">+0.1%/yr</td></tr>
+
+        <tr>
+            <td>2017-03-24</td>
+            <td>Flat 7, Newington Apartments, Aden Grove</td>
+            <td class="price">£477,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-N16-9NJ" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-N16-9NJ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2023, 2024, 2025],
+            y: [332500, 212500, 453750, 622475, 406000, 229000, 288198, 340833, 706000, 423303, 435000, 1145000, 575977, 819500, 1000000, 757657, 874000, 1237666, 748333],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2021, 2023, 2024, 2025],
+            y: [335000, 220000, 425000, 745000, 406000, 250000, 288198, 292500, 706000, 415000, 435000, 1385000, 494000, 875000, 1010000, 507100, 900000, 1310000, 460000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - N16 9NJ',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-N16-9NJ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 57</p>
+                    <p><strong>Unique Properties:</strong> 32</p>
+                    <p><strong>Average Price:</strong> £631,252</p>
+                    <p><strong>Median Price:</strong> £492,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-N16-9NJ" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector N16 9 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector N16 9</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-N16-9NJ', 'N16-9NJ')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-N16-9NJ', 'N16-9NJ')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-N16-9NJ" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-N16-9NJ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [292470, 288669, 365665, 412526, 369743, 423549, 386130, 487264, 518411, 629659, 669376, 805715, 756354, 703111, 695260, 754792, 776774, 820800, 826881, 859213, 699098],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [250000, 260000, 330000, 365000, 305000, 389000, 347500, 460000, 445000, 499950, 600000, 649975, 607500, 581000, 580000, 630000, 607500, 630000, 660000, 625000, 600000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector N16 9 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-N16-9NJ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-N16-9NJ" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="4" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £249,510</div>
+                        <div class="cell-sell">Sell: £358,263</div>
+                        <div class="cell-return">+13.0%/yr</div>
+                        <div class="cell-count">(25 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £272,239</div>
+                        <div class="cell-sell">Sell: £479,869</div>
+                        <div class="cell-return">+7.4%/yr</div>
+                        <div class="cell-count">(23 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £305,199</div>
+                        <div class="cell-sell">Sell: £797,960</div>
+                        <div class="cell-return">+7.9%/yr</div>
+                        <div class="cell-count">(14 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £288,833</div>
+                        <div class="cell-sell">Sell: £715,117</div>
+                        <div class="cell-return">+5.6%/yr</div>
+                        <div class="cell-count">(9 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £277,701</div>
+                        <div class="cell-sell">Sell: £335,887</div>
+                        <div class="cell-return">+11.8%/yr</div>
+                        <div class="cell-count">(27 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £350,203</div>
+                        <div class="cell-sell">Sell: £544,926</div>
+                        <div class="cell-return">+8.5%/yr</div>
+                        <div class="cell-count">(131 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £378,970</div>
+                        <div class="cell-sell">Sell: £769,530</div>
+                        <div class="cell-return">+8.8%/yr</div>
+                        <div class="cell-count">(74 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £357,587</div>
+                        <div class="cell-sell">Sell: £803,002</div>
+                        <div class="cell-return">+6.1%/yr</div>
+                        <div class="cell-count">(37 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £398,589</div>
+                        <div class="cell-sell">Sell: £601,909</div>
+                        <div class="cell-return">+17.1%/yr</div>
+                        <div class="cell-count">(32 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £506,845</div>
+                        <div class="cell-sell">Sell: £720,789</div>
+                        <div class="cell-return">+7.7%/yr</div>
+                        <div class="cell-count">(101 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £531,941</div>
+                        <div class="cell-sell">Sell: £741,335</div>
+                        <div class="cell-return">+4.1%/yr</div>
+                        <div class="cell-count">(82 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £615,128</div>
+                        <div class="cell-sell">Sell: £690,894</div>
+                        <div class="cell-return">+11.7%/yr</div>
+                        <div class="cell-count">(28 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £692,476</div>
+                        <div class="cell-sell">Sell: £847,444</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(105 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £806,135</div>
+                        <div class="cell-sell">Sell: £794,617</div>
+                        <div class="cell-return">+12.1%/yr</div>
+                        <div class="cell-count">(19 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-N16-9NJ" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District N16 Analysis</h4>
+                <p class="area-info">Viewing data for entire N16 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-N16-9NJ', 'N16-9NJ')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-N16-9NJ', 'N16-9NJ')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-N16-9NJ" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-N16-9NJ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [271187, 281689, 328832, 344587, 332766, 372114, 372771, 417839, 443917, 550094, 615821, 645407, 700421, 639881, 712840, 687663, 710324, 747906, 741831, 752502, 670789],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [235000, 245000, 278000, 283000, 290000, 315000, 321250, 345000, 376000, 447500, 515000, 520000, 545000, 540000, 550000, 595000, 550000, 590125, 565000, 590000, 560000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District N16 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-N16-9NJ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-N16-9NJ" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £227,000</div>
+                        <div class="cell-sell">Sell: £253,000</div>
+                        <div class="cell-return">+17.4%/yr</div>
+                        <div class="cell-count">(5 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £246,539</div>
+                        <div class="cell-sell">Sell: £333,441</div>
+                        <div class="cell-return">+12.2%/yr</div>
+                        <div class="cell-count">(167 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £243,023</div>
+                        <div class="cell-sell">Sell: £443,159</div>
+                        <div class="cell-return">+8.1%/yr</div>
+                        <div class="cell-count">(146 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £296,575</div>
+                        <div class="cell-sell">Sell: £743,238</div>
+                        <div class="cell-return">+7.7%/yr</div>
+                        <div class="cell-count">(83 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £278,258</div>
+                        <div class="cell-sell">Sell: £775,281</div>
+                        <div class="cell-return">+6.2%/yr</div>
+                        <div class="cell-count">(51 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £270,654</div>
+                        <div class="cell-sell">Sell: £319,922</div>
+                        <div class="cell-return">+10.3%/yr</div>
+                        <div class="cell-count">(309 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £307,784</div>
+                        <div class="cell-sell">Sell: £471,685</div>
+                        <div class="cell-return">+8.6%/yr</div>
+                        <div class="cell-count">(807 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £324,615</div>
+                        <div class="cell-sell">Sell: £653,057</div>
+                        <div class="cell-return">+8.2%/yr</div>
+                        <div class="cell-count">(453 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £338,830</div>
+                        <div class="cell-sell">Sell: £707,457</div>
+                        <div class="cell-return">+5.6%/yr</div>
+                        <div class="cell-count">(357 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £367,596</div>
+                        <div class="cell-sell">Sell: £541,261</div>
+                        <div class="cell-return">+19.4%/yr</div>
+                        <div class="cell-count">(269 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £441,094</div>
+                        <div class="cell-sell">Sell: £618,722</div>
+                        <div class="cell-return">+8.0%/yr</div>
+                        <div class="cell-count">(678 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £499,203</div>
+                        <div class="cell-sell">Sell: £716,430</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(640 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £711,555</div>
+                        <div class="cell-sell">Sell: £790,648</div>
+                        <div class="cell-return">+6.0%/yr</div>
+                        <div class="cell-count">(241 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £595,646</div>
+                        <div class="cell-sell">Sell: £680,729</div>
+                        <div class="cell-return">+4.1%/yr</div>
+                        <div class="cell-count">(728 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £678,940</div>
+                        <div class="cell-sell">Sell: £754,610</div>
+                        <div class="cell-return">+8.8%/yr</div>
+                        <div class="cell-count">(202 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'N16 9'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'N16'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

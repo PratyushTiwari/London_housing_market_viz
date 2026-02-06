@@ -1,0 +1,1304 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>SW6 6DZ</h3>
+            <div class="header-stats">
+                <span><strong>76</strong> transactions</span>
+                <span><strong>56</strong> properties</span>
+                <span>Avg: <strong>£632,904</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-SW6-6DZ')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-SW6-6DZ')">
+                Sector (SW6 6)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-SW6-6DZ')">
+                District (SW6)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-SW6-6DZ" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-SW6-6DZ', 'SW6-6DZ')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-SW6-6DZ', 'SW6-6DZ')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-SW6-6DZ', 'SW6-6DZ')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-SW6-6DZ" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-SW6-6DZ" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 17, Bishops Mansions, Bishops Park Road", "dates": ["2009-09-30", "2012-01-20", "2014-02-14"], "prices": [495000, 587100, 816000], "hover_texts": ["<b>Flat 17, Bishops Mansions, Bishops Park Road</b><br>Transaction 1 of 3<br>Date: 2009-09-30<br>Sale Price: \u00a3495,000", "<b>Flat 17, Bishops Mansions, Bishops Park Road</b><br>Transaction 2 of 3<br>Date: 2012-01-20<br>Sale Price: \u00a3587,100<br>Previous Purchase: \u00a3495,000<br>Previous Date: 2009-09-30<br>Annual Return: +7.7%/yr<br>Held for: 2.3 years", "<b>Flat 17, Bishops Mansions, Bishops Park Road</b><br>Transaction 3 of 3<br>Date: 2014-02-14<br>Sale Price: \u00a3816,000<br>Previous Purchase: \u00a3587,100<br>Previous Date: 2012-01-20<br>Annual Return: +17.2%/yr<br>Held for: 2.1 years"], "transaction_count": 3}, {"address": "Flat 45, Bishops Mansions, Bishops Park Road", "dates": ["2006-09-29", "2025-01-31"], "prices": [366000, 781000], "hover_texts": ["<b>Flat 45, Bishops Mansions, Bishops Park Road</b><br>Transaction 1 of 2<br>Date: 2006-09-29<br>Sale Price: \u00a3366,000", "<b>Flat 45, Bishops Mansions, Bishops Park Road</b><br>Transaction 2 of 2<br>Date: 2025-01-31<br>Sale Price: \u00a3781,000<br>Previous Purchase: \u00a3366,000<br>Previous Date: 2006-09-29<br>Annual Return: +4.2%/yr<br>Held for: 18.3 years"], "transaction_count": 2}, {"address": "Flat 27, Bishops Mansions, Bishops Park Road", "dates": ["2011-07-04", "2014-12-23", "2024-10-23"], "prices": [550000, 775000, 820000], "hover_texts": ["<b>Flat 27, Bishops Mansions, Bishops Park Road</b><br>Transaction 1 of 3<br>Date: 2011-07-04<br>Sale Price: \u00a3550,000", "<b>Flat 27, Bishops Mansions, Bishops Park Road</b><br>Transaction 2 of 3<br>Date: 2014-12-23<br>Sale Price: \u00a3775,000<br>Previous Purchase: \u00a3550,000<br>Previous Date: 2011-07-04<br>Annual Return: +10.4%/yr<br>Held for: 3.5 years", "<b>Flat 27, Bishops Mansions, Bishops Park Road</b><br>Transaction 3 of 3<br>Date: 2024-10-23<br>Sale Price: \u00a3820,000<br>Previous Purchase: \u00a3775,000<br>Previous Date: 2014-12-23<br>Annual Return: +0.6%/yr<br>Held for: 9.8 years"], "transaction_count": 3}, {"address": "Flat 40, Bishops Mansions, Bishops Park Road", "dates": ["2006-06-23", "2018-11-28"], "prices": [390000, 775000], "hover_texts": ["<b>Flat 40, Bishops Mansions, Bishops Park Road</b><br>Transaction 1 of 2<br>Date: 2006-06-23<br>Sale Price: \u00a3390,000", "<b>Flat 40, Bishops Mansions, Bishops Park Road</b><br>Transaction 2 of 2<br>Date: 2018-11-28<br>Sale Price: \u00a3775,000<br>Previous Purchase: \u00a3390,000<br>Previous Date: 2006-06-23<br>Annual Return: +5.7%/yr<br>Held for: 12.4 years"], "transaction_count": 2}, {"address": "Flat 12, Bishops Mansions, Bishops Park Road", "dates": ["2010-06-09", "2015-01-13", "2018-11-16"], "prices": [492500, 754000, 720000], "hover_texts": ["<b>Flat 12, Bishops Mansions, Bishops Park Road</b><br>Transaction 1 of 3<br>Date: 2010-06-09<br>Sale Price: \u00a3492,500", "<b>Flat 12, Bishops Mansions, Bishops Park Road</b><br>Transaction 2 of 3<br>Date: 2015-01-13<br>Sale Price: \u00a3754,000<br>Previous Purchase: \u00a3492,500<br>Previous Date: 2010-06-09<br>Annual Return: +9.7%/yr<br>Held for: 4.6 years", "<b>Flat 12, Bishops Mansions, Bishops Park Road</b><br>Transaction 3 of 3<br>Date: 2018-11-16<br>Sale Price: \u00a3720,000<br>Previous Purchase: \u00a3754,000<br>Previous Date: 2015-01-13<br>Annual Return: -1.2%/yr<br>Held for: 3.8 years"], "transaction_count": 3}, {"address": "Flat 44, Bishops Mansions, Bishops Park Road", "dates": ["2011-03-28", "2015-06-19", "2021-06-24"], "prices": [470000, 745000, 730000], "hover_texts": ["<b>Flat 44, Bishops Mansions, Bishops Park Road</b><br>Transaction 1 of 3<br>Date: 2011-03-28<br>Sale Price: \u00a3470,000", "<b>Flat 44, Bishops Mansions, Bishops Park Road</b><br>Transaction 2 of 3<br>Date: 2015-06-19<br>Sale Price: \u00a3745,000<br>Previous Purchase: \u00a3470,000<br>Previous Date: 2011-03-28<br>Annual Return: +11.5%/yr<br>Held for: 4.2 years", "<b>Flat 44, Bishops Mansions, Bishops Park Road</b><br>Transaction 3 of 3<br>Date: 2021-06-24<br>Sale Price: \u00a3730,000<br>Previous Purchase: \u00a3745,000<br>Previous Date: 2015-06-19<br>Annual Return: -0.3%/yr<br>Held for: 6.0 years"], "transaction_count": 3}, {"address": "Flat 59, Bishops Mansions, Bishops Park Road", "dates": ["2015-07-07", "2024-04-03"], "prices": [835000, 875000], "hover_texts": ["<b>Flat 59, Bishops Mansions, Bishops Park Road</b><br>Transaction 1 of 2<br>Date: 2015-07-07<br>Sale Price: \u00a3835,000", "<b>Flat 59, Bishops Mansions, Bishops Park Road</b><br>Transaction 2 of 2<br>Date: 2024-04-03<br>Sale Price: \u00a3875,000<br>Previous Purchase: \u00a3835,000<br>Previous Date: 2015-07-07<br>Annual Return: +0.5%/yr<br>Held for: 8.7 years"], "transaction_count": 2}, {"address": "Flat 23, Bishops Mansions, Bishops Park Road", "dates": ["2011-03-25", "2015-05-08"], "prices": [499950, 749000], "hover_texts": ["<b>Flat 23, Bishops Mansions, Bishops Park Road</b><br>Transaction 1 of 2<br>Date: 2011-03-25<br>Sale Price: \u00a3499,950", "<b>Flat 23, Bishops Mansions, Bishops Park Road</b><br>Transaction 2 of 2<br>Date: 2015-05-08<br>Sale Price: \u00a3749,000<br>Previous Purchase: \u00a3499,950<br>Previous Date: 2011-03-25<br>Annual Return: +10.3%/yr<br>Held for: 4.1 years"], "transaction_count": 2}, {"address": "Flat 11, Bishops Mansions, Bishops Park Road", "dates": ["2014-04-16", "2019-01-24"], "prices": [795000, 720000], "hover_texts": ["<b>Flat 11, Bishops Mansions, Bishops Park Road</b><br>Transaction 1 of 2<br>Date: 2014-04-16<br>Sale Price: \u00a3795,000", "<b>Flat 11, Bishops Mansions, Bishops Park Road</b><br>Transaction 2 of 2<br>Date: 2019-01-24<br>Sale Price: \u00a3720,000<br>Previous Purchase: \u00a3795,000<br>Previous Date: 2014-04-16<br>Annual Return: -2.0%/yr<br>Held for: 4.8 years"], "transaction_count": 2}, {"address": "Flat 36, Bishops Mansions, Bishops Park Road", "dates": ["2013-08-29", "2021-03-09"], "prices": [725000, 730000], "hover_texts": ["<b>Flat 36, Bishops Mansions, Bishops Park Road</b><br>Transaction 1 of 2<br>Date: 2013-08-29<br>Sale Price: \u00a3725,000", "<b>Flat 36, Bishops Mansions, Bishops Park Road</b><br>Transaction 2 of 2<br>Date: 2021-03-09<br>Sale Price: \u00a3730,000<br>Previous Purchase: \u00a3725,000<br>Previous Date: 2013-08-29<br>Annual Return: +0.1%/yr<br>Held for: 7.5 years"], "transaction_count": 2}, {"address": "Flat 4, Bishops Mansions, Bishops Park Road", "dates": ["2011-07-15", "2016-04-15", "2021-03-19"], "prices": [515000, 760000, 730000], "hover_texts": ["<b>Flat 4, Bishops Mansions, Bishops Park Road</b><br>Transaction 1 of 3<br>Date: 2011-07-15<br>Sale Price: \u00a3515,000", "<b>Flat 4, Bishops Mansions, Bishops Park Road</b><br>Transaction 2 of 3<br>Date: 2016-04-15<br>Sale Price: \u00a3760,000<br>Previous Purchase: \u00a3515,000<br>Previous Date: 2011-07-15<br>Annual Return: +8.5%/yr<br>Held for: 4.8 years", "<b>Flat 4, Bishops Mansions, Bishops Park Road</b><br>Transaction 3 of 3<br>Date: 2021-03-19<br>Sale Price: \u00a3730,000<br>Previous Purchase: \u00a3760,000<br>Previous Date: 2016-04-15<br>Annual Return: -0.8%/yr<br>Held for: 4.9 years"], "transaction_count": 3}, {"address": "61, Bishops Mansions, Bishops Park Road", "dates": ["2006-05-03", "2007-02-23"], "prices": [385000, 610000], "hover_texts": ["<b>61, Bishops Mansions, Bishops Park Road</b><br>Transaction 1 of 2<br>Date: 2006-05-03<br>Sale Price: \u00a3385,000", "<b>61, Bishops Mansions, Bishops Park Road</b><br>Transaction 2 of 2<br>Date: 2007-02-23<br>Sale Price: \u00a3610,000<br>Previous Purchase: \u00a3385,000<br>Previous Date: 2006-05-03<br>Annual Return: +76.5%/yr<br>Held for: 0.8 years"], "transaction_count": 2}, {"address": "Flat 42, Bishops Mansions, Bishops Park Road", "dates": ["2006-09-28", "2011-04-11"], "prices": [433521, 545500], "hover_texts": ["<b>Flat 42, Bishops Mansions, Bishops Park Road</b><br>Transaction 1 of 2<br>Date: 2006-09-28<br>Sale Price: \u00a3433,521", "<b>Flat 42, Bishops Mansions, Bishops Park Road</b><br>Transaction 2 of 2<br>Date: 2011-04-11<br>Sale Price: \u00a3545,500<br>Previous Purchase: \u00a3433,521<br>Previous Date: 2006-09-28<br>Annual Return: +5.2%/yr<br>Held for: 4.5 years"], "transaction_count": 2}, {"address": "Flat 18, Bishops Mansions, Bishops Park Road", "dates": ["2012-06-25", "2022-08-12"], "prices": [600000, 776000], "hover_texts": ["<b>Flat 18, Bishops Mansions, Bishops Park Road</b><br>Transaction 1 of 2<br>Date: 2012-06-25<br>Sale Price: \u00a3600,000", "<b>Flat 18, Bishops Mansions, Bishops Park Road</b><br>Transaction 2 of 2<br>Date: 2022-08-12<br>Sale Price: \u00a3776,000<br>Previous Purchase: \u00a3600,000<br>Previous Date: 2012-06-25<br>Annual Return: +2.6%/yr<br>Held for: 10.1 years"], "transaction_count": 2}, {"address": "Flat 48, Bishops Mansions, Bishops Park Road", "dates": ["2019-06-14", "2024-07-12"], "prices": [685000, 850000], "hover_texts": ["<b>Flat 48, Bishops Mansions, Bishops Park Road</b><br>Transaction 1 of 2<br>Date: 2019-06-14<br>Sale Price: \u00a3685,000", "<b>Flat 48, Bishops Mansions, Bishops Park Road</b><br>Transaction 2 of 2<br>Date: 2024-07-12<br>Sale Price: \u00a3850,000<br>Previous Purchase: \u00a3685,000<br>Previous Date: 2019-06-14<br>Annual Return: +4.3%/yr<br>Held for: 5.1 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2011-06-15", "address": "Flat 53, Bishops Mansions, Bishops Park Road", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-01-14", "address": "Flat 33, Bishops Mansions, Bishops Park Road", "price": 695000, "price_display": "\u00a3695,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-11-23", "address": "23, Bishops Mansions, Bishops Park Road", "price": 385000, "price_display": "\u00a3385,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2012-07-11", "address": "Flat 29, Bishops Mansions, Bishops Park Road", "price": 635000, "price_display": "\u00a3635,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-04-16", "address": "Flat 60, Bishops Mansions, Bishops Park Road", "price": 530000, "price_display": "\u00a3530,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-02-16", "address": "69, Bishops Mansions, Bishops Park Road", "price": 470000, "price_display": "\u00a3470,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-08-26", "address": "Flat 14, Bishops Mansions, Bishops Park Road", "price": 750000, "price_display": "\u00a3750,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-07-08", "address": "Flat 46, Bishops Mansions, Bishops Park Road", "price": 655000, "price_display": "\u00a3655,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-07-14", "address": "Flat 52, Bishops Mansions, Bishops Park Road", "price": 875000, "price_display": "\u00a3875,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-28", "address": "Flat 16, Bishops Mansions, Bishops Park Road", "price": 735000, "price_display": "\u00a3735,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-06-03", "address": "Flat 28, Bishops Mansions, Bishops Park Road", "price": 485000, "price_display": "\u00a3485,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-02-25", "address": "66, Bishops Mansions, Bishops Park Road", "price": 310000, "price_display": "\u00a3310,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-03-29", "address": "Flat 3, Bishops Mansions, Bishops Park Road", "price": 750000, "price_display": "\u00a3750,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-12-04", "address": "55, Bishops Mansions, Bishops Park Road", "price": 545000, "price_display": "\u00a3545,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-03-30", "address": "Flat 19, Bishops Mansions, Bishops Park Road", "price": 415000, "price_display": "\u00a3415,000", "property_type": "D", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-12-20", "address": "68, Bishops Mansions, Bishops Park Road", "price": 414000, "price_display": "\u00a3414,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-03-18", "address": "Flat 62, Bishops Mansions, Bishops Park Road", "price": 760000, "price_display": "\u00a3760,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-07-03", "address": "62, Bishops Mansions, Bishops Park Road", "price": 480000, "price_display": "\u00a3480,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-09-01", "address": "Flat 7, Bishops Mansions, Bishops Park Road", "price": 760000, "price_display": "\u00a3760,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2012-04-04", "address": "Flat 55, Bishops Mansions, Bishops Park Road", "price": 520000, "price_display": "\u00a3520,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-07-12", "address": "34, Bishops Mansions, Bishops Park Road", "price": 535000, "price_display": "\u00a3535,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-10-14", "address": "Flat 34, Bishops Mansions, Bishops Park Road", "price": 745000, "price_display": "\u00a3745,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-02", "address": "Flat 5, Bishops Mansions, Bishops Park Road", "price": 675000, "price_display": "\u00a3675,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-11-11", "address": "Flat 58, Bishops Mansions, Bishops Park Road", "price": 875000, "price_display": "\u00a3875,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-12-13", "address": "Flat 61, Bishops Mansions, Bishops Park Road", "price": 875000, "price_display": "\u00a3875,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-09-02", "address": "Flat 32, Bishops Mansions, Bishops Park Road", "price": 500000, "price_display": "\u00a3500,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-08-25", "address": "27, Bishops Mansions, Bishops Park Road", "price": 372500, "price_display": "\u00a3372,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-04-07", "address": "53, Bishops Mansions, Bishops Park Road", "price": 390150, "price_display": "\u00a3390,150", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-09-10", "address": "Flat 50, Bishops Mansions, Bishops Park Road", "price": 751000, "price_display": "\u00a3751,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-12-22", "address": "Flat 47, Bishops Mansions, Bishops Park Road", "price": 750000, "price_display": "\u00a3750,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-03-29", "address": "Flat 64, Bishops Mansions, Bishops Park Road", "price": 830000, "price_display": "\u00a3830,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-01-10", "address": "29, Bishops Mansions, Bishops Park Road", "price": 390000, "price_display": "\u00a3390,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-06-30", "address": "Flat 69, Bishops Mansions, Bishops Park Road", "price": 595000, "price_display": "\u00a3595,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-06-23", "address": "64, Bishops Mansions, Bishops Park Road", "price": 435000, "price_display": "\u00a3435,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-08-30", "address": "Flat 41, Bishops Mansions, Bishops Park Road", "price": 735000, "price_display": "\u00a3735,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-08", "address": "Flat 56, Bishops Mansions, Bishops Park Road", "price": 800000, "price_display": "\u00a3800,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-06-08", "address": "Flat 37, Bishops Mansions, Bishops Park Road", "price": 750000, "price_display": "\u00a3750,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2012-05-25", "address": "Flat 30, Bishops Mansions, Bishops Park Road", "price": 637500, "price_display": "\u00a3637,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-09-28", "address": "49, Bishops Mansions, Bishops Park Road", "price": 550000, "price_display": "\u00a3550,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-12-15", "address": "33, Bishops Mansions, Bishops Park Road", "price": 360000, "price_display": "\u00a3360,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-05-15", "address": "Flat 35, Bishops Mansions, Bishops Park Road", "price": 695000, "price_display": "\u00a3695,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-SW6-6DZ', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-SW6-6DZ');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-SW6-6DZ', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-SW6-6DZ', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-SW6-6DZ" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2011-06-15</td>
+            <td>Flat 53, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-02-14</td>
+            <td>Flat 17, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£816,000</td>
+        <td class="positive" title="Previous: £587,100 (2012-01-20)">+17.2%/yr</td></tr>
+
+        <tr>
+            <td>2012-01-20</td>
+            <td>Flat 17, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£587,100</td>
+        <td class="positive" title="Previous: £495,000 (2009-09-30)">+7.7%/yr</td></tr>
+
+        <tr>
+            <td>2009-09-30</td>
+            <td>Flat 17, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£495,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-01-14</td>
+            <td>Flat 33, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£695,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-11-23</td>
+            <td>23, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£385,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-01-31</td>
+            <td>Flat 45, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£781,000</td>
+        <td class="positive" title="Previous: £366,000 (2006-09-29)">+4.2%/yr</td></tr>
+
+        <tr>
+            <td>2006-09-29</td>
+            <td>Flat 45, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£366,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-10-23</td>
+            <td>Flat 27, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£820,000</td>
+        <td class="positive" title="Previous: £775,000 (2014-12-23)">+0.6%/yr</td></tr>
+
+        <tr>
+            <td>2014-12-23</td>
+            <td>Flat 27, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£775,000</td>
+        <td class="positive" title="Previous: £550,000 (2011-07-04)">+10.4%/yr</td></tr>
+
+        <tr>
+            <td>2011-07-04</td>
+            <td>Flat 27, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£550,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-07-11</td>
+            <td>Flat 29, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£635,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-04-16</td>
+            <td>Flat 60, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£530,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-02-16</td>
+            <td>69, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£470,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-28</td>
+            <td>Flat 40, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£775,000</td>
+        <td class="positive" title="Previous: £390,000 (2006-06-23)">+5.7%/yr</td></tr>
+
+        <tr>
+            <td>2006-06-23</td>
+            <td>Flat 40, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£390,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-16</td>
+            <td>Flat 12, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£720,000</td>
+        <td class="negative" title="Previous: £754,000 (2015-01-13)">-1.2%/yr</td></tr>
+
+        <tr>
+            <td>2015-01-13</td>
+            <td>Flat 12, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£754,000</td>
+        <td class="positive" title="Previous: £492,500 (2010-06-09)">+9.7%/yr</td></tr>
+
+        <tr>
+            <td>2010-06-09</td>
+            <td>Flat 12, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£492,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-26</td>
+            <td>Flat 14, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-07-08</td>
+            <td>Flat 46, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£655,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-07-14</td>
+            <td>Flat 52, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£875,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-28</td>
+            <td>Flat 16, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£735,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-24</td>
+            <td>Flat 44, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£730,000</td>
+        <td class="negative" title="Previous: £745,000 (2015-06-19)">-0.3%/yr</td></tr>
+
+        <tr>
+            <td>2015-06-19</td>
+            <td>Flat 44, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£745,000</td>
+        <td class="positive" title="Previous: £470,000 (2011-03-28)">+11.5%/yr</td></tr>
+
+        <tr>
+            <td>2011-03-28</td>
+            <td>Flat 44, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£470,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-06-03</td>
+            <td>Flat 28, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£485,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-04-03</td>
+            <td>Flat 59, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£875,000</td>
+        <td class="positive" title="Previous: £835,000 (2015-07-07)">+0.5%/yr</td></tr>
+
+        <tr>
+            <td>2015-07-07</td>
+            <td>Flat 59, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£835,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-05-08</td>
+            <td>Flat 23, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£749,000</td>
+        <td class="positive" title="Previous: £499,950 (2011-03-25)">+10.3%/yr</td></tr>
+
+        <tr>
+            <td>2011-03-25</td>
+            <td>Flat 23, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£499,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-02-25</td>
+            <td>66, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£310,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-03-29</td>
+            <td>Flat 3, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-12-04</td>
+            <td>55, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£545,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-03-30</td>
+            <td>Flat 19, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£415,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-12-20</td>
+            <td>68, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£414,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-01-24</td>
+            <td>Flat 11, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£720,000</td>
+        <td class="negative" title="Previous: £795,000 (2014-04-16)">-2.0%/yr</td></tr>
+
+        <tr>
+            <td>2014-04-16</td>
+            <td>Flat 11, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£795,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-03-18</td>
+            <td>Flat 62, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£760,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-07-03</td>
+            <td>62, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£480,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-09</td>
+            <td>Flat 36, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£730,000</td>
+        <td class="positive" title="Previous: £725,000 (2013-08-29)">+0.1%/yr</td></tr>
+
+        <tr>
+            <td>2013-08-29</td>
+            <td>Flat 36, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£725,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-09-01</td>
+            <td>Flat 7, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£760,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-04-04</td>
+            <td>Flat 55, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£520,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-07-12</td>
+            <td>34, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£535,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-10-14</td>
+            <td>Flat 34, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£745,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-02</td>
+            <td>Flat 5, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£675,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-11-11</td>
+            <td>Flat 58, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£875,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-19</td>
+            <td>Flat 4, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£730,000</td>
+        <td class="negative" title="Previous: £760,000 (2016-04-15)">-0.8%/yr</td></tr>
+
+        <tr>
+            <td>2016-04-15</td>
+            <td>Flat 4, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£760,000</td>
+        <td class="positive" title="Previous: £515,000 (2011-07-15)">+8.5%/yr</td></tr>
+
+        <tr>
+            <td>2011-07-15</td>
+            <td>Flat 4, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£515,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-12-13</td>
+            <td>Flat 61, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£875,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-02-23</td>
+            <td>61, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£610,000</td>
+        <td class="positive" title="Previous: £385,000 (2006-05-03)">+76.5%/yr</td></tr>
+
+        <tr>
+            <td>2006-05-03</td>
+            <td>61, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£385,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-09-02</td>
+            <td>Flat 32, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-08-25</td>
+            <td>27, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£372,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-04-07</td>
+            <td>53, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£390,150</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-09-10</td>
+            <td>Flat 50, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£751,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-12-22</td>
+            <td>Flat 47, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-04-11</td>
+            <td>Flat 42, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£545,500</td>
+        <td class="positive" title="Previous: £433,521 (2006-09-28)">+5.2%/yr</td></tr>
+
+        <tr>
+            <td>2006-09-28</td>
+            <td>Flat 42, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£433,521</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-03-29</td>
+            <td>Flat 64, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£830,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-01-10</td>
+            <td>29, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£390,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-08-12</td>
+            <td>Flat 18, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£776,000</td>
+        <td class="positive" title="Previous: £600,000 (2012-06-25)">+2.6%/yr</td></tr>
+
+        <tr>
+            <td>2012-06-25</td>
+            <td>Flat 18, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-07-12</td>
+            <td>Flat 48, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£850,000</td>
+        <td class="positive" title="Previous: £685,000 (2019-06-14)">+4.3%/yr</td></tr>
+
+        <tr>
+            <td>2019-06-14</td>
+            <td>Flat 48, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£685,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-06-30</td>
+            <td>Flat 69, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£595,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-06-23</td>
+            <td>64, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£435,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-08-30</td>
+            <td>Flat 41, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£735,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-08</td>
+            <td>Flat 56, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£800,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-06-08</td>
+            <td>Flat 37, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-05-25</td>
+            <td>Flat 30, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£637,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-09-28</td>
+            <td>49, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£550,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-12-15</td>
+            <td>33, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£360,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-05-15</td>
+            <td>Flat 35, Bishops Mansions, Bishops Park Road</td>
+            <td class="price">£695,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-SW6-6DZ" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-SW6-6DZ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [368300, 399945, 511428, 495000, 501875, 523806, 595920, 725000, 795333, 787111, 751666, 775000, 765000, 688750, 695000, 735000, 776000, 705000, 836000, 781000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [372500, 390150, 535000, 495000, 500000, 545500, 600000, 725000, 795000, 751000, 750000, 760000, 775000, 695000, 695000, 730000, 776000, 735000, 850000, 781000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - SW6 6DZ',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-SW6-6DZ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 76</p>
+                    <p><strong>Unique Properties:</strong> 56</p>
+                    <p><strong>Average Price:</strong> £632,904</p>
+                    <p><strong>Median Price:</strong> £680,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-SW6-6DZ" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector SW6 6 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector SW6 6</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-SW6-6DZ', 'SW6-6DZ')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-SW6-6DZ', 'SW6-6DZ')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-SW6-6DZ" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-SW6-6DZ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [443027, 485708, 606814, 640767, 631748, 700664, 728675, 771724, 866113, 1019853, 957163, 918312, 1030593, 1062685, 1029456, 1133002, 1130024, 1116571, 1045963, 1148130, 966842],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [360000, 400000, 485000, 490000, 484975, 500000, 525000, 627500, 655000, 775000, 777500, 785000, 790000, 794975, 778840, 866500, 850000, 825000, 775000, 860000, 763000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector SW6 6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-SW6-6DZ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-SW6-6DZ" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="4" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £389,376</div>
+                        <div class="cell-sell">Sell: £557,266</div>
+                        <div class="cell-return">+15.4%/yr</div>
+                        <div class="cell-count">(90 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £400,971</div>
+                        <div class="cell-sell">Sell: £744,361</div>
+                        <div class="cell-return">+9.0%/yr</div>
+                        <div class="cell-count">(60 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £418,625</div>
+                        <div class="cell-sell">Sell: £1,094,960</div>
+                        <div class="cell-return">+8.4%/yr</div>
+                        <div class="cell-count">(12 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £462,878</div>
+                        <div class="cell-sell">Sell: £1,246,482</div>
+                        <div class="cell-return">+5.6%/yr</div>
+                        <div class="cell-count">(21 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £535,622</div>
+                        <div class="cell-sell">Sell: £712,289</div>
+                        <div class="cell-return">+11.4%/yr</div>
+                        <div class="cell-count">(131 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £551,552</div>
+                        <div class="cell-sell">Sell: £855,780</div>
+                        <div class="cell-return">+10.4%/yr</div>
+                        <div class="cell-count">(281 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £650,296</div>
+                        <div class="cell-sell">Sell: £1,141,241</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(114 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £589,257</div>
+                        <div class="cell-sell">Sell: £1,125,630</div>
+                        <div class="cell-return">+5.1%/yr</div>
+                        <div class="cell-count">(109 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £599,216</div>
+                        <div class="cell-sell">Sell: £913,779</div>
+                        <div class="cell-return">+20.5%/yr</div>
+                        <div class="cell-count">(92 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £814,954</div>
+                        <div class="cell-sell">Sell: £1,031,056</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(178 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £888,333</div>
+                        <div class="cell-sell">Sell: £1,110,646</div>
+                        <div class="cell-return">+2.6%/yr</div>
+                        <div class="cell-count">(203 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £743,422</div>
+                        <div class="cell-sell">Sell: £929,090</div>
+                        <div class="cell-return">+8.2%/yr</div>
+                        <div class="cell-count">(61 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £919,623</div>
+                        <div class="cell-sell">Sell: £1,094,957</div>
+                        <div class="cell-return">+5.4%/yr</div>
+                        <div class="cell-count">(153 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £863,006</div>
+                        <div class="cell-sell">Sell: £1,063,895</div>
+                        <div class="cell-return">+9.7%/yr</div>
+                        <div class="cell-count">(52 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-SW6-6DZ" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District SW6 Analysis</h4>
+                <p class="area-info">Viewing data for entire SW6 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-SW6-6DZ', 'SW6-6DZ')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-SW6-6DZ', 'SW6-6DZ')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-SW6-6DZ" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-SW6-6DZ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [492447, 534187, 617479, 682883, 676682, 725666, 770297, 792775, 935087, 1071397, 1107658, 1080611, 1088332, 1024688, 1009986, 1103160, 1107305, 1133932, 1123992, 1187120, 1058589],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [395000, 426000, 485000, 525000, 525000, 550000, 560000, 599500, 694000, 805000, 880000, 863200, 845000, 780000, 772500, 840000, 840000, 830000, 915000, 900000, 747500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District SW6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-SW6-6DZ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-SW6-6DZ" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £553,160</div>
+                        <div class="cell-sell">Sell: £646,763</div>
+                        <div class="cell-return">+14.6%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £449,387</div>
+                        <div class="cell-sell">Sell: £642,183</div>
+                        <div class="cell-return">+14.7%/yr</div>
+                        <div class="cell-count">(437 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £479,875</div>
+                        <div class="cell-sell">Sell: £946,863</div>
+                        <div class="cell-return">+9.9%/yr</div>
+                        <div class="cell-count">(316 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £538,691</div>
+                        <div class="cell-sell">Sell: £1,119,126</div>
+                        <div class="cell-return">+6.2%/yr</div>
+                        <div class="cell-count">(107 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £544,862</div>
+                        <div class="cell-sell">Sell: £1,293,885</div>
+                        <div class="cell-return">+5.2%/yr</div>
+                        <div class="cell-count">(104 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £554,782</div>
+                        <div class="cell-sell">Sell: £722,017</div>
+                        <div class="cell-return">+11.5%/yr</div>
+                        <div class="cell-count">(694 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £606,495</div>
+                        <div class="cell-sell">Sell: £950,934</div>
+                        <div class="cell-return">+10.5%/yr</div>
+                        <div class="cell-count">(1648 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £662,286</div>
+                        <div class="cell-sell">Sell: £1,130,777</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(714 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £656,918</div>
+                        <div class="cell-sell">Sell: £1,188,473</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(644 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £685,474</div>
+                        <div class="cell-sell">Sell: £998,436</div>
+                        <div class="cell-return">+20.5%/yr</div>
+                        <div class="cell-count">(560 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £844,762</div>
+                        <div class="cell-sell">Sell: £1,042,230</div>
+                        <div class="cell-return">+5.8%/yr</div>
+                        <div class="cell-count">(1056 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £995,197</div>
+                        <div class="cell-sell">Sell: £1,211,728</div>
+                        <div class="cell-return">+2.4%/yr</div>
+                        <div class="cell-count">(1170 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £928,398</div>
+                        <div class="cell-sell">Sell: £1,026,566</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(272 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £940,021</div>
+                        <div class="cell-sell">Sell: £1,060,630</div>
+                        <div class="cell-return">+4.2%/yr</div>
+                        <div class="cell-count">(965 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,003,702</div>
+                        <div class="cell-sell">Sell: £1,154,975</div>
+                        <div class="cell-return">+9.4%/yr</div>
+                        <div class="cell-count">(313 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'SW6 6'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'SW6'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

@@ -1,0 +1,1262 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>SW6 6SA</h3>
+            <div class="header-stats">
+                <span><strong>69</strong> transactions</span>
+                <span><strong>31</strong> properties</span>
+                <span>Avg: <strong>£819,681</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-SW6-6SA')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-SW6-6SA')">
+                Sector (SW6 6)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-SW6-6SA')">
+                District (SW6)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-SW6-6SA" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-SW6-6SA', 'SW6-6SA')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-SW6-6SA', 'SW6-6SA')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-SW6-6SA', 'SW6-6SA')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-SW6-6SA" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-SW6-6SA" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "49A, Danehurst Street", "dates": ["2008-03-28", "2024-10-25"], "prices": [499999, 785000], "hover_texts": ["<b>49A, Danehurst Street</b><br>Transaction 1 of 2<br>Date: 2008-03-28<br>Sale Price: \u00a3499,999", "<b>49A, Danehurst Street</b><br>Transaction 2 of 2<br>Date: 2024-10-25<br>Sale Price: \u00a3785,000<br>Previous Purchase: \u00a3499,999<br>Previous Date: 2008-03-28<br>Annual Return: +2.8%/yr<br>Held for: 16.6 years"], "transaction_count": 2}, {"address": "65A, Danehurst Street", "dates": ["2007-03-16", "2010-10-04", "2014-04-07", "2022-08-10"], "prices": [555000, 595000, 950000, 1015000], "hover_texts": ["<b>65A, Danehurst Street</b><br>Transaction 1 of 4<br>Date: 2007-03-16<br>Sale Price: \u00a3555,000", "<b>65A, Danehurst Street</b><br>Transaction 2 of 4<br>Date: 2010-10-04<br>Sale Price: \u00a3595,000<br>Previous Purchase: \u00a3555,000<br>Previous Date: 2007-03-16<br>Annual Return: +2.0%/yr<br>Held for: 3.5 years", "<b>65A, Danehurst Street</b><br>Transaction 3 of 4<br>Date: 2014-04-07<br>Sale Price: \u00a3950,000<br>Previous Purchase: \u00a3595,000<br>Previous Date: 2010-10-04<br>Annual Return: +14.3%/yr<br>Held for: 3.5 years", "<b>65A, Danehurst Street</b><br>Transaction 4 of 4<br>Date: 2022-08-10<br>Sale Price: \u00a31,015,000<br>Previous Purchase: \u00a3950,000<br>Previous Date: 2014-04-07<br>Annual Return: +0.8%/yr<br>Held for: 8.3 years"], "transaction_count": 4}, {"address": "47A, Danehurst Street", "dates": ["2007-08-31", "2011-07-18"], "prices": [499999, 695000], "hover_texts": ["<b>47A, Danehurst Street</b><br>Transaction 1 of 2<br>Date: 2007-08-31<br>Sale Price: \u00a3499,999", "<b>47A, Danehurst Street</b><br>Transaction 2 of 2<br>Date: 2011-07-18<br>Sale Price: \u00a3695,000<br>Previous Purchase: \u00a3499,999<br>Previous Date: 2007-08-31<br>Annual Return: +8.9%/yr<br>Held for: 3.9 years"], "transaction_count": 2}, {"address": "Ground Floor Flat, 45, Danehurst Street", "dates": ["2008-11-28", "2013-10-09", "2017-01-16"], "prices": [323500, 670000, 740000], "hover_texts": ["<b>Ground Floor Flat, 45, Danehurst Street</b><br>Transaction 1 of 3<br>Date: 2008-11-28<br>Sale Price: \u00a3323,500", "<b>Ground Floor Flat, 45, Danehurst Street</b><br>Transaction 2 of 3<br>Date: 2013-10-09<br>Sale Price: \u00a3670,000<br>Previous Purchase: \u00a3323,500<br>Previous Date: 2008-11-28<br>Annual Return: +16.1%/yr<br>Held for: 4.9 years", "<b>Ground Floor Flat, 45, Danehurst Street</b><br>Transaction 3 of 3<br>Date: 2017-01-16<br>Sale Price: \u00a3740,000<br>Previous Purchase: \u00a3670,000<br>Previous Date: 2013-10-09<br>Annual Return: +3.1%/yr<br>Held for: 3.3 years"], "transaction_count": 3}, {"address": "13, Danehurst Street", "dates": ["2006-05-15", "2011-09-28", "2022-09-05"], "prices": [799000, 1200000, 1760000], "hover_texts": ["<b>13, Danehurst Street</b><br>Transaction 1 of 3<br>Date: 2006-05-15<br>Sale Price: \u00a3799,000", "<b>13, Danehurst Street</b><br>Transaction 2 of 3<br>Date: 2011-09-28<br>Sale Price: \u00a31,200,000<br>Previous Purchase: \u00a3799,000<br>Previous Date: 2006-05-15<br>Annual Return: +7.9%/yr<br>Held for: 5.4 years", "<b>13, Danehurst Street</b><br>Transaction 3 of 3<br>Date: 2022-09-05<br>Sale Price: \u00a31,760,000<br>Previous Purchase: \u00a31,200,000<br>Previous Date: 2011-09-28<br>Annual Return: +3.6%/yr<br>Held for: 10.9 years"], "transaction_count": 3}, {"address": "33A, Danehurst Street", "dates": ["2021-11-17", "2022-02-15", "2023-08-29"], "prices": [500000, 610000, 1090000], "hover_texts": ["<b>33A, Danehurst Street</b><br>Transaction 1 of 3<br>Date: 2021-11-17<br>Sale Price: \u00a3500,000", "<b>33A, Danehurst Street</b><br>Transaction 2 of 3<br>Date: 2022-02-15<br>Sale Price: \u00a3610,000<br>Previous Purchase: \u00a3500,000<br>Previous Date: 2021-11-17<br>Annual Return: +124.1%/yr<br>Held for: 0.2 years", "<b>33A, Danehurst Street</b><br>Transaction 3 of 3<br>Date: 2023-08-29<br>Sale Price: \u00a31,090,000<br>Previous Purchase: \u00a3610,000<br>Previous Date: 2022-02-15<br>Annual Return: +46.0%/yr<br>Held for: 1.5 years"], "transaction_count": 3}, {"address": "15, Danehurst Street", "dates": ["2006-07-25", "2008-01-17", "2015-03-13", "2020-03-13"], "prices": [680000, 1400000, 1720000, 1755000], "hover_texts": ["<b>15, Danehurst Street</b><br>Transaction 1 of 4<br>Date: 2006-07-25<br>Sale Price: \u00a3680,000", "<b>15, Danehurst Street</b><br>Transaction 2 of 4<br>Date: 2008-01-17<br>Sale Price: \u00a31,400,000<br>Previous Purchase: \u00a3680,000<br>Previous Date: 2006-07-25<br>Annual Return: +62.8%/yr<br>Held for: 1.5 years", "<b>15, Danehurst Street</b><br>Transaction 3 of 4<br>Date: 2015-03-13<br>Sale Price: \u00a31,720,000<br>Previous Purchase: \u00a31,400,000<br>Previous Date: 2008-01-17<br>Annual Return: +2.9%/yr<br>Held for: 7.2 years", "<b>15, Danehurst Street</b><br>Transaction 4 of 4<br>Date: 2020-03-13<br>Sale Price: \u00a31,755,000<br>Previous Purchase: \u00a31,720,000<br>Previous Date: 2015-03-13<br>Annual Return: +0.4%/yr<br>Held for: 5.0 years"], "transaction_count": 4}, {"address": "1A, Danehurst Street", "dates": ["2006-07-05", "2007-05-18", "2012-07-06"], "prices": [221000, 278500, 310000], "hover_texts": ["<b>1A, Danehurst Street</b><br>Transaction 1 of 3<br>Date: 2006-07-05<br>Sale Price: \u00a3221,000", "<b>1A, Danehurst Street</b><br>Transaction 2 of 3<br>Date: 2007-05-18<br>Sale Price: \u00a3278,500<br>Previous Purchase: \u00a3221,000<br>Previous Date: 2006-07-05<br>Annual Return: +30.5%/yr<br>Held for: 0.9 years", "<b>1A, Danehurst Street</b><br>Transaction 3 of 3<br>Date: 2012-07-06<br>Sale Price: \u00a3310,000<br>Previous Purchase: \u00a3278,500<br>Previous Date: 2007-05-18<br>Annual Return: +2.1%/yr<br>Held for: 5.1 years"], "transaction_count": 3}, {"address": "65, Danehurst Street", "dates": ["2007-08-09", "2009-10-23"], "prices": [490000, 489950], "hover_texts": ["<b>65, Danehurst Street</b><br>Transaction 1 of 2<br>Date: 2007-08-09<br>Sale Price: \u00a3490,000", "<b>65, Danehurst Street</b><br>Transaction 2 of 2<br>Date: 2009-10-23<br>Sale Price: \u00a3489,950<br>Previous Purchase: \u00a3490,000<br>Previous Date: 2007-08-09<br>Annual Return: -0.0%/yr<br>Held for: 2.2 years"], "transaction_count": 2}, {"address": "Ground Floor Flat, 63, Danehurst Street", "dates": ["2005-06-16", "2014-07-04", "2018-11-30"], "prices": [340000, 207496, 950000], "hover_texts": ["<b>Ground Floor Flat, 63, Danehurst Street</b><br>Transaction 1 of 3<br>Date: 2005-06-16<br>Sale Price: \u00a3340,000", "<b>Ground Floor Flat, 63, Danehurst Street</b><br>Transaction 2 of 3<br>Date: 2014-07-04<br>Sale Price: \u00a3207,496<br>Previous Purchase: \u00a3340,000<br>Previous Date: 2005-06-16<br>Annual Return: -5.3%/yr<br>Held for: 9.1 years", "<b>Ground Floor Flat, 63, Danehurst Street</b><br>Transaction 3 of 3<br>Date: 2018-11-30<br>Sale Price: \u00a3950,000<br>Previous Purchase: \u00a3207,496<br>Previous Date: 2014-07-04<br>Annual Return: +41.2%/yr<br>Held for: 4.4 years"], "transaction_count": 3}, {"address": "33, Danehurst Street", "dates": ["2005-09-23", "2010-07-16", "2021-06-25"], "prices": [324000, 595000, 897500], "hover_texts": ["<b>33, Danehurst Street</b><br>Transaction 1 of 3<br>Date: 2005-09-23<br>Sale Price: \u00a3324,000", "<b>33, Danehurst Street</b><br>Transaction 2 of 3<br>Date: 2010-07-16<br>Sale Price: \u00a3595,000<br>Previous Purchase: \u00a3324,000<br>Previous Date: 2005-09-23<br>Annual Return: +13.5%/yr<br>Held for: 4.8 years", "<b>33, Danehurst Street</b><br>Transaction 3 of 3<br>Date: 2021-06-25<br>Sale Price: \u00a3897,500<br>Previous Purchase: \u00a3595,000<br>Previous Date: 2010-07-16<br>Annual Return: +3.8%/yr<br>Held for: 10.9 years"], "transaction_count": 3}, {"address": "27, Danehurst Street", "dates": ["2020-10-28", "2020-10-28", "2025-01-10"], "prices": [1000000, 1000000, 1385000], "hover_texts": ["<b>27, Danehurst Street</b><br>Transaction 1 of 3<br>Date: 2020-10-28<br>Sale Price: \u00a31,000,000", "<b>27, Danehurst Street</b><br>Transaction 2 of 3<br>Date: 2020-10-28<br>Sale Price: \u00a31,000,000", "<b>27, Danehurst Street</b><br>Transaction 3 of 3<br>Date: 2025-01-10<br>Sale Price: \u00a31,385,000<br>Previous Purchase: \u00a31,000,000<br>Previous Date: 2020-10-28<br>Annual Return: +8.1%/yr<br>Held for: 4.2 years"], "transaction_count": 3}, {"address": "51A, Danehurst Street", "dates": ["2008-12-19", "2012-07-18", "2023-09-07"], "prices": [350000, 770000, 920000], "hover_texts": ["<b>51A, Danehurst Street</b><br>Transaction 1 of 3<br>Date: 2008-12-19<br>Sale Price: \u00a3350,000", "<b>51A, Danehurst Street</b><br>Transaction 2 of 3<br>Date: 2012-07-18<br>Sale Price: \u00a3770,000<br>Previous Purchase: \u00a3350,000<br>Previous Date: 2008-12-19<br>Annual Return: +24.6%/yr<br>Held for: 3.6 years", "<b>51A, Danehurst Street</b><br>Transaction 3 of 3<br>Date: 2023-09-07<br>Sale Price: \u00a3920,000<br>Previous Purchase: \u00a3770,000<br>Previous Date: 2012-07-18<br>Annual Return: +1.6%/yr<br>Held for: 11.1 years"], "transaction_count": 3}, {"address": "11, Danehurst Street", "dates": ["2005-06-03", "2006-03-03", "2012-06-15", "2020-09-11", "2023-09-20"], "prices": [515000, 862500, 1553605, 1575000, 1692500], "hover_texts": ["<b>11, Danehurst Street</b><br>Transaction 1 of 5<br>Date: 2005-06-03<br>Sale Price: \u00a3515,000", "<b>11, Danehurst Street</b><br>Transaction 2 of 5<br>Date: 2006-03-03<br>Sale Price: \u00a3862,500<br>Previous Purchase: \u00a3515,000<br>Previous Date: 2005-06-03<br>Annual Return: +99.4%/yr<br>Held for: 0.8 years", "<b>11, Danehurst Street</b><br>Transaction 3 of 5<br>Date: 2012-06-15<br>Sale Price: \u00a31,553,605<br>Previous Purchase: \u00a3862,500<br>Previous Date: 2006-03-03<br>Annual Return: +9.8%/yr<br>Held for: 6.3 years", "<b>11, Danehurst Street</b><br>Transaction 4 of 5<br>Date: 2020-09-11<br>Sale Price: \u00a31,575,000<br>Previous Purchase: \u00a31,553,605<br>Previous Date: 2012-06-15<br>Annual Return: +0.2%/yr<br>Held for: 8.2 years", "<b>11, Danehurst Street</b><br>Transaction 5 of 5<br>Date: 2023-09-20<br>Sale Price: \u00a31,692,500<br>Previous Purchase: \u00a31,575,000<br>Previous Date: 2020-09-11<br>Annual Return: +2.4%/yr<br>Held for: 3.0 years"], "transaction_count": 5}, {"address": "57, Danehurst Street", "dates": ["2010-04-30", "2014-08-20"], "prices": [460000, 999999], "hover_texts": ["<b>57, Danehurst Street</b><br>Transaction 1 of 2<br>Date: 2010-04-30<br>Sale Price: \u00a3460,000", "<b>57, Danehurst Street</b><br>Transaction 2 of 2<br>Date: 2014-08-20<br>Sale Price: \u00a3999,999<br>Previous Purchase: \u00a3460,000<br>Previous Date: 2010-04-30<br>Annual Return: +19.8%/yr<br>Held for: 4.3 years"], "transaction_count": 2}, {"address": "29A, Danehurst Street", "dates": ["2007-09-24", "2013-08-06"], "prices": [515000, 730000], "hover_texts": ["<b>29A, Danehurst Street</b><br>Transaction 1 of 2<br>Date: 2007-09-24<br>Sale Price: \u00a3515,000", "<b>29A, Danehurst Street</b><br>Transaction 2 of 2<br>Date: 2013-08-06<br>Sale Price: \u00a3730,000<br>Previous Purchase: \u00a3515,000<br>Previous Date: 2007-09-24<br>Annual Return: +6.1%/yr<br>Held for: 5.9 years"], "transaction_count": 2}, {"address": "57A, Danehurst Street", "dates": ["2008-01-31", "2022-05-26"], "prices": [470000, 830000], "hover_texts": ["<b>57A, Danehurst Street</b><br>Transaction 1 of 2<br>Date: 2008-01-31<br>Sale Price: \u00a3470,000", "<b>57A, Danehurst Street</b><br>Transaction 2 of 2<br>Date: 2022-05-26<br>Sale Price: \u00a3830,000<br>Previous Purchase: \u00a3470,000<br>Previous Date: 2008-01-31<br>Annual Return: +4.0%/yr<br>Held for: 14.3 years"], "transaction_count": 2}, {"address": "53A, Danehurst Street", "dates": ["2017-06-19", "2022-03-11"], "prices": [985000, 950000], "hover_texts": ["<b>53A, Danehurst Street</b><br>Transaction 1 of 2<br>Date: 2017-06-19<br>Sale Price: \u00a3985,000", "<b>53A, Danehurst Street</b><br>Transaction 2 of 2<br>Date: 2022-03-11<br>Sale Price: \u00a3950,000<br>Previous Purchase: \u00a3985,000<br>Previous Date: 2017-06-19<br>Annual Return: -0.8%/yr<br>Held for: 4.7 years"], "transaction_count": 2}, {"address": "Flat B, 1, Danehurst Street", "dates": ["2006-04-13", "2016-12-21"], "prices": [206000, 460000], "hover_texts": ["<b>Flat B, 1, Danehurst Street</b><br>Transaction 1 of 2<br>Date: 2006-04-13<br>Sale Price: \u00a3206,000", "<b>Flat B, 1, Danehurst Street</b><br>Transaction 2 of 2<br>Date: 2016-12-21<br>Sale Price: \u00a3460,000<br>Previous Purchase: \u00a3206,000<br>Previous Date: 2006-04-13<br>Annual Return: +7.8%/yr<br>Held for: 10.7 years"], "transaction_count": 2}, {"address": "59A, Danehurst Street", "dates": ["2005-04-13", "2006-11-24", "2018-05-08", "2024-07-10"], "prices": [450000, 499950, 950000, 1120000], "hover_texts": ["<b>59A, Danehurst Street</b><br>Transaction 1 of 4<br>Date: 2005-04-13<br>Sale Price: \u00a3450,000", "<b>59A, Danehurst Street</b><br>Transaction 2 of 4<br>Date: 2006-11-24<br>Sale Price: \u00a3499,950<br>Previous Purchase: \u00a3450,000<br>Previous Date: 2005-04-13<br>Annual Return: +6.7%/yr<br>Held for: 1.6 years", "<b>59A, Danehurst Street</b><br>Transaction 3 of 4<br>Date: 2018-05-08<br>Sale Price: \u00a3950,000<br>Previous Purchase: \u00a3499,950<br>Previous Date: 2006-11-24<br>Annual Return: +5.8%/yr<br>Held for: 11.4 years", "<b>59A, Danehurst Street</b><br>Transaction 4 of 4<br>Date: 2024-07-10<br>Sale Price: \u00a31,120,000<br>Previous Purchase: \u00a3950,000<br>Previous Date: 2018-05-08<br>Annual Return: +2.7%/yr<br>Held for: 6.2 years"], "transaction_count": 4}, {"address": "Flat C, 1, Danehurst Street", "dates": ["2019-07-24", "2025-07-31"], "prices": [365000, 340000], "hover_texts": ["<b>Flat C, 1, Danehurst Street</b><br>Transaction 1 of 2<br>Date: 2019-07-24<br>Sale Price: \u00a3365,000", "<b>Flat C, 1, Danehurst Street</b><br>Transaction 2 of 2<br>Date: 2025-07-31<br>Sale Price: \u00a3340,000<br>Previous Purchase: \u00a3365,000<br>Previous Date: 2019-07-24<br>Annual Return: -1.2%/yr<br>Held for: 6.0 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2009-05-28", "address": "31A, Danehurst Street", "price": 520000, "price_display": "\u00a3520,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-01-05", "address": "21, Danehurst Street", "price": 1730000, "price_display": "\u00a31,730,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2017-04-28", "address": "5, Danehurst Street", "price": 1450000, "price_display": "\u00a31,450,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2017-05-04", "address": "61A, Danehurst Street", "price": 835000, "price_display": "\u00a3835,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-17", "address": "Flat A, 1, Danehurst Street", "price": 385000, "price_display": "\u00a3385,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-11-30", "address": "17, Danehurst Street", "price": 1525000, "price_display": "\u00a31,525,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-15", "address": "43, Danehurst Street", "price": 682500, "price_display": "\u00a3682,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-07-18", "address": "7, Danehurst Street", "price": 1750000, "price_display": "\u00a31,750,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2013-07-19", "address": "3, Danehurst Street", "price": 1420000, "price_display": "\u00a31,420,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2005-12-16", "address": "49, Danehurst Street", "price": 360000, "price_display": "\u00a3360,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-SW6-6SA', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-SW6-6SA');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-SW6-6SA', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-SW6-6SA', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-SW6-6SA" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2024-10-25</td>
+            <td>49A, Danehurst Street</td>
+            <td class="price">£785,000</td>
+        <td class="positive" title="Previous: £499,999 (2008-03-28)">+2.8%/yr</td></tr>
+
+        <tr>
+            <td>2008-03-28</td>
+            <td>49A, Danehurst Street</td>
+            <td class="price">£499,999</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-08-10</td>
+            <td>65A, Danehurst Street</td>
+            <td class="price">£1,015,000</td>
+        <td class="positive" title="Previous: £950,000 (2014-04-07)">+0.8%/yr</td></tr>
+
+        <tr>
+            <td>2014-04-07</td>
+            <td>65A, Danehurst Street</td>
+            <td class="price">£950,000</td>
+        <td class="positive" title="Previous: £595,000 (2010-10-04)">+14.3%/yr</td></tr>
+
+        <tr>
+            <td>2010-10-04</td>
+            <td>65A, Danehurst Street</td>
+            <td class="price">£595,000</td>
+        <td class="positive" title="Previous: £555,000 (2007-03-16)">+2.0%/yr</td></tr>
+
+        <tr>
+            <td>2007-03-16</td>
+            <td>65A, Danehurst Street</td>
+            <td class="price">£555,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-05-28</td>
+            <td>31A, Danehurst Street</td>
+            <td class="price">£520,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-07-18</td>
+            <td>47A, Danehurst Street</td>
+            <td class="price">£695,000</td>
+        <td class="positive" title="Previous: £499,999 (2007-08-31)">+8.9%/yr</td></tr>
+
+        <tr>
+            <td>2007-08-31</td>
+            <td>47A, Danehurst Street</td>
+            <td class="price">£499,999</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-01-05</td>
+            <td>21, Danehurst Street</td>
+            <td class="price">£1,730,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-04-28</td>
+            <td>5, Danehurst Street</td>
+            <td class="price">£1,450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-05-04</td>
+            <td>61A, Danehurst Street</td>
+            <td class="price">£835,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-01-16</td>
+            <td>Ground Floor Flat, 45, Danehurst Street</td>
+            <td class="price">£740,000</td>
+        <td class="positive" title="Previous: £670,000 (2013-10-09)">+3.1%/yr</td></tr>
+
+        <tr>
+            <td>2013-10-09</td>
+            <td>Ground Floor Flat, 45, Danehurst Street</td>
+            <td class="price">£670,000</td>
+        <td class="positive" title="Previous: £323,500 (2008-11-28)">+16.1%/yr</td></tr>
+
+        <tr>
+            <td>2008-11-28</td>
+            <td>Ground Floor Flat, 45, Danehurst Street</td>
+            <td class="price">£323,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-09-05</td>
+            <td>13, Danehurst Street</td>
+            <td class="price">£1,760,000</td>
+        <td class="positive" title="Previous: £1,200,000 (2011-09-28)">+3.6%/yr</td></tr>
+
+        <tr>
+            <td>2011-09-28</td>
+            <td>13, Danehurst Street</td>
+            <td class="price">£1,200,000</td>
+        <td class="positive" title="Previous: £799,000 (2006-05-15)">+7.9%/yr</td></tr>
+
+        <tr>
+            <td>2006-05-15</td>
+            <td>13, Danehurst Street</td>
+            <td class="price">£799,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-17</td>
+            <td>Flat A, 1, Danehurst Street</td>
+            <td class="price">£385,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-08-29</td>
+            <td>33A, Danehurst Street</td>
+            <td class="price">£1,090,000</td>
+        <td class="positive" title="Previous: £610,000 (2022-02-15)">+46.0%/yr</td></tr>
+
+        <tr>
+            <td>2022-02-15</td>
+            <td>33A, Danehurst Street</td>
+            <td class="price">£610,000</td>
+        <td class="positive" title="Previous: £500,000 (2021-11-17)">+124.1%/yr</td></tr>
+
+        <tr>
+            <td>2021-11-17</td>
+            <td>33A, Danehurst Street</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-03-13</td>
+            <td>15, Danehurst Street</td>
+            <td class="price">£1,755,000</td>
+        <td class="positive" title="Previous: £1,720,000 (2015-03-13)">+0.4%/yr</td></tr>
+
+        <tr>
+            <td>2015-03-13</td>
+            <td>15, Danehurst Street</td>
+            <td class="price">£1,720,000</td>
+        <td class="positive" title="Previous: £1,400,000 (2008-01-17)">+2.9%/yr</td></tr>
+
+        <tr>
+            <td>2008-01-17</td>
+            <td>15, Danehurst Street</td>
+            <td class="price">£1,400,000</td>
+        <td class="positive" title="Previous: £680,000 (2006-07-25)">+62.8%/yr</td></tr>
+
+        <tr>
+            <td>2006-07-25</td>
+            <td>15, Danehurst Street</td>
+            <td class="price">£680,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-30</td>
+            <td>17, Danehurst Street</td>
+            <td class="price">£1,525,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-07-06</td>
+            <td>1A, Danehurst Street</td>
+            <td class="price">£310,000</td>
+        <td class="positive" title="Previous: £278,500 (2007-05-18)">+2.1%/yr</td></tr>
+
+        <tr>
+            <td>2007-05-18</td>
+            <td>1A, Danehurst Street</td>
+            <td class="price">£278,500</td>
+        <td class="positive" title="Previous: £221,000 (2006-07-05)">+30.5%/yr</td></tr>
+
+        <tr>
+            <td>2006-07-05</td>
+            <td>1A, Danehurst Street</td>
+            <td class="price">£221,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-10-23</td>
+            <td>65, Danehurst Street</td>
+            <td class="price">£489,950</td>
+        <td class="negative" title="Previous: £490,000 (2007-08-09)">-0.0%/yr</td></tr>
+
+        <tr>
+            <td>2007-08-09</td>
+            <td>65, Danehurst Street</td>
+            <td class="price">£490,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-30</td>
+            <td>Ground Floor Flat, 63, Danehurst Street</td>
+            <td class="price">£950,000</td>
+        <td class="positive" title="Previous: £207,496 (2014-07-04)">+41.2%/yr</td></tr>
+
+        <tr>
+            <td>2014-07-04</td>
+            <td>Ground Floor Flat, 63, Danehurst Street</td>
+            <td class="price">£207,496</td>
+        <td class="negative" title="Previous: £340,000 (2005-06-16)">-5.3%/yr</td></tr>
+
+        <tr>
+            <td>2005-06-16</td>
+            <td>Ground Floor Flat, 63, Danehurst Street</td>
+            <td class="price">£340,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-25</td>
+            <td>33, Danehurst Street</td>
+            <td class="price">£897,500</td>
+        <td class="positive" title="Previous: £595,000 (2010-07-16)">+3.8%/yr</td></tr>
+
+        <tr>
+            <td>2010-07-16</td>
+            <td>33, Danehurst Street</td>
+            <td class="price">£595,000</td>
+        <td class="positive" title="Previous: £324,000 (2005-09-23)">+13.5%/yr</td></tr>
+
+        <tr>
+            <td>2005-09-23</td>
+            <td>33, Danehurst Street</td>
+            <td class="price">£324,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-01-10</td>
+            <td>27, Danehurst Street</td>
+            <td class="price">£1,385,000</td>
+        <td class="positive" title="Previous: £1,000,000 (2020-10-28)">+8.1%/yr</td></tr>
+
+        <tr>
+            <td>2020-10-28</td>
+            <td>27, Danehurst Street</td>
+            <td class="price">£1,000,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-10-28</td>
+            <td>27, Danehurst Street</td>
+            <td class="price">£1,000,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-15</td>
+            <td>43, Danehurst Street</td>
+            <td class="price">£682,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-09-07</td>
+            <td>51A, Danehurst Street</td>
+            <td class="price">£920,000</td>
+        <td class="positive" title="Previous: £770,000 (2012-07-18)">+1.6%/yr</td></tr>
+
+        <tr>
+            <td>2012-07-18</td>
+            <td>51A, Danehurst Street</td>
+            <td class="price">£770,000</td>
+        <td class="positive" title="Previous: £350,000 (2008-12-19)">+24.6%/yr</td></tr>
+
+        <tr>
+            <td>2008-12-19</td>
+            <td>51A, Danehurst Street</td>
+            <td class="price">£350,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-09-20</td>
+            <td>11, Danehurst Street</td>
+            <td class="price">£1,692,500</td>
+        <td class="positive" title="Previous: £1,575,000 (2020-09-11)">+2.4%/yr</td></tr>
+
+        <tr>
+            <td>2020-09-11</td>
+            <td>11, Danehurst Street</td>
+            <td class="price">£1,575,000</td>
+        <td class="positive" title="Previous: £1,553,605 (2012-06-15)">+0.2%/yr</td></tr>
+
+        <tr>
+            <td>2012-06-15</td>
+            <td>11, Danehurst Street</td>
+            <td class="price">£1,553,605</td>
+        <td class="positive" title="Previous: £862,500 (2006-03-03)">+9.8%/yr</td></tr>
+
+        <tr>
+            <td>2006-03-03</td>
+            <td>11, Danehurst Street</td>
+            <td class="price">£862,500</td>
+        <td class="positive" title="Previous: £515,000 (2005-06-03)">+99.4%/yr</td></tr>
+
+        <tr>
+            <td>2005-06-03</td>
+            <td>11, Danehurst Street</td>
+            <td class="price">£515,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-08-20</td>
+            <td>57, Danehurst Street</td>
+            <td class="price">£999,999</td>
+        <td class="positive" title="Previous: £460,000 (2010-04-30)">+19.8%/yr</td></tr>
+
+        <tr>
+            <td>2010-04-30</td>
+            <td>57, Danehurst Street</td>
+            <td class="price">£460,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-07-18</td>
+            <td>7, Danehurst Street</td>
+            <td class="price">£1,750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-08-06</td>
+            <td>29A, Danehurst Street</td>
+            <td class="price">£730,000</td>
+        <td class="positive" title="Previous: £515,000 (2007-09-24)">+6.1%/yr</td></tr>
+
+        <tr>
+            <td>2007-09-24</td>
+            <td>29A, Danehurst Street</td>
+            <td class="price">£515,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-07-19</td>
+            <td>3, Danehurst Street</td>
+            <td class="price">£1,420,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-05-26</td>
+            <td>57A, Danehurst Street</td>
+            <td class="price">£830,000</td>
+        <td class="positive" title="Previous: £470,000 (2008-01-31)">+4.0%/yr</td></tr>
+
+        <tr>
+            <td>2008-01-31</td>
+            <td>57A, Danehurst Street</td>
+            <td class="price">£470,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-11</td>
+            <td>53A, Danehurst Street</td>
+            <td class="price">£950,000</td>
+        <td class="negative" title="Previous: £985,000 (2017-06-19)">-0.8%/yr</td></tr>
+
+        <tr>
+            <td>2017-06-19</td>
+            <td>53A, Danehurst Street</td>
+            <td class="price">£985,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-12-16</td>
+            <td>49, Danehurst Street</td>
+            <td class="price">£360,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-12-21</td>
+            <td>Flat B, 1, Danehurst Street</td>
+            <td class="price">£460,000</td>
+        <td class="positive" title="Previous: £206,000 (2006-04-13)">+7.8%/yr</td></tr>
+
+        <tr>
+            <td>2006-04-13</td>
+            <td>Flat B, 1, Danehurst Street</td>
+            <td class="price">£206,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-07-10</td>
+            <td>59A, Danehurst Street</td>
+            <td class="price">£1,120,000</td>
+        <td class="positive" title="Previous: £950,000 (2018-05-08)">+2.7%/yr</td></tr>
+
+        <tr>
+            <td>2018-05-08</td>
+            <td>59A, Danehurst Street</td>
+            <td class="price">£950,000</td>
+        <td class="positive" title="Previous: £499,950 (2006-11-24)">+5.8%/yr</td></tr>
+
+        <tr>
+            <td>2006-11-24</td>
+            <td>59A, Danehurst Street</td>
+            <td class="price">£499,950</td>
+        <td class="positive" title="Previous: £450,000 (2005-04-13)">+6.7%/yr</td></tr>
+
+        <tr>
+            <td>2005-04-13</td>
+            <td>59A, Danehurst Street</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-07-31</td>
+            <td>Flat C, 1, Danehurst Street</td>
+            <td class="price">£340,000</td>
+        <td class="negative" title="Previous: £365,000 (2019-07-24)">-1.2%/yr</td></tr>
+
+        <tr>
+            <td>2019-07-24</td>
+            <td>Flat C, 1, Danehurst Street</td>
+            <td class="price">£365,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-SW6-6SA" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-SW6-6SA" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [397800, 544741, 467699, 608699, 504975, 550000, 947500, 877868, 940000, 719165, 1720000, 1105000, 1148000, 1026875, 365000, 1332500, 594166, 1033000, 1234166, 952500, 862500],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [360000, 680000, 499999, 470000, 520000, 595000, 1200000, 770000, 730000, 950000, 1720000, 1750000, 985000, 950000, 365000, 1575000, 500000, 950000, 1090000, 1120000, 1385000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - SW6 6SA',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-SW6-6SA', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 69</p>
+                    <p><strong>Unique Properties:</strong> 31</p>
+                    <p><strong>Average Price:</strong> £819,681</p>
+                    <p><strong>Median Price:</strong> £730,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-SW6-6SA" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector SW6 6 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector SW6 6</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-SW6-6SA', 'SW6-6SA')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-SW6-6SA', 'SW6-6SA')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-SW6-6SA" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-SW6-6SA" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [443027, 485708, 606814, 640767, 631748, 700664, 728675, 771724, 866113, 1019853, 957163, 918312, 1030593, 1062685, 1029456, 1133002, 1130024, 1116571, 1045963, 1148130, 966842],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [360000, 400000, 485000, 490000, 484975, 500000, 525000, 627500, 655000, 775000, 777500, 785000, 790000, 794975, 778840, 866500, 850000, 825000, 775000, 860000, 763000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector SW6 6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-SW6-6SA', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-SW6-6SA" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="4" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £389,376</div>
+                        <div class="cell-sell">Sell: £557,266</div>
+                        <div class="cell-return">+15.4%/yr</div>
+                        <div class="cell-count">(90 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £400,971</div>
+                        <div class="cell-sell">Sell: £744,361</div>
+                        <div class="cell-return">+9.0%/yr</div>
+                        <div class="cell-count">(60 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £418,625</div>
+                        <div class="cell-sell">Sell: £1,094,960</div>
+                        <div class="cell-return">+8.4%/yr</div>
+                        <div class="cell-count">(12 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £462,878</div>
+                        <div class="cell-sell">Sell: £1,246,482</div>
+                        <div class="cell-return">+5.6%/yr</div>
+                        <div class="cell-count">(21 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £535,622</div>
+                        <div class="cell-sell">Sell: £712,289</div>
+                        <div class="cell-return">+11.4%/yr</div>
+                        <div class="cell-count">(131 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £551,552</div>
+                        <div class="cell-sell">Sell: £855,780</div>
+                        <div class="cell-return">+10.4%/yr</div>
+                        <div class="cell-count">(281 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £650,296</div>
+                        <div class="cell-sell">Sell: £1,141,241</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(114 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £589,257</div>
+                        <div class="cell-sell">Sell: £1,125,630</div>
+                        <div class="cell-return">+5.1%/yr</div>
+                        <div class="cell-count">(109 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £599,216</div>
+                        <div class="cell-sell">Sell: £913,779</div>
+                        <div class="cell-return">+20.5%/yr</div>
+                        <div class="cell-count">(92 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £814,954</div>
+                        <div class="cell-sell">Sell: £1,031,056</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(178 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £888,333</div>
+                        <div class="cell-sell">Sell: £1,110,646</div>
+                        <div class="cell-return">+2.6%/yr</div>
+                        <div class="cell-count">(203 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £743,422</div>
+                        <div class="cell-sell">Sell: £929,090</div>
+                        <div class="cell-return">+8.2%/yr</div>
+                        <div class="cell-count">(61 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £919,623</div>
+                        <div class="cell-sell">Sell: £1,094,957</div>
+                        <div class="cell-return">+5.4%/yr</div>
+                        <div class="cell-count">(153 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £863,006</div>
+                        <div class="cell-sell">Sell: £1,063,895</div>
+                        <div class="cell-return">+9.7%/yr</div>
+                        <div class="cell-count">(52 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-SW6-6SA" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District SW6 Analysis</h4>
+                <p class="area-info">Viewing data for entire SW6 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-SW6-6SA', 'SW6-6SA')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-SW6-6SA', 'SW6-6SA')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-SW6-6SA" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-SW6-6SA" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [492447, 534187, 617479, 682883, 676682, 725666, 770297, 792775, 935087, 1071397, 1107658, 1080611, 1088332, 1024688, 1009986, 1103160, 1107305, 1133932, 1123992, 1187120, 1058589],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [395000, 426000, 485000, 525000, 525000, 550000, 560000, 599500, 694000, 805000, 880000, 863200, 845000, 780000, 772500, 840000, 840000, 830000, 915000, 900000, 747500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District SW6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-SW6-6SA', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-SW6-6SA" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £553,160</div>
+                        <div class="cell-sell">Sell: £646,763</div>
+                        <div class="cell-return">+14.6%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £449,387</div>
+                        <div class="cell-sell">Sell: £642,183</div>
+                        <div class="cell-return">+14.7%/yr</div>
+                        <div class="cell-count">(437 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £479,875</div>
+                        <div class="cell-sell">Sell: £946,863</div>
+                        <div class="cell-return">+9.9%/yr</div>
+                        <div class="cell-count">(316 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £538,691</div>
+                        <div class="cell-sell">Sell: £1,119,126</div>
+                        <div class="cell-return">+6.2%/yr</div>
+                        <div class="cell-count">(107 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £544,862</div>
+                        <div class="cell-sell">Sell: £1,293,885</div>
+                        <div class="cell-return">+5.2%/yr</div>
+                        <div class="cell-count">(104 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £554,782</div>
+                        <div class="cell-sell">Sell: £722,017</div>
+                        <div class="cell-return">+11.5%/yr</div>
+                        <div class="cell-count">(694 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £606,495</div>
+                        <div class="cell-sell">Sell: £950,934</div>
+                        <div class="cell-return">+10.5%/yr</div>
+                        <div class="cell-count">(1648 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £662,286</div>
+                        <div class="cell-sell">Sell: £1,130,777</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(714 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £656,918</div>
+                        <div class="cell-sell">Sell: £1,188,473</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(644 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £685,474</div>
+                        <div class="cell-sell">Sell: £998,436</div>
+                        <div class="cell-return">+20.5%/yr</div>
+                        <div class="cell-count">(560 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £844,762</div>
+                        <div class="cell-sell">Sell: £1,042,230</div>
+                        <div class="cell-return">+5.8%/yr</div>
+                        <div class="cell-count">(1056 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £995,197</div>
+                        <div class="cell-sell">Sell: £1,211,728</div>
+                        <div class="cell-return">+2.4%/yr</div>
+                        <div class="cell-count">(1170 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £928,398</div>
+                        <div class="cell-sell">Sell: £1,026,566</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(272 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £940,021</div>
+                        <div class="cell-sell">Sell: £1,060,630</div>
+                        <div class="cell-return">+4.2%/yr</div>
+                        <div class="cell-count">(965 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,003,702</div>
+                        <div class="cell-sell">Sell: £1,154,975</div>
+                        <div class="cell-return">+9.4%/yr</div>
+                        <div class="cell-count">(313 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'SW6 6'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'SW6'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

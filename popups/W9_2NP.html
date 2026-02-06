@@ -1,0 +1,1250 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W9 2NP</h3>
+            <div class="header-stats">
+                <span><strong>67</strong> transactions</span>
+                <span><strong>36</strong> properties</span>
+                <span>Avg: <strong>£694,706</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W9-2NP')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W9-2NP')">
+                Sector (W9 2)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W9-2NP')">
+                District (W9)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W9-2NP" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W9-2NP', 'W9-2NP')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W9-2NP', 'W9-2NP')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W9-2NP', 'W9-2NP')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W9-2NP" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W9-2NP" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 11, Westside Court, 107, Elgin Avenue", "dates": ["2007-03-30", "2017-02-14"], "prices": [418650, 767500], "hover_texts": ["<b>Flat 11, Westside Court, 107, Elgin Avenue</b><br>Transaction 1 of 2<br>Date: 2007-03-30<br>Sale Price: \u00a3418,650", "<b>Flat 11, Westside Court, 107, Elgin Avenue</b><br>Transaction 2 of 2<br>Date: 2017-02-14<br>Sale Price: \u00a3767,500<br>Previous Purchase: \u00a3418,650<br>Previous Date: 2007-03-30<br>Annual Return: +6.3%/yr<br>Held for: 9.9 years"], "transaction_count": 2}, {"address": "Flat 6, Westside Court, 107, Elgin Avenue", "dates": ["2010-06-11", "2015-12-17", "2021-06-25"], "prices": [776000, 1500000, 1525000], "hover_texts": ["<b>Flat 6, Westside Court, 107, Elgin Avenue</b><br>Transaction 1 of 3<br>Date: 2010-06-11<br>Sale Price: \u00a3776,000", "<b>Flat 6, Westside Court, 107, Elgin Avenue</b><br>Transaction 2 of 3<br>Date: 2015-12-17<br>Sale Price: \u00a31,500,000<br>Previous Purchase: \u00a3776,000<br>Previous Date: 2010-06-11<br>Annual Return: +12.7%/yr<br>Held for: 5.5 years", "<b>Flat 6, Westside Court, 107, Elgin Avenue</b><br>Transaction 3 of 3<br>Date: 2021-06-25<br>Sale Price: \u00a31,525,000<br>Previous Purchase: \u00a31,500,000<br>Previous Date: 2015-12-17<br>Annual Return: +0.3%/yr<br>Held for: 5.5 years"], "transaction_count": 3}, {"address": "Third Floor Flat, 101, Elgin Avenue", "dates": ["2011-11-25", "2012-09-10"], "prices": [440000, 520000], "hover_texts": ["<b>Third Floor Flat, 101, Elgin Avenue</b><br>Transaction 1 of 2<br>Date: 2011-11-25<br>Sale Price: \u00a3440,000", "<b>Third Floor Flat, 101, Elgin Avenue</b><br>Transaction 2 of 2<br>Date: 2012-09-10<br>Sale Price: \u00a3520,000<br>Previous Purchase: \u00a3440,000<br>Previous Date: 2011-11-25<br>Annual Return: +23.4%/yr<br>Held for: 0.8 years"], "transaction_count": 2}, {"address": "Flat 25, Westside Court, 107, Elgin Avenue", "dates": ["2016-09-20", "2022-02-25"], "prices": [435000, 395000], "hover_texts": ["<b>Flat 25, Westside Court, 107, Elgin Avenue</b><br>Transaction 1 of 2<br>Date: 2016-09-20<br>Sale Price: \u00a3435,000", "<b>Flat 25, Westside Court, 107, Elgin Avenue</b><br>Transaction 2 of 2<br>Date: 2022-02-25<br>Sale Price: \u00a3395,000<br>Previous Purchase: \u00a3435,000<br>Previous Date: 2016-09-20<br>Annual Return: -1.8%/yr<br>Held for: 5.4 years"], "transaction_count": 2}, {"address": "Flat 17, Westside Court, 107, Elgin Avenue", "dates": ["2011-07-22", "2016-11-11"], "prices": [440000, 650000], "hover_texts": ["<b>Flat 17, Westside Court, 107, Elgin Avenue</b><br>Transaction 1 of 2<br>Date: 2011-07-22<br>Sale Price: \u00a3440,000", "<b>Flat 17, Westside Court, 107, Elgin Avenue</b><br>Transaction 2 of 2<br>Date: 2016-11-11<br>Sale Price: \u00a3650,000<br>Previous Purchase: \u00a3440,000<br>Previous Date: 2011-07-22<br>Annual Return: +7.6%/yr<br>Held for: 5.3 years"], "transaction_count": 2}, {"address": "Flat 2, 105, Elgin Avenue", "dates": ["2007-10-03", "2012-11-13", "2022-10-04"], "prices": [320000, 360000, 440000], "hover_texts": ["<b>Flat 2, 105, Elgin Avenue</b><br>Transaction 1 of 3<br>Date: 2007-10-03<br>Sale Price: \u00a3320,000", "<b>Flat 2, 105, Elgin Avenue</b><br>Transaction 2 of 3<br>Date: 2012-11-13<br>Sale Price: \u00a3360,000<br>Previous Purchase: \u00a3320,000<br>Previous Date: 2007-10-03<br>Annual Return: +2.3%/yr<br>Held for: 5.1 years", "<b>Flat 2, 105, Elgin Avenue</b><br>Transaction 3 of 3<br>Date: 2022-10-04<br>Sale Price: \u00a3440,000<br>Previous Purchase: \u00a3360,000<br>Previous Date: 2012-11-13<br>Annual Return: +2.0%/yr<br>Held for: 9.9 years"], "transaction_count": 3}, {"address": "Flat 23, Westside Court, 107, Elgin Avenue", "dates": ["2011-09-30", "2016-03-16"], "prices": [645000, 870000], "hover_texts": ["<b>Flat 23, Westside Court, 107, Elgin Avenue</b><br>Transaction 1 of 2<br>Date: 2011-09-30<br>Sale Price: \u00a3645,000", "<b>Flat 23, Westside Court, 107, Elgin Avenue</b><br>Transaction 2 of 2<br>Date: 2016-03-16<br>Sale Price: \u00a3870,000<br>Previous Purchase: \u00a3645,000<br>Previous Date: 2011-09-30<br>Annual Return: +6.9%/yr<br>Held for: 4.5 years"], "transaction_count": 2}, {"address": "Flat 3, Westside Court, 107, Elgin Avenue", "dates": ["2009-09-25", "2025-03-10"], "prices": [425000, 625000], "hover_texts": ["<b>Flat 3, Westside Court, 107, Elgin Avenue</b><br>Transaction 1 of 2<br>Date: 2009-09-25<br>Sale Price: \u00a3425,000", "<b>Flat 3, Westside Court, 107, Elgin Avenue</b><br>Transaction 2 of 2<br>Date: 2025-03-10<br>Sale Price: \u00a3625,000<br>Previous Purchase: \u00a3425,000<br>Previous Date: 2009-09-25<br>Annual Return: +2.5%/yr<br>Held for: 15.5 years"], "transaction_count": 2}, {"address": "99C, Elgin Avenue", "dates": ["2018-11-01", "2023-07-21"], "prices": [499999, 525000], "hover_texts": ["<b>99C, Elgin Avenue</b><br>Transaction 1 of 2<br>Date: 2018-11-01<br>Sale Price: \u00a3499,999", "<b>99C, Elgin Avenue</b><br>Transaction 2 of 2<br>Date: 2023-07-21<br>Sale Price: \u00a3525,000<br>Previous Purchase: \u00a3499,999<br>Previous Date: 2018-11-01<br>Annual Return: +1.0%/yr<br>Held for: 4.7 years"], "transaction_count": 2}, {"address": "Flat 3, 99F, Elgin Avenue", "dates": ["2006-08-02", "2009-10-29", "2012-09-21"], "prices": [309400, 380000, 499950], "hover_texts": ["<b>Flat 3, 99F, Elgin Avenue</b><br>Transaction 1 of 3<br>Date: 2006-08-02<br>Sale Price: \u00a3309,400", "<b>Flat 3, 99F, Elgin Avenue</b><br>Transaction 2 of 3<br>Date: 2009-10-29<br>Sale Price: \u00a3380,000<br>Previous Purchase: \u00a3309,400<br>Previous Date: 2006-08-02<br>Annual Return: +6.5%/yr<br>Held for: 3.2 years", "<b>Flat 3, 99F, Elgin Avenue</b><br>Transaction 3 of 3<br>Date: 2012-09-21<br>Sale Price: \u00a3499,950<br>Previous Purchase: \u00a3380,000<br>Previous Date: 2009-10-29<br>Annual Return: +9.9%/yr<br>Held for: 2.9 years"], "transaction_count": 3}, {"address": "Flat 8, Westside Court, 107, Elgin Avenue", "dates": ["2013-12-11", "2015-05-15"], "prices": [810000, 850000], "hover_texts": ["<b>Flat 8, Westside Court, 107, Elgin Avenue</b><br>Transaction 1 of 2<br>Date: 2013-12-11<br>Sale Price: \u00a3810,000", "<b>Flat 8, Westside Court, 107, Elgin Avenue</b><br>Transaction 2 of 2<br>Date: 2015-05-15<br>Sale Price: \u00a3850,000<br>Previous Purchase: \u00a3810,000<br>Previous Date: 2013-12-11<br>Annual Return: +3.4%/yr<br>Held for: 1.4 years"], "transaction_count": 2}, {"address": "Flat 5, Westside Court, 107, Elgin Avenue", "dates": ["2011-05-25", "2018-05-11", "2024-06-27"], "prices": [500000, 750000, 760000], "hover_texts": ["<b>Flat 5, Westside Court, 107, Elgin Avenue</b><br>Transaction 1 of 3<br>Date: 2011-05-25<br>Sale Price: \u00a3500,000", "<b>Flat 5, Westside Court, 107, Elgin Avenue</b><br>Transaction 2 of 3<br>Date: 2018-05-11<br>Sale Price: \u00a3750,000<br>Previous Purchase: \u00a3500,000<br>Previous Date: 2011-05-25<br>Annual Return: +6.0%/yr<br>Held for: 7.0 years", "<b>Flat 5, Westside Court, 107, Elgin Avenue</b><br>Transaction 3 of 3<br>Date: 2024-06-27<br>Sale Price: \u00a3760,000<br>Previous Purchase: \u00a3750,000<br>Previous Date: 2018-05-11<br>Annual Return: +0.2%/yr<br>Held for: 6.1 years"], "transaction_count": 3}, {"address": "99E, Elgin Avenue", "dates": ["2006-02-17", "2006-09-25", "2013-07-15", "2023-11-30"], "prices": [633000, 218000, 822500, 1150000], "hover_texts": ["<b>99E, Elgin Avenue</b><br>Transaction 1 of 4<br>Date: 2006-02-17<br>Sale Price: \u00a3633,000", "<b>99E, Elgin Avenue</b><br>Transaction 2 of 4<br>Date: 2006-09-25<br>Sale Price: \u00a3218,000<br>Previous Purchase: \u00a3633,000<br>Previous Date: 2006-02-17<br>Annual Return: -83.0%/yr<br>Held for: 0.6 years", "<b>99E, Elgin Avenue</b><br>Transaction 3 of 4<br>Date: 2013-07-15<br>Sale Price: \u00a3822,500<br>Previous Purchase: \u00a3218,000<br>Previous Date: 2006-09-25<br>Annual Return: +21.6%/yr<br>Held for: 6.8 years", "<b>99E, Elgin Avenue</b><br>Transaction 4 of 4<br>Date: 2023-11-30<br>Sale Price: \u00a31,150,000<br>Previous Purchase: \u00a3822,500<br>Previous Date: 2013-07-15<br>Annual Return: +3.3%/yr<br>Held for: 10.4 years"], "transaction_count": 4}, {"address": "Flat 4, 105, Elgin Avenue", "dates": ["2009-11-27", "2013-01-04", "2014-07-25"], "prices": [245000, 332500, 462000], "hover_texts": ["<b>Flat 4, 105, Elgin Avenue</b><br>Transaction 1 of 3<br>Date: 2009-11-27<br>Sale Price: \u00a3245,000", "<b>Flat 4, 105, Elgin Avenue</b><br>Transaction 2 of 3<br>Date: 2013-01-04<br>Sale Price: \u00a3332,500<br>Previous Purchase: \u00a3245,000<br>Previous Date: 2009-11-27<br>Annual Return: +10.3%/yr<br>Held for: 3.1 years", "<b>Flat 4, 105, Elgin Avenue</b><br>Transaction 3 of 3<br>Date: 2014-07-25<br>Sale Price: \u00a3462,000<br>Previous Purchase: \u00a3332,500<br>Previous Date: 2013-01-04<br>Annual Return: +23.6%/yr<br>Held for: 1.6 years"], "transaction_count": 3}, {"address": "Flat 12, Westside Court, 107, Elgin Avenue", "dates": ["2005-12-19", "2011-02-04"], "prices": [315000, 470000], "hover_texts": ["<b>Flat 12, Westside Court, 107, Elgin Avenue</b><br>Transaction 1 of 2<br>Date: 2005-12-19<br>Sale Price: \u00a3315,000", "<b>Flat 12, Westside Court, 107, Elgin Avenue</b><br>Transaction 2 of 2<br>Date: 2011-02-04<br>Sale Price: \u00a3470,000<br>Previous Purchase: \u00a3315,000<br>Previous Date: 2005-12-19<br>Annual Return: +8.1%/yr<br>Held for: 5.1 years"], "transaction_count": 2}, {"address": "Flat 24, Westside Court, 107, Elgin Avenue", "dates": ["2012-10-22", "2018-09-21"], "prices": [630000, 810000], "hover_texts": ["<b>Flat 24, Westside Court, 107, Elgin Avenue</b><br>Transaction 1 of 2<br>Date: 2012-10-22<br>Sale Price: \u00a3630,000", "<b>Flat 24, Westside Court, 107, Elgin Avenue</b><br>Transaction 2 of 2<br>Date: 2018-09-21<br>Sale Price: \u00a3810,000<br>Previous Purchase: \u00a3630,000<br>Previous Date: 2012-10-22<br>Annual Return: +4.3%/yr<br>Held for: 5.9 years"], "transaction_count": 2}, {"address": "Flat 12B, Westside Court, 107, Elgin Avenue", "dates": ["2005-12-21", "2008-02-01", "2010-03-29", "2014-07-31", "2021-12-23"], "prices": [345000, 470000, 450000, 724500, 740000], "hover_texts": ["<b>Flat 12B, Westside Court, 107, Elgin Avenue</b><br>Transaction 1 of 5<br>Date: 2005-12-21<br>Sale Price: \u00a3345,000", "<b>Flat 12B, Westside Court, 107, Elgin Avenue</b><br>Transaction 2 of 5<br>Date: 2008-02-01<br>Sale Price: \u00a3470,000<br>Previous Purchase: \u00a3345,000<br>Previous Date: 2005-12-21<br>Annual Return: +15.8%/yr<br>Held for: 2.1 years", "<b>Flat 12B, Westside Court, 107, Elgin Avenue</b><br>Transaction 3 of 5<br>Date: 2010-03-29<br>Sale Price: \u00a3450,000<br>Previous Purchase: \u00a3470,000<br>Previous Date: 2008-02-01<br>Annual Return: -2.0%/yr<br>Held for: 2.1 years", "<b>Flat 12B, Westside Court, 107, Elgin Avenue</b><br>Transaction 4 of 5<br>Date: 2014-07-31<br>Sale Price: \u00a3724,500<br>Previous Purchase: \u00a3450,000<br>Previous Date: 2010-03-29<br>Annual Return: +11.6%/yr<br>Held for: 4.3 years", "<b>Flat 12B, Westside Court, 107, Elgin Avenue</b><br>Transaction 5 of 5<br>Date: 2021-12-23<br>Sale Price: \u00a3740,000<br>Previous Purchase: \u00a3724,500<br>Previous Date: 2014-07-31<br>Annual Return: +0.3%/yr<br>Held for: 7.4 years"], "transaction_count": 5}, {"address": "103, Elgin Avenue", "dates": ["2016-01-04", "2024-01-26"], "prices": [3825000, 4100000], "hover_texts": ["<b>103, Elgin Avenue</b><br>Transaction 1 of 2<br>Date: 2016-01-04<br>Sale Price: \u00a33,825,000", "<b>103, Elgin Avenue</b><br>Transaction 2 of 2<br>Date: 2024-01-26<br>Sale Price: \u00a34,100,000<br>Previous Purchase: \u00a33,825,000<br>Previous Date: 2016-01-04<br>Annual Return: +0.9%/yr<br>Held for: 8.1 years"], "transaction_count": 2}, {"address": "Flat 10, Westside Court, 107, Elgin Avenue", "dates": ["2013-09-20", "2021-04-30"], "prices": [580000, 660000], "hover_texts": ["<b>Flat 10, Westside Court, 107, Elgin Avenue</b><br>Transaction 1 of 2<br>Date: 2013-09-20<br>Sale Price: \u00a3580,000", "<b>Flat 10, Westside Court, 107, Elgin Avenue</b><br>Transaction 2 of 2<br>Date: 2021-04-30<br>Sale Price: \u00a3660,000<br>Previous Purchase: \u00a3580,000<br>Previous Date: 2013-09-20<br>Annual Return: +1.7%/yr<br>Held for: 7.6 years"], "transaction_count": 2}, {"address": "Flat 5, 105, Elgin Avenue", "dates": ["2005-05-20", "2010-05-28", "2014-06-30"], "prices": [145000, 180000, 370000], "hover_texts": ["<b>Flat 5, 105, Elgin Avenue</b><br>Transaction 1 of 3<br>Date: 2005-05-20<br>Sale Price: \u00a3145,000", "<b>Flat 5, 105, Elgin Avenue</b><br>Transaction 2 of 3<br>Date: 2010-05-28<br>Sale Price: \u00a3180,000<br>Previous Purchase: \u00a3145,000<br>Previous Date: 2005-05-20<br>Annual Return: +4.4%/yr<br>Held for: 5.0 years", "<b>Flat 5, 105, Elgin Avenue</b><br>Transaction 3 of 3<br>Date: 2014-06-30<br>Sale Price: \u00a3370,000<br>Previous Purchase: \u00a3180,000<br>Previous Date: 2010-05-28<br>Annual Return: +19.3%/yr<br>Held for: 4.1 years"], "transaction_count": 3}];
+            var singleSales = [{"date": "2007-03-01", "address": "Flat 19, Westside Court, 107, Elgin Avenue", "price": 550000, "price_display": "\u00a3550,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-03-15", "address": "Flat 22, Westside Court, 107, Elgin Avenue", "price": 295000, "price_display": "\u00a3295,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-05-18", "address": "Flat 3, 101, Elgin Avenue", "price": 445000, "price_display": "\u00a3445,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-10-21", "address": "Flat 21, Westside Court, 107, Elgin Avenue", "price": 442315, "price_display": "\u00a3442,315", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-05-29", "address": "Flat 7, 105, Elgin Avenue", "price": 550000, "price_display": "\u00a3550,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-01-29", "address": "Flat 14, Westside Court, 107, Elgin Avenue", "price": 895000, "price_display": "\u00a3895,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-10-20", "address": "Flat 1, 101, Elgin Avenue", "price": 427500, "price_display": "\u00a3427,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-29", "address": "Flat 20, Westside Court, 107, Elgin Avenue", "price": 1150000, "price_display": "\u00a31,150,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2012-10-15", "address": "Flat 18, Westside Court, 107, Elgin Avenue", "price": 550000, "price_display": "\u00a3550,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-08-05", "address": "Flat 3, 105, Elgin Avenue", "price": 216500, "price_display": "\u00a3216,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-12-04", "address": "Flat 6, 105, Elgin Avenue", "price": 610000, "price_display": "\u00a3610,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-07-01", "address": "Flat 1, 105, Elgin Avenue", "price": 550000, "price_display": "\u00a3550,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-10-09", "address": "Basement Flat, 101, Elgin Avenue", "price": 880000, "price_display": "\u00a3880,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-07-18", "address": "Flat 1, Westside Court, 107, Elgin Avenue", "price": 885000, "price_display": "\u00a3885,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-11", "address": "107, Elgin Avenue", "price": 505000, "price_display": "\u00a3505,000", "property_type": "O", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2015-11-18", "address": "Flat 7, Westside Court, 107, Elgin Avenue", "price": 1480000, "price_display": "\u00a31,480,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W9-2NP', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W9-2NP');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W9-2NP', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W9-2NP', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W9-2NP" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2007-03-01</td>
+            <td>Flat 19, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£550,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-02-14</td>
+            <td>Flat 11, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£767,500</td>
+        <td class="positive" title="Previous: £418,650 (2007-03-30)">+6.3%/yr</td></tr>
+
+        <tr>
+            <td>2007-03-30</td>
+            <td>Flat 11, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£418,650</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-03-15</td>
+            <td>Flat 22, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£295,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-25</td>
+            <td>Flat 6, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£1,525,000</td>
+        <td class="positive" title="Previous: £1,500,000 (2015-12-17)">+0.3%/yr</td></tr>
+
+        <tr>
+            <td>2015-12-17</td>
+            <td>Flat 6, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£1,500,000</td>
+        <td class="positive" title="Previous: £776,000 (2010-06-11)">+12.7%/yr</td></tr>
+
+        <tr>
+            <td>2010-06-11</td>
+            <td>Flat 6, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£776,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-05-18</td>
+            <td>Flat 3, 101, Elgin Avenue</td>
+            <td class="price">£445,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-10-21</td>
+            <td>Flat 21, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£442,315</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-09-10</td>
+            <td>Third Floor Flat, 101, Elgin Avenue</td>
+            <td class="price">£520,000</td>
+        <td class="positive" title="Previous: £440,000 (2011-11-25)">+23.4%/yr</td></tr>
+
+        <tr>
+            <td>2011-11-25</td>
+            <td>Third Floor Flat, 101, Elgin Avenue</td>
+            <td class="price">£440,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-05-29</td>
+            <td>Flat 7, 105, Elgin Avenue</td>
+            <td class="price">£550,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-01-29</td>
+            <td>Flat 14, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£895,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-10-20</td>
+            <td>Flat 1, 101, Elgin Avenue</td>
+            <td class="price">£427,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-02-25</td>
+            <td>Flat 25, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£395,000</td>
+        <td class="negative" title="Previous: £435,000 (2016-09-20)">-1.8%/yr</td></tr>
+
+        <tr>
+            <td>2016-09-20</td>
+            <td>Flat 25, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£435,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-11-11</td>
+            <td>Flat 17, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£650,000</td>
+        <td class="positive" title="Previous: £440,000 (2011-07-22)">+7.6%/yr</td></tr>
+
+        <tr>
+            <td>2011-07-22</td>
+            <td>Flat 17, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£440,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-10-04</td>
+            <td>Flat 2, 105, Elgin Avenue</td>
+            <td class="price">£440,000</td>
+        <td class="positive" title="Previous: £360,000 (2012-11-13)">+2.0%/yr</td></tr>
+
+        <tr>
+            <td>2012-11-13</td>
+            <td>Flat 2, 105, Elgin Avenue</td>
+            <td class="price">£360,000</td>
+        <td class="positive" title="Previous: £320,000 (2007-10-03)">+2.3%/yr</td></tr>
+
+        <tr>
+            <td>2007-10-03</td>
+            <td>Flat 2, 105, Elgin Avenue</td>
+            <td class="price">£320,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-03-16</td>
+            <td>Flat 23, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£870,000</td>
+        <td class="positive" title="Previous: £645,000 (2011-09-30)">+6.9%/yr</td></tr>
+
+        <tr>
+            <td>2011-09-30</td>
+            <td>Flat 23, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£645,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-03-10</td>
+            <td>Flat 3, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£625,000</td>
+        <td class="positive" title="Previous: £425,000 (2009-09-25)">+2.5%/yr</td></tr>
+
+        <tr>
+            <td>2009-09-25</td>
+            <td>Flat 3, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£425,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-07-21</td>
+            <td>99C, Elgin Avenue</td>
+            <td class="price">£525,000</td>
+        <td class="positive" title="Previous: £499,999 (2018-11-01)">+1.0%/yr</td></tr>
+
+        <tr>
+            <td>2018-11-01</td>
+            <td>99C, Elgin Avenue</td>
+            <td class="price">£499,999</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-09-21</td>
+            <td>Flat 3, 99F, Elgin Avenue</td>
+            <td class="price">£499,950</td>
+        <td class="positive" title="Previous: £380,000 (2009-10-29)">+9.9%/yr</td></tr>
+
+        <tr>
+            <td>2009-10-29</td>
+            <td>Flat 3, 99F, Elgin Avenue</td>
+            <td class="price">£380,000</td>
+        <td class="positive" title="Previous: £309,400 (2006-08-02)">+6.5%/yr</td></tr>
+
+        <tr>
+            <td>2006-08-02</td>
+            <td>Flat 3, 99F, Elgin Avenue</td>
+            <td class="price">£309,400</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-05-15</td>
+            <td>Flat 8, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£850,000</td>
+        <td class="positive" title="Previous: £810,000 (2013-12-11)">+3.4%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-11</td>
+            <td>Flat 8, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£810,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-06-27</td>
+            <td>Flat 5, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£760,000</td>
+        <td class="positive" title="Previous: £750,000 (2018-05-11)">+0.2%/yr</td></tr>
+
+        <tr>
+            <td>2018-05-11</td>
+            <td>Flat 5, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£750,000</td>
+        <td class="positive" title="Previous: £500,000 (2011-05-25)">+6.0%/yr</td></tr>
+
+        <tr>
+            <td>2011-05-25</td>
+            <td>Flat 5, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-30</td>
+            <td>99E, Elgin Avenue</td>
+            <td class="price">£1,150,000</td>
+        <td class="positive" title="Previous: £822,500 (2013-07-15)">+3.3%/yr</td></tr>
+
+        <tr>
+            <td>2013-07-15</td>
+            <td>99E, Elgin Avenue</td>
+            <td class="price">£822,500</td>
+        <td class="positive" title="Previous: £218,000 (2006-09-25)">+21.6%/yr</td></tr>
+
+        <tr>
+            <td>2006-09-25</td>
+            <td>99E, Elgin Avenue</td>
+            <td class="price">£218,000</td>
+        <td class="negative" title="Previous: £633,000 (2006-02-17)">-83.0%/yr</td></tr>
+
+        <tr>
+            <td>2006-02-17</td>
+            <td>99E, Elgin Avenue</td>
+            <td class="price">£633,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-29</td>
+            <td>Flat 20, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£1,150,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-07-25</td>
+            <td>Flat 4, 105, Elgin Avenue</td>
+            <td class="price">£462,000</td>
+        <td class="positive" title="Previous: £332,500 (2013-01-04)">+23.6%/yr</td></tr>
+
+        <tr>
+            <td>2013-01-04</td>
+            <td>Flat 4, 105, Elgin Avenue</td>
+            <td class="price">£332,500</td>
+        <td class="positive" title="Previous: £245,000 (2009-11-27)">+10.3%/yr</td></tr>
+
+        <tr>
+            <td>2009-11-27</td>
+            <td>Flat 4, 105, Elgin Avenue</td>
+            <td class="price">£245,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-10-15</td>
+            <td>Flat 18, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£550,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-02-04</td>
+            <td>Flat 12, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£470,000</td>
+        <td class="positive" title="Previous: £315,000 (2005-12-19)">+8.1%/yr</td></tr>
+
+        <tr>
+            <td>2005-12-19</td>
+            <td>Flat 12, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£315,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-21</td>
+            <td>Flat 24, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£810,000</td>
+        <td class="positive" title="Previous: £630,000 (2012-10-22)">+4.3%/yr</td></tr>
+
+        <tr>
+            <td>2012-10-22</td>
+            <td>Flat 24, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£630,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-08-05</td>
+            <td>Flat 3, 105, Elgin Avenue</td>
+            <td class="price">£216,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-12-23</td>
+            <td>Flat 12B, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£740,000</td>
+        <td class="positive" title="Previous: £724,500 (2014-07-31)">+0.3%/yr</td></tr>
+
+        <tr>
+            <td>2014-07-31</td>
+            <td>Flat 12B, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£724,500</td>
+        <td class="positive" title="Previous: £450,000 (2010-03-29)">+11.6%/yr</td></tr>
+
+        <tr>
+            <td>2010-03-29</td>
+            <td>Flat 12B, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£450,000</td>
+        <td class="negative" title="Previous: £470,000 (2008-02-01)">-2.0%/yr</td></tr>
+
+        <tr>
+            <td>2008-02-01</td>
+            <td>Flat 12B, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£470,000</td>
+        <td class="positive" title="Previous: £345,000 (2005-12-21)">+15.8%/yr</td></tr>
+
+        <tr>
+            <td>2005-12-21</td>
+            <td>Flat 12B, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£345,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-12-04</td>
+            <td>Flat 6, 105, Elgin Avenue</td>
+            <td class="price">£610,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-07-01</td>
+            <td>Flat 1, 105, Elgin Avenue</td>
+            <td class="price">£550,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-01-26</td>
+            <td>103, Elgin Avenue</td>
+            <td class="price">£4,100,000</td>
+        <td class="positive" title="Previous: £3,825,000 (2016-01-04)">+0.9%/yr</td></tr>
+
+        <tr>
+            <td>2016-01-04</td>
+            <td>103, Elgin Avenue</td>
+            <td class="price">£3,825,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-10-09</td>
+            <td>Basement Flat, 101, Elgin Avenue</td>
+            <td class="price">£880,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-04-30</td>
+            <td>Flat 10, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£660,000</td>
+        <td class="positive" title="Previous: £580,000 (2013-09-20)">+1.7%/yr</td></tr>
+
+        <tr>
+            <td>2013-09-20</td>
+            <td>Flat 10, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£580,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-07-18</td>
+            <td>Flat 1, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£885,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-11</td>
+            <td>107, Elgin Avenue</td>
+            <td class="price">£505,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-11-18</td>
+            <td>Flat 7, Westside Court, 107, Elgin Avenue</td>
+            <td class="price">£1,480,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>Flat 5, 105, Elgin Avenue</td>
+            <td class="price">£370,000</td>
+        <td class="positive" title="Previous: £180,000 (2010-05-28)">+19.3%/yr</td></tr>
+
+        <tr>
+            <td>2010-05-28</td>
+            <td>Flat 5, 105, Elgin Avenue</td>
+            <td class="price">£180,000</td>
+        <td class="positive" title="Previous: £145,000 (2005-05-20)">+4.4%/yr</td></tr>
+
+        <tr>
+            <td>2005-05-20</td>
+            <td>Flat 5, 105, Elgin Avenue</td>
+            <td class="price">£145,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W9-2NP" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W9-2NP" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [268333, 396975, 433412, 470000, 350000, 383500, 499000, 511990, 739000, 610375, 1276666, 1186219, 767500, 686666, 505000, 580000, 868750, 417500, 837500, 1913333, 625000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [315000, 427500, 445000, 470000, 380000, 295000, 470000, 520000, 810000, 724500, 1480000, 870000, 767500, 750000, 505000, 610000, 740000, 440000, 1150000, 880000, 625000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W9 2NP',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W9-2NP', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 67</p>
+                    <p><strong>Unique Properties:</strong> 36</p>
+                    <p><strong>Average Price:</strong> £694,706</p>
+                    <p><strong>Median Price:</strong> £525,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W9-2NP" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W9 2 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W9 2</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W9-2NP', 'W9-2NP')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W9-2NP', 'W9-2NP')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W9-2NP" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W9-2NP" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [354259, 407290, 446602, 490000, 464882, 504545, 571758, 582312, 630030, 758858, 772227, 812223, 841563, 788538, 728610, 835823, 731179, 834137, 806199, 802048, 731030],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [286000, 322500, 395000, 375000, 380000, 425000, 457500, 485000, 533550, 624500, 672500, 700000, 635000, 667375, 595000, 628000, 614500, 683500, 680000, 665000, 642500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W9 2 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W9-2NP', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W9-2NP" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £394,572</div>
+                        <div class="cell-sell">Sell: £555,899</div>
+                        <div class="cell-return">+14.5%/yr</div>
+                        <div class="cell-count">(55 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £331,314</div>
+                        <div class="cell-sell">Sell: £677,775</div>
+                        <div class="cell-return">+10.1%/yr</div>
+                        <div class="cell-count">(38 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £329,023</div>
+                        <div class="cell-sell">Sell: £808,310</div>
+                        <div class="cell-return">+8.2%/yr</div>
+                        <div class="cell-count">(14 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £328,960</div>
+                        <div class="cell-sell">Sell: £720,950</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(10 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £402,144</div>
+                        <div class="cell-sell">Sell: £490,046</div>
+                        <div class="cell-return">+12.6%/yr</div>
+                        <div class="cell-count">(130 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £424,480</div>
+                        <div class="cell-sell">Sell: £657,014</div>
+                        <div class="cell-return">+9.9%/yr</div>
+                        <div class="cell-count">(271 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £460,837</div>
+                        <div class="cell-sell">Sell: £769,558</div>
+                        <div class="cell-return">+5.9%/yr</div>
+                        <div class="cell-count">(84 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £454,878</div>
+                        <div class="cell-sell">Sell: £776,816</div>
+                        <div class="cell-return">+3.8%/yr</div>
+                        <div class="cell-count">(79 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £520,654</div>
+                        <div class="cell-sell">Sell: £699,863</div>
+                        <div class="cell-return">+18.2%/yr</div>
+                        <div class="cell-count">(114 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £657,006</div>
+                        <div class="cell-sell">Sell: £823,930</div>
+                        <div class="cell-return">+6.2%/yr</div>
+                        <div class="cell-count">(147 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £706,275</div>
+                        <div class="cell-sell">Sell: £793,365</div>
+                        <div class="cell-return">+1.4%/yr</div>
+                        <div class="cell-count">(171 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £872,769</div>
+                        <div class="cell-sell">Sell: £867,259</div>
+                        <div class="cell-return">+12.0%/yr</div>
+                        <div class="cell-count">(26 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £726,669</div>
+                        <div class="cell-sell">Sell: £791,484</div>
+                        <div class="cell-return">+2.9%/yr</div>
+                        <div class="cell-count">(116 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £718,450</div>
+                        <div class="cell-sell">Sell: £892,393</div>
+                        <div class="cell-return">+10.7%/yr</div>
+                        <div class="cell-count">(29 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W9-2NP" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W9 Analysis</h4>
+                <p class="area-info">Viewing data for entire W9 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W9-2NP', 'W9-2NP')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W9-2NP', 'W9-2NP')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W9-2NP" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W9-2NP" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [403624, 410084, 502031, 542342, 509576, 576762, 589622, 614397, 705978, 771780, 801927, 810651, 878155, 846353, 767023, 883314, 833566, 911149, 877071, 829490, 787919],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [315000, 330000, 405000, 420000, 390000, 441000, 470571, 483000, 540000, 586000, 635750, 645000, 680000, 645500, 603000, 633750, 650000, 694825, 727500, 650000, 670000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W9 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W9-2NP', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W9-2NP" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £367,147</div>
+                        <div class="cell-sell">Sell: £491,926</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(17 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £399,568</div>
+                        <div class="cell-sell">Sell: £581,118</div>
+                        <div class="cell-return">+14.7%/yr</div>
+                        <div class="cell-count">(178 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £362,568</div>
+                        <div class="cell-sell">Sell: £704,548</div>
+                        <div class="cell-return">+9.3%/yr</div>
+                        <div class="cell-count">(130 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £414,683</div>
+                        <div class="cell-sell">Sell: £890,023</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(42 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £408,641</div>
+                        <div class="cell-sell">Sell: £924,027</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(36 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £437,771</div>
+                        <div class="cell-sell">Sell: £560,484</div>
+                        <div class="cell-return">+14.4%/yr</div>
+                        <div class="cell-count">(386 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £465,731</div>
+                        <div class="cell-sell">Sell: £706,243</div>
+                        <div class="cell-return">+9.2%/yr</div>
+                        <div class="cell-count">(768 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £455,620</div>
+                        <div class="cell-sell">Sell: £784,797</div>
+                        <div class="cell-return">+6.4%/yr</div>
+                        <div class="cell-count">(300 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £534,729</div>
+                        <div class="cell-sell">Sell: £876,256</div>
+                        <div class="cell-return">+3.6%/yr</div>
+                        <div class="cell-count">(281 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £537,913</div>
+                        <div class="cell-sell">Sell: £738,717</div>
+                        <div class="cell-return">+17.9%/yr</div>
+                        <div class="cell-count">(320 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £691,264</div>
+                        <div class="cell-sell">Sell: £867,537</div>
+                        <div class="cell-return">+6.9%/yr</div>
+                        <div class="cell-count">(462 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £686,757</div>
+                        <div class="cell-sell">Sell: £799,312</div>
+                        <div class="cell-return">+1.8%/yr</div>
+                        <div class="cell-count">(450 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £732,271</div>
+                        <div class="cell-sell">Sell: £780,342</div>
+                        <div class="cell-return">+10.9%/yr</div>
+                        <div class="cell-count">(99 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £720,092</div>
+                        <div class="cell-sell">Sell: £817,153</div>
+                        <div class="cell-return">+4.3%/yr</div>
+                        <div class="cell-count">(362 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £830,485</div>
+                        <div class="cell-sell">Sell: £874,471</div>
+                        <div class="cell-return">+11.0%/yr</div>
+                        <div class="cell-count">(106 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W9 2'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W9'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

@@ -1,0 +1,1281 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>SW6 2UW</h3>
+            <div class="header-stats">
+                <span><strong>71</strong> transactions</span>
+                <span><strong>43</strong> properties</span>
+                <span>Avg: <strong>£621,783</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-SW6-2UW')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-SW6-2UW')">
+                Sector (SW6 2)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-SW6-2UW')">
+                District (SW6)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-SW6-2UW" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-SW6-2UW', 'SW6-2UW')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-SW6-2UW', 'SW6-2UW')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-SW6-2UW', 'SW6-2UW')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-SW6-2UW" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-SW6-2UW" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 146, Watermans Quay, William Morris Way", "dates": ["2007-12-20", "2015-09-28"], "prices": [475000, 700000], "hover_texts": ["<b>Flat 146, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2007-12-20<br>Sale Price: \u00a3475,000", "<b>Flat 146, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2015-09-28<br>Sale Price: \u00a3700,000<br>Previous Purchase: \u00a3475,000<br>Previous Date: 2007-12-20<br>Annual Return: +5.1%/yr<br>Held for: 7.8 years"], "transaction_count": 2}, {"address": "Flat 104, Watermans Quay, William Morris Way", "dates": ["2006-05-22", "2006-09-01", "2024-02-01"], "prices": [327500, 390000, 620000], "hover_texts": ["<b>Flat 104, Watermans Quay, William Morris Way</b><br>Transaction 1 of 3<br>Date: 2006-05-22<br>Sale Price: \u00a3327,500", "<b>Flat 104, Watermans Quay, William Morris Way</b><br>Transaction 2 of 3<br>Date: 2006-09-01<br>Sale Price: \u00a3390,000<br>Previous Purchase: \u00a3327,500<br>Previous Date: 2006-05-22<br>Annual Return: +86.9%/yr<br>Held for: 0.3 years", "<b>Flat 104, Watermans Quay, William Morris Way</b><br>Transaction 3 of 3<br>Date: 2024-02-01<br>Sale Price: \u00a3620,000<br>Previous Purchase: \u00a3390,000<br>Previous Date: 2006-09-01<br>Annual Return: +2.7%/yr<br>Held for: 17.4 years"], "transaction_count": 3}, {"address": "Flat 140, Watermans Quay, William Morris Way", "dates": ["2013-07-12", "2024-05-10"], "prices": [1750000, 1450000], "hover_texts": ["<b>Flat 140, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2013-07-12<br>Sale Price: \u00a31,750,000", "<b>Flat 140, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2024-05-10<br>Sale Price: \u00a31,450,000<br>Previous Purchase: \u00a31,750,000<br>Previous Date: 2013-07-12<br>Annual Return: -1.7%/yr<br>Held for: 10.8 years"], "transaction_count": 2}, {"address": "Flat 139, Watermans Quay, William Morris Way", "dates": ["2006-09-18", "2007-05-17", "2010-09-30"], "prices": [340000, 460000, 482500], "hover_texts": ["<b>Flat 139, Watermans Quay, William Morris Way</b><br>Transaction 1 of 3<br>Date: 2006-09-18<br>Sale Price: \u00a3340,000", "<b>Flat 139, Watermans Quay, William Morris Way</b><br>Transaction 2 of 3<br>Date: 2007-05-17<br>Sale Price: \u00a3460,000<br>Previous Purchase: \u00a3340,000<br>Previous Date: 2006-09-18<br>Annual Return: +58.1%/yr<br>Held for: 0.7 years", "<b>Flat 139, Watermans Quay, William Morris Way</b><br>Transaction 3 of 3<br>Date: 2010-09-30<br>Sale Price: \u00a3482,500<br>Previous Purchase: \u00a3460,000<br>Previous Date: 2007-05-17<br>Annual Return: +1.4%/yr<br>Held for: 3.4 years"], "transaction_count": 3}, {"address": "Flat 102, Watermans Quay, William Morris Way", "dates": ["2006-06-15", "2008-04-07"], "prices": [345000, 455000], "hover_texts": ["<b>Flat 102, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2006-06-15<br>Sale Price: \u00a3345,000", "<b>Flat 102, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2008-04-07<br>Sale Price: \u00a3455,000<br>Previous Purchase: \u00a3345,000<br>Previous Date: 2006-06-15<br>Annual Return: +16.5%/yr<br>Held for: 1.8 years"], "transaction_count": 2}, {"address": "Flat 117, Watermans Quay, William Morris Way", "dates": ["2009-04-28", "2020-09-09"], "prices": [406000, 625000], "hover_texts": ["<b>Flat 117, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2009-04-28<br>Sale Price: \u00a3406,000", "<b>Flat 117, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2020-09-09<br>Sale Price: \u00a3625,000<br>Previous Purchase: \u00a3406,000<br>Previous Date: 2009-04-28<br>Annual Return: +3.9%/yr<br>Held for: 11.4 years"], "transaction_count": 2}, {"address": "Flat 131, Watermans Quay, William Morris Way", "dates": ["2010-07-16", "2019-10-01"], "prices": [500000, 770000], "hover_texts": ["<b>Flat 131, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2010-07-16<br>Sale Price: \u00a3500,000", "<b>Flat 131, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2019-10-01<br>Sale Price: \u00a3770,000<br>Previous Purchase: \u00a3500,000<br>Previous Date: 2010-07-16<br>Annual Return: +4.8%/yr<br>Held for: 9.2 years"], "transaction_count": 2}, {"address": "Flat 107, Watermans Quay, William Morris Way", "dates": ["2011-09-09", "2023-01-16"], "prices": [450000, 735000], "hover_texts": ["<b>Flat 107, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2011-09-09<br>Sale Price: \u00a3450,000", "<b>Flat 107, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2023-01-16<br>Sale Price: \u00a3735,000<br>Previous Purchase: \u00a3450,000<br>Previous Date: 2011-09-09<br>Annual Return: +4.4%/yr<br>Held for: 11.3 years"], "transaction_count": 2}, {"address": "Flat 105, Watermans Quay, William Morris Way", "dates": ["2005-07-25", "2013-03-27"], "prices": [330000, 490000], "hover_texts": ["<b>Flat 105, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2005-07-25<br>Sale Price: \u00a3330,000", "<b>Flat 105, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2013-03-27<br>Sale Price: \u00a3490,000<br>Previous Purchase: \u00a3330,000<br>Previous Date: 2005-07-25<br>Annual Return: +5.3%/yr<br>Held for: 7.7 years"], "transaction_count": 2}, {"address": "Flat 136, Watermans Quay, William Morris Way", "dates": ["2007-02-02", "2012-05-22"], "prices": [550000, 600000], "hover_texts": ["<b>Flat 136, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2007-02-02<br>Sale Price: \u00a3550,000", "<b>Flat 136, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2012-05-22<br>Sale Price: \u00a3600,000<br>Previous Purchase: \u00a3550,000<br>Previous Date: 2007-02-02<br>Annual Return: +1.7%/yr<br>Held for: 5.3 years"], "transaction_count": 2}, {"address": "Flat 148, Watermans Quay, William Morris Way", "dates": ["2012-11-07", "2019-08-08"], "prices": [555000, 830000], "hover_texts": ["<b>Flat 148, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2012-11-07<br>Sale Price: \u00a3555,000", "<b>Flat 148, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2019-08-08<br>Sale Price: \u00a3830,000<br>Previous Purchase: \u00a3555,000<br>Previous Date: 2012-11-07<br>Annual Return: +6.1%/yr<br>Held for: 6.8 years"], "transaction_count": 2}, {"address": "Flat 130, Watermans Quay, William Morris Way", "dates": ["2011-03-03", "2017-07-04"], "prices": [550000, 923000], "hover_texts": ["<b>Flat 130, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2011-03-03<br>Sale Price: \u00a3550,000", "<b>Flat 130, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2017-07-04<br>Sale Price: \u00a3923,000<br>Previous Purchase: \u00a3550,000<br>Previous Date: 2011-03-03<br>Annual Return: +8.5%/yr<br>Held for: 6.3 years"], "transaction_count": 2}, {"address": "Flat 112, Watermans Quay, William Morris Way", "dates": ["2014-08-29", "2023-05-19"], "prices": [920000, 880000], "hover_texts": ["<b>Flat 112, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2014-08-29<br>Sale Price: \u00a3920,000", "<b>Flat 112, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2023-05-19<br>Sale Price: \u00a3880,000<br>Previous Purchase: \u00a3920,000<br>Previous Date: 2014-08-29<br>Annual Return: -0.5%/yr<br>Held for: 8.7 years"], "transaction_count": 2}, {"address": "Flat 132, Watermans Quay, William Morris Way", "dates": ["2005-09-01", "2013-07-23", "2019-05-02"], "prices": [360000, 850000, 710000], "hover_texts": ["<b>Flat 132, Watermans Quay, William Morris Way</b><br>Transaction 1 of 3<br>Date: 2005-09-01<br>Sale Price: \u00a3360,000", "<b>Flat 132, Watermans Quay, William Morris Way</b><br>Transaction 2 of 3<br>Date: 2013-07-23<br>Sale Price: \u00a3850,000<br>Previous Purchase: \u00a3360,000<br>Previous Date: 2005-09-01<br>Annual Return: +11.5%/yr<br>Held for: 7.9 years", "<b>Flat 132, Watermans Quay, William Morris Way</b><br>Transaction 3 of 3<br>Date: 2019-05-02<br>Sale Price: \u00a3710,000<br>Previous Purchase: \u00a3850,000<br>Previous Date: 2013-07-23<br>Annual Return: -3.1%/yr<br>Held for: 5.8 years"], "transaction_count": 3}, {"address": "Flat 142, Watermans Quay, William Morris Way", "dates": ["2006-11-24", "2021-06-25"], "prices": [365000, 610000], "hover_texts": ["<b>Flat 142, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2006-11-24<br>Sale Price: \u00a3365,000", "<b>Flat 142, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2021-06-25<br>Sale Price: \u00a3610,000<br>Previous Purchase: \u00a3365,000<br>Previous Date: 2006-11-24<br>Annual Return: +3.6%/yr<br>Held for: 14.6 years"], "transaction_count": 2}, {"address": "Flat 100, Watermans Quay, William Morris Way", "dates": ["2008-04-28", "2012-11-30", "2017-05-26"], "prices": [630000, 900000, 950000], "hover_texts": ["<b>Flat 100, Watermans Quay, William Morris Way</b><br>Transaction 1 of 3<br>Date: 2008-04-28<br>Sale Price: \u00a3630,000", "<b>Flat 100, Watermans Quay, William Morris Way</b><br>Transaction 2 of 3<br>Date: 2012-11-30<br>Sale Price: \u00a3900,000<br>Previous Purchase: \u00a3630,000<br>Previous Date: 2008-04-28<br>Annual Return: +8.1%/yr<br>Held for: 4.6 years", "<b>Flat 100, Watermans Quay, William Morris Way</b><br>Transaction 3 of 3<br>Date: 2017-05-26<br>Sale Price: \u00a3950,000<br>Previous Purchase: \u00a3900,000<br>Previous Date: 2012-11-30<br>Annual Return: +1.2%/yr<br>Held for: 4.5 years"], "transaction_count": 3}, {"address": "Flat 143, Watermans Quay, William Morris Way", "dates": ["2006-02-24", "2009-12-16", "2015-04-21", "2022-11-28"], "prices": [322000, 495000, 995000, 925000], "hover_texts": ["<b>Flat 143, Watermans Quay, William Morris Way</b><br>Transaction 1 of 4<br>Date: 2006-02-24<br>Sale Price: \u00a3322,000", "<b>Flat 143, Watermans Quay, William Morris Way</b><br>Transaction 2 of 4<br>Date: 2009-12-16<br>Sale Price: \u00a3495,000<br>Previous Purchase: \u00a3322,000<br>Previous Date: 2006-02-24<br>Annual Return: +11.9%/yr<br>Held for: 3.8 years", "<b>Flat 143, Watermans Quay, William Morris Way</b><br>Transaction 3 of 4<br>Date: 2015-04-21<br>Sale Price: \u00a3995,000<br>Previous Purchase: \u00a3495,000<br>Previous Date: 2009-12-16<br>Annual Return: +14.0%/yr<br>Held for: 5.3 years", "<b>Flat 143, Watermans Quay, William Morris Way</b><br>Transaction 4 of 4<br>Date: 2022-11-28<br>Sale Price: \u00a3925,000<br>Previous Purchase: \u00a3995,000<br>Previous Date: 2015-04-21<br>Annual Return: -0.9%/yr<br>Held for: 7.6 years"], "transaction_count": 4}, {"address": "Flat 154, Watermans Quay, William Morris Way", "dates": ["2006-02-24", "2014-10-21"], "prices": [358200, 850000], "hover_texts": ["<b>Flat 154, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2006-02-24<br>Sale Price: \u00a3358,200", "<b>Flat 154, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2014-10-21<br>Sale Price: \u00a3850,000<br>Previous Purchase: \u00a3358,200<br>Previous Date: 2006-02-24<br>Annual Return: +10.5%/yr<br>Held for: 8.7 years"], "transaction_count": 2}, {"address": "Flat 134, Watermans Quay, William Morris Way", "dates": ["2005-01-21", "2019-01-17"], "prices": [392500, 835000], "hover_texts": ["<b>Flat 134, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2005-01-21<br>Sale Price: \u00a3392,500", "<b>Flat 134, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2019-01-17<br>Sale Price: \u00a3835,000<br>Previous Purchase: \u00a3392,500<br>Previous Date: 2005-01-21<br>Annual Return: +5.5%/yr<br>Held for: 14.0 years"], "transaction_count": 2}, {"address": "Flat 165, Watermans Quay, William Morris Way", "dates": ["2005-03-31", "2009-05-19"], "prices": [639000, 720000], "hover_texts": ["<b>Flat 165, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2005-03-31<br>Sale Price: \u00a3639,000", "<b>Flat 165, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2009-05-19<br>Sale Price: \u00a3720,000<br>Previous Purchase: \u00a3639,000<br>Previous Date: 2005-03-31<br>Annual Return: +2.9%/yr<br>Held for: 4.1 years"], "transaction_count": 2}, {"address": "Flat 108, Watermans Quay, William Morris Way", "dates": ["2005-06-09", "2015-03-26"], "prices": [330000, 660000], "hover_texts": ["<b>Flat 108, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2005-06-09<br>Sale Price: \u00a3330,000", "<b>Flat 108, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2015-03-26<br>Sale Price: \u00a3660,000<br>Previous Purchase: \u00a3330,000<br>Previous Date: 2005-06-09<br>Annual Return: +7.3%/yr<br>Held for: 9.8 years"], "transaction_count": 2}, {"address": "Flat 135, Watermans Quay, William Morris Way", "dates": ["2015-01-06", "2023-03-20"], "prices": [735000, 635000], "hover_texts": ["<b>Flat 135, Watermans Quay, William Morris Way</b><br>Transaction 1 of 2<br>Date: 2015-01-06<br>Sale Price: \u00a3735,000", "<b>Flat 135, Watermans Quay, William Morris Way</b><br>Transaction 2 of 2<br>Date: 2023-03-20<br>Sale Price: \u00a3635,000<br>Previous Purchase: \u00a3735,000<br>Previous Date: 2015-01-06<br>Annual Return: -1.8%/yr<br>Held for: 8.2 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2006-07-04", "address": "Flat 153, Watermans Quay, William Morris Way", "price": 475000, "price_display": "\u00a3475,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-06-11", "address": "Flat 147, Watermans Quay, William Morris Way", "price": 830000, "price_display": "\u00a3830,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-30", "address": "Parking Space 223, Watermans Quay, William Morris Way", "price": 700000, "price_display": "\u00a3700,000", "property_type": "O", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-30", "address": "Flat 133, Watermans Quay, William Morris Way", "price": 700000, "price_display": "\u00a3700,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-04-11", "address": "Flat 113, Watermans Quay, William Morris Way", "price": 435000, "price_display": "\u00a3435,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-25", "address": "Flat 106, Watermans Quay, William Morris Way", "price": 855000, "price_display": "\u00a3855,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-02-07", "address": "Flat 110, Watermans Quay, William Morris Way", "price": 684500, "price_display": "\u00a3684,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-08-26", "address": "Flat 161, Watermans Quay, William Morris Way", "price": 470000, "price_display": "\u00a3470,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-10-06", "address": "Flat 101, Watermans Quay, William Morris Way", "price": 380000, "price_display": "\u00a3380,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-04-08", "address": "Flat 126, Watermans Quay, William Morris Way", "price": 817000, "price_display": "\u00a3817,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-12-02", "address": "Flat 129, Watermans Quay, William Morris Way", "price": 367500, "price_display": "\u00a3367,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-07-19", "address": "Flat 127, Watermans Quay, William Morris Way", "price": 520000, "price_display": "\u00a3520,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-10-14", "address": "Flat 122, Watermans Quay, William Morris Way", "price": 514950, "price_display": "\u00a3514,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-09-11", "address": "Flat 141, Watermans Quay, William Morris Way", "price": 820000, "price_display": "\u00a3820,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-01-24", "address": "Flat 138, Watermans Quay, William Morris Way", "price": 465000, "price_display": "\u00a3465,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-03-03", "address": "Flat 151, Watermans Quay, William Morris Way", "price": 355000, "price_display": "\u00a3355,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-04-04", "address": "Flat 156, Watermans Quay, William Morris Way", "price": 635000, "price_display": "\u00a3635,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-12-16", "address": "Flat 152, Watermans Quay, William Morris Way", "price": 422000, "price_display": "\u00a3422,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-09-08", "address": "Flat 137, Watermans Quay, William Morris Way", "price": 645000, "price_display": "\u00a3645,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-01-17", "address": "Flat 163, Watermans Quay, William Morris Way", "price": 500000, "price_display": "\u00a3500,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-04-30", "address": "Flat 164, Watermans Quay, William Morris Way", "price": 380000, "price_display": "\u00a3380,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-SW6-2UW', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-SW6-2UW');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-SW6-2UW', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-SW6-2UW', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-SW6-2UW" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2006-07-04</td>
+            <td>Flat 153, Watermans Quay, William Morris Way</td>
+            <td class="price">£475,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-09-28</td>
+            <td>Flat 146, Watermans Quay, William Morris Way</td>
+            <td class="price">£700,000</td>
+        <td class="positive" title="Previous: £475,000 (2007-12-20)">+5.1%/yr</td></tr>
+
+        <tr>
+            <td>2007-12-20</td>
+            <td>Flat 146, Watermans Quay, William Morris Way</td>
+            <td class="price">£475,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-02-01</td>
+            <td>Flat 104, Watermans Quay, William Morris Way</td>
+            <td class="price">£620,000</td>
+        <td class="positive" title="Previous: £390,000 (2006-09-01)">+2.7%/yr</td></tr>
+
+        <tr>
+            <td>2006-09-01</td>
+            <td>Flat 104, Watermans Quay, William Morris Way</td>
+            <td class="price">£390,000</td>
+        <td class="positive" title="Previous: £327,500 (2006-05-22)">+86.9%/yr</td></tr>
+
+        <tr>
+            <td>2006-05-22</td>
+            <td>Flat 104, Watermans Quay, William Morris Way</td>
+            <td class="price">£327,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-05-10</td>
+            <td>Flat 140, Watermans Quay, William Morris Way</td>
+            <td class="price">£1,450,000</td>
+        <td class="negative" title="Previous: £1,750,000 (2013-07-12)">-1.7%/yr</td></tr>
+
+        <tr>
+            <td>2013-07-12</td>
+            <td>Flat 140, Watermans Quay, William Morris Way</td>
+            <td class="price">£1,750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-09-30</td>
+            <td>Flat 139, Watermans Quay, William Morris Way</td>
+            <td class="price">£482,500</td>
+        <td class="positive" title="Previous: £460,000 (2007-05-17)">+1.4%/yr</td></tr>
+
+        <tr>
+            <td>2007-05-17</td>
+            <td>Flat 139, Watermans Quay, William Morris Way</td>
+            <td class="price">£460,000</td>
+        <td class="positive" title="Previous: £340,000 (2006-09-18)">+58.1%/yr</td></tr>
+
+        <tr>
+            <td>2006-09-18</td>
+            <td>Flat 139, Watermans Quay, William Morris Way</td>
+            <td class="price">£340,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-11</td>
+            <td>Flat 147, Watermans Quay, William Morris Way</td>
+            <td class="price">£830,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-30</td>
+            <td>Parking Space 223, Watermans Quay, William Morris Way</td>
+            <td class="price">£700,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-30</td>
+            <td>Flat 133, Watermans Quay, William Morris Way</td>
+            <td class="price">£700,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-04-07</td>
+            <td>Flat 102, Watermans Quay, William Morris Way</td>
+            <td class="price">£455,000</td>
+        <td class="positive" title="Previous: £345,000 (2006-06-15)">+16.5%/yr</td></tr>
+
+        <tr>
+            <td>2006-06-15</td>
+            <td>Flat 102, Watermans Quay, William Morris Way</td>
+            <td class="price">£345,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-04-11</td>
+            <td>Flat 113, Watermans Quay, William Morris Way</td>
+            <td class="price">£435,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-09-09</td>
+            <td>Flat 117, Watermans Quay, William Morris Way</td>
+            <td class="price">£625,000</td>
+        <td class="positive" title="Previous: £406,000 (2009-04-28)">+3.9%/yr</td></tr>
+
+        <tr>
+            <td>2009-04-28</td>
+            <td>Flat 117, Watermans Quay, William Morris Way</td>
+            <td class="price">£406,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-25</td>
+            <td>Flat 106, Watermans Quay, William Morris Way</td>
+            <td class="price">£855,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-01</td>
+            <td>Flat 131, Watermans Quay, William Morris Way</td>
+            <td class="price">£770,000</td>
+        <td class="positive" title="Previous: £500,000 (2010-07-16)">+4.8%/yr</td></tr>
+
+        <tr>
+            <td>2010-07-16</td>
+            <td>Flat 131, Watermans Quay, William Morris Way</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-02-07</td>
+            <td>Flat 110, Watermans Quay, William Morris Way</td>
+            <td class="price">£684,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-08-26</td>
+            <td>Flat 161, Watermans Quay, William Morris Way</td>
+            <td class="price">£470,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-10-06</td>
+            <td>Flat 101, Watermans Quay, William Morris Way</td>
+            <td class="price">£380,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-01-16</td>
+            <td>Flat 107, Watermans Quay, William Morris Way</td>
+            <td class="price">£735,000</td>
+        <td class="positive" title="Previous: £450,000 (2011-09-09)">+4.4%/yr</td></tr>
+
+        <tr>
+            <td>2011-09-09</td>
+            <td>Flat 107, Watermans Quay, William Morris Way</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-04-08</td>
+            <td>Flat 126, Watermans Quay, William Morris Way</td>
+            <td class="price">£817,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-12-02</td>
+            <td>Flat 129, Watermans Quay, William Morris Way</td>
+            <td class="price">£367,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-03-27</td>
+            <td>Flat 105, Watermans Quay, William Morris Way</td>
+            <td class="price">£490,000</td>
+        <td class="positive" title="Previous: £330,000 (2005-07-25)">+5.3%/yr</td></tr>
+
+        <tr>
+            <td>2005-07-25</td>
+            <td>Flat 105, Watermans Quay, William Morris Way</td>
+            <td class="price">£330,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-07-19</td>
+            <td>Flat 127, Watermans Quay, William Morris Way</td>
+            <td class="price">£520,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-10-14</td>
+            <td>Flat 122, Watermans Quay, William Morris Way</td>
+            <td class="price">£514,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-09-11</td>
+            <td>Flat 141, Watermans Quay, William Morris Way</td>
+            <td class="price">£820,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-01-24</td>
+            <td>Flat 138, Watermans Quay, William Morris Way</td>
+            <td class="price">£465,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-03-03</td>
+            <td>Flat 151, Watermans Quay, William Morris Way</td>
+            <td class="price">£355,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-04-04</td>
+            <td>Flat 156, Watermans Quay, William Morris Way</td>
+            <td class="price">£635,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-05-22</td>
+            <td>Flat 136, Watermans Quay, William Morris Way</td>
+            <td class="price">£600,000</td>
+        <td class="positive" title="Previous: £550,000 (2007-02-02)">+1.7%/yr</td></tr>
+
+        <tr>
+            <td>2007-02-02</td>
+            <td>Flat 136, Watermans Quay, William Morris Way</td>
+            <td class="price">£550,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-08</td>
+            <td>Flat 148, Watermans Quay, William Morris Way</td>
+            <td class="price">£830,000</td>
+        <td class="positive" title="Previous: £555,000 (2012-11-07)">+6.1%/yr</td></tr>
+
+        <tr>
+            <td>2012-11-07</td>
+            <td>Flat 148, Watermans Quay, William Morris Way</td>
+            <td class="price">£555,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-12-16</td>
+            <td>Flat 152, Watermans Quay, William Morris Way</td>
+            <td class="price">£422,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-09-08</td>
+            <td>Flat 137, Watermans Quay, William Morris Way</td>
+            <td class="price">£645,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-04</td>
+            <td>Flat 130, Watermans Quay, William Morris Way</td>
+            <td class="price">£923,000</td>
+        <td class="positive" title="Previous: £550,000 (2011-03-03)">+8.5%/yr</td></tr>
+
+        <tr>
+            <td>2011-03-03</td>
+            <td>Flat 130, Watermans Quay, William Morris Way</td>
+            <td class="price">£550,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-01-17</td>
+            <td>Flat 163, Watermans Quay, William Morris Way</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-05-19</td>
+            <td>Flat 112, Watermans Quay, William Morris Way</td>
+            <td class="price">£880,000</td>
+        <td class="negative" title="Previous: £920,000 (2014-08-29)">-0.5%/yr</td></tr>
+
+        <tr>
+            <td>2014-08-29</td>
+            <td>Flat 112, Watermans Quay, William Morris Way</td>
+            <td class="price">£920,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-05-02</td>
+            <td>Flat 132, Watermans Quay, William Morris Way</td>
+            <td class="price">£710,000</td>
+        <td class="negative" title="Previous: £850,000 (2013-07-23)">-3.1%/yr</td></tr>
+
+        <tr>
+            <td>2013-07-23</td>
+            <td>Flat 132, Watermans Quay, William Morris Way</td>
+            <td class="price">£850,000</td>
+        <td class="positive" title="Previous: £360,000 (2005-09-01)">+11.5%/yr</td></tr>
+
+        <tr>
+            <td>2005-09-01</td>
+            <td>Flat 132, Watermans Quay, William Morris Way</td>
+            <td class="price">£360,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-25</td>
+            <td>Flat 142, Watermans Quay, William Morris Way</td>
+            <td class="price">£610,000</td>
+        <td class="positive" title="Previous: £365,000 (2006-11-24)">+3.6%/yr</td></tr>
+
+        <tr>
+            <td>2006-11-24</td>
+            <td>Flat 142, Watermans Quay, William Morris Way</td>
+            <td class="price">£365,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-05-26</td>
+            <td>Flat 100, Watermans Quay, William Morris Way</td>
+            <td class="price">£950,000</td>
+        <td class="positive" title="Previous: £900,000 (2012-11-30)">+1.2%/yr</td></tr>
+
+        <tr>
+            <td>2012-11-30</td>
+            <td>Flat 100, Watermans Quay, William Morris Way</td>
+            <td class="price">£900,000</td>
+        <td class="positive" title="Previous: £630,000 (2008-04-28)">+8.1%/yr</td></tr>
+
+        <tr>
+            <td>2008-04-28</td>
+            <td>Flat 100, Watermans Quay, William Morris Way</td>
+            <td class="price">£630,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-11-28</td>
+            <td>Flat 143, Watermans Quay, William Morris Way</td>
+            <td class="price">£925,000</td>
+        <td class="negative" title="Previous: £995,000 (2015-04-21)">-0.9%/yr</td></tr>
+
+        <tr>
+            <td>2015-04-21</td>
+            <td>Flat 143, Watermans Quay, William Morris Way</td>
+            <td class="price">£995,000</td>
+        <td class="positive" title="Previous: £495,000 (2009-12-16)">+14.0%/yr</td></tr>
+
+        <tr>
+            <td>2009-12-16</td>
+            <td>Flat 143, Watermans Quay, William Morris Way</td>
+            <td class="price">£495,000</td>
+        <td class="positive" title="Previous: £322,000 (2006-02-24)">+11.9%/yr</td></tr>
+
+        <tr>
+            <td>2006-02-24</td>
+            <td>Flat 143, Watermans Quay, William Morris Way</td>
+            <td class="price">£322,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-10-21</td>
+            <td>Flat 154, Watermans Quay, William Morris Way</td>
+            <td class="price">£850,000</td>
+        <td class="positive" title="Previous: £358,200 (2006-02-24)">+10.5%/yr</td></tr>
+
+        <tr>
+            <td>2006-02-24</td>
+            <td>Flat 154, Watermans Quay, William Morris Way</td>
+            <td class="price">£358,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-01-17</td>
+            <td>Flat 134, Watermans Quay, William Morris Way</td>
+            <td class="price">£835,000</td>
+        <td class="positive" title="Previous: £392,500 (2005-01-21)">+5.5%/yr</td></tr>
+
+        <tr>
+            <td>2005-01-21</td>
+            <td>Flat 134, Watermans Quay, William Morris Way</td>
+            <td class="price">£392,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-05-19</td>
+            <td>Flat 165, Watermans Quay, William Morris Way</td>
+            <td class="price">£720,000</td>
+        <td class="positive" title="Previous: £639,000 (2005-03-31)">+2.9%/yr</td></tr>
+
+        <tr>
+            <td>2005-03-31</td>
+            <td>Flat 165, Watermans Quay, William Morris Way</td>
+            <td class="price">£639,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-04-30</td>
+            <td>Flat 164, Watermans Quay, William Morris Way</td>
+            <td class="price">£380,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-03-26</td>
+            <td>Flat 108, Watermans Quay, William Morris Way</td>
+            <td class="price">£660,000</td>
+        <td class="positive" title="Previous: £330,000 (2005-06-09)">+7.3%/yr</td></tr>
+
+        <tr>
+            <td>2005-06-09</td>
+            <td>Flat 108, Watermans Quay, William Morris Way</td>
+            <td class="price">£330,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-03-20</td>
+            <td>Flat 135, Watermans Quay, William Morris Way</td>
+            <td class="price">£635,000</td>
+        <td class="negative" title="Previous: £735,000 (2015-01-06)">-1.8%/yr</td></tr>
+
+        <tr>
+            <td>2015-01-06</td>
+            <td>Flat 135, Watermans Quay, William Morris Way</td>
+            <td class="price">£735,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-SW6-2UW" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-SW6-2UW" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2019, 2020, 2021, 2022, 2023, 2024],
+            y: [403166, 365770, 474993, 542500, 540333, 491250, 473000, 685000, 845000, 885000, 772500, 791500, 786250, 722500, 765000, 925000, 723750, 962333],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2019, 2020, 2021, 2022, 2023, 2024],
+            y: [367500, 358200, 475000, 630000, 495000, 500000, 470000, 600000, 635000, 920000, 735000, 700000, 830000, 820000, 830000, 925000, 735000, 817000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - SW6 2UW',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-SW6-2UW', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 71</p>
+                    <p><strong>Unique Properties:</strong> 43</p>
+                    <p><strong>Average Price:</strong> £621,783</p>
+                    <p><strong>Median Price:</strong> £600,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-SW6-2UW" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector SW6 2 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector SW6 2</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-SW6-2UW', 'SW6-2UW')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-SW6-2UW', 'SW6-2UW')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-SW6-2UW" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-SW6-2UW" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [503949, 503826, 586337, 718930, 642086, 580433, 602698, 648699, 890417, 975231, 1093080, 1172875, 1103829, 848394, 828777, 997601, 887972, 1023057, 1090183, 1167609, 869974],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [447500, 395500, 488600, 625000, 510120, 449997, 475000, 558626, 690000, 815000, 853110, 1000000, 881950, 693444, 738000, 774100, 720000, 820800, 1000000, 920000, 730000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector SW6 2 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-SW6-2UW', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-SW6-2UW" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £507,976</div>
+                        <div class="cell-sell">Sell: £568,737</div>
+                        <div class="cell-return">+0.0%/yr</div>
+                        <div class="cell-count">(4 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £493,009</div>
+                        <div class="cell-sell">Sell: £648,920</div>
+                        <div class="cell-return">+13.0%/yr</div>
+                        <div class="cell-count">(85 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £484,447</div>
+                        <div class="cell-sell">Sell: £874,025</div>
+                        <div class="cell-return">+8.6%/yr</div>
+                        <div class="cell-count">(75 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £511,808</div>
+                        <div class="cell-sell">Sell: £947,066</div>
+                        <div class="cell-return">+5.5%/yr</div>
+                        <div class="cell-count">(30 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £559,886</div>
+                        <div class="cell-sell">Sell: £1,074,134</div>
+                        <div class="cell-return">+4.0%/yr</div>
+                        <div class="cell-count">(26 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £516,356</div>
+                        <div class="cell-sell">Sell: £630,468</div>
+                        <div class="cell-return">+9.8%/yr</div>
+                        <div class="cell-count">(168 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £566,469</div>
+                        <div class="cell-sell">Sell: £865,627</div>
+                        <div class="cell-return">+9.5%/yr</div>
+                        <div class="cell-count">(362 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £560,235</div>
+                        <div class="cell-sell">Sell: £896,960</div>
+                        <div class="cell-return">+5.6%/yr</div>
+                        <div class="cell-count">(160 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £646,629</div>
+                        <div class="cell-sell">Sell: £1,047,473</div>
+                        <div class="cell-return">+3.9%/yr</div>
+                        <div class="cell-count">(130 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £596,069</div>
+                        <div class="cell-sell">Sell: £831,100</div>
+                        <div class="cell-return">+16.9%/yr</div>
+                        <div class="cell-count">(147 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £739,626</div>
+                        <div class="cell-sell">Sell: £892,513</div>
+                        <div class="cell-return">+4.7%/yr</div>
+                        <div class="cell-count">(265 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £901,793</div>
+                        <div class="cell-sell">Sell: £1,022,008</div>
+                        <div class="cell-return">+1.6%/yr</div>
+                        <div class="cell-count">(287 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,082,259</div>
+                        <div class="cell-sell">Sell: £932,649</div>
+                        <div class="cell-return">-5.3%/yr</div>
+                        <div class="cell-count">(52 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £841,397</div>
+                        <div class="cell-sell">Sell: £887,335</div>
+                        <div class="cell-return">+2.4%/yr</div>
+                        <div class="cell-count">(230 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £958,258</div>
+                        <div class="cell-sell">Sell: £985,175</div>
+                        <div class="cell-return">+7.5%/yr</div>
+                        <div class="cell-count">(81 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-SW6-2UW" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District SW6 Analysis</h4>
+                <p class="area-info">Viewing data for entire SW6 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-SW6-2UW', 'SW6-2UW')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-SW6-2UW', 'SW6-2UW')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-SW6-2UW" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-SW6-2UW" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [492447, 534187, 617479, 682883, 676682, 725666, 770297, 792775, 935087, 1071397, 1107658, 1080611, 1088332, 1024688, 1009986, 1103160, 1107305, 1133932, 1123992, 1187120, 1058589],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [395000, 426000, 485000, 525000, 525000, 550000, 560000, 599500, 694000, 805000, 880000, 863200, 845000, 780000, 772500, 840000, 840000, 830000, 915000, 900000, 747500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District SW6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-SW6-2UW', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-SW6-2UW" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £553,160</div>
+                        <div class="cell-sell">Sell: £646,763</div>
+                        <div class="cell-return">+14.6%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £449,387</div>
+                        <div class="cell-sell">Sell: £642,183</div>
+                        <div class="cell-return">+14.7%/yr</div>
+                        <div class="cell-count">(437 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £479,875</div>
+                        <div class="cell-sell">Sell: £946,863</div>
+                        <div class="cell-return">+9.9%/yr</div>
+                        <div class="cell-count">(316 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £538,691</div>
+                        <div class="cell-sell">Sell: £1,119,126</div>
+                        <div class="cell-return">+6.2%/yr</div>
+                        <div class="cell-count">(107 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £544,862</div>
+                        <div class="cell-sell">Sell: £1,293,885</div>
+                        <div class="cell-return">+5.2%/yr</div>
+                        <div class="cell-count">(104 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £554,782</div>
+                        <div class="cell-sell">Sell: £722,017</div>
+                        <div class="cell-return">+11.5%/yr</div>
+                        <div class="cell-count">(694 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £606,495</div>
+                        <div class="cell-sell">Sell: £950,934</div>
+                        <div class="cell-return">+10.5%/yr</div>
+                        <div class="cell-count">(1648 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £662,286</div>
+                        <div class="cell-sell">Sell: £1,130,777</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(714 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £656,918</div>
+                        <div class="cell-sell">Sell: £1,188,473</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(644 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £685,474</div>
+                        <div class="cell-sell">Sell: £998,436</div>
+                        <div class="cell-return">+20.5%/yr</div>
+                        <div class="cell-count">(560 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £844,762</div>
+                        <div class="cell-sell">Sell: £1,042,230</div>
+                        <div class="cell-return">+5.8%/yr</div>
+                        <div class="cell-count">(1056 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £995,197</div>
+                        <div class="cell-sell">Sell: £1,211,728</div>
+                        <div class="cell-return">+2.4%/yr</div>
+                        <div class="cell-count">(1170 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £928,398</div>
+                        <div class="cell-sell">Sell: £1,026,566</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(272 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £940,021</div>
+                        <div class="cell-sell">Sell: £1,060,630</div>
+                        <div class="cell-return">+4.2%/yr</div>
+                        <div class="cell-count">(965 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,003,702</div>
+                        <div class="cell-sell">Sell: £1,154,975</div>
+                        <div class="cell-return">+9.4%/yr</div>
+                        <div class="cell-count">(313 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'SW6 2'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'SW6'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

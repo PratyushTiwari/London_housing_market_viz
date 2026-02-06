@@ -1,0 +1,1250 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W9 3DY</h3>
+            <div class="header-stats">
+                <span><strong>67</strong> transactions</span>
+                <span><strong>41</strong> properties</span>
+                <span>Avg: <strong>£707,100</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W9-3DY')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W9-3DY')">
+                Sector (W9 3)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W9-3DY')">
+                District (W9)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W9-3DY" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W9-3DY', 'W9-3DY')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W9-3DY', 'W9-3DY')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W9-3DY', 'W9-3DY')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W9-3DY" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W9-3DY" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "2F, Shirland Mews", "dates": ["2007-05-09", "2013-03-26"], "prices": [800000, 785000], "hover_texts": ["<b>2F, Shirland Mews</b><br>Transaction 1 of 2<br>Date: 2007-05-09<br>Sale Price: \u00a3800,000", "<b>2F, Shirland Mews</b><br>Transaction 2 of 2<br>Date: 2013-03-26<br>Sale Price: \u00a3785,000<br>Previous Purchase: \u00a3800,000<br>Previous Date: 2007-05-09<br>Annual Return: -0.3%/yr<br>Held for: 5.9 years"], "transaction_count": 2}, {"address": "2, Shirland Mews", "dates": ["2007-07-20", "2013-10-11", "2025-10-17"], "prices": [545000, 850000, 850000], "hover_texts": ["<b>2, Shirland Mews</b><br>Transaction 1 of 3<br>Date: 2007-07-20<br>Sale Price: \u00a3545,000", "<b>2, Shirland Mews</b><br>Transaction 2 of 3<br>Date: 2013-10-11<br>Sale Price: \u00a3850,000<br>Previous Purchase: \u00a3545,000<br>Previous Date: 2007-07-20<br>Annual Return: +7.4%/yr<br>Held for: 6.2 years", "<b>2, Shirland Mews</b><br>Transaction 3 of 3<br>Date: 2025-10-17<br>Sale Price: \u00a3850,000<br>Previous Purchase: \u00a3850,000<br>Previous Date: 2013-10-11<br>Annual Return: +0.0%/yr<br>Held for: 12.0 years"], "transaction_count": 3}, {"address": "42, Shirland Mews", "dates": ["2009-11-20", "2014-09-24"], "prices": [405000, 682500], "hover_texts": ["<b>42, Shirland Mews</b><br>Transaction 1 of 2<br>Date: 2009-11-20<br>Sale Price: \u00a3405,000", "<b>42, Shirland Mews</b><br>Transaction 2 of 2<br>Date: 2014-09-24<br>Sale Price: \u00a3682,500<br>Previous Purchase: \u00a3405,000<br>Previous Date: 2009-11-20<br>Annual Return: +11.4%/yr<br>Held for: 4.8 years"], "transaction_count": 2}, {"address": "3, Shirland Mews", "dates": ["2010-05-14", "2023-04-21"], "prices": [931750, 1225000], "hover_texts": ["<b>3, Shirland Mews</b><br>Transaction 1 of 2<br>Date: 2010-05-14<br>Sale Price: \u00a3931,750", "<b>3, Shirland Mews</b><br>Transaction 2 of 2<br>Date: 2023-04-21<br>Sale Price: \u00a31,225,000<br>Previous Purchase: \u00a3931,750<br>Previous Date: 2010-05-14<br>Annual Return: +2.1%/yr<br>Held for: 12.9 years"], "transaction_count": 2}, {"address": "3A, Shirland Mews", "dates": ["2007-02-15", "2009-02-16", "2010-07-12", "2020-08-14"], "prices": [775000, 800000, 950000, 1395000], "hover_texts": ["<b>3A, Shirland Mews</b><br>Transaction 1 of 4<br>Date: 2007-02-15<br>Sale Price: \u00a3775,000", "<b>3A, Shirland Mews</b><br>Transaction 2 of 4<br>Date: 2009-02-16<br>Sale Price: \u00a3800,000<br>Previous Purchase: \u00a3775,000<br>Previous Date: 2007-02-15<br>Annual Return: +1.6%/yr<br>Held for: 2.0 years", "<b>3A, Shirland Mews</b><br>Transaction 3 of 4<br>Date: 2010-07-12<br>Sale Price: \u00a3950,000<br>Previous Purchase: \u00a3800,000<br>Previous Date: 2009-02-16<br>Annual Return: +13.1%/yr<br>Held for: 1.4 years", "<b>3A, Shirland Mews</b><br>Transaction 4 of 4<br>Date: 2020-08-14<br>Sale Price: \u00a31,395,000<br>Previous Purchase: \u00a3950,000<br>Previous Date: 2010-07-12<br>Annual Return: +3.9%/yr<br>Held for: 10.1 years"], "transaction_count": 4}, {"address": "3B, Shirland Mews", "dates": ["2007-03-29", "2021-09-28"], "prices": [750000, 1250000], "hover_texts": ["<b>3B, Shirland Mews</b><br>Transaction 1 of 2<br>Date: 2007-03-29<br>Sale Price: \u00a3750,000", "<b>3B, Shirland Mews</b><br>Transaction 2 of 2<br>Date: 2021-09-28<br>Sale Price: \u00a31,250,000<br>Previous Purchase: \u00a3750,000<br>Previous Date: 2007-03-29<br>Annual Return: +3.6%/yr<br>Held for: 14.5 years"], "transaction_count": 2}, {"address": "27, Shirland Mews", "dates": ["2006-10-13", "2015-04-07", "2017-07-10"], "prices": [360000, 695000, 830000], "hover_texts": ["<b>27, Shirland Mews</b><br>Transaction 1 of 3<br>Date: 2006-10-13<br>Sale Price: \u00a3360,000", "<b>27, Shirland Mews</b><br>Transaction 2 of 3<br>Date: 2015-04-07<br>Sale Price: \u00a3695,000<br>Previous Purchase: \u00a3360,000<br>Previous Date: 2006-10-13<br>Annual Return: +8.1%/yr<br>Held for: 8.5 years", "<b>27, Shirland Mews</b><br>Transaction 3 of 3<br>Date: 2017-07-10<br>Sale Price: \u00a3830,000<br>Previous Purchase: \u00a3695,000<br>Previous Date: 2015-04-07<br>Annual Return: +8.2%/yr<br>Held for: 2.3 years"], "transaction_count": 3}, {"address": "41, Shirland Mews", "dates": ["2007-06-29", "2014-03-28"], "prices": [420000, 665000], "hover_texts": ["<b>41, Shirland Mews</b><br>Transaction 1 of 2<br>Date: 2007-06-29<br>Sale Price: \u00a3420,000", "<b>41, Shirland Mews</b><br>Transaction 2 of 2<br>Date: 2014-03-28<br>Sale Price: \u00a3665,000<br>Previous Purchase: \u00a3420,000<br>Previous Date: 2007-06-29<br>Annual Return: +7.0%/yr<br>Held for: 6.8 years"], "transaction_count": 2}, {"address": "28, Shirland Mews", "dates": ["2007-09-28", "2015-01-15"], "prices": [440000, 620000], "hover_texts": ["<b>28, Shirland Mews</b><br>Transaction 1 of 2<br>Date: 2007-09-28<br>Sale Price: \u00a3440,000", "<b>28, Shirland Mews</b><br>Transaction 2 of 2<br>Date: 2015-01-15<br>Sale Price: \u00a3620,000<br>Previous Purchase: \u00a3440,000<br>Previous Date: 2007-09-28<br>Annual Return: +4.8%/yr<br>Held for: 7.3 years"], "transaction_count": 2}, {"address": "61, Shirland Mews", "dates": ["2007-05-11", "2011-08-31"], "prices": [540000, 585000], "hover_texts": ["<b>61, Shirland Mews</b><br>Transaction 1 of 2<br>Date: 2007-05-11<br>Sale Price: \u00a3540,000", "<b>61, Shirland Mews</b><br>Transaction 2 of 2<br>Date: 2011-08-31<br>Sale Price: \u00a3585,000<br>Previous Purchase: \u00a3540,000<br>Previous Date: 2007-05-11<br>Annual Return: +1.9%/yr<br>Held for: 4.3 years"], "transaction_count": 2}, {"address": "5B, Shirland Mews", "dates": ["2007-05-31", "2012-03-16", "2017-11-17"], "prices": [785000, 975000, 1365000], "hover_texts": ["<b>5B, Shirland Mews</b><br>Transaction 1 of 3<br>Date: 2007-05-31<br>Sale Price: \u00a3785,000", "<b>5B, Shirland Mews</b><br>Transaction 2 of 3<br>Date: 2012-03-16<br>Sale Price: \u00a3975,000<br>Previous Purchase: \u00a3785,000<br>Previous Date: 2007-05-31<br>Annual Return: +4.6%/yr<br>Held for: 4.8 years", "<b>5B, Shirland Mews</b><br>Transaction 3 of 3<br>Date: 2017-11-17<br>Sale Price: \u00a31,365,000<br>Previous Purchase: \u00a3975,000<br>Previous Date: 2012-03-16<br>Annual Return: +6.1%/yr<br>Held for: 5.7 years"], "transaction_count": 3}, {"address": "4C, Shirland Mews", "dates": ["2007-02-02", "2014-09-15"], "prices": [415000, 850000], "hover_texts": ["<b>4C, Shirland Mews</b><br>Transaction 1 of 2<br>Date: 2007-02-02<br>Sale Price: \u00a3415,000", "<b>4C, Shirland Mews</b><br>Transaction 2 of 2<br>Date: 2014-09-15<br>Sale Price: \u00a3850,000<br>Previous Purchase: \u00a3415,000<br>Previous Date: 2007-02-02<br>Annual Return: +9.9%/yr<br>Held for: 7.6 years"], "transaction_count": 2}, {"address": "5, Shirland Mews", "dates": ["2005-05-06", "2020-02-21", "2025-03-21"], "prices": [650000, 1425000, 1475000], "hover_texts": ["<b>5, Shirland Mews</b><br>Transaction 1 of 3<br>Date: 2005-05-06<br>Sale Price: \u00a3650,000", "<b>5, Shirland Mews</b><br>Transaction 2 of 3<br>Date: 2020-02-21<br>Sale Price: \u00a31,425,000<br>Previous Purchase: \u00a3650,000<br>Previous Date: 2005-05-06<br>Annual Return: +5.5%/yr<br>Held for: 14.8 years", "<b>5, Shirland Mews</b><br>Transaction 3 of 3<br>Date: 2025-03-21<br>Sale Price: \u00a31,475,000<br>Previous Purchase: \u00a31,425,000<br>Previous Date: 2020-02-21<br>Annual Return: +0.7%/yr<br>Held for: 5.1 years"], "transaction_count": 3}, {"address": "17, Shirland Mews", "dates": ["2007-05-01", "2009-10-30"], "prices": [373000, 490000], "hover_texts": ["<b>17, Shirland Mews</b><br>Transaction 1 of 2<br>Date: 2007-05-01<br>Sale Price: \u00a3373,000", "<b>17, Shirland Mews</b><br>Transaction 2 of 2<br>Date: 2009-10-30<br>Sale Price: \u00a3490,000<br>Previous Purchase: \u00a3373,000<br>Previous Date: 2007-05-01<br>Annual Return: +11.5%/yr<br>Held for: 2.5 years"], "transaction_count": 2}, {"address": "13, Shirland Mews", "dates": ["2015-10-13", "2022-12-07"], "prices": [695000, 680000], "hover_texts": ["<b>13, Shirland Mews</b><br>Transaction 1 of 2<br>Date: 2015-10-13<br>Sale Price: \u00a3695,000", "<b>13, Shirland Mews</b><br>Transaction 2 of 2<br>Date: 2022-12-07<br>Sale Price: \u00a3680,000<br>Previous Purchase: \u00a3695,000<br>Previous Date: 2015-10-13<br>Annual Return: -0.3%/yr<br>Held for: 7.2 years"], "transaction_count": 2}, {"address": "30, Shirland Mews", "dates": ["2008-01-15", "2013-03-01", "2019-05-20"], "prices": [446500, 565000, 700000], "hover_texts": ["<b>30, Shirland Mews</b><br>Transaction 1 of 3<br>Date: 2008-01-15<br>Sale Price: \u00a3446,500", "<b>30, Shirland Mews</b><br>Transaction 2 of 3<br>Date: 2013-03-01<br>Sale Price: \u00a3565,000<br>Previous Purchase: \u00a3446,500<br>Previous Date: 2008-01-15<br>Annual Return: +4.7%/yr<br>Held for: 5.1 years", "<b>30, Shirland Mews</b><br>Transaction 3 of 3<br>Date: 2019-05-20<br>Sale Price: \u00a3700,000<br>Previous Purchase: \u00a3565,000<br>Previous Date: 2013-03-01<br>Annual Return: +3.5%/yr<br>Held for: 6.2 years"], "transaction_count": 3}, {"address": "35, Shirland Mews", "dates": ["2006-09-08", "2007-02-07", "2024-07-31"], "prices": [290000, 400000, 700000], "hover_texts": ["<b>35, Shirland Mews</b><br>Transaction 1 of 3<br>Date: 2006-09-08<br>Sale Price: \u00a3290,000", "<b>35, Shirland Mews</b><br>Transaction 2 of 3<br>Date: 2007-02-07<br>Sale Price: \u00a3400,000<br>Previous Purchase: \u00a3290,000<br>Previous Date: 2006-09-08<br>Annual Return: +116.6%/yr<br>Held for: 0.4 years", "<b>35, Shirland Mews</b><br>Transaction 3 of 3<br>Date: 2024-07-31<br>Sale Price: \u00a3700,000<br>Previous Purchase: \u00a3400,000<br>Previous Date: 2007-02-07<br>Annual Return: +3.2%/yr<br>Held for: 17.5 years"], "transaction_count": 3}, {"address": "2B, Shirland Mews", "dates": ["2007-02-09", "2020-08-19"], "prices": [585000, 895000], "hover_texts": ["<b>2B, Shirland Mews</b><br>Transaction 1 of 2<br>Date: 2007-02-09<br>Sale Price: \u00a3585,000", "<b>2B, Shirland Mews</b><br>Transaction 2 of 2<br>Date: 2020-08-19<br>Sale Price: \u00a3895,000<br>Previous Purchase: \u00a3585,000<br>Previous Date: 2007-02-09<br>Annual Return: +3.2%/yr<br>Held for: 13.5 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2022-07-14", "address": "48, Shirland Mews", "price": 1000000, "price_display": "\u00a31,000,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2011-11-11", "address": "33, Shirland Mews", "price": 470000, "price_display": "\u00a3470,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2015-09-28", "address": "Apartment 2, 4C, Shirland Mews", "price": 495000, "price_display": "\u00a3495,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2025-04-08", "address": "4E, Shirland Mews", "price": 700000, "price_display": "\u00a3700,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2007-02-28", "address": "2A, Shirland Mews", "price": 545000, "price_display": "\u00a3545,000", "property_type": "F", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2005-04-28", "address": "7A, Shirland Mews", "price": 645000, "price_display": "\u00a3645,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2009-05-21", "address": "12, Shirland Mews", "price": 381000, "price_display": "\u00a3381,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2021-12-09", "address": "23, Shirland Mews", "price": 647000, "price_display": "\u00a3647,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2015-11-26", "address": "26, Shirland Mews", "price": 718000, "price_display": "\u00a3718,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2007-08-17", "address": "8, Shirland Mews", "price": 450000, "price_display": "\u00a3450,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2017-04-28", "address": "Flat 2, 4D, Shirland Mews", "price": 525000, "price_display": "\u00a3525,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-09-24", "address": "4, Shirland Mews", "price": 890000, "price_display": "\u00a3890,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2016-11-25", "address": "21, Shirland Mews", "price": 650000, "price_display": "\u00a3650,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2015-05-28", "address": "43, Shirland Mews", "price": 640000, "price_display": "\u00a3640,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-07-21", "address": "36, Shirland Mews", "price": 659950, "price_display": "\u00a3659,950", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2022-03-08", "address": "Apartment 3, Second Floor, 4C, Shirland Mews", "price": 450000, "price_display": "\u00a3450,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-03-26", "address": "47, Shirland Mews", "price": 380000, "price_display": "\u00a3380,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2024-05-29", "address": "18, Shirland Mews", "price": 625000, "price_display": "\u00a3625,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2015-06-02", "address": "4D, Shirland Mews", "price": 800000, "price_display": "\u00a3800,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2012-09-13", "address": "29, Shirland Mews", "price": 326000, "price_display": "\u00a3326,000", "property_type": "T", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2009-01-12", "address": "44, Shirland Mews", "price": 395000, "price_display": "\u00a3395,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2007-05-31", "address": "1, Shirland Mews", "price": 1175000, "price_display": "\u00a31,175,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2007-05-09", "address": "2E, Shirland Mews", "price": 900000, "price_display": "\u00a3900,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W9-3DY', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W9-3DY');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W9-3DY', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W9-3DY', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W9-3DY" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2022-07-14</td>
+            <td>48, Shirland Mews</td>
+            <td class="price">£1,000,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-11-11</td>
+            <td>33, Shirland Mews</td>
+            <td class="price">£470,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-09-28</td>
+            <td>Apartment 2, 4C, Shirland Mews</td>
+            <td class="price">£495,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-03-26</td>
+            <td>2F, Shirland Mews</td>
+            <td class="price">£785,000</td>
+        <td class="negative" title="Previous: £800,000 (2007-05-09)">-0.3%/yr</td></tr>
+
+        <tr>
+            <td>2007-05-09</td>
+            <td>2F, Shirland Mews</td>
+            <td class="price">£800,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-10-17</td>
+            <td>2, Shirland Mews</td>
+            <td class="price">£850,000</td>
+        <td class="negative" title="Previous: £850,000 (2013-10-11)">+0.0%/yr</td></tr>
+
+        <tr>
+            <td>2013-10-11</td>
+            <td>2, Shirland Mews</td>
+            <td class="price">£850,000</td>
+        <td class="positive" title="Previous: £545,000 (2007-07-20)">+7.4%/yr</td></tr>
+
+        <tr>
+            <td>2007-07-20</td>
+            <td>2, Shirland Mews</td>
+            <td class="price">£545,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-04-08</td>
+            <td>4E, Shirland Mews</td>
+            <td class="price">£700,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-02-28</td>
+            <td>2A, Shirland Mews</td>
+            <td class="price">£545,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-04-28</td>
+            <td>7A, Shirland Mews</td>
+            <td class="price">£645,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-05-21</td>
+            <td>12, Shirland Mews</td>
+            <td class="price">£381,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-09-24</td>
+            <td>42, Shirland Mews</td>
+            <td class="price">£682,500</td>
+        <td class="positive" title="Previous: £405,000 (2009-11-20)">+11.4%/yr</td></tr>
+
+        <tr>
+            <td>2009-11-20</td>
+            <td>42, Shirland Mews</td>
+            <td class="price">£405,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-12-09</td>
+            <td>23, Shirland Mews</td>
+            <td class="price">£647,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-04-21</td>
+            <td>3, Shirland Mews</td>
+            <td class="price">£1,225,000</td>
+        <td class="positive" title="Previous: £931,750 (2010-05-14)">+2.1%/yr</td></tr>
+
+        <tr>
+            <td>2010-05-14</td>
+            <td>3, Shirland Mews</td>
+            <td class="price">£931,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-11-26</td>
+            <td>26, Shirland Mews</td>
+            <td class="price">£718,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-08-14</td>
+            <td>3A, Shirland Mews</td>
+            <td class="price">£1,395,000</td>
+        <td class="positive" title="Previous: £950,000 (2010-07-12)">+3.9%/yr</td></tr>
+
+        <tr>
+            <td>2010-07-12</td>
+            <td>3A, Shirland Mews</td>
+            <td class="price">£950,000</td>
+        <td class="positive" title="Previous: £800,000 (2009-02-16)">+13.1%/yr</td></tr>
+
+        <tr>
+            <td>2009-02-16</td>
+            <td>3A, Shirland Mews</td>
+            <td class="price">£800,000</td>
+        <td class="positive" title="Previous: £775,000 (2007-02-15)">+1.6%/yr</td></tr>
+
+        <tr>
+            <td>2007-02-15</td>
+            <td>3A, Shirland Mews</td>
+            <td class="price">£775,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-09-28</td>
+            <td>3B, Shirland Mews</td>
+            <td class="price">£1,250,000</td>
+        <td class="positive" title="Previous: £750,000 (2007-03-29)">+3.6%/yr</td></tr>
+
+        <tr>
+            <td>2007-03-29</td>
+            <td>3B, Shirland Mews</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-08-17</td>
+            <td>8, Shirland Mews</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-10</td>
+            <td>27, Shirland Mews</td>
+            <td class="price">£830,000</td>
+        <td class="positive" title="Previous: £695,000 (2015-04-07)">+8.2%/yr</td></tr>
+
+        <tr>
+            <td>2015-04-07</td>
+            <td>27, Shirland Mews</td>
+            <td class="price">£695,000</td>
+        <td class="positive" title="Previous: £360,000 (2006-10-13)">+8.1%/yr</td></tr>
+
+        <tr>
+            <td>2006-10-13</td>
+            <td>27, Shirland Mews</td>
+            <td class="price">£360,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-04-28</td>
+            <td>Flat 2, 4D, Shirland Mews</td>
+            <td class="price">£525,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-09-24</td>
+            <td>4, Shirland Mews</td>
+            <td class="price">£890,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-11-25</td>
+            <td>21, Shirland Mews</td>
+            <td class="price">£650,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-03-28</td>
+            <td>41, Shirland Mews</td>
+            <td class="price">£665,000</td>
+        <td class="positive" title="Previous: £420,000 (2007-06-29)">+7.0%/yr</td></tr>
+
+        <tr>
+            <td>2007-06-29</td>
+            <td>41, Shirland Mews</td>
+            <td class="price">£420,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-05-28</td>
+            <td>43, Shirland Mews</td>
+            <td class="price">£640,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-07-21</td>
+            <td>36, Shirland Mews</td>
+            <td class="price">£659,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-08</td>
+            <td>Apartment 3, Second Floor, 4C, Shirland Mews</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-01-15</td>
+            <td>28, Shirland Mews</td>
+            <td class="price">£620,000</td>
+        <td class="positive" title="Previous: £440,000 (2007-09-28)">+4.8%/yr</td></tr>
+
+        <tr>
+            <td>2007-09-28</td>
+            <td>28, Shirland Mews</td>
+            <td class="price">£440,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-03-26</td>
+            <td>47, Shirland Mews</td>
+            <td class="price">£380,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-08-31</td>
+            <td>61, Shirland Mews</td>
+            <td class="price">£585,000</td>
+        <td class="positive" title="Previous: £540,000 (2007-05-11)">+1.9%/yr</td></tr>
+
+        <tr>
+            <td>2007-05-11</td>
+            <td>61, Shirland Mews</td>
+            <td class="price">£540,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-17</td>
+            <td>5B, Shirland Mews</td>
+            <td class="price">£1,365,000</td>
+        <td class="positive" title="Previous: £975,000 (2012-03-16)">+6.1%/yr</td></tr>
+
+        <tr>
+            <td>2012-03-16</td>
+            <td>5B, Shirland Mews</td>
+            <td class="price">£975,000</td>
+        <td class="positive" title="Previous: £785,000 (2007-05-31)">+4.6%/yr</td></tr>
+
+        <tr>
+            <td>2007-05-31</td>
+            <td>5B, Shirland Mews</td>
+            <td class="price">£785,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-05-29</td>
+            <td>18, Shirland Mews</td>
+            <td class="price">£625,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-09-15</td>
+            <td>4C, Shirland Mews</td>
+            <td class="price">£850,000</td>
+        <td class="positive" title="Previous: £415,000 (2007-02-02)">+9.9%/yr</td></tr>
+
+        <tr>
+            <td>2007-02-02</td>
+            <td>4C, Shirland Mews</td>
+            <td class="price">£415,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-03-21</td>
+            <td>5, Shirland Mews</td>
+            <td class="price">£1,475,000</td>
+        <td class="positive" title="Previous: £1,425,000 (2020-02-21)">+0.7%/yr</td></tr>
+
+        <tr>
+            <td>2020-02-21</td>
+            <td>5, Shirland Mews</td>
+            <td class="price">£1,425,000</td>
+        <td class="positive" title="Previous: £650,000 (2005-05-06)">+5.5%/yr</td></tr>
+
+        <tr>
+            <td>2005-05-06</td>
+            <td>5, Shirland Mews</td>
+            <td class="price">£650,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-06-02</td>
+            <td>4D, Shirland Mews</td>
+            <td class="price">£800,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-10-30</td>
+            <td>17, Shirland Mews</td>
+            <td class="price">£490,000</td>
+        <td class="positive" title="Previous: £373,000 (2007-05-01)">+11.5%/yr</td></tr>
+
+        <tr>
+            <td>2007-05-01</td>
+            <td>17, Shirland Mews</td>
+            <td class="price">£373,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-12-07</td>
+            <td>13, Shirland Mews</td>
+            <td class="price">£680,000</td>
+        <td class="negative" title="Previous: £695,000 (2015-10-13)">-0.3%/yr</td></tr>
+
+        <tr>
+            <td>2015-10-13</td>
+            <td>13, Shirland Mews</td>
+            <td class="price">£695,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-05-20</td>
+            <td>30, Shirland Mews</td>
+            <td class="price">£700,000</td>
+        <td class="positive" title="Previous: £565,000 (2013-03-01)">+3.5%/yr</td></tr>
+
+        <tr>
+            <td>2013-03-01</td>
+            <td>30, Shirland Mews</td>
+            <td class="price">£565,000</td>
+        <td class="positive" title="Previous: £446,500 (2008-01-15)">+4.7%/yr</td></tr>
+
+        <tr>
+            <td>2008-01-15</td>
+            <td>30, Shirland Mews</td>
+            <td class="price">£446,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-09-13</td>
+            <td>29, Shirland Mews</td>
+            <td class="price">£326,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-07-31</td>
+            <td>35, Shirland Mews</td>
+            <td class="price">£700,000</td>
+        <td class="positive" title="Previous: £400,000 (2007-02-07)">+3.2%/yr</td></tr>
+
+        <tr>
+            <td>2007-02-07</td>
+            <td>35, Shirland Mews</td>
+            <td class="price">£400,000</td>
+        <td class="positive" title="Previous: £290,000 (2006-09-08)">+116.6%/yr</td></tr>
+
+        <tr>
+            <td>2006-09-08</td>
+            <td>35, Shirland Mews</td>
+            <td class="price">£290,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-01-12</td>
+            <td>44, Shirland Mews</td>
+            <td class="price">£395,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-05-31</td>
+            <td>1, Shirland Mews</td>
+            <td class="price">£1,175,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-05-09</td>
+            <td>2E, Shirland Mews</td>
+            <td class="price">£900,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-08-19</td>
+            <td>2B, Shirland Mews</td>
+            <td class="price">£895,000</td>
+        <td class="positive" title="Previous: £585,000 (2007-02-09)">+3.2%/yr</td></tr>
+
+        <tr>
+            <td>2007-02-09</td>
+            <td>2B, Shirland Mews</td>
+            <td class="price">£585,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W9-3DY" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W9-3DY" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [647500, 325000, 604588, 446500, 494200, 940875, 527500, 650500, 733333, 714362, 694125, 650000, 906666, 700000, 1238333, 948500, 710000, 1225000, 662500, 1008333],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [650000, 360000, 545000, 446500, 405000, 950000, 585000, 975000, 785000, 682500, 695000, 650000, 830000, 700000, 1395000, 1250000, 680000, 1225000, 700000, 850000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W9 3DY',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W9-3DY', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 67</p>
+                    <p><strong>Unique Properties:</strong> 41</p>
+                    <p><strong>Average Price:</strong> £707,100</p>
+                    <p><strong>Median Price:</strong> £665,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W9-3DY" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W9 3 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W9 3</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W9-3DY', 'W9-3DY')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W9-3DY', 'W9-3DY')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W9-3DY" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W9-3DY" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [298622, 279443, 348216, 351932, 337476, 352131, 384519, 361672, 452033, 524935, 620887, 650339, 649229, 602534, 538480, 601769, 601929, 600030, 584777, 605398, 615246],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [250000, 249999, 305000, 325500, 300500, 320000, 355000, 330000, 410000, 490000, 543625, 544000, 545000, 530000, 485425, 500000, 547500, 540000, 525000, 545000, 550000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W9 3 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W9-3DY', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W9-3DY" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £268,967</div>
+                        <div class="cell-sell">Sell: £352,203</div>
+                        <div class="cell-return">+12.3%/yr</div>
+                        <div class="cell-count">(53 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £267,216</div>
+                        <div class="cell-sell">Sell: £443,011</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(34 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £416,600</div>
+                        <div class="cell-sell">Sell: £703,014</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(10 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £266,954</div>
+                        <div class="cell-sell">Sell: £525,181</div>
+                        <div class="cell-return">+4.0%/yr</div>
+                        <div class="cell-count">(11 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £301,667</div>
+                        <div class="cell-sell">Sell: £375,026</div>
+                        <div class="cell-return">+10.6%/yr</div>
+                        <div class="cell-count">(95 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £322,538</div>
+                        <div class="cell-sell">Sell: £474,976</div>
+                        <div class="cell-return">+8.3%/yr</div>
+                        <div class="cell-count">(216 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £347,846</div>
+                        <div class="cell-sell">Sell: £605,499</div>
+                        <div class="cell-return">+6.1%/yr</div>
+                        <div class="cell-count">(95 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £330,848</div>
+                        <div class="cell-sell">Sell: £578,847</div>
+                        <div class="cell-return">+4.2%/yr</div>
+                        <div class="cell-count">(59 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £390,363</div>
+                        <div class="cell-sell">Sell: £547,154</div>
+                        <div class="cell-return">+21.4%/yr</div>
+                        <div class="cell-count">(119 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £505,711</div>
+                        <div class="cell-sell">Sell: £640,333</div>
+                        <div class="cell-return">+8.3%/yr</div>
+                        <div class="cell-count">(159 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £475,851</div>
+                        <div class="cell-sell">Sell: £584,206</div>
+                        <div class="cell-return">+2.5%/yr</div>
+                        <div class="cell-count">(136 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £508,688</div>
+                        <div class="cell-sell">Sell: £579,014</div>
+                        <div class="cell-return">+14.5%/yr</div>
+                        <div class="cell-count">(49 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £586,564</div>
+                        <div class="cell-sell">Sell: £650,775</div>
+                        <div class="cell-return">+3.0%/yr</div>
+                        <div class="cell-count">(153 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £820,666</div>
+                        <div class="cell-sell">Sell: £660,867</div>
+                        <div class="cell-return">+5.7%/yr</div>
+                        <div class="cell-count">(45 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W9-3DY" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W9 Analysis</h4>
+                <p class="area-info">Viewing data for entire W9 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W9-3DY', 'W9-3DY')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W9-3DY', 'W9-3DY')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W9-3DY" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W9-3DY" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [403624, 410084, 502031, 542342, 509576, 576762, 589622, 614397, 705978, 771780, 801927, 810651, 878155, 846353, 767023, 883314, 833566, 911149, 877071, 829490, 787919],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [315000, 330000, 405000, 420000, 390000, 441000, 470571, 483000, 540000, 586000, 635750, 645000, 680000, 645500, 603000, 633750, 650000, 694825, 727500, 650000, 670000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W9 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W9-3DY', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W9-3DY" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £367,147</div>
+                        <div class="cell-sell">Sell: £491,926</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(17 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £399,568</div>
+                        <div class="cell-sell">Sell: £581,118</div>
+                        <div class="cell-return">+14.7%/yr</div>
+                        <div class="cell-count">(178 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £362,568</div>
+                        <div class="cell-sell">Sell: £704,548</div>
+                        <div class="cell-return">+9.3%/yr</div>
+                        <div class="cell-count">(130 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £414,683</div>
+                        <div class="cell-sell">Sell: £890,023</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(42 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £408,641</div>
+                        <div class="cell-sell">Sell: £924,027</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(36 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £437,771</div>
+                        <div class="cell-sell">Sell: £560,484</div>
+                        <div class="cell-return">+14.4%/yr</div>
+                        <div class="cell-count">(386 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £465,731</div>
+                        <div class="cell-sell">Sell: £706,243</div>
+                        <div class="cell-return">+9.2%/yr</div>
+                        <div class="cell-count">(768 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £455,620</div>
+                        <div class="cell-sell">Sell: £784,797</div>
+                        <div class="cell-return">+6.4%/yr</div>
+                        <div class="cell-count">(300 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £534,729</div>
+                        <div class="cell-sell">Sell: £876,256</div>
+                        <div class="cell-return">+3.6%/yr</div>
+                        <div class="cell-count">(281 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £537,913</div>
+                        <div class="cell-sell">Sell: £738,717</div>
+                        <div class="cell-return">+17.9%/yr</div>
+                        <div class="cell-count">(320 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £691,264</div>
+                        <div class="cell-sell">Sell: £867,537</div>
+                        <div class="cell-return">+6.9%/yr</div>
+                        <div class="cell-count">(462 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £686,757</div>
+                        <div class="cell-sell">Sell: £799,312</div>
+                        <div class="cell-return">+1.8%/yr</div>
+                        <div class="cell-count">(450 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £732,271</div>
+                        <div class="cell-sell">Sell: £780,342</div>
+                        <div class="cell-return">+10.9%/yr</div>
+                        <div class="cell-count">(99 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £720,092</div>
+                        <div class="cell-sell">Sell: £817,153</div>
+                        <div class="cell-return">+4.3%/yr</div>
+                        <div class="cell-count">(362 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £830,485</div>
+                        <div class="cell-sell">Sell: £874,471</div>
+                        <div class="cell-return">+11.0%/yr</div>
+                        <div class="cell-count">(106 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W9 3'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W9'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

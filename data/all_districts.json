@@ -1,0 +1,3538 @@
+{
+  "W12": {
+    "district": "W12",
+    "transaction_count": 10887,
+    "property_count": 7553,
+    "avg_price": 641228,
+    "median_price": 499950,
+    "yearly_stats": [
+      {
+        "year": 2005,
+        "count": 547,
+        "avg_price": 308209,
+        "median_price": 250000
+      },
+      {
+        "year": 2006,
+        "count": 689,
+        "avg_price": 340844,
+        "median_price": 285000
+      },
+      {
+        "year": 2007,
+        "count": 674,
+        "avg_price": 420407,
+        "median_price": 330000
+      },
+      {
+        "year": 2008,
+        "count": 296,
+        "avg_price": 415247,
+        "median_price": 333500
+      },
+      {
+        "year": 2009,
+        "count": 351,
+        "avg_price": 418090,
+        "median_price": 330000
+      },
+      {
+        "year": 2010,
+        "count": 397,
+        "avg_price": 459765,
+        "median_price": 365000
+      },
+      {
+        "year": 2011,
+        "count": 452,
+        "avg_price": 462692,
+        "median_price": 360000
+      },
+      {
+        "year": 2012,
+        "count": 455,
+        "avg_price": 504650,
+        "median_price": 397000
+      },
+      {
+        "year": 2013,
+        "count": 605,
+        "avg_price": 541517,
+        "median_price": 420000
+      },
+      {
+        "year": 2014,
+        "count": 599,
+        "avg_price": 586133,
+        "median_price": 475000
+      },
+      {
+        "year": 2015,
+        "count": 525,
+        "avg_price": 705340,
+        "median_price": 560000
+      },
+      {
+        "year": 2016,
+        "count": 473,
+        "avg_price": 714489,
+        "median_price": 590000
+      },
+      {
+        "year": 2017,
+        "count": 437,
+        "avg_price": 773708,
+        "median_price": 620000
+      },
+      {
+        "year": 2018,
+        "count": 695,
+        "avg_price": 869422,
+        "median_price": 748500
+      },
+      {
+        "year": 2019,
+        "count": 458,
+        "avg_price": 834283,
+        "median_price": 687500
+      },
+      {
+        "year": 2020,
+        "count": 506,
+        "avg_price": 881958,
+        "median_price": 774600
+      },
+      {
+        "year": 2021,
+        "count": 735,
+        "avg_price": 817769,
+        "median_price": 735000
+      },
+      {
+        "year": 2022,
+        "count": 536,
+        "avg_price": 820310,
+        "median_price": 660000
+      },
+      {
+        "year": 2023,
+        "count": 569,
+        "avg_price": 873734,
+        "median_price": 790000
+      },
+      {
+        "year": 2024,
+        "count": 546,
+        "avg_price": 847040,
+        "median_price": 654975
+      },
+      {
+        "year": 2025,
+        "count": 342,
+        "avg_price": 717062,
+        "median_price": 579000
+      }
+    ],
+    "cohort_analysis": [
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2005-",
+        "transaction_count": 5,
+        "avg_buy_price": 228500,
+        "avg_sell_price": 283880,
+        "avg_holding_period": 0.32,
+        "weighted_annual_return": 29.71
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 115,
+        "avg_buy_price": 285517,
+        "avg_sell_price": 393334,
+        "avg_holding_period": 3.26,
+        "weighted_annual_return": 11.66
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 131,
+        "avg_buy_price": 303879,
+        "avg_sell_price": 539265,
+        "avg_holding_period": 7.67,
+        "weighted_annual_return": 8.02
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 48,
+        "avg_buy_price": 289824,
+        "avg_sell_price": 648760,
+        "avg_holding_period": 12.92,
+        "weighted_annual_return": 6.71
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 33,
+        "avg_buy_price": 363246,
+        "avg_sell_price": 847589,
+        "avg_holding_period": 17.59,
+        "weighted_annual_return": 5.04
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 203,
+        "avg_buy_price": 312606,
+        "avg_sell_price": 399676,
+        "avg_holding_period": 2.16,
+        "weighted_annual_return": 10.72
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 601,
+        "avg_buy_price": 370206,
+        "avg_sell_price": 554911,
+        "avg_holding_period": 5.48,
+        "weighted_annual_return": 8.65
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 259,
+        "avg_buy_price": 401588,
+        "avg_sell_price": 751789,
+        "avg_holding_period": 9.7,
+        "weighted_annual_return": 7.3
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 212,
+        "avg_buy_price": 457731,
+        "avg_sell_price": 845379,
+        "avg_holding_period": 14.64,
+        "weighted_annual_return": 4.51
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 222,
+        "avg_buy_price": 415616,
+        "avg_sell_price": 613080,
+        "avg_holding_period": 1.87,
+        "weighted_annual_return": 21.07
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 445,
+        "avg_buy_price": 533115,
+        "avg_sell_price": 705024,
+        "avg_holding_period": 4.81,
+        "weighted_annual_return": 7.59
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 404,
+        "avg_buy_price": 585573,
+        "avg_sell_price": 773149,
+        "avg_holding_period": 9.28,
+        "weighted_annual_return": 3.43
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 102,
+        "avg_buy_price": 783222,
+        "avg_sell_price": 887341,
+        "avg_holding_period": 1.91,
+        "weighted_annual_return": 6.7
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 438,
+        "avg_buy_price": 745098,
+        "avg_sell_price": 780005,
+        "avg_holding_period": 5.23,
+        "weighted_annual_return": 1.36
+      },
+      {
+        "buy_cohort": "2021-2025",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 124,
+        "avg_buy_price": 607783,
+        "avg_sell_price": 691379,
+        "avg_holding_period": 2.11,
+        "weighted_annual_return": 8.59
+      }
+    ]
+  },
+  "NW2": {
+    "district": "NW2",
+    "transaction_count": 14097,
+    "property_count": 10101,
+    "avg_price": 520378,
+    "median_price": 400000,
+    "yearly_stats": [
+      {
+        "year": 2005,
+        "count": 811,
+        "avg_price": 296263,
+        "median_price": 245500
+      },
+      {
+        "year": 2006,
+        "count": 1034,
+        "avg_price": 326672,
+        "median_price": 264250
+      },
+      {
+        "year": 2007,
+        "count": 1089,
+        "avg_price": 346715,
+        "median_price": 289950
+      },
+      {
+        "year": 2008,
+        "count": 447,
+        "avg_price": 356844,
+        "median_price": 300000
+      },
+      {
+        "year": 2009,
+        "count": 386,
+        "avg_price": 369809,
+        "median_price": 286000
+      },
+      {
+        "year": 2010,
+        "count": 620,
+        "avg_price": 424055,
+        "median_price": 330000
+      },
+      {
+        "year": 2011,
+        "count": 578,
+        "avg_price": 392797,
+        "median_price": 318500
+      },
+      {
+        "year": 2012,
+        "count": 540,
+        "avg_price": 460708,
+        "median_price": 334500
+      },
+      {
+        "year": 2013,
+        "count": 696,
+        "avg_price": 491484,
+        "median_price": 370000
+      },
+      {
+        "year": 2014,
+        "count": 839,
+        "avg_price": 554762,
+        "median_price": 425000
+      },
+      {
+        "year": 2015,
+        "count": 847,
+        "avg_price": 594779,
+        "median_price": 475000
+      },
+      {
+        "year": 2016,
+        "count": 795,
+        "avg_price": 617966,
+        "median_price": 497000
+      },
+      {
+        "year": 2017,
+        "count": 634,
+        "avg_price": 586167,
+        "median_price": 480000
+      },
+      {
+        "year": 2018,
+        "count": 702,
+        "avg_price": 597913,
+        "median_price": 460300
+      },
+      {
+        "year": 2019,
+        "count": 602,
+        "avg_price": 614303,
+        "median_price": 490000
+      },
+      {
+        "year": 2020,
+        "count": 453,
+        "avg_price": 642739,
+        "median_price": 542000
+      },
+      {
+        "year": 2021,
+        "count": 721,
+        "avg_price": 686098,
+        "median_price": 535000
+      },
+      {
+        "year": 2022,
+        "count": 670,
+        "avg_price": 733896,
+        "median_price": 551000
+      },
+      {
+        "year": 2023,
+        "count": 531,
+        "avg_price": 675200,
+        "median_price": 525000
+      },
+      {
+        "year": 2024,
+        "count": 686,
+        "avg_price": 655555,
+        "median_price": 540000
+      },
+      {
+        "year": 2025,
+        "count": 416,
+        "avg_price": 696191,
+        "median_price": 540000
+      }
+    ],
+    "cohort_analysis": [
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2005-",
+        "transaction_count": 11,
+        "avg_buy_price": 186227,
+        "avg_sell_price": 205768,
+        "avg_holding_period": 0.28,
+        "weighted_annual_return": -24.44
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 163,
+        "avg_buy_price": 262489,
+        "avg_sell_price": 349127,
+        "avg_holding_period": 2.75,
+        "weighted_annual_return": 12.28
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 125,
+        "avg_buy_price": 300925,
+        "avg_sell_price": 493547,
+        "avg_holding_period": 7.95,
+        "weighted_annual_return": 6.77
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 52,
+        "avg_buy_price": 305814,
+        "avg_sell_price": 609384,
+        "avg_holding_period": 12.48,
+        "weighted_annual_return": 5.95
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 49,
+        "avg_buy_price": 288818,
+        "avg_sell_price": 620806,
+        "avg_holding_period": 17.84,
+        "weighted_annual_return": 4.76
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 247,
+        "avg_buy_price": 313390,
+        "avg_sell_price": 400794,
+        "avg_holding_period": 1.9,
+        "weighted_annual_return": 12.22
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 748,
+        "avg_buy_price": 346976,
+        "avg_sell_price": 478593,
+        "avg_holding_period": 5.55,
+        "weighted_annual_return": 7.31
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 353,
+        "avg_buy_price": 358495,
+        "avg_sell_price": 631974,
+        "avg_holding_period": 9.96,
+        "weighted_annual_return": 6.53
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 256,
+        "avg_buy_price": 386121,
+        "avg_sell_price": 664545,
+        "avg_holding_period": 14.79,
+        "weighted_annual_return": 4.07
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 257,
+        "avg_buy_price": 396168,
+        "avg_sell_price": 559254,
+        "avg_holding_period": 1.65,
+        "weighted_annual_return": 19.09
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 498,
+        "avg_buy_price": 465821,
+        "avg_sell_price": 634007,
+        "avg_holding_period": 4.56,
+        "weighted_annual_return": 8.72
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 469,
+        "avg_buy_price": 513151,
+        "avg_sell_price": 678059,
+        "avg_holding_period": 8.97,
+        "weighted_annual_return": 3.5
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 193,
+        "avg_buy_price": 551378,
+        "avg_sell_price": 603945,
+        "avg_holding_period": 1.56,
+        "weighted_annual_return": 7.62
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 440,
+        "avg_buy_price": 667707,
+        "avg_sell_price": 695137,
+        "avg_holding_period": 5.28,
+        "weighted_annual_return": 2.85
+      },
+      {
+        "buy_cohort": "2021-2025",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 154,
+        "avg_buy_price": 782735,
+        "avg_sell_price": 897208,
+        "avg_holding_period": 1.38,
+        "weighted_annual_return": 9.57
+      }
+    ]
+  },
+  "NW10": {
+    "district": "NW10",
+    "transaction_count": 17952,
+    "property_count": 13150,
+    "avg_price": 493029,
+    "median_price": 385000,
+    "yearly_stats": [
+      {
+        "year": 2005,
+        "count": 993,
+        "avg_price": 250147,
+        "median_price": 220500
+      },
+      {
+        "year": 2006,
+        "count": 1224,
+        "avg_price": 270632,
+        "median_price": 240250
+      },
+      {
+        "year": 2007,
+        "count": 1347,
+        "avg_price": 317556,
+        "median_price": 271205
+      },
+      {
+        "year": 2008,
+        "count": 634,
+        "avg_price": 326912,
+        "median_price": 250000
+      },
+      {
+        "year": 2009,
+        "count": 439,
+        "avg_price": 307194,
+        "median_price": 250000
+      },
+      {
+        "year": 2010,
+        "count": 683,
+        "avg_price": 336468,
+        "median_price": 285000
+      },
+      {
+        "year": 2011,
+        "count": 651,
+        "avg_price": 353878,
+        "median_price": 300000
+      },
+      {
+        "year": 2012,
+        "count": 634,
+        "avg_price": 407964,
+        "median_price": 339950
+      },
+      {
+        "year": 2013,
+        "count": 785,
+        "avg_price": 448230,
+        "median_price": 364000
+      },
+      {
+        "year": 2014,
+        "count": 982,
+        "avg_price": 506248,
+        "median_price": 401000
+      },
+      {
+        "year": 2015,
+        "count": 1090,
+        "avg_price": 547963,
+        "median_price": 439000
+      },
+      {
+        "year": 2016,
+        "count": 1091,
+        "avg_price": 534176,
+        "median_price": 445000
+      },
+      {
+        "year": 2017,
+        "count": 827,
+        "avg_price": 651602,
+        "median_price": 525000
+      },
+      {
+        "year": 2018,
+        "count": 792,
+        "avg_price": 576842,
+        "median_price": 470625
+      },
+      {
+        "year": 2019,
+        "count": 739,
+        "avg_price": 580065,
+        "median_price": 453000
+      },
+      {
+        "year": 2020,
+        "count": 774,
+        "avg_price": 613106,
+        "median_price": 495000
+      },
+      {
+        "year": 2021,
+        "count": 1242,
+        "avg_price": 638558,
+        "median_price": 500000
+      },
+      {
+        "year": 2022,
+        "count": 1083,
+        "avg_price": 688018,
+        "median_price": 550000
+      },
+      {
+        "year": 2023,
+        "count": 627,
+        "avg_price": 677699,
+        "median_price": 540000
+      },
+      {
+        "year": 2024,
+        "count": 792,
+        "avg_price": 695119,
+        "median_price": 515000
+      },
+      {
+        "year": 2025,
+        "count": 523,
+        "avg_price": 651693,
+        "median_price": 550000
+      }
+    ],
+    "cohort_analysis": [
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2005-",
+        "transaction_count": 20,
+        "avg_buy_price": 260915,
+        "avg_sell_price": 274322,
+        "avg_holding_period": 0.3,
+        "weighted_annual_return": 13.89
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 177,
+        "avg_buy_price": 235128,
+        "avg_sell_price": 315007,
+        "avg_holding_period": 2.8,
+        "weighted_annual_return": 12.23
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 134,
+        "avg_buy_price": 267299,
+        "avg_sell_price": 498476,
+        "avg_holding_period": 8.16,
+        "weighted_annual_return": 8.28
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 71,
+        "avg_buy_price": 256209,
+        "avg_sell_price": 624655,
+        "avg_holding_period": 12.65,
+        "weighted_annual_return": 8.05
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 52,
+        "avg_buy_price": 264518,
+        "avg_sell_price": 670817,
+        "avg_holding_period": 17.85,
+        "weighted_annual_return": 6.18
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 310,
+        "avg_buy_price": 287454,
+        "avg_sell_price": 354013,
+        "avg_holding_period": 1.86,
+        "weighted_annual_return": 12.41
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 738,
+        "avg_buy_price": 318474,
+        "avg_sell_price": 480078,
+        "avg_holding_period": 5.59,
+        "weighted_annual_return": 8.59
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 437,
+        "avg_buy_price": 318815,
+        "avg_sell_price": 602408,
+        "avg_holding_period": 9.72,
+        "weighted_annual_return": 7.72
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 380,
+        "avg_buy_price": 328865,
+        "avg_sell_price": 652713,
+        "avg_holding_period": 15.04,
+        "weighted_annual_return": 5.13
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 295,
+        "avg_buy_price": 397384,
+        "avg_sell_price": 539772,
+        "avg_holding_period": 1.88,
+        "weighted_annual_return": 20.79
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 591,
+        "avg_buy_price": 472777,
+        "avg_sell_price": 666142,
+        "avg_holding_period": 4.6,
+        "weighted_annual_return": 9.76
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 503,
+        "avg_buy_price": 550302,
+        "avg_sell_price": 774997,
+        "avg_holding_period": 9.04,
+        "weighted_annual_return": 4.35
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 261,
+        "avg_buy_price": 524389,
+        "avg_sell_price": 636454,
+        "avg_holding_period": 1.78,
+        "weighted_annual_return": 9.94
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 631,
+        "avg_buy_price": 655611,
+        "avg_sell_price": 762456,
+        "avg_holding_period": 5.18,
+        "weighted_annual_return": 4.72
+      },
+      {
+        "buy_cohort": "2021-2025",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 225,
+        "avg_buy_price": 650528,
+        "avg_sell_price": 773754,
+        "avg_holding_period": 1.46,
+        "weighted_annual_return": 11.19
+      }
+    ]
+  },
+  "W9": {
+    "district": "W9",
+    "transaction_count": 11410,
+    "property_count": 7487,
+    "avg_price": 676184,
+    "median_price": 525000,
+    "yearly_stats": [
+      {
+        "year": 2005,
+        "count": 719,
+        "avg_price": 403624,
+        "median_price": 315000
+      },
+      {
+        "year": 2006,
+        "count": 945,
+        "avg_price": 410084,
+        "median_price": 330000
+      },
+      {
+        "year": 2007,
+        "count": 937,
+        "avg_price": 502031,
+        "median_price": 405000
+      },
+      {
+        "year": 2008,
+        "count": 431,
+        "avg_price": 542342,
+        "median_price": 420000
+      },
+      {
+        "year": 2009,
+        "count": 451,
+        "avg_price": 509576,
+        "median_price": 390000
+      },
+      {
+        "year": 2010,
+        "count": 576,
+        "avg_price": 576762,
+        "median_price": 441000
+      },
+      {
+        "year": 2011,
+        "count": 570,
+        "avg_price": 589622,
+        "median_price": 470571
+      },
+      {
+        "year": 2012,
+        "count": 567,
+        "avg_price": 614397,
+        "median_price": 483000
+      },
+      {
+        "year": 2013,
+        "count": 652,
+        "avg_price": 705978,
+        "median_price": 540000
+      },
+      {
+        "year": 2014,
+        "count": 560,
+        "avg_price": 771780,
+        "median_price": 586000
+      },
+      {
+        "year": 2015,
+        "count": 624,
+        "avg_price": 801927,
+        "median_price": 635750
+      },
+      {
+        "year": 2016,
+        "count": 467,
+        "avg_price": 810651,
+        "median_price": 645000
+      },
+      {
+        "year": 2017,
+        "count": 459,
+        "avg_price": 878155,
+        "median_price": 680000
+      },
+      {
+        "year": 2018,
+        "count": 402,
+        "avg_price": 846353,
+        "median_price": 645500
+      },
+      {
+        "year": 2019,
+        "count": 390,
+        "avg_price": 767023,
+        "median_price": 603000
+      },
+      {
+        "year": 2020,
+        "count": 364,
+        "avg_price": 883314,
+        "median_price": 633750
+      },
+      {
+        "year": 2021,
+        "count": 549,
+        "avg_price": 833566,
+        "median_price": 650000
+      },
+      {
+        "year": 2022,
+        "count": 498,
+        "avg_price": 911149,
+        "median_price": 694825
+      },
+      {
+        "year": 2023,
+        "count": 394,
+        "avg_price": 877071,
+        "median_price": 727500
+      },
+      {
+        "year": 2024,
+        "count": 501,
+        "avg_price": 829490,
+        "median_price": 650000
+      },
+      {
+        "year": 2025,
+        "count": 354,
+        "avg_price": 787919,
+        "median_price": 670000
+      }
+    ],
+    "cohort_analysis": [
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2005-",
+        "transaction_count": 17,
+        "avg_buy_price": 367147,
+        "avg_sell_price": 491926,
+        "avg_holding_period": 0.33,
+        "weighted_annual_return": 4.78
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 178,
+        "avg_buy_price": 399568,
+        "avg_sell_price": 581118,
+        "avg_holding_period": 3.02,
+        "weighted_annual_return": 14.73
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 130,
+        "avg_buy_price": 362568,
+        "avg_sell_price": 704548,
+        "avg_holding_period": 7.69,
+        "weighted_annual_return": 9.32
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 42,
+        "avg_buy_price": 414683,
+        "avg_sell_price": 890023,
+        "avg_holding_period": 12.57,
+        "weighted_annual_return": 6.71
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 36,
+        "avg_buy_price": 408641,
+        "avg_sell_price": 924027,
+        "avg_holding_period": 17.86,
+        "weighted_annual_return": 4.76
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 386,
+        "avg_buy_price": 437771,
+        "avg_sell_price": 560484,
+        "avg_holding_period": 1.96,
+        "weighted_annual_return": 14.36
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 768,
+        "avg_buy_price": 465731,
+        "avg_sell_price": 706243,
+        "avg_holding_period": 5.27,
+        "weighted_annual_return": 9.17
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 300,
+        "avg_buy_price": 455620,
+        "avg_sell_price": 784797,
+        "avg_holding_period": 9.84,
+        "weighted_annual_return": 6.42
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 281,
+        "avg_buy_price": 534729,
+        "avg_sell_price": 876256,
+        "avg_holding_period": 14.98,
+        "weighted_annual_return": 3.61
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 320,
+        "avg_buy_price": 537913,
+        "avg_sell_price": 738717,
+        "avg_holding_period": 1.89,
+        "weighted_annual_return": 17.94
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 462,
+        "avg_buy_price": 691264,
+        "avg_sell_price": 867537,
+        "avg_holding_period": 4.87,
+        "weighted_annual_return": 6.94
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 450,
+        "avg_buy_price": 686757,
+        "avg_sell_price": 799312,
+        "avg_holding_period": 9.49,
+        "weighted_annual_return": 1.83
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 99,
+        "avg_buy_price": 732271,
+        "avg_sell_price": 780342,
+        "avg_holding_period": 1.52,
+        "weighted_annual_return": 10.94
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 362,
+        "avg_buy_price": 720092,
+        "avg_sell_price": 817153,
+        "avg_holding_period": 5.18,
+        "weighted_annual_return": 4.29
+      },
+      {
+        "buy_cohort": "2021-2025",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 106,
+        "avg_buy_price": 830485,
+        "avg_sell_price": 874471,
+        "avg_holding_period": 1.99,
+        "weighted_annual_return": 10.98
+      }
+    ]
+  },
+  "W6": {
+    "district": "W6",
+    "transaction_count": 11234,
+    "property_count": 7894,
+    "avg_price": 747234,
+    "median_price": 566200,
+    "yearly_stats": [
+      {
+        "year": 2005,
+        "count": 627,
+        "avg_price": 394991,
+        "median_price": 333250
+      },
+      {
+        "year": 2006,
+        "count": 760,
+        "avg_price": 424257,
+        "median_price": 341000
+      },
+      {
+        "year": 2007,
+        "count": 730,
+        "avg_price": 482804,
+        "median_price": 380000
+      },
+      {
+        "year": 2008,
+        "count": 327,
+        "avg_price": 507096,
+        "median_price": 410000
+      },
+      {
+        "year": 2009,
+        "count": 303,
+        "avg_price": 498061,
+        "median_price": 415000
+      },
+      {
+        "year": 2010,
+        "count": 460,
+        "avg_price": 595317,
+        "median_price": 464500
+      },
+      {
+        "year": 2011,
+        "count": 520,
+        "avg_price": 551872,
+        "median_price": 426800
+      },
+      {
+        "year": 2012,
+        "count": 431,
+        "avg_price": 659380,
+        "median_price": 480000
+      },
+      {
+        "year": 2013,
+        "count": 516,
+        "avg_price": 687325,
+        "median_price": 529975
+      },
+      {
+        "year": 2014,
+        "count": 673,
+        "avg_price": 854158,
+        "median_price": 700000
+      },
+      {
+        "year": 2015,
+        "count": 548,
+        "avg_price": 891759,
+        "median_price": 715000
+      },
+      {
+        "year": 2016,
+        "count": 527,
+        "avg_price": 847660,
+        "median_price": 632000
+      },
+      {
+        "year": 2017,
+        "count": 686,
+        "avg_price": 999097,
+        "median_price": 809975
+      },
+      {
+        "year": 2018,
+        "count": 603,
+        "avg_price": 935647,
+        "median_price": 819950
+      },
+      {
+        "year": 2019,
+        "count": 425,
+        "avg_price": 942374,
+        "median_price": 695000
+      },
+      {
+        "year": 2020,
+        "count": 504,
+        "avg_price": 954287,
+        "median_price": 807500
+      },
+      {
+        "year": 2021,
+        "count": 657,
+        "avg_price": 872237,
+        "median_price": 725000
+      },
+      {
+        "year": 2022,
+        "count": 595,
+        "avg_price": 858786,
+        "median_price": 687169
+      },
+      {
+        "year": 2023,
+        "count": 541,
+        "avg_price": 905639,
+        "median_price": 785000
+      },
+      {
+        "year": 2024,
+        "count": 476,
+        "avg_price": 932128,
+        "median_price": 705000
+      },
+      {
+        "year": 2025,
+        "count": 325,
+        "avg_price": 912339,
+        "median_price": 661000
+      }
+    ],
+    "cohort_analysis": [
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2005-",
+        "transaction_count": 15,
+        "avg_buy_price": 343433,
+        "avg_sell_price": 321198,
+        "avg_holding_period": 0.37,
+        "weighted_annual_return": 34.86
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 148,
+        "avg_buy_price": 354647,
+        "avg_sell_price": 506536,
+        "avg_holding_period": 3.01,
+        "weighted_annual_return": 12.92
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 119,
+        "avg_buy_price": 404687,
+        "avg_sell_price": 836146,
+        "avg_holding_period": 7.8,
+        "weighted_annual_return": 10.3
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 59,
+        "avg_buy_price": 439511,
+        "avg_sell_price": 1031792,
+        "avg_holding_period": 12.96,
+        "weighted_annual_return": 7.05
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 46,
+        "avg_buy_price": 436273,
+        "avg_sell_price": 980135,
+        "avg_holding_period": 17.53,
+        "weighted_annual_return": 4.91
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 218,
+        "avg_buy_price": 374635,
+        "avg_sell_price": 463248,
+        "avg_holding_period": 2.2,
+        "weighted_annual_return": 11.3
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 578,
+        "avg_buy_price": 473024,
+        "avg_sell_price": 731864,
+        "avg_holding_period": 5.36,
+        "weighted_annual_return": 9.58
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 278,
+        "avg_buy_price": 547112,
+        "avg_sell_price": 956716,
+        "avg_holding_period": 9.79,
+        "weighted_annual_return": 6.44
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 237,
+        "avg_buy_price": 520029,
+        "avg_sell_price": 963506,
+        "avg_holding_period": 14.8,
+        "weighted_annual_return": 4.51
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 209,
+        "avg_buy_price": 507170,
+        "avg_sell_price": 723683,
+        "avg_holding_period": 1.91,
+        "weighted_annual_return": 18.66
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 375,
+        "avg_buy_price": 617093,
+        "avg_sell_price": 806935,
+        "avg_holding_period": 5.02,
+        "weighted_annual_return": 6.81
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 412,
+        "avg_buy_price": 783225,
+        "avg_sell_price": 997410,
+        "avg_holding_period": 9.41,
+        "weighted_annual_return": 2.87
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 124,
+        "avg_buy_price": 1001846,
+        "avg_sell_price": 957778,
+        "avg_holding_period": 1.93,
+        "weighted_annual_return": 5.97
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 423,
+        "avg_buy_price": 777012,
+        "avg_sell_price": 839487,
+        "avg_holding_period": 5.23,
+        "weighted_annual_return": 2.82
+      },
+      {
+        "buy_cohort": "2021-2025",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 112,
+        "avg_buy_price": 638804,
+        "avg_sell_price": 735829,
+        "avg_holding_period": 2.04,
+        "weighted_annual_return": 7.1
+      }
+    ]
+  },
+  "SW6": {
+    "district": "SW6",
+    "transaction_count": 25489,
+    "property_count": 16481,
+    "avg_price": 902416,
+    "median_price": 695000,
+    "yearly_stats": [
+      {
+        "year": 2005,
+        "count": 1496,
+        "avg_price": 492447,
+        "median_price": 395000
+      },
+      {
+        "year": 2006,
+        "count": 1891,
+        "avg_price": 534187,
+        "median_price": 426000
+      },
+      {
+        "year": 2007,
+        "count": 1754,
+        "avg_price": 617479,
+        "median_price": 485000
+      },
+      {
+        "year": 2008,
+        "count": 731,
+        "avg_price": 682883,
+        "median_price": 525000
+      },
+      {
+        "year": 2009,
+        "count": 917,
+        "avg_price": 676682,
+        "median_price": 525000
+      },
+      {
+        "year": 2010,
+        "count": 1159,
+        "avg_price": 725666,
+        "median_price": 550000
+      },
+      {
+        "year": 2011,
+        "count": 1262,
+        "avg_price": 770297,
+        "median_price": 560000
+      },
+      {
+        "year": 2012,
+        "count": 1247,
+        "avg_price": 792775,
+        "median_price": 599500
+      },
+      {
+        "year": 2013,
+        "count": 1401,
+        "avg_price": 935087,
+        "median_price": 694000
+      },
+      {
+        "year": 2014,
+        "count": 1275,
+        "avg_price": 1071397,
+        "median_price": 805000
+      },
+      {
+        "year": 2015,
+        "count": 1231,
+        "avg_price": 1107658,
+        "median_price": 880000
+      },
+      {
+        "year": 2016,
+        "count": 1204,
+        "avg_price": 1080611,
+        "median_price": 863200
+      },
+      {
+        "year": 2017,
+        "count": 1087,
+        "avg_price": 1088332,
+        "median_price": 845000
+      },
+      {
+        "year": 2018,
+        "count": 925,
+        "avg_price": 1024688,
+        "median_price": 780000
+      },
+      {
+        "year": 2019,
+        "count": 968,
+        "avg_price": 1009986,
+        "median_price": 772500
+      },
+      {
+        "year": 2020,
+        "count": 1038,
+        "avg_price": 1103160,
+        "median_price": 840000
+      },
+      {
+        "year": 2021,
+        "count": 1345,
+        "avg_price": 1107305,
+        "median_price": 840000
+      },
+      {
+        "year": 2022,
+        "count": 1295,
+        "avg_price": 1133932,
+        "median_price": 830000
+      },
+      {
+        "year": 2023,
+        "count": 1311,
+        "avg_price": 1123992,
+        "median_price": 915000
+      },
+      {
+        "year": 2024,
+        "count": 1232,
+        "avg_price": 1187120,
+        "median_price": 900000
+      },
+      {
+        "year": 2025,
+        "count": 720,
+        "avg_price": 1058589,
+        "median_price": 747500
+      }
+    ],
+    "cohort_analysis": [
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2005-",
+        "transaction_count": 15,
+        "avg_buy_price": 553160,
+        "avg_sell_price": 646763,
+        "avg_holding_period": 0.33,
+        "weighted_annual_return": 14.56
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 437,
+        "avg_buy_price": 449387,
+        "avg_sell_price": 642183,
+        "avg_holding_period": 2.99,
+        "weighted_annual_return": 14.73
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 316,
+        "avg_buy_price": 479875,
+        "avg_sell_price": 946863,
+        "avg_holding_period": 7.61,
+        "weighted_annual_return": 9.91
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 107,
+        "avg_buy_price": 538691,
+        "avg_sell_price": 1119126,
+        "avg_holding_period": 12.89,
+        "weighted_annual_return": 6.25
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 104,
+        "avg_buy_price": 544862,
+        "avg_sell_price": 1293885,
+        "avg_holding_period": 17.78,
+        "weighted_annual_return": 5.19
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 694,
+        "avg_buy_price": 554782,
+        "avg_sell_price": 722017,
+        "avg_holding_period": 2.27,
+        "weighted_annual_return": 11.47
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 1648,
+        "avg_buy_price": 606495,
+        "avg_sell_price": 950934,
+        "avg_holding_period": 5.27,
+        "weighted_annual_return": 10.51
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 714,
+        "avg_buy_price": 662286,
+        "avg_sell_price": 1130777,
+        "avg_holding_period": 9.83,
+        "weighted_annual_return": 6.3
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 644,
+        "avg_buy_price": 656918,
+        "avg_sell_price": 1188473,
+        "avg_holding_period": 14.72,
+        "weighted_annual_return": 4.5
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 560,
+        "avg_buy_price": 685474,
+        "avg_sell_price": 998436,
+        "avg_holding_period": 2.0,
+        "weighted_annual_return": 20.52
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 1056,
+        "avg_buy_price": 844762,
+        "avg_sell_price": 1042230,
+        "avg_holding_period": 5.17,
+        "weighted_annual_return": 5.8
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 1170,
+        "avg_buy_price": 995197,
+        "avg_sell_price": 1211728,
+        "avg_holding_period": 9.39,
+        "weighted_annual_return": 2.37
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 272,
+        "avg_buy_price": 928398,
+        "avg_sell_price": 1026566,
+        "avg_holding_period": 2.2,
+        "weighted_annual_return": 6.97
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 965,
+        "avg_buy_price": 940021,
+        "avg_sell_price": 1060630,
+        "avg_holding_period": 5.22,
+        "weighted_annual_return": 4.2
+      },
+      {
+        "buy_cohort": "2021-2025",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 313,
+        "avg_buy_price": 1003702,
+        "avg_sell_price": 1154975,
+        "avg_holding_period": 2.1,
+        "weighted_annual_return": 9.41
+      }
+    ]
+  },
+  "NW5": {
+    "district": "NW5",
+    "transaction_count": 6458,
+    "property_count": 4197,
+    "avg_price": 679407,
+    "median_price": 500000,
+    "yearly_stats": [
+      {
+        "year": 2005,
+        "count": 382,
+        "avg_price": 356407,
+        "median_price": 270000
+      },
+      {
+        "year": 2006,
+        "count": 445,
+        "avg_price": 370088,
+        "median_price": 314000
+      },
+      {
+        "year": 2007,
+        "count": 424,
+        "avg_price": 437160,
+        "median_price": 348000
+      },
+      {
+        "year": 2008,
+        "count": 211,
+        "avg_price": 425216,
+        "median_price": 313500
+      },
+      {
+        "year": 2009,
+        "count": 269,
+        "avg_price": 437234,
+        "median_price": 330000
+      },
+      {
+        "year": 2010,
+        "count": 299,
+        "avg_price": 496341,
+        "median_price": 372500
+      },
+      {
+        "year": 2011,
+        "count": 285,
+        "avg_price": 531209,
+        "median_price": 390000
+      },
+      {
+        "year": 2012,
+        "count": 261,
+        "avg_price": 558837,
+        "median_price": 425000
+      },
+      {
+        "year": 2013,
+        "count": 299,
+        "avg_price": 669760,
+        "median_price": 502500
+      },
+      {
+        "year": 2014,
+        "count": 355,
+        "avg_price": 735435,
+        "median_price": 595000
+      },
+      {
+        "year": 2015,
+        "count": 344,
+        "avg_price": 805972,
+        "median_price": 595000
+      },
+      {
+        "year": 2016,
+        "count": 286,
+        "avg_price": 834001,
+        "median_price": 640025
+      },
+      {
+        "year": 2017,
+        "count": 306,
+        "avg_price": 831687,
+        "median_price": 640000
+      },
+      {
+        "year": 2018,
+        "count": 255,
+        "avg_price": 863936,
+        "median_price": 690000
+      },
+      {
+        "year": 2019,
+        "count": 230,
+        "avg_price": 929601,
+        "median_price": 685000
+      },
+      {
+        "year": 2020,
+        "count": 260,
+        "avg_price": 805917,
+        "median_price": 602500
+      },
+      {
+        "year": 2021,
+        "count": 372,
+        "avg_price": 859722,
+        "median_price": 651000
+      },
+      {
+        "year": 2022,
+        "count": 356,
+        "avg_price": 899838,
+        "median_price": 650000
+      },
+      {
+        "year": 2023,
+        "count": 296,
+        "avg_price": 900256,
+        "median_price": 642500
+      },
+      {
+        "year": 2024,
+        "count": 301,
+        "avg_price": 908954,
+        "median_price": 680000
+      },
+      {
+        "year": 2025,
+        "count": 222,
+        "avg_price": 869053,
+        "median_price": 655000
+      }
+    ],
+    "cohort_analysis": [
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2005-",
+        "transaction_count": 3,
+        "avg_buy_price": 210000,
+        "avg_sell_price": 245983,
+        "avg_holding_period": 0.4,
+        "weighted_annual_return": -29.52
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 87,
+        "avg_buy_price": 296763,
+        "avg_sell_price": 409591,
+        "avg_holding_period": 3.12,
+        "weighted_annual_return": 11.55
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 73,
+        "avg_buy_price": 327498,
+        "avg_sell_price": 582932,
+        "avg_holding_period": 7.61,
+        "weighted_annual_return": 7.95
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 40,
+        "avg_buy_price": 339711,
+        "avg_sell_price": 820023,
+        "avg_holding_period": 12.54,
+        "weighted_annual_return": 7.38
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 33,
+        "avg_buy_price": 388727,
+        "avg_sell_price": 999045,
+        "avg_holding_period": 17.94,
+        "weighted_annual_return": 5.53
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 155,
+        "avg_buy_price": 353447,
+        "avg_sell_price": 422201,
+        "avg_holding_period": 2.53,
+        "weighted_annual_return": 8.3
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 381,
+        "avg_buy_price": 378827,
+        "avg_sell_price": 579629,
+        "avg_holding_period": 5.46,
+        "weighted_annual_return": 8.72
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 211,
+        "avg_buy_price": 411756,
+        "avg_sell_price": 749560,
+        "avg_holding_period": 9.62,
+        "weighted_annual_return": 6.89
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 179,
+        "avg_buy_price": 428908,
+        "avg_sell_price": 834531,
+        "avg_holding_period": 14.69,
+        "weighted_annual_return": 4.83
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 108,
+        "avg_buy_price": 446854,
+        "avg_sell_price": 622104,
+        "avg_holding_period": 2.14,
+        "weighted_annual_return": 16.75
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 273,
+        "avg_buy_price": 599279,
+        "avg_sell_price": 773188,
+        "avg_holding_period": 5.19,
+        "weighted_annual_return": 6.31
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 293,
+        "avg_buy_price": 667011,
+        "avg_sell_price": 872891,
+        "avg_holding_period": 9.22,
+        "weighted_annual_return": 3.17
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 63,
+        "avg_buy_price": 1104085,
+        "avg_sell_price": 841385,
+        "avg_holding_period": 2.48,
+        "weighted_annual_return": 3.53
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 289,
+        "avg_buy_price": 721491,
+        "avg_sell_price": 803137,
+        "avg_holding_period": 5.01,
+        "weighted_annual_return": 2.96
+      },
+      {
+        "buy_cohort": "2021-2025",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 80,
+        "avg_buy_price": 722003,
+        "avg_sell_price": 823076,
+        "avg_holding_period": 2.11,
+        "weighted_annual_return": 6.15
+      }
+    ]
+  },
+  "N7": {
+    "district": "N7",
+    "transaction_count": 11699,
+    "property_count": 7705,
+    "avg_price": 495707,
+    "median_price": 405000,
+    "yearly_stats": [
+      {
+        "year": 2005,
+        "count": 644,
+        "avg_price": 269222,
+        "median_price": 241000
+      },
+      {
+        "year": 2006,
+        "count": 1005,
+        "avg_price": 291020,
+        "median_price": 262500
+      },
+      {
+        "year": 2007,
+        "count": 817,
+        "avg_price": 338587,
+        "median_price": 297660
+      },
+      {
+        "year": 2008,
+        "count": 302,
+        "avg_price": 342857,
+        "median_price": 295000
+      },
+      {
+        "year": 2009,
+        "count": 475,
+        "avg_price": 308446,
+        "median_price": 275000
+      },
+      {
+        "year": 2010,
+        "count": 570,
+        "avg_price": 365452,
+        "median_price": 325000
+      },
+      {
+        "year": 2011,
+        "count": 491,
+        "avg_price": 406269,
+        "median_price": 340000
+      },
+      {
+        "year": 2012,
+        "count": 625,
+        "avg_price": 400216,
+        "median_price": 359949
+      },
+      {
+        "year": 2013,
+        "count": 645,
+        "avg_price": 434432,
+        "median_price": 385000
+      },
+      {
+        "year": 2014,
+        "count": 773,
+        "avg_price": 501301,
+        "median_price": 450000
+      },
+      {
+        "year": 2015,
+        "count": 636,
+        "avg_price": 579780,
+        "median_price": 500000
+      },
+      {
+        "year": 2016,
+        "count": 508,
+        "avg_price": 625172,
+        "median_price": 500000
+      },
+      {
+        "year": 2017,
+        "count": 452,
+        "avg_price": 606934,
+        "median_price": 513500
+      },
+      {
+        "year": 2018,
+        "count": 415,
+        "avg_price": 609489,
+        "median_price": 515000
+      },
+      {
+        "year": 2019,
+        "count": 552,
+        "avg_price": 627217,
+        "median_price": 545000
+      },
+      {
+        "year": 2020,
+        "count": 428,
+        "avg_price": 674695,
+        "median_price": 565000
+      },
+      {
+        "year": 2021,
+        "count": 549,
+        "avg_price": 668958,
+        "median_price": 560000
+      },
+      {
+        "year": 2022,
+        "count": 567,
+        "avg_price": 705359,
+        "median_price": 600000
+      },
+      {
+        "year": 2023,
+        "count": 456,
+        "avg_price": 690141,
+        "median_price": 553500
+      },
+      {
+        "year": 2024,
+        "count": 470,
+        "avg_price": 704025,
+        "median_price": 556500
+      },
+      {
+        "year": 2025,
+        "count": 319,
+        "avg_price": 688773,
+        "median_price": 599000
+      }
+    ],
+    "cohort_analysis": [
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2005-",
+        "transaction_count": 7,
+        "avg_buy_price": 209921,
+        "avg_sell_price": 244278,
+        "avg_holding_period": 0.43,
+        "weighted_annual_return": 4.04
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 161,
+        "avg_buy_price": 262996,
+        "avg_sell_price": 341765,
+        "avg_holding_period": 2.7,
+        "weighted_annual_return": 12.2
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 146,
+        "avg_buy_price": 275783,
+        "avg_sell_price": 442289,
+        "avg_holding_period": 7.76,
+        "weighted_annual_return": 6.98
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 34,
+        "avg_buy_price": 254739,
+        "avg_sell_price": 556570,
+        "avg_holding_period": 12.53,
+        "weighted_annual_return": 6.85
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 36,
+        "avg_buy_price": 257547,
+        "avg_sell_price": 584540,
+        "avg_holding_period": 17.68,
+        "weighted_annual_return": 4.91
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 248,
+        "avg_buy_price": 285136,
+        "avg_sell_price": 334932,
+        "avg_holding_period": 2.26,
+        "weighted_annual_return": 9.61
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 767,
+        "avg_buy_price": 315373,
+        "avg_sell_price": 459914,
+        "avg_holding_period": 5.58,
+        "weighted_annual_return": 7.69
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 369,
+        "avg_buy_price": 321398,
+        "avg_sell_price": 567430,
+        "avg_holding_period": 9.64,
+        "weighted_annual_return": 7.03
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 288,
+        "avg_buy_price": 326619,
+        "avg_sell_price": 604175,
+        "avg_holding_period": 14.85,
+        "weighted_annual_return": 4.49
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 224,
+        "avg_buy_price": 386991,
+        "avg_sell_price": 544859,
+        "avg_holding_period": 2.16,
+        "weighted_annual_return": 16.99
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 547,
+        "avg_buy_price": 488645,
+        "avg_sell_price": 602748,
+        "avg_holding_period": 4.9,
+        "weighted_annual_return": 7.14
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 510,
+        "avg_buy_price": 497867,
+        "avg_sell_price": 627510,
+        "avg_holding_period": 9.12,
+        "weighted_annual_return": 2.82
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 110,
+        "avg_buy_price": 676772,
+        "avg_sell_price": 609751,
+        "avg_holding_period": 2.02,
+        "weighted_annual_return": 6.45
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 443,
+        "avg_buy_price": 602365,
+        "avg_sell_price": 652613,
+        "avg_holding_period": 5.28,
+        "weighted_annual_return": 2.19
+      },
+      {
+        "buy_cohort": "2021-2025",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 125,
+        "avg_buy_price": 735035,
+        "avg_sell_price": 810915,
+        "avg_holding_period": 1.93,
+        "weighted_annual_return": 5.88
+      }
+    ]
+  },
+  "N19": {
+    "district": "N19",
+    "transaction_count": 8818,
+    "property_count": 5828,
+    "avg_price": 552836,
+    "median_price": 440000,
+    "yearly_stats": [
+      {
+        "year": 2005,
+        "count": 535,
+        "avg_price": 293910,
+        "median_price": 247000
+      },
+      {
+        "year": 2006,
+        "count": 683,
+        "avg_price": 322827,
+        "median_price": 263000
+      },
+      {
+        "year": 2007,
+        "count": 629,
+        "avg_price": 373470,
+        "median_price": 296000
+      },
+      {
+        "year": 2008,
+        "count": 357,
+        "avg_price": 382056,
+        "median_price": 306270
+      },
+      {
+        "year": 2009,
+        "count": 342,
+        "avg_price": 366158,
+        "median_price": 310000
+      },
+      {
+        "year": 2010,
+        "count": 405,
+        "avg_price": 419508,
+        "median_price": 335000
+      },
+      {
+        "year": 2011,
+        "count": 407,
+        "avg_price": 462110,
+        "median_price": 380000
+      },
+      {
+        "year": 2012,
+        "count": 416,
+        "avg_price": 453644,
+        "median_price": 360000
+      },
+      {
+        "year": 2013,
+        "count": 506,
+        "avg_price": 497816,
+        "median_price": 403750
+      },
+      {
+        "year": 2014,
+        "count": 475,
+        "avg_price": 604532,
+        "median_price": 480000
+      },
+      {
+        "year": 2015,
+        "count": 388,
+        "avg_price": 648329,
+        "median_price": 500000
+      },
+      {
+        "year": 2016,
+        "count": 347,
+        "avg_price": 664610,
+        "median_price": 535000
+      },
+      {
+        "year": 2017,
+        "count": 290,
+        "avg_price": 781698,
+        "median_price": 561500
+      },
+      {
+        "year": 2018,
+        "count": 450,
+        "avg_price": 720843,
+        "median_price": 590000
+      },
+      {
+        "year": 2019,
+        "count": 331,
+        "avg_price": 698347,
+        "median_price": 530000
+      },
+      {
+        "year": 2020,
+        "count": 300,
+        "avg_price": 720318,
+        "median_price": 560000
+      },
+      {
+        "year": 2021,
+        "count": 492,
+        "avg_price": 698446,
+        "median_price": 557500
+      },
+      {
+        "year": 2022,
+        "count": 428,
+        "avg_price": 717680,
+        "median_price": 580000
+      },
+      {
+        "year": 2023,
+        "count": 374,
+        "avg_price": 780715,
+        "median_price": 623462
+      },
+      {
+        "year": 2024,
+        "count": 389,
+        "avg_price": 750258,
+        "median_price": 595000
+      },
+      {
+        "year": 2025,
+        "count": 274,
+        "avg_price": 729068,
+        "median_price": 597500
+      }
+    ],
+    "cohort_analysis": [
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2005-",
+        "transaction_count": 8,
+        "avg_buy_price": 249868,
+        "avg_sell_price": 294250,
+        "avg_holding_period": 0.33,
+        "weighted_annual_return": 26.4
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 103,
+        "avg_buy_price": 269369,
+        "avg_sell_price": 372187,
+        "avg_holding_period": 2.97,
+        "weighted_annual_return": 14.59
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 107,
+        "avg_buy_price": 290230,
+        "avg_sell_price": 497467,
+        "avg_holding_period": 7.35,
+        "weighted_annual_return": 7.68
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 46,
+        "avg_buy_price": 277089,
+        "avg_sell_price": 625302,
+        "avg_holding_period": 12.89,
+        "weighted_annual_return": 6.67
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 40,
+        "avg_buy_price": 351999,
+        "avg_sell_price": 824264,
+        "avg_holding_period": 17.43,
+        "weighted_annual_return": 5.18
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 208,
+        "avg_buy_price": 327986,
+        "avg_sell_price": 381798,
+        "avg_holding_period": 2.17,
+        "weighted_annual_return": 8.19
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 600,
+        "avg_buy_price": 337653,
+        "avg_sell_price": 487274,
+        "avg_holding_period": 5.35,
+        "weighted_annual_return": 8.03
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 277,
+        "avg_buy_price": 345133,
+        "avg_sell_price": 627973,
+        "avg_holding_period": 9.89,
+        "weighted_annual_return": 7.02
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 198,
+        "avg_buy_price": 370394,
+        "avg_sell_price": 715422,
+        "avg_holding_period": 14.63,
+        "weighted_annual_return": 5.07
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 147,
+        "avg_buy_price": 428889,
+        "avg_sell_price": 617851,
+        "avg_holding_period": 2.11,
+        "weighted_annual_return": 17.11
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 383,
+        "avg_buy_price": 478393,
+        "avg_sell_price": 662986,
+        "avg_holding_period": 5.11,
+        "weighted_annual_return": 8.8
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 347,
+        "avg_buy_price": 527593,
+        "avg_sell_price": 729244,
+        "avg_holding_period": 9.34,
+        "weighted_annual_return": 3.69
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 78,
+        "avg_buy_price": 740084,
+        "avg_sell_price": 761934,
+        "avg_holding_period": 2.02,
+        "weighted_annual_return": 5.99
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 356,
+        "avg_buy_price": 672905,
+        "avg_sell_price": 730586,
+        "avg_holding_period": 5.31,
+        "weighted_annual_return": 2.46
+      },
+      {
+        "buy_cohort": "2021-2025",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 104,
+        "avg_buy_price": 641942,
+        "avg_sell_price": 679868,
+        "avg_holding_period": 1.94,
+        "weighted_annual_return": 10.22
+      }
+    ]
+  },
+  "N6": {
+    "district": "N6",
+    "transaction_count": 6457,
+    "property_count": 4170,
+    "avg_price": 868827,
+    "median_price": 585829,
+    "yearly_stats": [
+      {
+        "year": 2005,
+        "count": 422,
+        "avg_price": 480066,
+        "median_price": 310000
+      },
+      {
+        "year": 2006,
+        "count": 530,
+        "avg_price": 549859,
+        "median_price": 354000
+      },
+      {
+        "year": 2007,
+        "count": 460,
+        "avg_price": 609152,
+        "median_price": 420000
+      },
+      {
+        "year": 2008,
+        "count": 212,
+        "avg_price": 654757,
+        "median_price": 450000
+      },
+      {
+        "year": 2009,
+        "count": 285,
+        "avg_price": 656519,
+        "median_price": 455000
+      },
+      {
+        "year": 2010,
+        "count": 316,
+        "avg_price": 779992,
+        "median_price": 460000
+      },
+      {
+        "year": 2011,
+        "count": 311,
+        "avg_price": 690822,
+        "median_price": 473000
+      },
+      {
+        "year": 2012,
+        "count": 311,
+        "avg_price": 707809,
+        "median_price": 474500
+      },
+      {
+        "year": 2013,
+        "count": 352,
+        "avg_price": 847314,
+        "median_price": 547500
+      },
+      {
+        "year": 2014,
+        "count": 329,
+        "avg_price": 1000046,
+        "median_price": 687500
+      },
+      {
+        "year": 2015,
+        "count": 294,
+        "avg_price": 1067275,
+        "median_price": 749500
+      },
+      {
+        "year": 2016,
+        "count": 238,
+        "avg_price": 1042397,
+        "median_price": 700000
+      },
+      {
+        "year": 2017,
+        "count": 292,
+        "avg_price": 1016755,
+        "median_price": 739997
+      },
+      {
+        "year": 2018,
+        "count": 231,
+        "avg_price": 1117795,
+        "median_price": 838000
+      },
+      {
+        "year": 2019,
+        "count": 244,
+        "avg_price": 1053351,
+        "median_price": 730000
+      },
+      {
+        "year": 2020,
+        "count": 221,
+        "avg_price": 1112939,
+        "median_price": 830000
+      },
+      {
+        "year": 2021,
+        "count": 371,
+        "avg_price": 1118062,
+        "median_price": 785000
+      },
+      {
+        "year": 2022,
+        "count": 317,
+        "avg_price": 1176934,
+        "median_price": 770000
+      },
+      {
+        "year": 2023,
+        "count": 254,
+        "avg_price": 1164599,
+        "median_price": 823500
+      },
+      {
+        "year": 2024,
+        "count": 279,
+        "avg_price": 1055870,
+        "median_price": 755000
+      },
+      {
+        "year": 2025,
+        "count": 188,
+        "avg_price": 1079386,
+        "median_price": 747500
+      }
+    ],
+    "cohort_analysis": [
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2005-",
+        "transaction_count": 3,
+        "avg_buy_price": 153333,
+        "avg_sell_price": 184000,
+        "avg_holding_period": 0.14,
+        "weighted_annual_return": null
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 112,
+        "avg_buy_price": 396744,
+        "avg_sell_price": 543849,
+        "avg_holding_period": 3.02,
+        "weighted_annual_return": 11.35
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 82,
+        "avg_buy_price": 373612,
+        "avg_sell_price": 662878,
+        "avg_holding_period": 7.69,
+        "weighted_annual_return": 7.77
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 33,
+        "avg_buy_price": 532451,
+        "avg_sell_price": 1283037,
+        "avg_holding_period": 13.01,
+        "weighted_annual_return": 7.35
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 27,
+        "avg_buy_price": 466090,
+        "avg_sell_price": 1101522,
+        "avg_holding_period": 17.95,
+        "weighted_annual_return": 5.09
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 191,
+        "avg_buy_price": 542780,
+        "avg_sell_price": 647561,
+        "avg_holding_period": 2.28,
+        "weighted_annual_return": 11.74
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 447,
+        "avg_buy_price": 544079,
+        "avg_sell_price": 786859,
+        "avg_holding_period": 5.21,
+        "weighted_annual_return": 8.29
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 181,
+        "avg_buy_price": 607300,
+        "avg_sell_price": 1011332,
+        "avg_holding_period": 9.58,
+        "weighted_annual_return": 5.99
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 182,
+        "avg_buy_price": 539766,
+        "avg_sell_price": 1019331,
+        "avg_holding_period": 14.79,
+        "weighted_annual_return": 4.66
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 117,
+        "avg_buy_price": 588052,
+        "avg_sell_price": 785470,
+        "avg_holding_period": 2.09,
+        "weighted_annual_return": 16.5
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 276,
+        "avg_buy_price": 678064,
+        "avg_sell_price": 880395,
+        "avg_holding_period": 5.18,
+        "weighted_annual_return": 6.21
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 279,
+        "avg_buy_price": 794092,
+        "avg_sell_price": 1061161,
+        "avg_holding_period": 9.3,
+        "weighted_annual_return": 3.43
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 63,
+        "avg_buy_price": 695435,
+        "avg_sell_price": 794611,
+        "avg_holding_period": 1.96,
+        "weighted_annual_return": 7.39
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 230,
+        "avg_buy_price": 794367,
+        "avg_sell_price": 918956,
+        "avg_holding_period": 5.11,
+        "weighted_annual_return": 3.33
+      },
+      {
+        "buy_cohort": "2021-2025",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 70,
+        "avg_buy_price": 868722,
+        "avg_sell_price": 1043987,
+        "avg_holding_period": 1.94,
+        "weighted_annual_return": 5.49
+      }
+    ]
+  },
+  "N16": {
+    "district": "N16",
+    "transaction_count": 14723,
+    "property_count": 9609,
+    "avg_price": 534700,
+    "median_price": 435000,
+    "yearly_stats": [
+      {
+        "year": 2005,
+        "count": 810,
+        "avg_price": 271187,
+        "median_price": 235000
+      },
+      {
+        "year": 2006,
+        "count": 1015,
+        "avg_price": 281689,
+        "median_price": 245000
+      },
+      {
+        "year": 2007,
+        "count": 1111,
+        "avg_price": 328832,
+        "median_price": 278000
+      },
+      {
+        "year": 2008,
+        "count": 493,
+        "avg_price": 344587,
+        "median_price": 283000
+      },
+      {
+        "year": 2009,
+        "count": 463,
+        "avg_price": 332766,
+        "median_price": 290000
+      },
+      {
+        "year": 2010,
+        "count": 621,
+        "avg_price": 372114,
+        "median_price": 315000
+      },
+      {
+        "year": 2011,
+        "count": 580,
+        "avg_price": 372771,
+        "median_price": 321250
+      },
+      {
+        "year": 2012,
+        "count": 590,
+        "avg_price": 417839,
+        "median_price": 345000
+      },
+      {
+        "year": 2013,
+        "count": 752,
+        "avg_price": 443917,
+        "median_price": 376000
+      },
+      {
+        "year": 2014,
+        "count": 709,
+        "avg_price": 550094,
+        "median_price": 447500
+      },
+      {
+        "year": 2015,
+        "count": 763,
+        "avg_price": 615821,
+        "median_price": 515000
+      },
+      {
+        "year": 2016,
+        "count": 723,
+        "avg_price": 645407,
+        "median_price": 520000
+      },
+      {
+        "year": 2017,
+        "count": 699,
+        "avg_price": 700421,
+        "median_price": 545000
+      },
+      {
+        "year": 2018,
+        "count": 630,
+        "avg_price": 639881,
+        "median_price": 540000
+      },
+      {
+        "year": 2019,
+        "count": 602,
+        "avg_price": 712840,
+        "median_price": 550000
+      },
+      {
+        "year": 2020,
+        "count": 667,
+        "avg_price": 687663,
+        "median_price": 595000
+      },
+      {
+        "year": 2021,
+        "count": 906,
+        "avg_price": 710324,
+        "median_price": 550000
+      },
+      {
+        "year": 2022,
+        "count": 778,
+        "avg_price": 747906,
+        "median_price": 590125
+      },
+      {
+        "year": 2023,
+        "count": 613,
+        "avg_price": 741831,
+        "median_price": 565000
+      },
+      {
+        "year": 2024,
+        "count": 723,
+        "avg_price": 752502,
+        "median_price": 590000
+      },
+      {
+        "year": 2025,
+        "count": 475,
+        "avg_price": 670789,
+        "median_price": 560000
+      }
+    ],
+    "cohort_analysis": [
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2005-",
+        "transaction_count": 5,
+        "avg_buy_price": 227000,
+        "avg_sell_price": 253000,
+        "avg_holding_period": 0.52,
+        "weighted_annual_return": 17.39
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 167,
+        "avg_buy_price": 246539,
+        "avg_sell_price": 333441,
+        "avg_holding_period": 3.06,
+        "weighted_annual_return": 12.24
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 146,
+        "avg_buy_price": 243023,
+        "avg_sell_price": 443159,
+        "avg_holding_period": 7.85,
+        "weighted_annual_return": 8.09
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 83,
+        "avg_buy_price": 296575,
+        "avg_sell_price": 743238,
+        "avg_holding_period": 12.77,
+        "weighted_annual_return": 7.73
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 51,
+        "avg_buy_price": 278258,
+        "avg_sell_price": 775281,
+        "avg_holding_period": 17.7,
+        "weighted_annual_return": 6.25
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 309,
+        "avg_buy_price": 270654,
+        "avg_sell_price": 319922,
+        "avg_holding_period": 1.86,
+        "weighted_annual_return": 10.27
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 807,
+        "avg_buy_price": 307784,
+        "avg_sell_price": 471685,
+        "avg_holding_period": 5.61,
+        "weighted_annual_return": 8.6
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 453,
+        "avg_buy_price": 324615,
+        "avg_sell_price": 653057,
+        "avg_holding_period": 9.74,
+        "weighted_annual_return": 8.17
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 357,
+        "avg_buy_price": 338830,
+        "avg_sell_price": 707457,
+        "avg_holding_period": 14.73,
+        "weighted_annual_return": 5.58
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 269,
+        "avg_buy_price": 367596,
+        "avg_sell_price": 541261,
+        "avg_holding_period": 1.99,
+        "weighted_annual_return": 19.37
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 678,
+        "avg_buy_price": 441094,
+        "avg_sell_price": 618722,
+        "avg_holding_period": 4.85,
+        "weighted_annual_return": 8.01
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 640,
+        "avg_buy_price": 499203,
+        "avg_sell_price": 716430,
+        "avg_holding_period": 9.04,
+        "weighted_annual_return": 4.51
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 241,
+        "avg_buy_price": 711555,
+        "avg_sell_price": 790648,
+        "avg_holding_period": 1.63,
+        "weighted_annual_return": 6.02
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 728,
+        "avg_buy_price": 595646,
+        "avg_sell_price": 680729,
+        "avg_holding_period": 5.23,
+        "weighted_annual_return": 4.11
+      },
+      {
+        "buy_cohort": "2021-2025",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 202,
+        "avg_buy_price": 678940,
+        "avg_sell_price": 754610,
+        "avg_holding_period": 1.99,
+        "weighted_annual_return": 8.79
+      }
+    ]
+  },
+  "N2": {
+    "district": "N2",
+    "transaction_count": 28459,
+    "property_count": 19760,
+    "avg_price": 564058,
+    "median_price": 420000,
+    "yearly_stats": [
+      {
+        "year": 2005,
+        "count": 1626,
+        "avg_price": 321540,
+        "median_price": 248000
+      },
+      {
+        "year": 2006,
+        "count": 2243,
+        "avg_price": 344877,
+        "median_price": 250000
+      },
+      {
+        "year": 2007,
+        "count": 2128,
+        "avg_price": 392714,
+        "median_price": 285000
+      },
+      {
+        "year": 2008,
+        "count": 980,
+        "avg_price": 429823,
+        "median_price": 304250
+      },
+      {
+        "year": 2009,
+        "count": 1038,
+        "avg_price": 411074,
+        "median_price": 300000
+      },
+      {
+        "year": 2010,
+        "count": 1225,
+        "avg_price": 459801,
+        "median_price": 320000
+      },
+      {
+        "year": 2011,
+        "count": 1153,
+        "avg_price": 449755,
+        "median_price": 330000
+      },
+      {
+        "year": 2012,
+        "count": 1227,
+        "avg_price": 445793,
+        "median_price": 340000
+      },
+      {
+        "year": 2013,
+        "count": 1404,
+        "avg_price": 508074,
+        "median_price": 350000
+      },
+      {
+        "year": 2014,
+        "count": 1491,
+        "avg_price": 543942,
+        "median_price": 415000
+      },
+      {
+        "year": 2015,
+        "count": 1414,
+        "avg_price": 598288,
+        "median_price": 460000
+      },
+      {
+        "year": 2016,
+        "count": 1338,
+        "avg_price": 655885,
+        "median_price": 500000
+      },
+      {
+        "year": 2017,
+        "count": 1301,
+        "avg_price": 696266,
+        "median_price": 545000
+      },
+      {
+        "year": 2018,
+        "count": 1168,
+        "avg_price": 691177,
+        "median_price": 540000
+      },
+      {
+        "year": 2019,
+        "count": 1138,
+        "avg_price": 714060,
+        "median_price": 588000
+      },
+      {
+        "year": 2020,
+        "count": 1050,
+        "avg_price": 731038,
+        "median_price": 578750
+      },
+      {
+        "year": 2021,
+        "count": 1713,
+        "avg_price": 728566,
+        "median_price": 580000
+      },
+      {
+        "year": 2022,
+        "count": 1454,
+        "avg_price": 784157,
+        "median_price": 600000
+      },
+      {
+        "year": 2023,
+        "count": 1172,
+        "avg_price": 745720,
+        "median_price": 558400
+      },
+      {
+        "year": 2024,
+        "count": 1251,
+        "avg_price": 751891,
+        "median_price": 585000
+      },
+      {
+        "year": 2025,
+        "count": 945,
+        "avg_price": 740405,
+        "median_price": 600000
+      }
+    ],
+    "cohort_analysis": [
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2005-",
+        "transaction_count": 33,
+        "avg_buy_price": 251695,
+        "avg_sell_price": 290165,
+        "avg_holding_period": 0.25,
+        "weighted_annual_return": 8.88
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 331,
+        "avg_buy_price": 274955,
+        "avg_sell_price": 347399,
+        "avg_holding_period": 2.93,
+        "weighted_annual_return": 9.79
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 282,
+        "avg_buy_price": 307457,
+        "avg_sell_price": 478327,
+        "avg_holding_period": 7.9,
+        "weighted_annual_return": 6.02
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 110,
+        "avg_buy_price": 314317,
+        "avg_sell_price": 650522,
+        "avg_holding_period": 12.35,
+        "weighted_annual_return": 6.35
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 107,
+        "avg_buy_price": 307147,
+        "avg_sell_price": 714963,
+        "avg_holding_period": 17.61,
+        "weighted_annual_return": 5.32
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 649,
+        "avg_buy_price": 322746,
+        "avg_sell_price": 377756,
+        "avg_holding_period": 1.99,
+        "weighted_annual_return": 9.08
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 1528,
+        "avg_buy_price": 331923,
+        "avg_sell_price": 446199,
+        "avg_holding_period": 5.63,
+        "weighted_annual_return": 6.22
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 841,
+        "avg_buy_price": 374027,
+        "avg_sell_price": 627021,
+        "avg_holding_period": 9.77,
+        "weighted_annual_return": 6.07
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 666,
+        "avg_buy_price": 391014,
+        "avg_sell_price": 734427,
+        "avg_holding_period": 14.78,
+        "weighted_annual_return": 4.63
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 473,
+        "avg_buy_price": 367991,
+        "avg_sell_price": 503866,
+        "avg_holding_period": 2.01,
+        "weighted_annual_return": 16.43
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 1065,
+        "avg_buy_price": 438370,
+        "avg_sell_price": 603862,
+        "avg_holding_period": 4.88,
+        "weighted_annual_return": 8.06
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 971,
+        "avg_buy_price": 478256,
+        "avg_sell_price": 708911,
+        "avg_holding_period": 9.13,
+        "weighted_annual_return": 4.82
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 330,
+        "avg_buy_price": 707000,
+        "avg_sell_price": 697607,
+        "avg_holding_period": 2.18,
+        "weighted_annual_return": 6.63
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 1097,
+        "avg_buy_price": 616147,
+        "avg_sell_price": 696272,
+        "avg_holding_period": 5.08,
+        "weighted_annual_return": 3.5
+      },
+      {
+        "buy_cohort": "2021-2025",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 262,
+        "avg_buy_price": 623752,
+        "avg_sell_price": 696457,
+        "avg_holding_period": 1.99,
+        "weighted_annual_return": 5.49
+      }
+    ]
+  },
+  "N3": {
+    "district": "N3",
+    "transaction_count": 7181,
+    "property_count": 5250,
+    "avg_price": 597656,
+    "median_price": 470000,
+    "yearly_stats": [
+      {
+        "year": 2005,
+        "count": 379,
+        "avg_price": 354356,
+        "median_price": 285000
+      },
+      {
+        "year": 2006,
+        "count": 596,
+        "avg_price": 363707,
+        "median_price": 300000
+      },
+      {
+        "year": 2007,
+        "count": 536,
+        "avg_price": 440797,
+        "median_price": 345000
+      },
+      {
+        "year": 2008,
+        "count": 239,
+        "avg_price": 417184,
+        "median_price": 337500
+      },
+      {
+        "year": 2009,
+        "count": 232,
+        "avg_price": 426794,
+        "median_price": 350000
+      },
+      {
+        "year": 2010,
+        "count": 347,
+        "avg_price": 482430,
+        "median_price": 385000
+      },
+      {
+        "year": 2011,
+        "count": 280,
+        "avg_price": 487480,
+        "median_price": 352000
+      },
+      {
+        "year": 2012,
+        "count": 295,
+        "avg_price": 502160,
+        "median_price": 405000
+      },
+      {
+        "year": 2013,
+        "count": 315,
+        "avg_price": 584505,
+        "median_price": 470000
+      },
+      {
+        "year": 2014,
+        "count": 379,
+        "avg_price": 620819,
+        "median_price": 465000
+      },
+      {
+        "year": 2015,
+        "count": 371,
+        "avg_price": 691364,
+        "median_price": 556250
+      },
+      {
+        "year": 2016,
+        "count": 316,
+        "avg_price": 678393,
+        "median_price": 556850
+      },
+      {
+        "year": 2017,
+        "count": 357,
+        "avg_price": 732865,
+        "median_price": 610000
+      },
+      {
+        "year": 2018,
+        "count": 274,
+        "avg_price": 721056,
+        "median_price": 593725
+      },
+      {
+        "year": 2019,
+        "count": 317,
+        "avg_price": 669184,
+        "median_price": 517500
+      },
+      {
+        "year": 2020,
+        "count": 290,
+        "avg_price": 716928,
+        "median_price": 565000
+      },
+      {
+        "year": 2021,
+        "count": 419,
+        "avg_price": 799001,
+        "median_price": 639900
+      },
+      {
+        "year": 2022,
+        "count": 487,
+        "avg_price": 748021,
+        "median_price": 600000
+      },
+      {
+        "year": 2023,
+        "count": 274,
+        "avg_price": 786075,
+        "median_price": 627500
+      },
+      {
+        "year": 2024,
+        "count": 265,
+        "avg_price": 764926,
+        "median_price": 600000
+      },
+      {
+        "year": 2025,
+        "count": 213,
+        "avg_price": 784026,
+        "median_price": 605000
+      }
+    ],
+    "cohort_analysis": [
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2005-",
+        "transaction_count": 7,
+        "avg_buy_price": 293350,
+        "avg_sell_price": 302928,
+        "avg_holding_period": 0.35,
+        "weighted_annual_return": -2.88
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 72,
+        "avg_buy_price": 317102,
+        "avg_sell_price": 413114,
+        "avg_holding_period": 2.86,
+        "weighted_annual_return": 11.59
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 56,
+        "avg_buy_price": 329449,
+        "avg_sell_price": 539881,
+        "avg_holding_period": 8.09,
+        "weighted_annual_return": 6.46
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 23,
+        "avg_buy_price": 345656,
+        "avg_sell_price": 687619,
+        "avg_holding_period": 12.77,
+        "weighted_annual_return": 5.8
+      },
+      {
+        "buy_cohort": "2005-",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 26,
+        "avg_buy_price": 415092,
+        "avg_sell_price": 972000,
+        "avg_holding_period": 17.7,
+        "weighted_annual_return": 5.22
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2006-2010",
+        "transaction_count": 164,
+        "avg_buy_price": 347417,
+        "avg_sell_price": 429156,
+        "avg_holding_period": 1.94,
+        "weighted_annual_return": 12.09
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 330,
+        "avg_buy_price": 377754,
+        "avg_sell_price": 525695,
+        "avg_holding_period": 5.55,
+        "weighted_annual_return": 6.97
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 197,
+        "avg_buy_price": 385958,
+        "avg_sell_price": 650844,
+        "avg_holding_period": 9.98,
+        "weighted_annual_return": 5.9
+      },
+      {
+        "buy_cohort": "2006-2010",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 157,
+        "avg_buy_price": 430081,
+        "avg_sell_price": 786370,
+        "avg_holding_period": 14.85,
+        "weighted_annual_return": 4.36
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2011-2015",
+        "transaction_count": 89,
+        "avg_buy_price": 442454,
+        "avg_sell_price": 590138,
+        "avg_holding_period": 1.79,
+        "weighted_annual_return": 17.34
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 234,
+        "avg_buy_price": 471326,
+        "avg_sell_price": 618073,
+        "avg_holding_period": 4.84,
+        "weighted_annual_return": 6.45
+      },
+      {
+        "buy_cohort": "2011-2015",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 206,
+        "avg_buy_price": 580279,
+        "avg_sell_price": 808710,
+        "avg_holding_period": 9.01,
+        "weighted_annual_return": 4.15
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 83,
+        "avg_buy_price": 863033,
+        "avg_sell_price": 708686,
+        "avg_holding_period": 2.07,
+        "weighted_annual_return": 6.27
+      },
+      {
+        "buy_cohort": "2016-2020",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 240,
+        "avg_buy_price": 605786,
+        "avg_sell_price": 662739,
+        "avg_holding_period": 4.98,
+        "weighted_annual_return": 2.88
+      },
+      {
+        "buy_cohort": "2021-2025",
+        "sell_cohort": "2021-2025",
+        "transaction_count": 57,
+        "avg_buy_price": 563033,
+        "avg_sell_price": 661456,
+        "avg_holding_period": 1.58,
+        "weighted_annual_return": 7.04
+      }
+    ]
+  }
+}

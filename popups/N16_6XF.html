@@ -1,0 +1,1184 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>N16 6XF</h3>
+            <div class="header-stats">
+                <span><strong>56</strong> transactions</span>
+                <span><strong>29</strong> properties</span>
+                <span>Avg: <strong>£418,608</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-N16-6XF')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-N16-6XF')">
+                Sector (N16 6)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-N16-6XF')">
+                District (N16)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-N16-6XF" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-N16-6XF', 'N16-6XF')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-N16-6XF', 'N16-6XF')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-N16-6XF', 'N16-6XF')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-N16-6XF" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-N16-6XF" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 2, Ark Court, 54A, Alkham Road", "dates": ["2012-07-25", "2020-09-07", "2024-05-30"], "prices": [485000, 680000, 801000], "hover_texts": ["<b>Flat 2, Ark Court, 54A, Alkham Road</b><br>Transaction 1 of 3<br>Date: 2012-07-25<br>Sale Price: \u00a3485,000", "<b>Flat 2, Ark Court, 54A, Alkham Road</b><br>Transaction 2 of 3<br>Date: 2020-09-07<br>Sale Price: \u00a3680,000<br>Previous Purchase: \u00a3485,000<br>Previous Date: 2012-07-25<br>Annual Return: +4.2%/yr<br>Held for: 8.1 years", "<b>Flat 2, Ark Court, 54A, Alkham Road</b><br>Transaction 3 of 3<br>Date: 2024-05-30<br>Sale Price: \u00a3801,000<br>Previous Purchase: \u00a3680,000<br>Previous Date: 2020-09-07<br>Annual Return: +4.5%/yr<br>Held for: 3.7 years"], "transaction_count": 3}, {"address": "62, Alkham Road", "dates": ["2005-08-04", "2007-10-19", "2011-07-20"], "prices": [385000, 560200, 658250], "hover_texts": ["<b>62, Alkham Road</b><br>Transaction 1 of 3<br>Date: 2005-08-04<br>Sale Price: \u00a3385,000", "<b>62, Alkham Road</b><br>Transaction 2 of 3<br>Date: 2007-10-19<br>Sale Price: \u00a3560,200<br>Previous Purchase: \u00a3385,000<br>Previous Date: 2005-08-04<br>Annual Return: +18.5%/yr<br>Held for: 2.2 years", "<b>62, Alkham Road</b><br>Transaction 3 of 3<br>Date: 2011-07-20<br>Sale Price: \u00a3658,250<br>Previous Purchase: \u00a3560,200<br>Previous Date: 2007-10-19<br>Annual Return: +4.4%/yr<br>Held for: 3.8 years"], "transaction_count": 3}, {"address": "Flat 25, Ark Court, 54A, Alkham Road", "dates": ["2019-11-29", "2024-06-14"], "prices": [320000, 350500], "hover_texts": ["<b>Flat 25, Ark Court, 54A, Alkham Road</b><br>Transaction 1 of 2<br>Date: 2019-11-29<br>Sale Price: \u00a3320,000", "<b>Flat 25, Ark Court, 54A, Alkham Road</b><br>Transaction 2 of 2<br>Date: 2024-06-14<br>Sale Price: \u00a3350,500<br>Previous Purchase: \u00a3320,000<br>Previous Date: 2019-11-29<br>Annual Return: +2.0%/yr<br>Held for: 4.5 years"], "transaction_count": 2}, {"address": "Flat 22, Ark Court, 54A, Alkham Road", "dates": ["2006-10-31", "2015-08-14", "2025-01-31"], "prices": [162000, 332500, 335000], "hover_texts": ["<b>Flat 22, Ark Court, 54A, Alkham Road</b><br>Transaction 1 of 3<br>Date: 2006-10-31<br>Sale Price: \u00a3162,000", "<b>Flat 22, Ark Court, 54A, Alkham Road</b><br>Transaction 2 of 3<br>Date: 2015-08-14<br>Sale Price: \u00a3332,500<br>Previous Purchase: \u00a3162,000<br>Previous Date: 2006-10-31<br>Annual Return: +8.5%/yr<br>Held for: 8.8 years", "<b>Flat 22, Ark Court, 54A, Alkham Road</b><br>Transaction 3 of 3<br>Date: 2025-01-31<br>Sale Price: \u00a3335,000<br>Previous Purchase: \u00a3332,500<br>Previous Date: 2015-08-14<br>Annual Return: +0.1%/yr<br>Held for: 9.5 years"], "transaction_count": 3}, {"address": "Flat 13, Ark Court, 54A, Alkham Road", "dates": ["2011-09-28", "2014-08-21", "2018-02-15", "2021-02-05"], "prices": [265000, 450000, 525000, 535000], "hover_texts": ["<b>Flat 13, Ark Court, 54A, Alkham Road</b><br>Transaction 1 of 4<br>Date: 2011-09-28<br>Sale Price: \u00a3265,000", "<b>Flat 13, Ark Court, 54A, Alkham Road</b><br>Transaction 2 of 4<br>Date: 2014-08-21<br>Sale Price: \u00a3450,000<br>Previous Purchase: \u00a3265,000<br>Previous Date: 2011-09-28<br>Annual Return: +20.1%/yr<br>Held for: 2.9 years", "<b>Flat 13, Ark Court, 54A, Alkham Road</b><br>Transaction 3 of 4<br>Date: 2018-02-15<br>Sale Price: \u00a3525,000<br>Previous Purchase: \u00a3450,000<br>Previous Date: 2014-08-21<br>Annual Return: +4.5%/yr<br>Held for: 3.5 years", "<b>Flat 13, Ark Court, 54A, Alkham Road</b><br>Transaction 4 of 4<br>Date: 2021-02-05<br>Sale Price: \u00a3535,000<br>Previous Purchase: \u00a3525,000<br>Previous Date: 2018-02-15<br>Annual Return: +0.6%/yr<br>Held for: 3.0 years"], "transaction_count": 4}, {"address": "Flat 15, Ark Court, 54A, Alkham Road", "dates": ["2007-08-15", "2009-10-05", "2017-04-21", "2025-11-13"], "prices": [249950, 249950, 500500, 537500], "hover_texts": ["<b>Flat 15, Ark Court, 54A, Alkham Road</b><br>Transaction 1 of 4<br>Date: 2007-08-15<br>Sale Price: \u00a3249,950", "<b>Flat 15, Ark Court, 54A, Alkham Road</b><br>Transaction 2 of 4<br>Date: 2009-10-05<br>Sale Price: \u00a3249,950<br>Previous Purchase: \u00a3249,950<br>Previous Date: 2007-08-15<br>Annual Return: +0.0%/yr<br>Held for: 2.1 years", "<b>Flat 15, Ark Court, 54A, Alkham Road</b><br>Transaction 3 of 4<br>Date: 2017-04-21<br>Sale Price: \u00a3500,500<br>Previous Purchase: \u00a3249,950<br>Previous Date: 2009-10-05<br>Annual Return: +9.6%/yr<br>Held for: 7.5 years", "<b>Flat 15, Ark Court, 54A, Alkham Road</b><br>Transaction 4 of 4<br>Date: 2025-11-13<br>Sale Price: \u00a3537,500<br>Previous Purchase: \u00a3500,500<br>Previous Date: 2017-04-21<br>Annual Return: +0.8%/yr<br>Held for: 8.6 years"], "transaction_count": 4}, {"address": "Flat 8, Ark Court, 54A, Alkham Road", "dates": ["2007-05-08", "2012-11-12", "2015-05-18", "2024-08-30"], "prices": [233000, 327500, 465500, 480000], "hover_texts": ["<b>Flat 8, Ark Court, 54A, Alkham Road</b><br>Transaction 1 of 4<br>Date: 2007-05-08<br>Sale Price: \u00a3233,000", "<b>Flat 8, Ark Court, 54A, Alkham Road</b><br>Transaction 2 of 4<br>Date: 2012-11-12<br>Sale Price: \u00a3327,500<br>Previous Purchase: \u00a3233,000<br>Previous Date: 2007-05-08<br>Annual Return: +6.4%/yr<br>Held for: 5.5 years", "<b>Flat 8, Ark Court, 54A, Alkham Road</b><br>Transaction 3 of 4<br>Date: 2015-05-18<br>Sale Price: \u00a3465,500<br>Previous Purchase: \u00a3327,500<br>Previous Date: 2012-11-12<br>Annual Return: +15.0%/yr<br>Held for: 2.5 years", "<b>Flat 8, Ark Court, 54A, Alkham Road</b><br>Transaction 4 of 4<br>Date: 2024-08-30<br>Sale Price: \u00a3480,000<br>Previous Purchase: \u00a3465,500<br>Previous Date: 2015-05-18<br>Annual Return: +0.3%/yr<br>Held for: 9.3 years"], "transaction_count": 4}, {"address": "Flat 3, Ark Court, 54A, Alkham Road", "dates": ["2007-02-23", "2010-10-22", "2022-01-20"], "prices": [280000, 298000, 525000], "hover_texts": ["<b>Flat 3, Ark Court, 54A, Alkham Road</b><br>Transaction 1 of 3<br>Date: 2007-02-23<br>Sale Price: \u00a3280,000", "<b>Flat 3, Ark Court, 54A, Alkham Road</b><br>Transaction 2 of 3<br>Date: 2010-10-22<br>Sale Price: \u00a3298,000<br>Previous Purchase: \u00a3280,000<br>Previous Date: 2007-02-23<br>Annual Return: +1.7%/yr<br>Held for: 3.7 years", "<b>Flat 3, Ark Court, 54A, Alkham Road</b><br>Transaction 3 of 3<br>Date: 2022-01-20<br>Sale Price: \u00a3525,000<br>Previous Purchase: \u00a3298,000<br>Previous Date: 2010-10-22<br>Annual Return: +5.2%/yr<br>Held for: 11.2 years"], "transaction_count": 3}, {"address": "Flat 5, Ark Court, 54A, Alkham Road", "dates": ["2005-07-22", "2020-03-06"], "prices": [199000, 455000], "hover_texts": ["<b>Flat 5, Ark Court, 54A, Alkham Road</b><br>Transaction 1 of 2<br>Date: 2005-07-22<br>Sale Price: \u00a3199,000", "<b>Flat 5, Ark Court, 54A, Alkham Road</b><br>Transaction 2 of 2<br>Date: 2020-03-06<br>Sale Price: \u00a3455,000<br>Previous Purchase: \u00a3199,000<br>Previous Date: 2005-07-22<br>Annual Return: +5.8%/yr<br>Held for: 14.6 years"], "transaction_count": 2}, {"address": "Flat 20, Ark Court, 54A, Alkham Road", "dates": ["2006-07-21", "2019-12-18"], "prices": [195000, 340500], "hover_texts": ["<b>Flat 20, Ark Court, 54A, Alkham Road</b><br>Transaction 1 of 2<br>Date: 2006-07-21<br>Sale Price: \u00a3195,000", "<b>Flat 20, Ark Court, 54A, Alkham Road</b><br>Transaction 2 of 2<br>Date: 2019-12-18<br>Sale Price: \u00a3340,500<br>Previous Purchase: \u00a3195,000<br>Previous Date: 2006-07-21<br>Annual Return: +4.2%/yr<br>Held for: 13.4 years"], "transaction_count": 2}, {"address": "Flat 14, Ark Court, 54A, Alkham Road", "dates": ["2005-12-12", "2012-12-04", "2017-02-28", "2020-03-13"], "prices": [218000, 335000, 507500, 510000], "hover_texts": ["<b>Flat 14, Ark Court, 54A, Alkham Road</b><br>Transaction 1 of 4<br>Date: 2005-12-12<br>Sale Price: \u00a3218,000", "<b>Flat 14, Ark Court, 54A, Alkham Road</b><br>Transaction 2 of 4<br>Date: 2012-12-04<br>Sale Price: \u00a3335,000<br>Previous Purchase: \u00a3218,000<br>Previous Date: 2005-12-12<br>Annual Return: +6.3%/yr<br>Held for: 7.0 years", "<b>Flat 14, Ark Court, 54A, Alkham Road</b><br>Transaction 3 of 4<br>Date: 2017-02-28<br>Sale Price: \u00a3507,500<br>Previous Purchase: \u00a3335,000<br>Previous Date: 2012-12-04<br>Annual Return: +10.3%/yr<br>Held for: 4.2 years", "<b>Flat 14, Ark Court, 54A, Alkham Road</b><br>Transaction 4 of 4<br>Date: 2020-03-13<br>Sale Price: \u00a3510,000<br>Previous Purchase: \u00a3507,500<br>Previous Date: 2017-02-28<br>Annual Return: +0.2%/yr<br>Held for: 3.0 years"], "transaction_count": 4}, {"address": "Flat 24, Ark Court, 54A, Alkham Road", "dates": ["2007-03-26", "2015-10-19", "2022-04-29"], "prices": [185000, 325000, 355000], "hover_texts": ["<b>Flat 24, Ark Court, 54A, Alkham Road</b><br>Transaction 1 of 3<br>Date: 2007-03-26<br>Sale Price: \u00a3185,000", "<b>Flat 24, Ark Court, 54A, Alkham Road</b><br>Transaction 2 of 3<br>Date: 2015-10-19<br>Sale Price: \u00a3325,000<br>Previous Purchase: \u00a3185,000<br>Previous Date: 2007-03-26<br>Annual Return: +6.8%/yr<br>Held for: 8.6 years", "<b>Flat 24, Ark Court, 54A, Alkham Road</b><br>Transaction 3 of 3<br>Date: 2022-04-29<br>Sale Price: \u00a3355,000<br>Previous Purchase: \u00a3325,000<br>Previous Date: 2015-10-19<br>Annual Return: +1.4%/yr<br>Held for: 6.5 years"], "transaction_count": 3}, {"address": "80, Alkham Road", "dates": ["2012-09-07", "2019-09-27"], "prices": [745000, 1161500], "hover_texts": ["<b>80, Alkham Road</b><br>Transaction 1 of 2<br>Date: 2012-09-07<br>Sale Price: \u00a3745,000", "<b>80, Alkham Road</b><br>Transaction 2 of 2<br>Date: 2019-09-27<br>Sale Price: \u00a31,161,500<br>Previous Purchase: \u00a3745,000<br>Previous Date: 2012-09-07<br>Annual Return: +6.5%/yr<br>Held for: 7.0 years"], "transaction_count": 2}, {"address": "Flat 17, Ark Court, 54A, Alkham Road", "dates": ["2005-11-09", "2019-08-23"], "prices": [170000, 360000], "hover_texts": ["<b>Flat 17, Ark Court, 54A, Alkham Road</b><br>Transaction 1 of 2<br>Date: 2005-11-09<br>Sale Price: \u00a3170,000", "<b>Flat 17, Ark Court, 54A, Alkham Road</b><br>Transaction 2 of 2<br>Date: 2019-08-23<br>Sale Price: \u00a3360,000<br>Previous Purchase: \u00a3170,000<br>Previous Date: 2005-11-09<br>Annual Return: +5.6%/yr<br>Held for: 13.8 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2017-05-23", "address": "58, Alkham Road", "price": 950000, "price_display": "\u00a3950,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2010-08-09", "address": "78, Alkham Road", "price": 661000, "price_display": "\u00a3661,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2023-04-20", "address": "82, Alkham Road", "price": 1100000, "price_display": "\u00a31,100,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2007-11-05", "address": "Flat 18, Ark Court, 54A, Alkham Road", "price": 170000, "price_display": "\u00a3170,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-05-22", "address": "Flat 1, Ark Court, 54A, Alkham Road", "price": 259000, "price_display": "\u00a3259,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-04-09", "address": "60B, Alkham Road", "price": 378000, "price_display": "\u00a3378,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-01-10", "address": "Flat 7, Ark Court, 54A, Alkham Road", "price": 445000, "price_display": "\u00a3445,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-11-16", "address": "Flat 12, Ark Court, 54A, Alkham Road", "price": 490000, "price_display": "\u00a3490,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-06-05", "address": "Flat 9, Ark Court, 54A, Alkham Road", "price": 437250, "price_display": "\u00a3437,250", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-11-26", "address": "Flat 16, Ark Court, 54A, Alkham Road", "price": 180000, "price_display": "\u00a3180,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-06-11", "address": "Flat 6, Ark Court, 54A, Alkham Road", "price": 249950, "price_display": "\u00a3249,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-08-19", "address": "Flat 4, Ark Court, 54A, Alkham Road", "price": 211000, "price_display": "\u00a3211,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-05-15", "address": "Flat 11, Ark Court, 54A, Alkham Road", "price": 225000, "price_display": "\u00a3225,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-09-13", "address": "Flat 19, Ark Court, 54A, Alkham Road", "price": 325000, "price_display": "\u00a3325,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2025-08-04", "address": "Flat 23, Ark Court, 54A, Alkham Road", "price": 308000, "price_display": "\u00a3308,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-N16-6XF', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-N16-6XF');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-N16-6XF', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-N16-6XF', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-N16-6XF" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2017-05-23</td>
+            <td>58, Alkham Road</td>
+            <td class="price">£950,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-08-09</td>
+            <td>78, Alkham Road</td>
+            <td class="price">£661,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-05-30</td>
+            <td>Flat 2, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£801,000</td>
+        <td class="positive" title="Previous: £680,000 (2020-09-07)">+4.5%/yr</td></tr>
+
+        <tr>
+            <td>2020-09-07</td>
+            <td>Flat 2, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£680,000</td>
+        <td class="positive" title="Previous: £485,000 (2012-07-25)">+4.2%/yr</td></tr>
+
+        <tr>
+            <td>2012-07-25</td>
+            <td>Flat 2, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£485,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-04-20</td>
+            <td>82, Alkham Road</td>
+            <td class="price">£1,100,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-07-20</td>
+            <td>62, Alkham Road</td>
+            <td class="price">£658,250</td>
+        <td class="positive" title="Previous: £560,200 (2007-10-19)">+4.4%/yr</td></tr>
+
+        <tr>
+            <td>2007-10-19</td>
+            <td>62, Alkham Road</td>
+            <td class="price">£560,200</td>
+        <td class="positive" title="Previous: £385,000 (2005-08-04)">+18.5%/yr</td></tr>
+
+        <tr>
+            <td>2005-08-04</td>
+            <td>62, Alkham Road</td>
+            <td class="price">£385,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-06-14</td>
+            <td>Flat 25, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£350,500</td>
+        <td class="positive" title="Previous: £320,000 (2019-11-29)">+2.0%/yr</td></tr>
+
+        <tr>
+            <td>2019-11-29</td>
+            <td>Flat 25, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£320,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-01-31</td>
+            <td>Flat 22, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£335,000</td>
+        <td class="positive" title="Previous: £332,500 (2015-08-14)">+0.1%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>Flat 22, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£332,500</td>
+        <td class="positive" title="Previous: £162,000 (2006-10-31)">+8.5%/yr</td></tr>
+
+        <tr>
+            <td>2006-10-31</td>
+            <td>Flat 22, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£162,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-11-05</td>
+            <td>Flat 18, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£170,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-05-22</td>
+            <td>Flat 1, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£259,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-04-09</td>
+            <td>60B, Alkham Road</td>
+            <td class="price">£378,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-01-10</td>
+            <td>Flat 7, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£445,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-11-16</td>
+            <td>Flat 12, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£490,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-05</td>
+            <td>Flat 13, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£535,000</td>
+        <td class="positive" title="Previous: £525,000 (2018-02-15)">+0.6%/yr</td></tr>
+
+        <tr>
+            <td>2018-02-15</td>
+            <td>Flat 13, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£525,000</td>
+        <td class="positive" title="Previous: £450,000 (2014-08-21)">+4.5%/yr</td></tr>
+
+        <tr>
+            <td>2014-08-21</td>
+            <td>Flat 13, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£450,000</td>
+        <td class="positive" title="Previous: £265,000 (2011-09-28)">+20.1%/yr</td></tr>
+
+        <tr>
+            <td>2011-09-28</td>
+            <td>Flat 13, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£265,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-11-13</td>
+            <td>Flat 15, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£537,500</td>
+        <td class="positive" title="Previous: £500,500 (2017-04-21)">+0.8%/yr</td></tr>
+
+        <tr>
+            <td>2017-04-21</td>
+            <td>Flat 15, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£500,500</td>
+        <td class="positive" title="Previous: £249,950 (2009-10-05)">+9.6%/yr</td></tr>
+
+        <tr>
+            <td>2009-10-05</td>
+            <td>Flat 15, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£249,950</td>
+        <td class="negative" title="Previous: £249,950 (2007-08-15)">+0.0%/yr</td></tr>
+
+        <tr>
+            <td>2007-08-15</td>
+            <td>Flat 15, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£249,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-06-05</td>
+            <td>Flat 9, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£437,250</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-08-30</td>
+            <td>Flat 8, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£480,000</td>
+        <td class="positive" title="Previous: £465,500 (2015-05-18)">+0.3%/yr</td></tr>
+
+        <tr>
+            <td>2015-05-18</td>
+            <td>Flat 8, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£465,500</td>
+        <td class="positive" title="Previous: £327,500 (2012-11-12)">+15.0%/yr</td></tr>
+
+        <tr>
+            <td>2012-11-12</td>
+            <td>Flat 8, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£327,500</td>
+        <td class="positive" title="Previous: £233,000 (2007-05-08)">+6.4%/yr</td></tr>
+
+        <tr>
+            <td>2007-05-08</td>
+            <td>Flat 8, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£233,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-01-20</td>
+            <td>Flat 3, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£525,000</td>
+        <td class="positive" title="Previous: £298,000 (2010-10-22)">+5.2%/yr</td></tr>
+
+        <tr>
+            <td>2010-10-22</td>
+            <td>Flat 3, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£298,000</td>
+        <td class="positive" title="Previous: £280,000 (2007-02-23)">+1.7%/yr</td></tr>
+
+        <tr>
+            <td>2007-02-23</td>
+            <td>Flat 3, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£280,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-11-26</td>
+            <td>Flat 16, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£180,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-06-11</td>
+            <td>Flat 6, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£249,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-03-06</td>
+            <td>Flat 5, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£455,000</td>
+        <td class="positive" title="Previous: £199,000 (2005-07-22)">+5.8%/yr</td></tr>
+
+        <tr>
+            <td>2005-07-22</td>
+            <td>Flat 5, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£199,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-08-19</td>
+            <td>Flat 4, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£211,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-12-18</td>
+            <td>Flat 20, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£340,500</td>
+        <td class="positive" title="Previous: £195,000 (2006-07-21)">+4.2%/yr</td></tr>
+
+        <tr>
+            <td>2006-07-21</td>
+            <td>Flat 20, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£195,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-03-13</td>
+            <td>Flat 14, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£510,000</td>
+        <td class="positive" title="Previous: £507,500 (2017-02-28)">+0.2%/yr</td></tr>
+
+        <tr>
+            <td>2017-02-28</td>
+            <td>Flat 14, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£507,500</td>
+        <td class="positive" title="Previous: £335,000 (2012-12-04)">+10.3%/yr</td></tr>
+
+        <tr>
+            <td>2012-12-04</td>
+            <td>Flat 14, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£335,000</td>
+        <td class="positive" title="Previous: £218,000 (2005-12-12)">+6.3%/yr</td></tr>
+
+        <tr>
+            <td>2005-12-12</td>
+            <td>Flat 14, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£218,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-05-15</td>
+            <td>Flat 11, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£225,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-04-29</td>
+            <td>Flat 24, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£355,000</td>
+        <td class="positive" title="Previous: £325,000 (2015-10-19)">+1.4%/yr</td></tr>
+
+        <tr>
+            <td>2015-10-19</td>
+            <td>Flat 24, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£325,000</td>
+        <td class="positive" title="Previous: £185,000 (2007-03-26)">+6.8%/yr</td></tr>
+
+        <tr>
+            <td>2007-03-26</td>
+            <td>Flat 24, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£185,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-09-13</td>
+            <td>Flat 19, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£325,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-08-04</td>
+            <td>Flat 23, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£308,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-27</td>
+            <td>80, Alkham Road</td>
+            <td class="price">£1,161,500</td>
+        <td class="positive" title="Previous: £745,000 (2012-09-07)">+6.5%/yr</td></tr>
+
+        <tr>
+            <td>2012-09-07</td>
+            <td>80, Alkham Road</td>
+            <td class="price">£745,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-23</td>
+            <td>Flat 17, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£360,000</td>
+        <td class="positive" title="Previous: £170,000 (2005-11-09)">+5.6%/yr</td></tr>
+
+        <tr>
+            <td>2005-11-09</td>
+            <td>Flat 17, Ark Court, 54A, Alkham Road</td>
+            <td class="price">£170,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-N16-6XF" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-N16-6XF" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2009, 2010, 2011, 2012, 2014, 2015, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [236600, 210250, 275442, 249950, 379666, 461625, 473125, 450000, 403250, 652666, 525000, 545500, 520562, 456500, 441666, 1100000, 489125, 393500],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2009, 2010, 2011, 2012, 2014, 2015, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [211000, 225000, 249950, 249950, 298000, 658250, 485000, 450000, 465500, 507500, 525000, 360000, 510000, 535000, 445000, 1100000, 480000, 335000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - N16 6XF',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-N16-6XF', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 56</p>
+                    <p><strong>Unique Properties:</strong> 29</p>
+                    <p><strong>Average Price:</strong> £418,608</p>
+                    <p><strong>Median Price:</strong> £352,750</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-N16-6XF" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector N16 6 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector N16 6</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-N16-6XF', 'N16-6XF')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-N16-6XF', 'N16-6XF')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-N16-6XF" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-N16-6XF" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [271990, 293538, 295306, 342818, 295322, 303539, 342289, 368547, 376193, 415407, 545850, 617546, 662205, 639906, 658959, 652121, 656372, 622055, 647975, 636191, 596611],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [236500, 240000, 248500, 257500, 250000, 250000, 307500, 320000, 322500, 375000, 450000, 455000, 530000, 512500, 455000, 515000, 475000, 500000, 500000, 510000, 488000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector N16 6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-N16-6XF', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-N16-6XF" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="4" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £204,666</div>
+                        <div class="cell-sell">Sell: £285,266</div>
+                        <div class="cell-return">+15.4%/yr</div>
+                        <div class="cell-count">(12 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £196,200</div>
+                        <div class="cell-sell">Sell: £296,140</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(10 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £273,785</div>
+                        <div class="cell-sell">Sell: £660,535</div>
+                        <div class="cell-return">+7.2%/yr</div>
+                        <div class="cell-count">(14 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £275,600</div>
+                        <div class="cell-sell">Sell: £605,500</div>
+                        <div class="cell-return">+5.0%/yr</div>
+                        <div class="cell-count">(5 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £239,625</div>
+                        <div class="cell-sell">Sell: £269,061</div>
+                        <div class="cell-return">+4.7%/yr</div>
+                        <div class="cell-count">(35 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £244,945</div>
+                        <div class="cell-sell">Sell: £347,717</div>
+                        <div class="cell-return">+6.9%/yr</div>
+                        <div class="cell-count">(65 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £307,522</div>
+                        <div class="cell-sell">Sell: £607,038</div>
+                        <div class="cell-return">+7.7%/yr</div>
+                        <div class="cell-count">(61 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £308,198</div>
+                        <div class="cell-sell">Sell: £612,420</div>
+                        <div class="cell-return">+5.4%/yr</div>
+                        <div class="cell-count">(45 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £323,603</div>
+                        <div class="cell-sell">Sell: £440,472</div>
+                        <div class="cell-return">+18.5%/yr</div>
+                        <div class="cell-count">(20 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £355,936</div>
+                        <div class="cell-sell">Sell: £504,968</div>
+                        <div class="cell-return">+8.3%/yr</div>
+                        <div class="cell-count">(74 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £391,913</div>
+                        <div class="cell-sell">Sell: £535,804</div>
+                        <div class="cell-return">+3.9%/yr</div>
+                        <div class="cell-count">(52 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £497,434</div>
+                        <div class="cell-sell">Sell: £562,139</div>
+                        <div class="cell-return">+8.6%/yr</div>
+                        <div class="cell-count">(23 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £455,569</div>
+                        <div class="cell-sell">Sell: £496,031</div>
+                        <div class="cell-return">+1.9%/yr</div>
+                        <div class="cell-count">(77 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £571,187</div>
+                        <div class="cell-sell">Sell: £631,067</div>
+                        <div class="cell-return">+6.2%/yr</div>
+                        <div class="cell-count">(32 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-N16-6XF" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District N16 Analysis</h4>
+                <p class="area-info">Viewing data for entire N16 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-N16-6XF', 'N16-6XF')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-N16-6XF', 'N16-6XF')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-N16-6XF" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-N16-6XF" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [271187, 281689, 328832, 344587, 332766, 372114, 372771, 417839, 443917, 550094, 615821, 645407, 700421, 639881, 712840, 687663, 710324, 747906, 741831, 752502, 670789],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [235000, 245000, 278000, 283000, 290000, 315000, 321250, 345000, 376000, 447500, 515000, 520000, 545000, 540000, 550000, 595000, 550000, 590125, 565000, 590000, 560000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District N16 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-N16-6XF', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-N16-6XF" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £227,000</div>
+                        <div class="cell-sell">Sell: £253,000</div>
+                        <div class="cell-return">+17.4%/yr</div>
+                        <div class="cell-count">(5 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £246,539</div>
+                        <div class="cell-sell">Sell: £333,441</div>
+                        <div class="cell-return">+12.2%/yr</div>
+                        <div class="cell-count">(167 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £243,023</div>
+                        <div class="cell-sell">Sell: £443,159</div>
+                        <div class="cell-return">+8.1%/yr</div>
+                        <div class="cell-count">(146 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £296,575</div>
+                        <div class="cell-sell">Sell: £743,238</div>
+                        <div class="cell-return">+7.7%/yr</div>
+                        <div class="cell-count">(83 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £278,258</div>
+                        <div class="cell-sell">Sell: £775,281</div>
+                        <div class="cell-return">+6.2%/yr</div>
+                        <div class="cell-count">(51 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £270,654</div>
+                        <div class="cell-sell">Sell: £319,922</div>
+                        <div class="cell-return">+10.3%/yr</div>
+                        <div class="cell-count">(309 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £307,784</div>
+                        <div class="cell-sell">Sell: £471,685</div>
+                        <div class="cell-return">+8.6%/yr</div>
+                        <div class="cell-count">(807 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £324,615</div>
+                        <div class="cell-sell">Sell: £653,057</div>
+                        <div class="cell-return">+8.2%/yr</div>
+                        <div class="cell-count">(453 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £338,830</div>
+                        <div class="cell-sell">Sell: £707,457</div>
+                        <div class="cell-return">+5.6%/yr</div>
+                        <div class="cell-count">(357 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £367,596</div>
+                        <div class="cell-sell">Sell: £541,261</div>
+                        <div class="cell-return">+19.4%/yr</div>
+                        <div class="cell-count">(269 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £441,094</div>
+                        <div class="cell-sell">Sell: £618,722</div>
+                        <div class="cell-return">+8.0%/yr</div>
+                        <div class="cell-count">(678 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £499,203</div>
+                        <div class="cell-sell">Sell: £716,430</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(640 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £711,555</div>
+                        <div class="cell-sell">Sell: £790,648</div>
+                        <div class="cell-return">+6.0%/yr</div>
+                        <div class="cell-count">(241 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £595,646</div>
+                        <div class="cell-sell">Sell: £680,729</div>
+                        <div class="cell-return">+4.1%/yr</div>
+                        <div class="cell-count">(728 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £678,940</div>
+                        <div class="cell-sell">Sell: £754,610</div>
+                        <div class="cell-return">+8.8%/yr</div>
+                        <div class="cell-count">(202 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'N16 6'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'N16'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

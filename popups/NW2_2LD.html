@@ -1,0 +1,1154 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>NW2 2LD</h3>
+            <div class="header-stats">
+                <span><strong>51</strong> transactions</span>
+                <span><strong>32</strong> properties</span>
+                <span>Avg: <strong>£828,083</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-NW2-2LD')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-NW2-2LD')">
+                Sector (NW2 2)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-NW2-2LD')">
+                District (NW2)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-NW2-2LD" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-NW2-2LD', 'NW2-2LD')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-NW2-2LD', 'NW2-2LD')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-NW2-2LD', 'NW2-2LD')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-NW2-2LD" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-NW2-2LD" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 2, Teseo House, 124, Granville Road", "dates": ["2013-12-09", "2024-02-29"], "prices": [431201, 485000], "hover_texts": ["<b>Flat 2, Teseo House, 124, Granville Road</b><br>Transaction 1 of 2<br>Date: 2013-12-09<br>Sale Price: \u00a3431,201", "<b>Flat 2, Teseo House, 124, Granville Road</b><br>Transaction 2 of 2<br>Date: 2024-02-29<br>Sale Price: \u00a3485,000<br>Previous Purchase: \u00a3431,201<br>Previous Date: 2013-12-09<br>Annual Return: +1.2%/yr<br>Held for: 10.2 years"], "transaction_count": 2}, {"address": "152, Granville Road", "dates": ["2017-07-17", "2022-06-30"], "prices": [650000, 715000], "hover_texts": ["<b>152, Granville Road</b><br>Transaction 1 of 2<br>Date: 2017-07-17<br>Sale Price: \u00a3650,000", "<b>152, Granville Road</b><br>Transaction 2 of 2<br>Date: 2022-06-30<br>Sale Price: \u00a3715,000<br>Previous Purchase: \u00a3650,000<br>Previous Date: 2017-07-17<br>Annual Return: +1.9%/yr<br>Held for: 5.0 years"], "transaction_count": 2}, {"address": "122, Granville Road", "dates": ["2017-02-23", "2021-03-16", "2024-10-29"], "prices": [2150000, 4175000, 4425000], "hover_texts": ["<b>122, Granville Road</b><br>Transaction 1 of 3<br>Date: 2017-02-23<br>Sale Price: \u00a32,150,000", "<b>122, Granville Road</b><br>Transaction 2 of 3<br>Date: 2021-03-16<br>Sale Price: \u00a34,175,000<br>Previous Purchase: \u00a32,150,000<br>Previous Date: 2017-02-23<br>Annual Return: +17.8%/yr<br>Held for: 4.1 years", "<b>122, Granville Road</b><br>Transaction 3 of 3<br>Date: 2024-10-29<br>Sale Price: \u00a34,425,000<br>Previous Purchase: \u00a34,175,000<br>Previous Date: 2021-03-16<br>Annual Return: +1.6%/yr<br>Held for: 3.6 years"], "transaction_count": 3}, {"address": "Flat 12, Teseo House, 124, Granville Road", "dates": ["2014-04-30", "2016-01-14"], "prices": [728000, 785000], "hover_texts": ["<b>Flat 12, Teseo House, 124, Granville Road</b><br>Transaction 1 of 2<br>Date: 2014-04-30<br>Sale Price: \u00a3728,000", "<b>Flat 12, Teseo House, 124, Granville Road</b><br>Transaction 2 of 2<br>Date: 2016-01-14<br>Sale Price: \u00a3785,000<br>Previous Purchase: \u00a3728,000<br>Previous Date: 2014-04-30<br>Annual Return: +4.5%/yr<br>Held for: 1.7 years"], "transaction_count": 2}, {"address": "Flat 10, Teseo House, 124, Granville Road", "dates": ["2013-12-04", "2016-12-19", "2024-08-12"], "prices": [310000, 400000, 395000], "hover_texts": ["<b>Flat 10, Teseo House, 124, Granville Road</b><br>Transaction 1 of 3<br>Date: 2013-12-04<br>Sale Price: \u00a3310,000", "<b>Flat 10, Teseo House, 124, Granville Road</b><br>Transaction 2 of 3<br>Date: 2016-12-19<br>Sale Price: \u00a3400,000<br>Previous Purchase: \u00a3310,000<br>Previous Date: 2013-12-04<br>Annual Return: +8.7%/yr<br>Held for: 3.0 years", "<b>Flat 10, Teseo House, 124, Granville Road</b><br>Transaction 3 of 3<br>Date: 2024-08-12<br>Sale Price: \u00a3395,000<br>Previous Purchase: \u00a3400,000<br>Previous Date: 2016-12-19<br>Annual Return: -0.2%/yr<br>Held for: 7.7 years"], "transaction_count": 3}, {"address": "Flat 9, Teseo House, 124, Granville Road", "dates": ["2014-01-13", "2018-11-23"], "prices": [475000, 585000], "hover_texts": ["<b>Flat 9, Teseo House, 124, Granville Road</b><br>Transaction 1 of 2<br>Date: 2014-01-13<br>Sale Price: \u00a3475,000", "<b>Flat 9, Teseo House, 124, Granville Road</b><br>Transaction 2 of 2<br>Date: 2018-11-23<br>Sale Price: \u00a3585,000<br>Previous Purchase: \u00a3475,000<br>Previous Date: 2014-01-13<br>Annual Return: +4.4%/yr<br>Held for: 4.9 years"], "transaction_count": 2}, {"address": "130 - 134, Granville Road", "dates": ["2015-06-12", "2019-07-31", "2024-10-29"], "prices": [2280000, 3566899, 2491000], "hover_texts": ["<b>130 - 134, Granville Road</b><br>Transaction 1 of 3<br>Date: 2015-06-12<br>Sale Price: \u00a32,280,000", "<b>130 - 134, Granville Road</b><br>Transaction 2 of 3<br>Date: 2019-07-31<br>Sale Price: \u00a33,566,899<br>Previous Purchase: \u00a32,280,000<br>Previous Date: 2015-06-12<br>Annual Return: +11.4%/yr<br>Held for: 4.1 years", "<b>130 - 134, Granville Road</b><br>Transaction 3 of 3<br>Date: 2024-10-29<br>Sale Price: \u00a32,491,000<br>Previous Purchase: \u00a33,566,899<br>Previous Date: 2019-07-31<br>Annual Return: -6.6%/yr<br>Held for: 5.2 years"], "transaction_count": 3}, {"address": "150, Granville Road", "dates": ["2011-07-08", "2022-03-11"], "prices": [350000, 625000], "hover_texts": ["<b>150, Granville Road</b><br>Transaction 1 of 2<br>Date: 2011-07-08<br>Sale Price: \u00a3350,000", "<b>150, Granville Road</b><br>Transaction 2 of 2<br>Date: 2022-03-11<br>Sale Price: \u00a3625,000<br>Previous Purchase: \u00a3350,000<br>Previous Date: 2011-07-08<br>Annual Return: +5.6%/yr<br>Held for: 10.7 years"], "transaction_count": 2}, {"address": "Flat 1, Allmand Court, 136, Granville Road", "dates": ["2019-04-12", "2023-10-16"], "prices": [582000, 623000], "hover_texts": ["<b>Flat 1, Allmand Court, 136, Granville Road</b><br>Transaction 1 of 2<br>Date: 2019-04-12<br>Sale Price: \u00a3582,000", "<b>Flat 1, Allmand Court, 136, Granville Road</b><br>Transaction 2 of 2<br>Date: 2023-10-16<br>Sale Price: \u00a3623,000<br>Previous Purchase: \u00a3582,000<br>Previous Date: 2019-04-12<br>Annual Return: +1.5%/yr<br>Held for: 4.5 years"], "transaction_count": 2}, {"address": "Flat 3, Teseo House, 124, Granville Road", "dates": ["2013-12-02", "2016-02-29"], "prices": [304000, 395000], "hover_texts": ["<b>Flat 3, Teseo House, 124, Granville Road</b><br>Transaction 1 of 2<br>Date: 2013-12-02<br>Sale Price: \u00a3304,000", "<b>Flat 3, Teseo House, 124, Granville Road</b><br>Transaction 2 of 2<br>Date: 2016-02-29<br>Sale Price: \u00a3395,000<br>Previous Purchase: \u00a3304,000<br>Previous Date: 2013-12-02<br>Annual Return: +12.4%/yr<br>Held for: 2.2 years"], "transaction_count": 2}, {"address": "156, Granville Road", "dates": ["2009-07-31", "2016-12-08", "2020-12-16"], "prices": [350000, 540000, 558200], "hover_texts": ["<b>156, Granville Road</b><br>Transaction 1 of 3<br>Date: 2009-07-31<br>Sale Price: \u00a3350,000", "<b>156, Granville Road</b><br>Transaction 2 of 3<br>Date: 2016-12-08<br>Sale Price: \u00a3540,000<br>Previous Purchase: \u00a3350,000<br>Previous Date: 2009-07-31<br>Annual Return: +6.1%/yr<br>Held for: 7.4 years", "<b>156, Granville Road</b><br>Transaction 3 of 3<br>Date: 2020-12-16<br>Sale Price: \u00a3558,200<br>Previous Purchase: \u00a3540,000<br>Previous Date: 2016-12-08<br>Annual Return: +0.8%/yr<br>Held for: 4.0 years"], "transaction_count": 3}, {"address": "Flat 4, Teseo House, 124, Granville Road", "dates": ["2014-01-17", "2020-02-07"], "prices": [460000, 524500], "hover_texts": ["<b>Flat 4, Teseo House, 124, Granville Road</b><br>Transaction 1 of 2<br>Date: 2014-01-17<br>Sale Price: \u00a3460,000", "<b>Flat 4, Teseo House, 124, Granville Road</b><br>Transaction 2 of 2<br>Date: 2020-02-07<br>Sale Price: \u00a3524,500<br>Previous Purchase: \u00a3460,000<br>Previous Date: 2014-01-17<br>Annual Return: +2.2%/yr<br>Held for: 6.1 years"], "transaction_count": 2}, {"address": "160A, Granville Road", "dates": ["2006-03-09", "2020-11-12"], "prices": [211000, 485000], "hover_texts": ["<b>160A, Granville Road</b><br>Transaction 1 of 2<br>Date: 2006-03-09<br>Sale Price: \u00a3211,000", "<b>160A, Granville Road</b><br>Transaction 2 of 2<br>Date: 2020-11-12<br>Sale Price: \u00a3485,000<br>Previous Purchase: \u00a3211,000<br>Previous Date: 2006-03-09<br>Annual Return: +5.8%/yr<br>Held for: 14.7 years"], "transaction_count": 2}, {"address": "Flat 6, Teseo House, 124, Granville Road", "dates": ["2014-05-30", "2017-10-23"], "prices": [358512, 410000], "hover_texts": ["<b>Flat 6, Teseo House, 124, Granville Road</b><br>Transaction 1 of 2<br>Date: 2014-05-30<br>Sale Price: \u00a3358,512", "<b>Flat 6, Teseo House, 124, Granville Road</b><br>Transaction 2 of 2<br>Date: 2017-10-23<br>Sale Price: \u00a3410,000<br>Previous Purchase: \u00a3358,512<br>Previous Date: 2014-05-30<br>Annual Return: +4.0%/yr<br>Held for: 3.4 years"], "transaction_count": 2}, {"address": "160, Granville Road", "dates": ["2009-06-30", "2019-08-30"], "prices": [262000, 465000], "hover_texts": ["<b>160, Granville Road</b><br>Transaction 1 of 2<br>Date: 2009-06-30<br>Sale Price: \u00a3262,000", "<b>160, Granville Road</b><br>Transaction 2 of 2<br>Date: 2019-08-30<br>Sale Price: \u00a3465,000<br>Previous Purchase: \u00a3262,000<br>Previous Date: 2009-06-30<br>Annual Return: +5.8%/yr<br>Held for: 10.2 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2010-06-01", "address": "170, Granville Road", "price": 499998, "price_display": "\u00a3499,998", "property_type": "D", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2021-01-22", "address": "Flat 8, Allmand Court, 136, Granville Road", "price": 680000, "price_display": "\u00a3680,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-08-18", "address": "Flat 11, Allmand Court, 136, Granville Road", "price": 715000, "price_display": "\u00a3715,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-05-26", "address": "Flat 2, Allmand Court, 136, Granville Road", "price": 635000, "price_display": "\u00a3635,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-09", "address": "Flat 7, Teseo House, 124, Granville Road", "price": 330000, "price_display": "\u00a3330,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-10-02", "address": "Flat 9, Allmand Court, 136, Granville Road", "price": 670000, "price_display": "\u00a3670,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-09-25", "address": "Flat 6, Allmand Court, 136, Granville Road", "price": 673000, "price_display": "\u00a3673,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-03-15", "address": "Flat 7, Allmand Court, 136, Granville Road", "price": 598250, "price_display": "\u00a3598,250", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-03-26", "address": "Flat 4, Allmand Court, 136, Granville Road", "price": 583000, "price_display": "\u00a3583,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-03-20", "address": "Flat 3, Allmand Court, 136, Granville Road", "price": 652500, "price_display": "\u00a3652,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-03-17", "address": "Flat 8, Teseo House, 124, Granville Road", "price": 480000, "price_display": "\u00a3480,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-09", "address": "Flat 1, Teseo House, 124, Granville Road", "price": 278194, "price_display": "\u00a3278,194", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-11-25", "address": "Flat 5, Allmand Court, 136, Granville Road", "price": 649000, "price_display": "\u00a3649,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-12", "address": "Flat 10, Allmand Court, 136, Granville Road", "price": 468000, "price_display": "\u00a3468,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-01-09", "address": "Flat 5, Teseo House, 124, Granville Road", "price": 460000, "price_display": "\u00a3460,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-11-24", "address": "120, Granville Road", "price": 560000, "price_display": "\u00a3560,000", "property_type": "O", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-03-18", "address": "Flat 11, Teseo House, 124, Granville Road", "price": 750000, "price_display": "\u00a3750,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-NW2-2LD', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-NW2-2LD');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-NW2-2LD', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-NW2-2LD', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-NW2-2LD" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2010-06-01</td>
+            <td>170, Granville Road</td>
+            <td class="price">£499,998</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-02-29</td>
+            <td>Flat 2, Teseo House, 124, Granville Road</td>
+            <td class="price">£485,000</td>
+        <td class="positive" title="Previous: £431,201 (2013-12-09)">+1.2%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-09</td>
+            <td>Flat 2, Teseo House, 124, Granville Road</td>
+            <td class="price">£431,201</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-01-22</td>
+            <td>Flat 8, Allmand Court, 136, Granville Road</td>
+            <td class="price">£680,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-08-18</td>
+            <td>Flat 11, Allmand Court, 136, Granville Road</td>
+            <td class="price">£715,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-06-30</td>
+            <td>152, Granville Road</td>
+            <td class="price">£715,000</td>
+        <td class="positive" title="Previous: £650,000 (2017-07-17)">+1.9%/yr</td></tr>
+
+        <tr>
+            <td>2017-07-17</td>
+            <td>152, Granville Road</td>
+            <td class="price">£650,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-05-26</td>
+            <td>Flat 2, Allmand Court, 136, Granville Road</td>
+            <td class="price">£635,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-09</td>
+            <td>Flat 7, Teseo House, 124, Granville Road</td>
+            <td class="price">£330,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-10-02</td>
+            <td>Flat 9, Allmand Court, 136, Granville Road</td>
+            <td class="price">£670,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-09-25</td>
+            <td>Flat 6, Allmand Court, 136, Granville Road</td>
+            <td class="price">£673,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-10-29</td>
+            <td>122, Granville Road</td>
+            <td class="price">£4,425,000</td>
+        <td class="positive" title="Previous: £4,175,000 (2021-03-16)">+1.6%/yr</td></tr>
+
+        <tr>
+            <td>2021-03-16</td>
+            <td>122, Granville Road</td>
+            <td class="price">£4,175,000</td>
+        <td class="positive" title="Previous: £2,150,000 (2017-02-23)">+17.8%/yr</td></tr>
+
+        <tr>
+            <td>2017-02-23</td>
+            <td>122, Granville Road</td>
+            <td class="price">£2,150,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-01-14</td>
+            <td>Flat 12, Teseo House, 124, Granville Road</td>
+            <td class="price">£785,000</td>
+        <td class="positive" title="Previous: £728,000 (2014-04-30)">+4.5%/yr</td></tr>
+
+        <tr>
+            <td>2014-04-30</td>
+            <td>Flat 12, Teseo House, 124, Granville Road</td>
+            <td class="price">£728,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-08-12</td>
+            <td>Flat 10, Teseo House, 124, Granville Road</td>
+            <td class="price">£395,000</td>
+        <td class="negative" title="Previous: £400,000 (2016-12-19)">-0.2%/yr</td></tr>
+
+        <tr>
+            <td>2016-12-19</td>
+            <td>Flat 10, Teseo House, 124, Granville Road</td>
+            <td class="price">£400,000</td>
+        <td class="positive" title="Previous: £310,000 (2013-12-04)">+8.7%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-04</td>
+            <td>Flat 10, Teseo House, 124, Granville Road</td>
+            <td class="price">£310,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-23</td>
+            <td>Flat 9, Teseo House, 124, Granville Road</td>
+            <td class="price">£585,000</td>
+        <td class="positive" title="Previous: £475,000 (2014-01-13)">+4.4%/yr</td></tr>
+
+        <tr>
+            <td>2014-01-13</td>
+            <td>Flat 9, Teseo House, 124, Granville Road</td>
+            <td class="price">£475,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-03-15</td>
+            <td>Flat 7, Allmand Court, 136, Granville Road</td>
+            <td class="price">£598,250</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-03-26</td>
+            <td>Flat 4, Allmand Court, 136, Granville Road</td>
+            <td class="price">£583,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-10-29</td>
+            <td>130 - 134, Granville Road</td>
+            <td class="price">£2,491,000</td>
+        <td class="negative" title="Previous: £3,566,899 (2019-07-31)">-6.6%/yr</td></tr>
+
+        <tr>
+            <td>2019-07-31</td>
+            <td>130 - 134, Granville Road</td>
+            <td class="price">£3,566,899</td>
+        <td class="positive" title="Previous: £2,280,000 (2015-06-12)">+11.4%/yr</td></tr>
+
+        <tr>
+            <td>2015-06-12</td>
+            <td>130 - 134, Granville Road</td>
+            <td class="price">£2,280,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-03-20</td>
+            <td>Flat 3, Allmand Court, 136, Granville Road</td>
+            <td class="price">£652,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-11</td>
+            <td>150, Granville Road</td>
+            <td class="price">£625,000</td>
+        <td class="positive" title="Previous: £350,000 (2011-07-08)">+5.6%/yr</td></tr>
+
+        <tr>
+            <td>2011-07-08</td>
+            <td>150, Granville Road</td>
+            <td class="price">£350,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-03-17</td>
+            <td>Flat 8, Teseo House, 124, Granville Road</td>
+            <td class="price">£480,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-16</td>
+            <td>Flat 1, Allmand Court, 136, Granville Road</td>
+            <td class="price">£623,000</td>
+        <td class="positive" title="Previous: £582,000 (2019-04-12)">+1.5%/yr</td></tr>
+
+        <tr>
+            <td>2019-04-12</td>
+            <td>Flat 1, Allmand Court, 136, Granville Road</td>
+            <td class="price">£582,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-09</td>
+            <td>Flat 1, Teseo House, 124, Granville Road</td>
+            <td class="price">£278,194</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-11-25</td>
+            <td>Flat 5, Allmand Court, 136, Granville Road</td>
+            <td class="price">£649,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-29</td>
+            <td>Flat 3, Teseo House, 124, Granville Road</td>
+            <td class="price">£395,000</td>
+        <td class="positive" title="Previous: £304,000 (2013-12-02)">+12.4%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-02</td>
+            <td>Flat 3, Teseo House, 124, Granville Road</td>
+            <td class="price">£304,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-12-16</td>
+            <td>156, Granville Road</td>
+            <td class="price">£558,200</td>
+        <td class="positive" title="Previous: £540,000 (2016-12-08)">+0.8%/yr</td></tr>
+
+        <tr>
+            <td>2016-12-08</td>
+            <td>156, Granville Road</td>
+            <td class="price">£540,000</td>
+        <td class="positive" title="Previous: £350,000 (2009-07-31)">+6.1%/yr</td></tr>
+
+        <tr>
+            <td>2009-07-31</td>
+            <td>156, Granville Road</td>
+            <td class="price">£350,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-12</td>
+            <td>Flat 10, Allmand Court, 136, Granville Road</td>
+            <td class="price">£468,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-02-07</td>
+            <td>Flat 4, Teseo House, 124, Granville Road</td>
+            <td class="price">£524,500</td>
+        <td class="positive" title="Previous: £460,000 (2014-01-17)">+2.2%/yr</td></tr>
+
+        <tr>
+            <td>2014-01-17</td>
+            <td>Flat 4, Teseo House, 124, Granville Road</td>
+            <td class="price">£460,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-11-12</td>
+            <td>160A, Granville Road</td>
+            <td class="price">£485,000</td>
+        <td class="positive" title="Previous: £211,000 (2006-03-09)">+5.8%/yr</td></tr>
+
+        <tr>
+            <td>2006-03-09</td>
+            <td>160A, Granville Road</td>
+            <td class="price">£211,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-01-09</td>
+            <td>Flat 5, Teseo House, 124, Granville Road</td>
+            <td class="price">£460,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-11-24</td>
+            <td>120, Granville Road</td>
+            <td class="price">£560,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-10-23</td>
+            <td>Flat 6, Teseo House, 124, Granville Road</td>
+            <td class="price">£410,000</td>
+        <td class="positive" title="Previous: £358,512 (2014-05-30)">+4.0%/yr</td></tr>
+
+        <tr>
+            <td>2014-05-30</td>
+            <td>Flat 6, Teseo House, 124, Granville Road</td>
+            <td class="price">£358,512</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-03-18</td>
+            <td>Flat 11, Teseo House, 124, Granville Road</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-30</td>
+            <td>160, Granville Road</td>
+            <td class="price">£465,000</td>
+        <td class="positive" title="Previous: £262,000 (2009-06-30)">+5.8%/yr</td></tr>
+
+        <tr>
+            <td>2009-06-30</td>
+            <td>160, Granville Road</td>
+            <td class="price">£262,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-NW2-2LD" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-NW2-2LD" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2006, 2009, 2010, 2011, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+            y: [211000, 306000, 499998, 350000, 330679, 530216, 2280000, 530000, 1070000, 526500, 1159029, 611171, 1516000, 670000, 629000, 1949000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2006, 2009, 2010, 2011, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+            y: [211000, 350000, 499998, 350000, 310000, 475000, 2280000, 540000, 650000, 585000, 583000, 652500, 680000, 715000, 635000, 2491000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - NW2 2LD',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-NW2-2LD', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 51</p>
+                    <p><strong>Unique Properties:</strong> 32</p>
+                    <p><strong>Average Price:</strong> £828,083</p>
+                    <p><strong>Median Price:</strong> £558,200</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-NW2-2LD" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector NW2 2 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector NW2 2</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-NW2-2LD', 'NW2-2LD')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-NW2-2LD', 'NW2-2LD')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-NW2-2LD" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-NW2-2LD" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [377568, 391240, 429049, 401177, 544534, 606964, 528863, 817489, 694554, 840331, 839765, 728558, 813408, 745552, 633037, 682428, 875175, 850347, 746903, 694824, 931234],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [261000, 263500, 281000, 278250, 310000, 385000, 380000, 348000, 385000, 455000, 702000, 516500, 564500, 517500, 495000, 585000, 585000, 597500, 528500, 450000, 545000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector NW2 2 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-NW2-2LD', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-NW2-2LD" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £315,356</div>
+                        <div class="cell-sell">Sell: £503,533</div>
+                        <div class="cell-return">+15.1%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £370,607</div>
+                        <div class="cell-sell">Sell: £598,964</div>
+                        <div class="cell-return">+6.1%/yr</div>
+                        <div class="cell-count">(14 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £481,857</div>
+                        <div class="cell-sell">Sell: £955,428</div>
+                        <div class="cell-return">+5.5%/yr</div>
+                        <div class="cell-count">(7 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £505,600</div>
+                        <div class="cell-sell">Sell: £1,143,600</div>
+                        <div class="cell-return">+5.4%/yr</div>
+                        <div class="cell-count">(5 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £351,254</div>
+                        <div class="cell-sell">Sell: £479,161</div>
+                        <div class="cell-return">+18.1%/yr</div>
+                        <div class="cell-count">(31 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £457,663</div>
+                        <div class="cell-sell">Sell: £578,676</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(87 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £432,045</div>
+                        <div class="cell-sell">Sell: £768,778</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(53 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £487,032</div>
+                        <div class="cell-sell">Sell: £749,717</div>
+                        <div class="cell-return">+3.4%/yr</div>
+                        <div class="cell-count">(29 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £633,189</div>
+                        <div class="cell-sell">Sell: £865,638</div>
+                        <div class="cell-return">+18.3%/yr</div>
+                        <div class="cell-count">(39 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £590,826</div>
+                        <div class="cell-sell">Sell: £755,057</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(58 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £633,673</div>
+                        <div class="cell-sell">Sell: £819,413</div>
+                        <div class="cell-return">+3.6%/yr</div>
+                        <div class="cell-count">(61 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £505,014</div>
+                        <div class="cell-sell">Sell: £581,637</div>
+                        <div class="cell-return">+5.7%/yr</div>
+                        <div class="cell-count">(27 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £669,855</div>
+                        <div class="cell-sell">Sell: £776,324</div>
+                        <div class="cell-return">+4.0%/yr</div>
+                        <div class="cell-count">(75 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £803,623</div>
+                        <div class="cell-sell">Sell: £903,860</div>
+                        <div class="cell-return">+11.4%/yr</div>
+                        <div class="cell-count">(25 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-NW2-2LD" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District NW2 Analysis</h4>
+                <p class="area-info">Viewing data for entire NW2 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-NW2-2LD', 'NW2-2LD')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-NW2-2LD', 'NW2-2LD')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-NW2-2LD" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-NW2-2LD" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [296263, 326672, 346715, 356844, 369809, 424055, 392797, 460708, 491484, 554762, 594779, 617966, 586167, 597913, 614303, 642739, 686098, 733896, 675200, 655555, 696191],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [245500, 264250, 289950, 300000, 286000, 330000, 318500, 334500, 370000, 425000, 475000, 497000, 480000, 460300, 490000, 542000, 535000, 551000, 525000, 540000, 540000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District NW2 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-NW2-2LD', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-NW2-2LD" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £186,227</div>
+                        <div class="cell-sell">Sell: £205,768</div>
+                        <div class="cell-return">-24.4%/yr</div>
+                        <div class="cell-count">(11 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £262,489</div>
+                        <div class="cell-sell">Sell: £349,127</div>
+                        <div class="cell-return">+12.3%/yr</div>
+                        <div class="cell-count">(163 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £300,925</div>
+                        <div class="cell-sell">Sell: £493,547</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(125 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £305,814</div>
+                        <div class="cell-sell">Sell: £609,384</div>
+                        <div class="cell-return">+6.0%/yr</div>
+                        <div class="cell-count">(52 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £288,818</div>
+                        <div class="cell-sell">Sell: £620,806</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(49 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £313,390</div>
+                        <div class="cell-sell">Sell: £400,794</div>
+                        <div class="cell-return">+12.2%/yr</div>
+                        <div class="cell-count">(247 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £346,976</div>
+                        <div class="cell-sell">Sell: £478,593</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(748 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £358,495</div>
+                        <div class="cell-sell">Sell: £631,974</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(353 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £386,121</div>
+                        <div class="cell-sell">Sell: £664,545</div>
+                        <div class="cell-return">+4.1%/yr</div>
+                        <div class="cell-count">(256 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £396,168</div>
+                        <div class="cell-sell">Sell: £559,254</div>
+                        <div class="cell-return">+19.1%/yr</div>
+                        <div class="cell-count">(257 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £465,821</div>
+                        <div class="cell-sell">Sell: £634,007</div>
+                        <div class="cell-return">+8.7%/yr</div>
+                        <div class="cell-count">(498 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £513,151</div>
+                        <div class="cell-sell">Sell: £678,059</div>
+                        <div class="cell-return">+3.5%/yr</div>
+                        <div class="cell-count">(469 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £551,378</div>
+                        <div class="cell-sell">Sell: £603,945</div>
+                        <div class="cell-return">+7.6%/yr</div>
+                        <div class="cell-count">(193 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £667,707</div>
+                        <div class="cell-sell">Sell: £695,137</div>
+                        <div class="cell-return">+2.9%/yr</div>
+                        <div class="cell-count">(440 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £782,735</div>
+                        <div class="cell-sell">Sell: £897,208</div>
+                        <div class="cell-return">+9.6%/yr</div>
+                        <div class="cell-count">(154 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'NW2 2'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'NW2'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

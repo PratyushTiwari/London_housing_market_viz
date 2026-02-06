@@ -1,0 +1,1245 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W9 1SF</h3>
+            <div class="header-stats">
+                <span><strong>65</strong> transactions</span>
+                <span><strong>47</strong> properties</span>
+                <span>Avg: <strong>£776,315</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W9-1SF')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W9-1SF')">
+                Sector (W9 1)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W9-1SF')">
+                District (W9)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W9-1SF" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W9-1SF', 'W9-1SF')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W9-1SF', 'W9-1SF')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W9-1SF', 'W9-1SF')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W9-1SF" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W9-1SF" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "411, Clive Court, Maida Vale", "dates": ["2015-09-24", "2018-08-30"], "prices": [770000, 860000], "hover_texts": ["<b>411, Clive Court, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2015-09-24<br>Sale Price: \u00a3770,000", "<b>411, Clive Court, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2018-08-30<br>Sale Price: \u00a3860,000<br>Previous Purchase: \u00a3770,000<br>Previous Date: 2015-09-24<br>Annual Return: +3.8%/yr<br>Held for: 2.9 years"], "transaction_count": 2}, {"address": "402, Clive Court, 75, Maida Vale", "dates": ["2018-12-11", "2020-07-17"], "prices": [312407, 745000], "hover_texts": ["<b>402, Clive Court, 75, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2018-12-11<br>Sale Price: \u00a3312,407", "<b>402, Clive Court, 75, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2020-07-17<br>Sale Price: \u00a3745,000<br>Previous Purchase: \u00a3312,407<br>Previous Date: 2018-12-11<br>Annual Return: +72.2%/yr<br>Held for: 1.6 years"], "transaction_count": 2}, {"address": "315, Clive Court, Maida Vale", "dates": ["2005-06-22", "2007-10-29"], "prices": [325000, 476000], "hover_texts": ["<b>315, Clive Court, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2005-06-22<br>Sale Price: \u00a3325,000", "<b>315, Clive Court, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2007-10-29<br>Sale Price: \u00a3476,000<br>Previous Purchase: \u00a3325,000<br>Previous Date: 2005-06-22<br>Annual Return: +17.6%/yr<br>Held for: 2.4 years"], "transaction_count": 2}, {"address": "303, Clive Court, Maida Vale", "dates": ["2007-01-19", "2011-01-07"], "prices": [380000, 555000], "hover_texts": ["<b>303, Clive Court, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2007-01-19<br>Sale Price: \u00a3380,000", "<b>303, Clive Court, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2011-01-07<br>Sale Price: \u00a3555,000<br>Previous Purchase: \u00a3380,000<br>Previous Date: 2007-01-19<br>Annual Return: +10.0%/yr<br>Held for: 4.0 years"], "transaction_count": 2}, {"address": "108, Clive Court, 75, Maida Vale", "dates": ["2018-12-11", "2020-04-09"], "prices": [229677, 555000], "hover_texts": ["<b>108, Clive Court, 75, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2018-12-11<br>Sale Price: \u00a3229,677", "<b>108, Clive Court, 75, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2020-04-09<br>Sale Price: \u00a3555,000<br>Previous Purchase: \u00a3229,677<br>Previous Date: 2018-12-11<br>Annual Return: +94.3%/yr<br>Held for: 1.3 years"], "transaction_count": 2}, {"address": "312, Clive Court, Maida Vale", "dates": ["2006-08-07", "2013-03-21"], "prices": [585000, 915000], "hover_texts": ["<b>312, Clive Court, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2006-08-07<br>Sale Price: \u00a3585,000", "<b>312, Clive Court, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2013-03-21<br>Sale Price: \u00a3915,000<br>Previous Purchase: \u00a3585,000<br>Previous Date: 2006-08-07<br>Annual Return: +7.0%/yr<br>Held for: 6.6 years"], "transaction_count": 2}, {"address": "307, Clive Court, Maida Vale", "dates": ["2010-06-04", "2011-05-16", "2018-11-13"], "prices": [1150000, 1550000, 2200000], "hover_texts": ["<b>307, Clive Court, Maida Vale</b><br>Transaction 1 of 3<br>Date: 2010-06-04<br>Sale Price: \u00a31,150,000", "<b>307, Clive Court, Maida Vale</b><br>Transaction 2 of 3<br>Date: 2011-05-16<br>Sale Price: \u00a31,550,000<br>Previous Purchase: \u00a31,150,000<br>Previous Date: 2010-06-04<br>Annual Return: +37.0%/yr<br>Held for: 0.9 years", "<b>307, Clive Court, Maida Vale</b><br>Transaction 3 of 3<br>Date: 2018-11-13<br>Sale Price: \u00a32,200,000<br>Previous Purchase: \u00a31,550,000<br>Previous Date: 2011-05-16<br>Annual Return: +4.8%/yr<br>Held for: 7.5 years"], "transaction_count": 3}, {"address": "413, Clive Court, 75, Maida Vale", "dates": ["2018-12-03", "2022-11-11"], "prices": [811750, 925000], "hover_texts": ["<b>413, Clive Court, 75, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2018-12-03<br>Sale Price: \u00a3811,750", "<b>413, Clive Court, 75, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2022-11-11<br>Sale Price: \u00a3925,000<br>Previous Purchase: \u00a3811,750<br>Previous Date: 2018-12-03<br>Annual Return: +3.4%/yr<br>Held for: 3.9 years"], "transaction_count": 2}, {"address": "308, Clive Court, Maida Vale", "dates": ["2012-11-19", "2014-04-22"], "prices": [890000, 1420000], "hover_texts": ["<b>308, Clive Court, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2012-11-19<br>Sale Price: \u00a3890,000", "<b>308, Clive Court, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2014-04-22<br>Sale Price: \u00a31,420,000<br>Previous Purchase: \u00a3890,000<br>Previous Date: 2012-11-19<br>Annual Return: +38.9%/yr<br>Held for: 1.4 years"], "transaction_count": 2}, {"address": "301, Clive Court, Maida Vale", "dates": ["2011-10-05", "2016-09-08"], "prices": [1425000, 1800000], "hover_texts": ["<b>301, Clive Court, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2011-10-05<br>Sale Price: \u00a31,425,000", "<b>301, Clive Court, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2016-09-08<br>Sale Price: \u00a31,800,000<br>Previous Purchase: \u00a31,425,000<br>Previous Date: 2011-10-05<br>Annual Return: +4.8%/yr<br>Held for: 4.9 years"], "transaction_count": 2}, {"address": "304, Clive Court, Maida Vale", "dates": ["2017-01-26", "2017-01-26"], "prices": [750000, 850000], "hover_texts": ["<b>304, Clive Court, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2017-01-26<br>Sale Price: \u00a3750,000", "<b>304, Clive Court, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2017-01-26<br>Sale Price: \u00a3850,000"], "transaction_count": 2}, {"address": "108, Clive Court, Maida Vale", "dates": ["2005-10-07", "2013-04-12"], "prices": [292000, 775000], "hover_texts": ["<b>108, Clive Court, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2005-10-07<br>Sale Price: \u00a3292,000", "<b>108, Clive Court, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2013-04-12<br>Sale Price: \u00a3775,000<br>Previous Purchase: \u00a3292,000<br>Previous Date: 2005-10-07<br>Annual Return: +13.9%/yr<br>Held for: 7.5 years"], "transaction_count": 2}, {"address": "307, Clive Court, 75, Maida Vale", "dates": ["2021-08-13", "2023-09-22"], "prices": [1499387, 1920000], "hover_texts": ["<b>307, Clive Court, 75, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2021-08-13<br>Sale Price: \u00a31,499,387", "<b>307, Clive Court, 75, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2023-09-22<br>Sale Price: \u00a31,920,000<br>Previous Purchase: \u00a31,499,387<br>Previous Date: 2021-08-13<br>Annual Return: +12.4%/yr<br>Held for: 2.1 years"], "transaction_count": 2}, {"address": "205, Clive Court, Maida Vale", "dates": ["2006-08-21", "2012-04-17"], "prices": [550000, 835000], "hover_texts": ["<b>205, Clive Court, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2006-08-21<br>Sale Price: \u00a3550,000", "<b>205, Clive Court, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2012-04-17<br>Sale Price: \u00a3835,000<br>Previous Purchase: \u00a3550,000<br>Previous Date: 2006-08-21<br>Annual Return: +7.7%/yr<br>Held for: 5.7 years"], "transaction_count": 2}, {"address": "406, Clive Court, Maida Vale", "dates": ["2007-04-20", "2013-09-11"], "prices": [335000, 500000], "hover_texts": ["<b>406, Clive Court, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2007-04-20<br>Sale Price: \u00a3335,000", "<b>406, Clive Court, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2013-09-11<br>Sale Price: \u00a3500,000<br>Previous Purchase: \u00a3335,000<br>Previous Date: 2007-04-20<br>Annual Return: +6.5%/yr<br>Held for: 6.4 years"], "transaction_count": 2}, {"address": "106A, Clive Court, 75, Maida Vale", "dates": ["2018-12-03", "2022-09-07"], "prices": [292400, 480000], "hover_texts": ["<b>106A, Clive Court, 75, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2018-12-03<br>Sale Price: \u00a3292,400", "<b>106A, Clive Court, 75, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2022-09-07<br>Sale Price: \u00a3480,000<br>Previous Purchase: \u00a3292,400<br>Previous Date: 2018-12-03<br>Annual Return: +14.1%/yr<br>Held for: 3.8 years"], "transaction_count": 2}, {"address": "105, Clive Court, Maida Vale", "dates": ["2007-04-27", "2011-11-30"], "prices": [545000, 795000], "hover_texts": ["<b>105, Clive Court, Maida Vale</b><br>Transaction 1 of 2<br>Date: 2007-04-27<br>Sale Price: \u00a3545,000", "<b>105, Clive Court, Maida Vale</b><br>Transaction 2 of 2<br>Date: 2011-11-30<br>Sale Price: \u00a3795,000<br>Previous Purchase: \u00a3545,000<br>Previous Date: 2007-04-27<br>Annual Return: +8.6%/yr<br>Held for: 4.6 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2023-06-26", "address": "205, Clive Court, 75, Maida Vale", "price": 960000, "price_display": "\u00a3960,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-07-05", "address": "111, Clive Court, 75, Maida Vale", "price": 800000, "price_display": "\u00a3800,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-11-11", "address": "304, Clive Court, 75, Maida Vale", "price": 1000000, "price_display": "\u00a31,000,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-11-29", "address": "309, Clive Court, 75, Maida Vale", "price": 980000, "price_display": "\u00a3980,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-01-14", "address": "214, Clive Court, 75, Maida Vale", "price": 432000, "price_display": "\u00a3432,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-03", "address": "401, Clive Court, 75, Maida Vale", "price": 573750, "price_display": "\u00a3573,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-03-07", "address": "214, Clive Court, Maida Vale", "price": 280000, "price_display": "\u00a3280,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-27", "address": "310, Clive Court, 75, Maida Vale", "price": 940000, "price_display": "\u00a3940,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-12-21", "address": "305, Clive Court, Maida Vale", "price": 475000, "price_display": "\u00a3475,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-11-10", "address": "208, Clive Court, Maida Vale", "price": 482500, "price_display": "\u00a3482,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-11", "address": "101, Clive Court, 75, Maida Vale", "price": 346913, "price_display": "\u00a3346,913", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-25", "address": "415, Clive Court, Maida Vale", "price": 940000, "price_display": "\u00a3940,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-09-06", "address": "109, Clive Court, 75, Maida Vale", "price": 1150000, "price_display": "\u00a31,150,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-04-16", "address": "412, Clive Court, Maida Vale", "price": 715000, "price_display": "\u00a3715,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-11", "address": "316, Clive Court, 75, Maida Vale", "price": 156114, "price_display": "\u00a3156,114", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-08-27", "address": "113, Clive Court, Maida Vale", "price": 930000, "price_display": "\u00a3930,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-12-09", "address": "104, Clive Court, Maida Vale", "price": 564000, "price_display": "\u00a3564,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-03-13", "address": "216, Clive Court, 75, Maida Vale", "price": 605000, "price_display": "\u00a3605,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-12", "address": "309, Clive Court, Maida Vale", "price": 1080000, "price_display": "\u00a31,080,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-11", "address": "302, Clive Court, 75, Maida Vale", "price": 349189, "price_display": "\u00a3349,189", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-04-12", "address": "107, Clive Court, Maida Vale", "price": 1450000, "price_display": "\u00a31,450,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-10-30", "address": "414, Clive Court, 75, Maida Vale", "price": 405000, "price_display": "\u00a3405,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-08-18", "address": "204, Clive Court, 75, Maida Vale", "price": 845000, "price_display": "\u00a3845,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-11", "address": "311A, Clive Court, 75, Maida Vale", "price": 257294, "price_display": "\u00a3257,294", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-03-30", "address": "310, Clive Court, Maida Vale", "price": 640000, "price_display": "\u00a3640,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-09-22", "address": "407, Clive Court, Maida Vale", "price": 1230000, "price_display": "\u00a31,230,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-11", "address": "116, Clive Court, 75, Maida Vale", "price": 156114, "price_display": "\u00a3156,114", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-05-20", "address": "312, Clive Court, 75, Maida Vale", "price": 910000, "price_display": "\u00a3910,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-07-24", "address": "105, Clive Court, 75, Maida Vale", "price": 1065000, "price_display": "\u00a31,065,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-04-24", "address": "405, Clive Court, Maida Vale", "price": 444000, "price_display": "\u00a3444,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W9-1SF', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W9-1SF');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W9-1SF', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W9-1SF', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W9-1SF" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2023-06-26</td>
+            <td>205, Clive Court, 75, Maida Vale</td>
+            <td class="price">£960,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-07-05</td>
+            <td>111, Clive Court, 75, Maida Vale</td>
+            <td class="price">£800,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-11-11</td>
+            <td>304, Clive Court, 75, Maida Vale</td>
+            <td class="price">£1,000,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-30</td>
+            <td>411, Clive Court, Maida Vale</td>
+            <td class="price">£860,000</td>
+        <td class="positive" title="Previous: £770,000 (2015-09-24)">+3.8%/yr</td></tr>
+
+        <tr>
+            <td>2015-09-24</td>
+            <td>411, Clive Court, Maida Vale</td>
+            <td class="price">£770,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-11-29</td>
+            <td>309, Clive Court, 75, Maida Vale</td>
+            <td class="price">£980,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-01-14</td>
+            <td>214, Clive Court, 75, Maida Vale</td>
+            <td class="price">£432,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-03</td>
+            <td>401, Clive Court, 75, Maida Vale</td>
+            <td class="price">£573,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-03-07</td>
+            <td>214, Clive Court, Maida Vale</td>
+            <td class="price">£280,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-27</td>
+            <td>310, Clive Court, 75, Maida Vale</td>
+            <td class="price">£940,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-07-17</td>
+            <td>402, Clive Court, 75, Maida Vale</td>
+            <td class="price">£745,000</td>
+        <td class="positive" title="Previous: £312,407 (2018-12-11)">+72.2%/yr</td></tr>
+
+        <tr>
+            <td>2018-12-11</td>
+            <td>402, Clive Court, 75, Maida Vale</td>
+            <td class="price">£312,407</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-12-21</td>
+            <td>305, Clive Court, Maida Vale</td>
+            <td class="price">£475,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-11-10</td>
+            <td>208, Clive Court, Maida Vale</td>
+            <td class="price">£482,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-10-29</td>
+            <td>315, Clive Court, Maida Vale</td>
+            <td class="price">£476,000</td>
+        <td class="positive" title="Previous: £325,000 (2005-06-22)">+17.6%/yr</td></tr>
+
+        <tr>
+            <td>2005-06-22</td>
+            <td>315, Clive Court, Maida Vale</td>
+            <td class="price">£325,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-11</td>
+            <td>101, Clive Court, 75, Maida Vale</td>
+            <td class="price">£346,913</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-25</td>
+            <td>415, Clive Court, Maida Vale</td>
+            <td class="price">£940,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-06</td>
+            <td>109, Clive Court, 75, Maida Vale</td>
+            <td class="price">£1,150,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-04-16</td>
+            <td>412, Clive Court, Maida Vale</td>
+            <td class="price">£715,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-01-07</td>
+            <td>303, Clive Court, Maida Vale</td>
+            <td class="price">£555,000</td>
+        <td class="positive" title="Previous: £380,000 (2007-01-19)">+10.0%/yr</td></tr>
+
+        <tr>
+            <td>2007-01-19</td>
+            <td>303, Clive Court, Maida Vale</td>
+            <td class="price">£380,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-04-09</td>
+            <td>108, Clive Court, 75, Maida Vale</td>
+            <td class="price">£555,000</td>
+        <td class="positive" title="Previous: £229,677 (2018-12-11)">+94.3%/yr</td></tr>
+
+        <tr>
+            <td>2018-12-11</td>
+            <td>108, Clive Court, 75, Maida Vale</td>
+            <td class="price">£229,677</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-11</td>
+            <td>316, Clive Court, 75, Maida Vale</td>
+            <td class="price">£156,114</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-08-27</td>
+            <td>113, Clive Court, Maida Vale</td>
+            <td class="price">£930,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-12-09</td>
+            <td>104, Clive Court, Maida Vale</td>
+            <td class="price">£564,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-03-13</td>
+            <td>216, Clive Court, 75, Maida Vale</td>
+            <td class="price">£605,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-03-21</td>
+            <td>312, Clive Court, Maida Vale</td>
+            <td class="price">£915,000</td>
+        <td class="positive" title="Previous: £585,000 (2006-08-07)">+7.0%/yr</td></tr>
+
+        <tr>
+            <td>2006-08-07</td>
+            <td>312, Clive Court, Maida Vale</td>
+            <td class="price">£585,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-13</td>
+            <td>307, Clive Court, Maida Vale</td>
+            <td class="price">£2,200,000</td>
+        <td class="positive" title="Previous: £1,550,000 (2011-05-16)">+4.8%/yr</td></tr>
+
+        <tr>
+            <td>2011-05-16</td>
+            <td>307, Clive Court, Maida Vale</td>
+            <td class="price">£1,550,000</td>
+        <td class="positive" title="Previous: £1,150,000 (2010-06-04)">+37.0%/yr</td></tr>
+
+        <tr>
+            <td>2010-06-04</td>
+            <td>307, Clive Court, Maida Vale</td>
+            <td class="price">£1,150,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-11-11</td>
+            <td>413, Clive Court, 75, Maida Vale</td>
+            <td class="price">£925,000</td>
+        <td class="positive" title="Previous: £811,750 (2018-12-03)">+3.4%/yr</td></tr>
+
+        <tr>
+            <td>2018-12-03</td>
+            <td>413, Clive Court, 75, Maida Vale</td>
+            <td class="price">£811,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-12</td>
+            <td>309, Clive Court, Maida Vale</td>
+            <td class="price">£1,080,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-04-22</td>
+            <td>308, Clive Court, Maida Vale</td>
+            <td class="price">£1,420,000</td>
+        <td class="positive" title="Previous: £890,000 (2012-11-19)">+38.9%/yr</td></tr>
+
+        <tr>
+            <td>2012-11-19</td>
+            <td>308, Clive Court, Maida Vale</td>
+            <td class="price">£890,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-09-08</td>
+            <td>301, Clive Court, Maida Vale</td>
+            <td class="price">£1,800,000</td>
+        <td class="positive" title="Previous: £1,425,000 (2011-10-05)">+4.8%/yr</td></tr>
+
+        <tr>
+            <td>2011-10-05</td>
+            <td>301, Clive Court, Maida Vale</td>
+            <td class="price">£1,425,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-11</td>
+            <td>302, Clive Court, 75, Maida Vale</td>
+            <td class="price">£349,189</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-01-26</td>
+            <td>304, Clive Court, Maida Vale</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-01-26</td>
+            <td>304, Clive Court, Maida Vale</td>
+            <td class="price">£850,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-04-12</td>
+            <td>107, Clive Court, Maida Vale</td>
+            <td class="price">£1,450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-04-12</td>
+            <td>108, Clive Court, Maida Vale</td>
+            <td class="price">£775,000</td>
+        <td class="positive" title="Previous: £292,000 (2005-10-07)">+13.9%/yr</td></tr>
+
+        <tr>
+            <td>2005-10-07</td>
+            <td>108, Clive Court, Maida Vale</td>
+            <td class="price">£292,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-10-30</td>
+            <td>414, Clive Court, 75, Maida Vale</td>
+            <td class="price">£405,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-08-18</td>
+            <td>204, Clive Court, 75, Maida Vale</td>
+            <td class="price">£845,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-11</td>
+            <td>311A, Clive Court, 75, Maida Vale</td>
+            <td class="price">£257,294</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-09-22</td>
+            <td>307, Clive Court, 75, Maida Vale</td>
+            <td class="price">£1,920,000</td>
+        <td class="positive" title="Previous: £1,499,387 (2021-08-13)">+12.4%/yr</td></tr>
+
+        <tr>
+            <td>2021-08-13</td>
+            <td>307, Clive Court, 75, Maida Vale</td>
+            <td class="price">£1,499,387</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-03-30</td>
+            <td>310, Clive Court, Maida Vale</td>
+            <td class="price">£640,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-09-22</td>
+            <td>407, Clive Court, Maida Vale</td>
+            <td class="price">£1,230,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-04-17</td>
+            <td>205, Clive Court, Maida Vale</td>
+            <td class="price">£835,000</td>
+        <td class="positive" title="Previous: £550,000 (2006-08-21)">+7.7%/yr</td></tr>
+
+        <tr>
+            <td>2006-08-21</td>
+            <td>205, Clive Court, Maida Vale</td>
+            <td class="price">£550,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-09-11</td>
+            <td>406, Clive Court, Maida Vale</td>
+            <td class="price">£500,000</td>
+        <td class="positive" title="Previous: £335,000 (2007-04-20)">+6.5%/yr</td></tr>
+
+        <tr>
+            <td>2007-04-20</td>
+            <td>406, Clive Court, Maida Vale</td>
+            <td class="price">£335,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-11</td>
+            <td>116, Clive Court, 75, Maida Vale</td>
+            <td class="price">£156,114</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-05-20</td>
+            <td>312, Clive Court, 75, Maida Vale</td>
+            <td class="price">£910,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-09-07</td>
+            <td>106A, Clive Court, 75, Maida Vale</td>
+            <td class="price">£480,000</td>
+        <td class="positive" title="Previous: £292,400 (2018-12-03)">+14.1%/yr</td></tr>
+
+        <tr>
+            <td>2018-12-03</td>
+            <td>106A, Clive Court, 75, Maida Vale</td>
+            <td class="price">£292,400</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-07-24</td>
+            <td>105, Clive Court, 75, Maida Vale</td>
+            <td class="price">£1,065,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-11-30</td>
+            <td>105, Clive Court, Maida Vale</td>
+            <td class="price">£795,000</td>
+        <td class="positive" title="Previous: £545,000 (2007-04-27)">+8.6%/yr</td></tr>
+
+        <tr>
+            <td>2007-04-27</td>
+            <td>105, Clive Court, Maida Vale</td>
+            <td class="price">£545,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-04-24</td>
+            <td>405, Clive Court, Maida Vale</td>
+            <td class="price">£444,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W9-1SF" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W9-1SF" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+            y: [364000, 507500, 436000, 1006250, 1081250, 862500, 943333, 1420000, 770000, 1182000, 800000, 545467, 791000, 650000, 1172193, 846250, 1098000, 705000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+            y: [325000, 550000, 444000, 1150000, 1425000, 890000, 940000, 1420000, 770000, 1800000, 850000, 346913, 1150000, 745000, 1499387, 980000, 960000, 800000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W9 1SF',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W9-1SF', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 65</p>
+                    <p><strong>Unique Properties:</strong> 47</p>
+                    <p><strong>Average Price:</strong> £776,315</p>
+                    <p><strong>Median Price:</strong> £750,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W9-1SF" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W9 1 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W9 1</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W9-1SF', 'W9-1SF')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W9-1SF', 'W9-1SF')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W9-1SF" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W9-1SF" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [503628, 496801, 641637, 687843, 624423, 760997, 746228, 843162, 979680, 1042012, 998837, 973559, 1084399, 1098087, 987179, 1164348, 1165985, 1227869, 1098567, 1066304, 988367],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [423500, 458250, 555000, 580000, 550000, 661750, 657000, 748533, 825000, 900000, 948750, 950000, 950000, 950000, 920000, 950000, 990000, 979694, 975000, 900000, 867500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W9 1 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W9-1SF', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W9-1SF" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £420,000</div>
+                        <div class="cell-sell">Sell: £496,428</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(7 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £502,376</div>
+                        <div class="cell-sell">Sell: £774,255</div>
+                        <div class="cell-return">+15.7%/yr</div>
+                        <div class="cell-count">(70 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £438,940</div>
+                        <div class="cell-sell">Sell: £875,403</div>
+                        <div class="cell-return">+9.7%/yr</div>
+                        <div class="cell-count">(58 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £480,242</div>
+                        <div class="cell-sell">Sell: £1,057,471</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(18 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £565,666</div>
+                        <div class="cell-sell">Sell: £1,351,900</div>
+                        <div class="cell-return">+5.0%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £546,848</div>
+                        <div class="cell-sell">Sell: £726,790</div>
+                        <div class="cell-return">+16.5%/yr</div>
+                        <div class="cell-count">(161 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £615,584</div>
+                        <div class="cell-sell">Sell: £931,491</div>
+                        <div class="cell-return">+9.0%/yr</div>
+                        <div class="cell-count">(281 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £536,615</div>
+                        <div class="cell-sell">Sell: £936,147</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(121 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £662,961</div>
+                        <div class="cell-sell">Sell: £1,053,898</div>
+                        <div class="cell-return">+3.4%/yr</div>
+                        <div class="cell-count">(143 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £762,350</div>
+                        <div class="cell-sell">Sell: £1,051,651</div>
+                        <div class="cell-return">+15.5%/yr</div>
+                        <div class="cell-count">(87 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £912,665</div>
+                        <div class="cell-sell">Sell: £1,140,202</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(156 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £864,000</div>
+                        <div class="cell-sell">Sell: £1,010,998</div>
+                        <div class="cell-return">+1.9%/yr</div>
+                        <div class="cell-count">(143 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,036,548</div>
+                        <div class="cell-sell">Sell: £1,097,227</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(24 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £931,564</div>
+                        <div class="cell-sell">Sell: £1,122,889</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(93 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £945,824</div>
+                        <div class="cell-sell">Sell: £1,158,609</div>
+                        <div class="cell-return">+14.5%/yr</div>
+                        <div class="cell-count">(32 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W9-1SF" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W9 Analysis</h4>
+                <p class="area-info">Viewing data for entire W9 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W9-1SF', 'W9-1SF')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W9-1SF', 'W9-1SF')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W9-1SF" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W9-1SF" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [403624, 410084, 502031, 542342, 509576, 576762, 589622, 614397, 705978, 771780, 801927, 810651, 878155, 846353, 767023, 883314, 833566, 911149, 877071, 829490, 787919],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [315000, 330000, 405000, 420000, 390000, 441000, 470571, 483000, 540000, 586000, 635750, 645000, 680000, 645500, 603000, 633750, 650000, 694825, 727500, 650000, 670000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W9 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W9-1SF', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W9-1SF" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £367,147</div>
+                        <div class="cell-sell">Sell: £491,926</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(17 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £399,568</div>
+                        <div class="cell-sell">Sell: £581,118</div>
+                        <div class="cell-return">+14.7%/yr</div>
+                        <div class="cell-count">(178 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £362,568</div>
+                        <div class="cell-sell">Sell: £704,548</div>
+                        <div class="cell-return">+9.3%/yr</div>
+                        <div class="cell-count">(130 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £414,683</div>
+                        <div class="cell-sell">Sell: £890,023</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(42 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £408,641</div>
+                        <div class="cell-sell">Sell: £924,027</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(36 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £437,771</div>
+                        <div class="cell-sell">Sell: £560,484</div>
+                        <div class="cell-return">+14.4%/yr</div>
+                        <div class="cell-count">(386 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £465,731</div>
+                        <div class="cell-sell">Sell: £706,243</div>
+                        <div class="cell-return">+9.2%/yr</div>
+                        <div class="cell-count">(768 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £455,620</div>
+                        <div class="cell-sell">Sell: £784,797</div>
+                        <div class="cell-return">+6.4%/yr</div>
+                        <div class="cell-count">(300 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £534,729</div>
+                        <div class="cell-sell">Sell: £876,256</div>
+                        <div class="cell-return">+3.6%/yr</div>
+                        <div class="cell-count">(281 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £537,913</div>
+                        <div class="cell-sell">Sell: £738,717</div>
+                        <div class="cell-return">+17.9%/yr</div>
+                        <div class="cell-count">(320 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £691,264</div>
+                        <div class="cell-sell">Sell: £867,537</div>
+                        <div class="cell-return">+6.9%/yr</div>
+                        <div class="cell-count">(462 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £686,757</div>
+                        <div class="cell-sell">Sell: £799,312</div>
+                        <div class="cell-return">+1.8%/yr</div>
+                        <div class="cell-count">(450 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £732,271</div>
+                        <div class="cell-sell">Sell: £780,342</div>
+                        <div class="cell-return">+10.9%/yr</div>
+                        <div class="cell-count">(99 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £720,092</div>
+                        <div class="cell-sell">Sell: £817,153</div>
+                        <div class="cell-return">+4.3%/yr</div>
+                        <div class="cell-count">(362 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £830,485</div>
+                        <div class="cell-sell">Sell: £874,471</div>
+                        <div class="cell-return">+11.0%/yr</div>
+                        <div class="cell-count">(106 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W9 1'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W9'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

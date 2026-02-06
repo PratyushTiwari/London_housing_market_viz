@@ -1,0 +1,1551 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W6 9NE</h3>
+            <div class="header-stats">
+                <span><strong>116</strong> transactions</span>
+                <span><strong>94</strong> properties</span>
+                <span>Avg: <strong>£1,289,514</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W6-9NE')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W6-9NE')">
+                Sector (W6 9)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W6-9NE')">
+                District (W6)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W6-9NE" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W6-9NE', 'W6-9NE')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W6-9NE', 'W6-9NE')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W6-9NE', 'W6-9NE')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W6-9NE" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W6-9NE" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 61, Queens Wharf, 2, Crisp Road", "dates": ["2018-02-21", "2023-02-17"], "prices": [995000, 875000], "hover_texts": ["<b>Flat 61, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2018-02-21<br>Sale Price: \u00a3995,000", "<b>Flat 61, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2023-02-17<br>Sale Price: \u00a3875,000<br>Previous Purchase: \u00a3995,000<br>Previous Date: 2018-02-21<br>Annual Return: -2.5%/yr<br>Held for: 5.0 years"], "transaction_count": 2}, {"address": "Flat 25, Queens Wharf, 2, Crisp Road", "dates": ["2017-09-21", "2025-06-12"], "prices": [1500000, 1160000], "hover_texts": ["<b>Flat 25, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2017-09-21<br>Sale Price: \u00a31,500,000", "<b>Flat 25, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2025-06-12<br>Sale Price: \u00a31,160,000<br>Previous Purchase: \u00a31,500,000<br>Previous Date: 2017-09-21<br>Annual Return: -3.3%/yr<br>Held for: 7.7 years"], "transaction_count": 2}, {"address": "Flat 36, Queens Wharf, 2, Crisp Road", "dates": ["2017-10-17", "2022-01-14"], "prices": [1788000, 1700000], "hover_texts": ["<b>Flat 36, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2017-10-17<br>Sale Price: \u00a31,788,000", "<b>Flat 36, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2022-01-14<br>Sale Price: \u00a31,700,000<br>Previous Purchase: \u00a31,788,000<br>Previous Date: 2017-10-17<br>Annual Return: -1.2%/yr<br>Held for: 4.2 years"], "transaction_count": 2}, {"address": "Flat 77, Queens Wharf, 2, Crisp Road", "dates": ["2018-01-19", "2024-01-15"], "prices": [583100, 425000], "hover_texts": ["<b>Flat 77, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2018-01-19<br>Sale Price: \u00a3583,100", "<b>Flat 77, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2024-01-15<br>Sale Price: \u00a3425,000<br>Previous Purchase: \u00a3583,100<br>Previous Date: 2018-01-19<br>Annual Return: -5.1%/yr<br>Held for: 6.0 years"], "transaction_count": 2}, {"address": "Flat 89, Queens Wharf, 2, Crisp Road", "dates": ["2018-03-16", "2021-03-10"], "prices": [696000, 650000], "hover_texts": ["<b>Flat 89, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2018-03-16<br>Sale Price: \u00a3696,000", "<b>Flat 89, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2021-03-10<br>Sale Price: \u00a3650,000<br>Previous Purchase: \u00a3696,000<br>Previous Date: 2018-03-16<br>Annual Return: -2.3%/yr<br>Held for: 3.0 years"], "transaction_count": 2}, {"address": "Flat 78, Queens Wharf, 2, Crisp Road", "dates": ["2018-03-16", "2021-03-30"], "prices": [571200, 540000], "hover_texts": ["<b>Flat 78, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2018-03-16<br>Sale Price: \u00a3571,200", "<b>Flat 78, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2021-03-30<br>Sale Price: \u00a3540,000<br>Previous Purchase: \u00a3571,200<br>Previous Date: 2018-03-16<br>Annual Return: -1.8%/yr<br>Held for: 3.0 years"], "transaction_count": 2}, {"address": "Flat 29, Queens Wharf, 2, Crisp Road", "dates": ["2017-09-27", "2019-12-19", "2023-11-29"], "prices": [2502250, 1900000, 1600000], "hover_texts": ["<b>Flat 29, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 3<br>Date: 2017-09-27<br>Sale Price: \u00a32,502,250", "<b>Flat 29, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 3<br>Date: 2019-12-19<br>Sale Price: \u00a31,900,000<br>Previous Purchase: \u00a32,502,250<br>Previous Date: 2017-09-27<br>Annual Return: -11.6%/yr<br>Held for: 2.2 years", "<b>Flat 29, Queens Wharf, 2, Crisp Road</b><br>Transaction 3 of 3<br>Date: 2023-11-29<br>Sale Price: \u00a31,600,000<br>Previous Purchase: \u00a31,900,000<br>Previous Date: 2019-12-19<br>Annual Return: -4.3%/yr<br>Held for: 4.0 years"], "transaction_count": 3}, {"address": "Flat 53, Queens Wharf, 2, Crisp Road", "dates": ["2017-12-22", "2019-01-11"], "prices": [1131000, 950000], "hover_texts": ["<b>Flat 53, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2017-12-22<br>Sale Price: \u00a31,131,000", "<b>Flat 53, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2019-01-11<br>Sale Price: \u00a3950,000<br>Previous Purchase: \u00a31,131,000<br>Previous Date: 2017-12-22<br>Annual Return: -15.2%/yr<br>Held for: 1.1 years"], "transaction_count": 2}, {"address": "Flat 37, Queens Wharf, 2, Crisp Road", "dates": ["2017-09-22", "2025-01-08"], "prices": [543000, 595000], "hover_texts": ["<b>Flat 37, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2017-09-22<br>Sale Price: \u00a3543,000", "<b>Flat 37, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2025-01-08<br>Sale Price: \u00a3595,000<br>Previous Purchase: \u00a3543,000<br>Previous Date: 2017-09-22<br>Annual Return: +1.3%/yr<br>Held for: 7.3 years"], "transaction_count": 2}, {"address": "Flat 85, Queens Wharf, 2, Crisp Road", "dates": ["2018-02-23", "2023-07-14"], "prices": [544500, 470000], "hover_texts": ["<b>Flat 85, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2018-02-23<br>Sale Price: \u00a3544,500", "<b>Flat 85, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2023-07-14<br>Sale Price: \u00a3470,000<br>Previous Purchase: \u00a3544,500<br>Previous Date: 2018-02-23<br>Annual Return: -2.7%/yr<br>Held for: 5.4 years"], "transaction_count": 2}, {"address": "Flat 52, Queens Wharf, 2, Crisp Road", "dates": ["2017-12-19", "2021-02-05"], "prices": [575000, 470000], "hover_texts": ["<b>Flat 52, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2017-12-19<br>Sale Price: \u00a3575,000", "<b>Flat 52, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2021-02-05<br>Sale Price: \u00a3470,000<br>Previous Purchase: \u00a3575,000<br>Previous Date: 2017-12-19<br>Annual Return: -6.2%/yr<br>Held for: 3.1 years"], "transaction_count": 2}, {"address": "Flat 28, Queens Wharf, 2, Crisp Road", "dates": ["2017-12-05", "2024-03-28"], "prices": [1192500, 940000], "hover_texts": ["<b>Flat 28, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2017-12-05<br>Sale Price: \u00a31,192,500", "<b>Flat 28, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2024-03-28<br>Sale Price: \u00a3940,000<br>Previous Purchase: \u00a31,192,500<br>Previous Date: 2017-12-05<br>Annual Return: -3.7%/yr<br>Held for: 6.3 years"], "transaction_count": 2}, {"address": "Flat 8, Queens Wharf, 2, Crisp Road", "dates": ["2017-07-03", "2021-03-30"], "prices": [1999999, 2025000], "hover_texts": ["<b>Flat 8, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2017-07-03<br>Sale Price: \u00a31,999,999", "<b>Flat 8, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2021-03-30<br>Sale Price: \u00a32,025,000<br>Previous Purchase: \u00a31,999,999<br>Previous Date: 2017-07-03<br>Annual Return: +0.3%/yr<br>Held for: 3.7 years"], "transaction_count": 2}, {"address": "Flat 48, Queens Wharf, 2, Crisp Road", "dates": ["2018-03-16", "2020-09-02"], "prices": [999000, 950000], "hover_texts": ["<b>Flat 48, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2018-03-16<br>Sale Price: \u00a3999,000", "<b>Flat 48, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2020-09-02<br>Sale Price: \u00a3950,000<br>Previous Purchase: \u00a3999,000<br>Previous Date: 2018-03-16<br>Annual Return: -2.0%/yr<br>Held for: 2.5 years"], "transaction_count": 2}, {"address": "Flat 50, Queens Wharf, 2, Crisp Road", "dates": ["2018-03-19", "2022-08-17"], "prices": [684000, 670000], "hover_texts": ["<b>Flat 50, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2018-03-19<br>Sale Price: \u00a3684,000", "<b>Flat 50, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2022-08-17<br>Sale Price: \u00a3670,000<br>Previous Purchase: \u00a3684,000<br>Previous Date: 2018-03-19<br>Annual Return: -0.5%/yr<br>Held for: 4.4 years"], "transaction_count": 2}, {"address": "Flat 59, Queens Wharf, 2, Crisp Road", "dates": ["2017-12-21", "2020-11-09"], "prices": [1135000, 965000], "hover_texts": ["<b>Flat 59, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2017-12-21<br>Sale Price: \u00a31,135,000", "<b>Flat 59, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2020-11-09<br>Sale Price: \u00a3965,000<br>Previous Purchase: \u00a31,135,000<br>Previous Date: 2017-12-21<br>Annual Return: -5.5%/yr<br>Held for: 2.9 years"], "transaction_count": 2}, {"address": "Flat 10, Queens Wharf, 2, Crisp Road", "dates": ["2017-07-07", "2024-01-26"], "prices": [2450000, 1700000], "hover_texts": ["<b>Flat 10, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2017-07-07<br>Sale Price: \u00a32,450,000", "<b>Flat 10, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2024-01-26<br>Sale Price: \u00a31,700,000<br>Previous Purchase: \u00a32,450,000<br>Previous Date: 2017-07-07<br>Annual Return: -5.4%/yr<br>Held for: 6.5 years"], "transaction_count": 2}, {"address": "Flat 47, Queens Wharf, 2, Crisp Road", "dates": ["2017-11-10", "2024-05-31"], "prices": [2180000, 1650000], "hover_texts": ["<b>Flat 47, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2017-11-10<br>Sale Price: \u00a32,180,000", "<b>Flat 47, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2024-05-31<br>Sale Price: \u00a31,650,000<br>Previous Purchase: \u00a32,180,000<br>Previous Date: 2017-11-10<br>Annual Return: -4.2%/yr<br>Held for: 6.5 years"], "transaction_count": 2}, {"address": "Flat 65, Queens Wharf, 2, Crisp Road", "dates": ["2018-02-13", "2021-09-28"], "prices": [1156400, 1060000], "hover_texts": ["<b>Flat 65, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2018-02-13<br>Sale Price: \u00a31,156,400", "<b>Flat 65, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2021-09-28<br>Sale Price: \u00a31,060,000<br>Previous Purchase: \u00a31,156,400<br>Previous Date: 2018-02-13<br>Annual Return: -2.4%/yr<br>Held for: 3.6 years"], "transaction_count": 2}, {"address": "Flat 40, Queens Wharf, 2, Crisp Road", "dates": ["2017-10-03", "2024-01-05"], "prices": [1050000, 800000], "hover_texts": ["<b>Flat 40, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2017-10-03<br>Sale Price: \u00a31,050,000", "<b>Flat 40, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2024-01-05<br>Sale Price: \u00a3800,000<br>Previous Purchase: \u00a31,050,000<br>Previous Date: 2017-10-03<br>Annual Return: -4.2%/yr<br>Held for: 6.3 years"], "transaction_count": 2}, {"address": "Flat 71, Queens Wharf, 2, Crisp Road", "dates": ["2018-01-17", "2025-03-31"], "prices": [540000, 480000], "hover_texts": ["<b>Flat 71, Queens Wharf, 2, Crisp Road</b><br>Transaction 1 of 2<br>Date: 2018-01-17<br>Sale Price: \u00a3540,000", "<b>Flat 71, Queens Wharf, 2, Crisp Road</b><br>Transaction 2 of 2<br>Date: 2025-03-31<br>Sale Price: \u00a3480,000<br>Previous Purchase: \u00a3540,000<br>Previous Date: 2018-01-17<br>Annual Return: -1.6%/yr<br>Held for: 7.2 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2017-12-22", "address": "Flat 80, Queens Wharf, 2, Crisp Road", "price": 1100000, "price_display": "\u00a31,100,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-12", "address": "Flat 76, Queens Wharf, 2, Crisp Road", "price": 608000, "price_display": "\u00a3608,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-14", "address": "Flat 42, Queens Wharf, 2, Crisp Road", "price": 1649000, "price_display": "\u00a31,649,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-14", "address": "Flat 5, Queens Wharf, 2, Crisp Road", "price": 572300, "price_display": "\u00a3572,300", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 51, Queens Wharf, 2, Crisp Road", "price": 710500, "price_display": "\u00a3710,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-23", "address": "Flat 41, Queens Wharf, 2, Crisp Road", "price": 2450000, "price_display": "\u00a32,450,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-10", "address": "Flat 58, Queens Wharf, 2, Crisp Road", "price": 1400000, "price_display": "\u00a31,400,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-19", "address": "Flat 67, Queens Wharf, 2, Crisp Road", "price": 1730000, "price_display": "\u00a31,730,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 56, Queens Wharf, 2, Crisp Road", "price": 1520000, "price_display": "\u00a31,520,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-10-27", "address": "Flat 39, Queens Wharf, 2, Crisp Road", "price": 1620000, "price_display": "\u00a31,620,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-23", "address": "Flat 86, Queens Wharf, 2, Crisp Road", "price": 582000, "price_display": "\u00a3582,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-29", "address": "Flat 68, Queens Wharf, 2, Crisp Road", "price": 1000000, "price_display": "\u00a31,000,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-10-27", "address": "Flat 33, Queens Wharf, 2, Crisp Road", "price": 1560000, "price_display": "\u00a31,560,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-09-22", "address": "Flat 38, Queens Wharf, 2, Crisp Road", "price": 695000, "price_display": "\u00a3695,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-18", "address": "Flat 55, Queens Wharf, 2, Crisp Road", "price": 1075000, "price_display": "\u00a31,075,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-07", "address": "Flat 9, Queens Wharf, 2, Crisp Road", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-26", "address": "Flat 66, Queens Wharf, 2, Crisp Road", "price": 640000, "price_display": "\u00a3640,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 60, Queens Wharf, 2, Crisp Road", "price": 660000, "price_display": "\u00a3660,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-26", "address": "Flat 45, Queens Wharf, 2, Crisp Road", "price": 1985000, "price_display": "\u00a31,985,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 49, Queens Wharf, 2, Crisp Road", "price": 540000, "price_display": "\u00a3540,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-10-23", "address": "Flat 27, Queens Wharf, 2, Crisp Road", "price": 1398000, "price_display": "\u00a31,398,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-04-03", "address": "Flat 92, Queens Wharf, 2, Crisp Road", "price": 1500000, "price_display": "\u00a31,500,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-12", "address": "Flat 91, Queens Wharf, 2, Crisp Road", "price": 720000, "price_display": "\u00a3720,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-06", "address": "Flat 15, Queens Wharf, 2, Crisp Road", "price": 2660000, "price_display": "\u00a32,660,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-15", "address": "Flat 32, Queens Wharf, 2, Crisp Road", "price": 690000, "price_display": "\u00a3690,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-20", "address": "Flat 74, Queens Wharf, 2, Crisp Road", "price": 1095000, "price_display": "\u00a31,095,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-01", "address": "Flat 13, Queens Wharf, 2, Crisp Road", "price": 547120, "price_display": "\u00a3547,120", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-21", "address": "Flat 72, Queens Wharf, 2, Crisp Road", "price": 534600, "price_display": "\u00a3534,600", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-29", "address": "Flat 57, Queens Wharf, 2, Crisp Road", "price": 1170000, "price_display": "\u00a31,170,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-17", "address": "Flat 19, Queens Wharf, 2, Crisp Road", "price": 3472500, "price_display": "\u00a33,472,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-09-21", "address": "Flat 21, Queens Wharf, 2, Crisp Road", "price": 2086800, "price_display": "\u00a32,086,800", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 69, Queens Wharf, 2, Crisp Road", "price": 645000, "price_display": "\u00a3645,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-04-20", "address": "Flat 44, Queens Wharf, 2, Crisp Road", "price": 2048500, "price_display": "\u00a32,048,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-16", "address": "Flat 87, Queens Wharf, 2, Crisp Road", "price": 1120000, "price_display": "\u00a31,120,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-05", "address": "Flat 14, Queens Wharf, 2, Crisp Road", "price": 2450000, "price_display": "\u00a32,450,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-18", "address": "Flat 63, Queens Wharf, 2, Crisp Road", "price": 1335000, "price_display": "\u00a31,335,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-17", "address": "Flat 83, Queens Wharf, 2, Crisp Road", "price": 544500, "price_display": "\u00a3544,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-09-21", "address": "Flat 26, Queens Wharf, 2, Crisp Road", "price": 780000, "price_display": "\u00a3780,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-18", "address": "Flat 17, Queens Wharf, 2, Crisp Road", "price": 551540, "price_display": "\u00a3551,540", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-23", "address": "Flat 82, Queens Wharf, 2, Crisp Road", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-07-10", "address": "Flat 75, Queens Wharf, 2, Crisp Road", "price": 646000, "price_display": "\u00a3646,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-09-27", "address": "Flat 35, Queens Wharf, 2, Crisp Road", "price": 2391120, "price_display": "\u00a32,391,120", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-10-09", "address": "Flat 30, Queens Wharf, 2, Crisp Road", "price": 1505750, "price_display": "\u00a31,505,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-09-29", "address": "Flat 34, Queens Wharf, 2, Crisp Road", "price": 1017500, "price_display": "\u00a31,017,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-18", "address": "Flat 20, Queens Wharf, 2, Crisp Road", "price": 3010000, "price_display": "\u00a33,010,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-21", "address": "Flat 73, Queens Wharf, 2, Crisp Road", "price": 580000, "price_display": "\u00a3580,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-20", "address": "Flat 93, Queens Wharf, 2, Crisp Road", "price": 1175000, "price_display": "\u00a31,175,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-14", "address": "Flat 1, Queens Wharf, 2, Crisp Road", "price": 2066000, "price_display": "\u00a32,066,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-18", "address": "Flat 84, Queens Wharf, 2, Crisp Road", "price": 1125000, "price_display": "\u00a31,125,000", "property_type": "O", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-06-07", "address": "Flat 11, Queens Wharf, 2, Crisp Road", "price": 2610000, "price_display": "\u00a32,610,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-09-26", "address": "Flat 31, Queens Wharf, 2, Crisp Road", "price": 595000, "price_display": "\u00a3595,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-16", "address": "Flat 54, Queens Wharf, 2, Crisp Road", "price": 710000, "price_display": "\u00a3710,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-19", "address": "Flat 79, Queens Wharf, 2, Crisp Road", "price": 566400, "price_display": "\u00a3566,400", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-10", "address": "Flat 18, Queens Wharf, 2, Crisp Road", "price": 2500000, "price_display": "\u00a32,500,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-10", "address": "Flat 46, Queens Wharf, 2, Crisp Road", "price": 3620000, "price_display": "\u00a33,620,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-06-28", "address": "Flat 2, Queens Wharf, 2, Crisp Road", "price": 2100000, "price_display": "\u00a32,100,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-13", "address": "Flat 43, Queens Wharf, 2, Crisp Road", "price": 1650000, "price_display": "\u00a31,650,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-16", "address": "Flat 24, Queens Wharf, 2, Crisp Road", "price": 2200000, "price_display": "\u00a32,200,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-14", "address": "Flat 3, Queens Wharf, 2, Crisp Road", "price": 2600000, "price_display": "\u00a32,600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-11", "address": "Flat 64, Queens Wharf, 2, Crisp Road", "price": 1382875, "price_display": "\u00a31,382,875", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-12", "address": "Flat 88, Queens Wharf, 2, Crisp Road", "price": 1102500, "price_display": "\u00a31,102,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-06-30", "address": "Flat 4, Queens Wharf, 2, Crisp Road", "price": 1860000, "price_display": "\u00a31,860,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-05", "address": "Flat 6, Queens Wharf, 2, Crisp Road", "price": 2490000, "price_display": "\u00a32,490,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-03", "address": "Flat 7, Queens Wharf, 2, Crisp Road", "price": 2396739, "price_display": "\u00a32,396,739", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-20", "address": "Flat 70, Queens Wharf, 2, Crisp Road", "price": 577500, "price_display": "\u00a3577,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-18", "address": "Flat 81, Queens Wharf, 2, Crisp Road", "price": 1060000, "price_display": "\u00a31,060,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-10-19", "address": "Flat 22, Queens Wharf, 2, Crisp Road", "price": 1348000, "price_display": "\u00a31,348,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-16", "address": "Flat 90, Queens Wharf, 2, Crisp Road", "price": 1065000, "price_display": "\u00a31,065,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-10-20", "address": "Flat 23, Queens Wharf, 2, Crisp Road", "price": 841500, "price_display": "\u00a3841,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-05", "address": "Flat 16, Queens Wharf, 2, Crisp Road", "price": 2260000, "price_display": "\u00a32,260,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-21", "address": "Flat 94, Queens Wharf, 2, Crisp Road", "price": 1190000, "price_display": "\u00a31,190,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-05", "address": "Flat 12, Queens Wharf, 2, Crisp Road", "price": 1873000, "price_display": "\u00a31,873,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-18", "address": "Flat 62, Queens Wharf, 2, Crisp Road", "price": 1432500, "price_display": "\u00a31,432,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W6-9NE', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W6-9NE');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W6-9NE', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W6-9NE', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W6-9NE" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2023-02-17</td>
+            <td>Flat 61, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£875,000</td>
+        <td class="negative" title="Previous: £995,000 (2018-02-21)">-2.5%/yr</td></tr>
+
+        <tr>
+            <td>2018-02-21</td>
+            <td>Flat 61, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£995,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-06-12</td>
+            <td>Flat 25, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,160,000</td>
+        <td class="negative" title="Previous: £1,500,000 (2017-09-21)">-3.3%/yr</td></tr>
+
+        <tr>
+            <td>2017-09-21</td>
+            <td>Flat 25, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-01-14</td>
+            <td>Flat 36, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,700,000</td>
+        <td class="negative" title="Previous: £1,788,000 (2017-10-17)">-1.2%/yr</td></tr>
+
+        <tr>
+            <td>2017-10-17</td>
+            <td>Flat 36, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,788,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-22</td>
+            <td>Flat 80, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,100,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-12</td>
+            <td>Flat 76, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£608,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-14</td>
+            <td>Flat 42, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,649,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-14</td>
+            <td>Flat 5, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£572,300</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 51, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£710,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-23</td>
+            <td>Flat 41, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-10</td>
+            <td>Flat 58, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,400,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-19</td>
+            <td>Flat 67, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,730,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 56, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,520,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-10-27</td>
+            <td>Flat 39, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,620,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-23</td>
+            <td>Flat 86, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£582,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-01-15</td>
+            <td>Flat 77, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£425,000</td>
+        <td class="negative" title="Previous: £583,100 (2018-01-19)">-5.1%/yr</td></tr>
+
+        <tr>
+            <td>2018-01-19</td>
+            <td>Flat 77, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£583,100</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-29</td>
+            <td>Flat 68, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,000,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-10-27</td>
+            <td>Flat 33, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,560,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-09-22</td>
+            <td>Flat 38, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£695,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-10</td>
+            <td>Flat 89, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£650,000</td>
+        <td class="negative" title="Previous: £696,000 (2018-03-16)">-2.3%/yr</td></tr>
+
+        <tr>
+            <td>2018-03-16</td>
+            <td>Flat 89, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£696,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-18</td>
+            <td>Flat 55, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,075,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-07</td>
+            <td>Flat 9, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-26</td>
+            <td>Flat 66, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£640,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 60, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£660,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-26</td>
+            <td>Flat 45, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,985,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 49, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£540,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-10-23</td>
+            <td>Flat 27, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,398,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-03</td>
+            <td>Flat 92, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-12</td>
+            <td>Flat 91, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£720,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-06</td>
+            <td>Flat 15, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,660,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-15</td>
+            <td>Flat 32, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£690,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-20</td>
+            <td>Flat 74, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,095,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-01</td>
+            <td>Flat 13, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£547,120</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-21</td>
+            <td>Flat 72, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£534,600</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-30</td>
+            <td>Flat 78, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£540,000</td>
+        <td class="negative" title="Previous: £571,200 (2018-03-16)">-1.8%/yr</td></tr>
+
+        <tr>
+            <td>2018-03-16</td>
+            <td>Flat 78, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£571,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-29</td>
+            <td>Flat 57, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,170,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-17</td>
+            <td>Flat 19, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£3,472,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-09-21</td>
+            <td>Flat 21, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,086,800</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 69, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£645,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-20</td>
+            <td>Flat 44, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,048,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-16</td>
+            <td>Flat 87, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,120,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-05</td>
+            <td>Flat 14, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-18</td>
+            <td>Flat 63, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,335,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-17</td>
+            <td>Flat 83, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£544,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-09-21</td>
+            <td>Flat 26, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£780,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-29</td>
+            <td>Flat 29, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,600,000</td>
+        <td class="negative" title="Previous: £1,900,000 (2019-12-19)">-4.3%/yr</td></tr>
+
+        <tr>
+            <td>2019-12-19</td>
+            <td>Flat 29, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,900,000</td>
+        <td class="negative" title="Previous: £2,502,250 (2017-09-27)">-11.6%/yr</td></tr>
+
+        <tr>
+            <td>2017-09-27</td>
+            <td>Flat 29, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,502,250</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-18</td>
+            <td>Flat 17, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£551,540</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-23</td>
+            <td>Flat 82, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-07-10</td>
+            <td>Flat 75, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£646,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-09-27</td>
+            <td>Flat 35, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,391,120</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-10-09</td>
+            <td>Flat 30, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,505,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-09-29</td>
+            <td>Flat 34, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,017,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-01-11</td>
+            <td>Flat 53, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£950,000</td>
+        <td class="negative" title="Previous: £1,131,000 (2017-12-22)">-15.2%/yr</td></tr>
+
+        <tr>
+            <td>2017-12-22</td>
+            <td>Flat 53, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,131,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-01-08</td>
+            <td>Flat 37, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£595,000</td>
+        <td class="positive" title="Previous: £543,000 (2017-09-22)">+1.3%/yr</td></tr>
+
+        <tr>
+            <td>2017-09-22</td>
+            <td>Flat 37, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£543,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-18</td>
+            <td>Flat 20, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£3,010,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-21</td>
+            <td>Flat 73, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£580,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-07-14</td>
+            <td>Flat 85, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£470,000</td>
+        <td class="negative" title="Previous: £544,500 (2018-02-23)">-2.7%/yr</td></tr>
+
+        <tr>
+            <td>2018-02-23</td>
+            <td>Flat 85, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£544,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-05</td>
+            <td>Flat 52, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£470,000</td>
+        <td class="negative" title="Previous: £575,000 (2017-12-19)">-6.2%/yr</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 52, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£575,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-20</td>
+            <td>Flat 93, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,175,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-14</td>
+            <td>Flat 1, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,066,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-18</td>
+            <td>Flat 84, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,125,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-03-28</td>
+            <td>Flat 28, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£940,000</td>
+        <td class="negative" title="Previous: £1,192,500 (2017-12-05)">-3.7%/yr</td></tr>
+
+        <tr>
+            <td>2017-12-05</td>
+            <td>Flat 28, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,192,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-06-07</td>
+            <td>Flat 11, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,610,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-30</td>
+            <td>Flat 8, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,025,000</td>
+        <td class="positive" title="Previous: £1,999,999 (2017-07-03)">+0.3%/yr</td></tr>
+
+        <tr>
+            <td>2017-07-03</td>
+            <td>Flat 8, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,999,999</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-09-26</td>
+            <td>Flat 31, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£595,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-16</td>
+            <td>Flat 54, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£710,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-19</td>
+            <td>Flat 79, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£566,400</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-10</td>
+            <td>Flat 18, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-10</td>
+            <td>Flat 46, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£3,620,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-09-02</td>
+            <td>Flat 48, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£950,000</td>
+        <td class="negative" title="Previous: £999,000 (2018-03-16)">-2.0%/yr</td></tr>
+
+        <tr>
+            <td>2018-03-16</td>
+            <td>Flat 48, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£999,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-06-28</td>
+            <td>Flat 2, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,100,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-13</td>
+            <td>Flat 43, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,650,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-16</td>
+            <td>Flat 24, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,200,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-08-17</td>
+            <td>Flat 50, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£670,000</td>
+        <td class="negative" title="Previous: £684,000 (2018-03-19)">-0.5%/yr</td></tr>
+
+        <tr>
+            <td>2018-03-19</td>
+            <td>Flat 50, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£684,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-14</td>
+            <td>Flat 3, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-11-09</td>
+            <td>Flat 59, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£965,000</td>
+        <td class="negative" title="Previous: £1,135,000 (2017-12-21)">-5.5%/yr</td></tr>
+
+        <tr>
+            <td>2017-12-21</td>
+            <td>Flat 59, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,135,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-11</td>
+            <td>Flat 64, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,382,875</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-12</td>
+            <td>Flat 88, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,102,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-01-26</td>
+            <td>Flat 10, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,700,000</td>
+        <td class="negative" title="Previous: £2,450,000 (2017-07-07)">-5.4%/yr</td></tr>
+
+        <tr>
+            <td>2017-07-07</td>
+            <td>Flat 10, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-06-30</td>
+            <td>Flat 4, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,860,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-05</td>
+            <td>Flat 6, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,490,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-05-31</td>
+            <td>Flat 47, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,650,000</td>
+        <td class="negative" title="Previous: £2,180,000 (2017-11-10)">-4.2%/yr</td></tr>
+
+        <tr>
+            <td>2017-11-10</td>
+            <td>Flat 47, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,180,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-03</td>
+            <td>Flat 7, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,396,739</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-20</td>
+            <td>Flat 70, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£577,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-09-28</td>
+            <td>Flat 65, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,060,000</td>
+        <td class="negative" title="Previous: £1,156,400 (2018-02-13)">-2.4%/yr</td></tr>
+
+        <tr>
+            <td>2018-02-13</td>
+            <td>Flat 65, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,156,400</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-18</td>
+            <td>Flat 81, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,060,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-10-19</td>
+            <td>Flat 22, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,348,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-16</td>
+            <td>Flat 90, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,065,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-10-20</td>
+            <td>Flat 23, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£841,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-05</td>
+            <td>Flat 16, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£2,260,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-01-05</td>
+            <td>Flat 40, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£800,000</td>
+        <td class="negative" title="Previous: £1,050,000 (2017-10-03)">-4.2%/yr</td></tr>
+
+        <tr>
+            <td>2017-10-03</td>
+            <td>Flat 40, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,050,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-21</td>
+            <td>Flat 94, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,190,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-05</td>
+            <td>Flat 12, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,873,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-03-31</td>
+            <td>Flat 71, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£480,000</td>
+        <td class="negative" title="Previous: £540,000 (2018-01-17)">-1.6%/yr</td></tr>
+
+        <tr>
+            <td>2018-01-17</td>
+            <td>Flat 71, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£540,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-18</td>
+            <td>Flat 62, Queens Wharf, 2, Crisp Road</td>
+            <td class="price">£1,432,500</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W6-9NE" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W6-9NE" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [1582689, 1062003, 1425000, 957500, 949000, 1185000, 981666, 1026833, 745000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [1520000, 1065000, 1900000, 965000, 650000, 1700000, 875000, 940000, 595000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W6 9NE',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W6-9NE', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 116</p>
+                    <p><strong>Unique Properties:</strong> 94</p>
+                    <p><strong>Average Price:</strong> £1,289,514</p>
+                    <p><strong>Median Price:</strong> £1,101,250</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W6-9NE" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W6 9 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W6 9</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W6-9NE', 'W6-9NE')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W6-9NE', 'W6-9NE')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W6-9NE" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W6-9NE" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [414184, 465854, 428808, 470360, 497739, 581987, 584491, 562725, 663427, 891627, 966998, 920748, 1192458, 1106709, 1088260, 1068898, 890762, 872496, 918859, 941895, 1023423],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [370000, 367500, 350000, 440000, 495000, 445000, 527000, 460000, 550000, 794950, 882500, 657500, 1060000, 1000000, 810000, 1050000, 815000, 736500, 890000, 740000, 850000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W6 9 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W6-9NE', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W6-9NE" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £618,375</div>
+                        <div class="cell-sell">Sell: £408,632</div>
+                        <div class="cell-return">+30.8%/yr</div>
+                        <div class="cell-count">(4 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £365,975</div>
+                        <div class="cell-sell">Sell: £546,930</div>
+                        <div class="cell-return">+15.3%/yr</div>
+                        <div class="cell-count">(36 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £469,937</div>
+                        <div class="cell-sell">Sell: £926,352</div>
+                        <div class="cell-return">+8.9%/yr</div>
+                        <div class="cell-count">(24 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £375,500</div>
+                        <div class="cell-sell">Sell: £836,272</div>
+                        <div class="cell-return">+6.2%/yr</div>
+                        <div class="cell-count">(11 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £605,322</div>
+                        <div class="cell-sell">Sell: £1,184,722</div>
+                        <div class="cell-return">+4.2%/yr</div>
+                        <div class="cell-count">(9 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £377,406</div>
+                        <div class="cell-sell">Sell: £463,633</div>
+                        <div class="cell-return">+11.5%/yr</div>
+                        <div class="cell-count">(38 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £440,605</div>
+                        <div class="cell-sell">Sell: £687,727</div>
+                        <div class="cell-return">+9.5%/yr</div>
+                        <div class="cell-count">(105 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £583,275</div>
+                        <div class="cell-sell">Sell: £985,260</div>
+                        <div class="cell-return">+5.8%/yr</div>
+                        <div class="cell-count">(60 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £479,325</div>
+                        <div class="cell-sell">Sell: £869,162</div>
+                        <div class="cell-return">+4.2%/yr</div>
+                        <div class="cell-count">(62 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £522,789</div>
+                        <div class="cell-sell">Sell: £783,615</div>
+                        <div class="cell-return">+21.7%/yr</div>
+                        <div class="cell-count">(39 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £619,902</div>
+                        <div class="cell-sell">Sell: £808,865</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(98 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £815,329</div>
+                        <div class="cell-sell">Sell: £1,003,555</div>
+                        <div class="cell-return">+2.4%/yr</div>
+                        <div class="cell-count">(84 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £916,315</div>
+                        <div class="cell-sell">Sell: £1,047,644</div>
+                        <div class="cell-return">+0.4%/yr</div>
+                        <div class="cell-count">(42 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £881,534</div>
+                        <div class="cell-sell">Sell: £904,444</div>
+                        <div class="cell-return">+1.6%/yr</div>
+                        <div class="cell-count">(131 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £662,825</div>
+                        <div class="cell-sell">Sell: £847,370</div>
+                        <div class="cell-return">+9.0%/yr</div>
+                        <div class="cell-count">(23 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W6-9NE" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W6 Analysis</h4>
+                <p class="area-info">Viewing data for entire W6 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W6-9NE', 'W6-9NE')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W6-9NE', 'W6-9NE')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W6-9NE" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W6-9NE" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [394991, 424257, 482804, 507096, 498061, 595317, 551872, 659380, 687325, 854158, 891759, 847660, 999097, 935647, 942374, 954287, 872237, 858786, 905639, 932128, 912339],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [333250, 341000, 380000, 410000, 415000, 464500, 426800, 480000, 529975, 700000, 715000, 632000, 809975, 819950, 695000, 807500, 725000, 687169, 785000, 705000, 661000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W6-9NE', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W6-9NE" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £343,433</div>
+                        <div class="cell-sell">Sell: £321,198</div>
+                        <div class="cell-return">+34.9%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £354,647</div>
+                        <div class="cell-sell">Sell: £506,536</div>
+                        <div class="cell-return">+12.9%/yr</div>
+                        <div class="cell-count">(148 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £404,687</div>
+                        <div class="cell-sell">Sell: £836,146</div>
+                        <div class="cell-return">+10.3%/yr</div>
+                        <div class="cell-count">(119 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £439,511</div>
+                        <div class="cell-sell">Sell: £1,031,792</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(59 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £436,273</div>
+                        <div class="cell-sell">Sell: £980,135</div>
+                        <div class="cell-return">+4.9%/yr</div>
+                        <div class="cell-count">(46 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £374,635</div>
+                        <div class="cell-sell">Sell: £463,248</div>
+                        <div class="cell-return">+11.3%/yr</div>
+                        <div class="cell-count">(218 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £473,024</div>
+                        <div class="cell-sell">Sell: £731,864</div>
+                        <div class="cell-return">+9.6%/yr</div>
+                        <div class="cell-count">(578 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £547,112</div>
+                        <div class="cell-sell">Sell: £956,716</div>
+                        <div class="cell-return">+6.4%/yr</div>
+                        <div class="cell-count">(278 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £520,029</div>
+                        <div class="cell-sell">Sell: £963,506</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(237 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £507,170</div>
+                        <div class="cell-sell">Sell: £723,683</div>
+                        <div class="cell-return">+18.7%/yr</div>
+                        <div class="cell-count">(209 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £617,093</div>
+                        <div class="cell-sell">Sell: £806,935</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(375 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £783,225</div>
+                        <div class="cell-sell">Sell: £997,410</div>
+                        <div class="cell-return">+2.9%/yr</div>
+                        <div class="cell-count">(412 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,001,846</div>
+                        <div class="cell-sell">Sell: £957,778</div>
+                        <div class="cell-return">+6.0%/yr</div>
+                        <div class="cell-count">(124 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £777,012</div>
+                        <div class="cell-sell">Sell: £839,487</div>
+                        <div class="cell-return">+2.8%/yr</div>
+                        <div class="cell-count">(423 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £638,804</div>
+                        <div class="cell-sell">Sell: £735,829</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(112 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W6 9'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W6'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

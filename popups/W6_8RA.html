@@ -1,0 +1,1185 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W6 8RA</h3>
+            <div class="header-stats">
+                <span><strong>55</strong> transactions</span>
+                <span><strong>29</strong> properties</span>
+                <span>Avg: <strong>£560,598</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W6-8RA')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W6-8RA')">
+                Sector (W6 8)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W6-8RA')">
+                District (W6)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W6-8RA" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W6-8RA', 'W6-8RA')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W6-8RA', 'W6-8RA')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W6-8RA', 'W6-8RA')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W6-8RA" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W6-8RA" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "66, St Dunstans Road", "dates": ["2006-09-12", "2017-02-07"], "prices": [500000, 999000], "hover_texts": ["<b>66, St Dunstans Road</b><br>Transaction 1 of 2<br>Date: 2006-09-12<br>Sale Price: \u00a3500,000", "<b>66, St Dunstans Road</b><br>Transaction 2 of 2<br>Date: 2017-02-07<br>Sale Price: \u00a3999,000<br>Previous Purchase: \u00a3500,000<br>Previous Date: 2006-09-12<br>Annual Return: +6.9%/yr<br>Held for: 10.4 years"], "transaction_count": 2}, {"address": "Flat 2, 120, St Dunstans Road", "dates": ["2011-07-04", "2014-06-27", "2018-02-20"], "prices": [365000, 570500, 570000], "hover_texts": ["<b>Flat 2, 120, St Dunstans Road</b><br>Transaction 1 of 3<br>Date: 2011-07-04<br>Sale Price: \u00a3365,000", "<b>Flat 2, 120, St Dunstans Road</b><br>Transaction 2 of 3<br>Date: 2014-06-27<br>Sale Price: \u00a3570,500<br>Previous Purchase: \u00a3365,000<br>Previous Date: 2011-07-04<br>Annual Return: +16.2%/yr<br>Held for: 3.0 years", "<b>Flat 2, 120, St Dunstans Road</b><br>Transaction 3 of 3<br>Date: 2018-02-20<br>Sale Price: \u00a3570,000<br>Previous Purchase: \u00a3570,500<br>Previous Date: 2014-06-27<br>Annual Return: -0.0%/yr<br>Held for: 3.6 years"], "transaction_count": 3}, {"address": "Flat 1, 84, St Dunstans Road", "dates": ["2006-04-27", "2015-06-09"], "prices": [245000, 875000], "hover_texts": ["<b>Flat 1, 84, St Dunstans Road</b><br>Transaction 1 of 2<br>Date: 2006-04-27<br>Sale Price: \u00a3245,000", "<b>Flat 1, 84, St Dunstans Road</b><br>Transaction 2 of 2<br>Date: 2015-06-09<br>Sale Price: \u00a3875,000<br>Previous Purchase: \u00a3245,000<br>Previous Date: 2006-04-27<br>Annual Return: +15.0%/yr<br>Held for: 9.1 years"], "transaction_count": 2}, {"address": "Ground Floor Flat, 86, St Dunstans Road", "dates": ["2006-02-03", "2012-06-06"], "prices": [220000, 308000], "hover_texts": ["<b>Ground Floor Flat, 86, St Dunstans Road</b><br>Transaction 1 of 2<br>Date: 2006-02-03<br>Sale Price: \u00a3220,000", "<b>Ground Floor Flat, 86, St Dunstans Road</b><br>Transaction 2 of 2<br>Date: 2012-06-06<br>Sale Price: \u00a3308,000<br>Previous Purchase: \u00a3220,000<br>Previous Date: 2006-02-03<br>Annual Return: +5.5%/yr<br>Held for: 6.3 years"], "transaction_count": 2}, {"address": "Flat 1, 76, St Dunstans Road", "dates": ["2006-02-10", "2014-11-14"], "prices": [220000, 560000], "hover_texts": ["<b>Flat 1, 76, St Dunstans Road</b><br>Transaction 1 of 2<br>Date: 2006-02-10<br>Sale Price: \u00a3220,000", "<b>Flat 1, 76, St Dunstans Road</b><br>Transaction 2 of 2<br>Date: 2014-11-14<br>Sale Price: \u00a3560,000<br>Previous Purchase: \u00a3220,000<br>Previous Date: 2006-02-10<br>Annual Return: +11.3%/yr<br>Held for: 8.8 years"], "transaction_count": 2}, {"address": "Flat 2, 114, St Dunstans Road", "dates": ["2010-02-05", "2015-06-01"], "prices": [360000, 570000], "hover_texts": ["<b>Flat 2, 114, St Dunstans Road</b><br>Transaction 1 of 2<br>Date: 2010-02-05<br>Sale Price: \u00a3360,000", "<b>Flat 2, 114, St Dunstans Road</b><br>Transaction 2 of 2<br>Date: 2015-06-01<br>Sale Price: \u00a3570,000<br>Previous Purchase: \u00a3360,000<br>Previous Date: 2010-02-05<br>Annual Return: +9.0%/yr<br>Held for: 5.3 years"], "transaction_count": 2}, {"address": "54, St Dunstans Road", "dates": ["2006-09-18", "2008-05-27", "2012-07-24", "2023-04-26"], "prices": [433800, 683000, 795000, 1130000], "hover_texts": ["<b>54, St Dunstans Road</b><br>Transaction 1 of 4<br>Date: 2006-09-18<br>Sale Price: \u00a3433,800", "<b>54, St Dunstans Road</b><br>Transaction 2 of 4<br>Date: 2008-05-27<br>Sale Price: \u00a3683,000<br>Previous Purchase: \u00a3433,800<br>Previous Date: 2006-09-18<br>Annual Return: +30.8%/yr<br>Held for: 1.7 years", "<b>54, St Dunstans Road</b><br>Transaction 3 of 4<br>Date: 2012-07-24<br>Sale Price: \u00a3795,000<br>Previous Purchase: \u00a3683,000<br>Previous Date: 2008-05-27<br>Annual Return: +3.7%/yr<br>Held for: 4.2 years", "<b>54, St Dunstans Road</b><br>Transaction 4 of 4<br>Date: 2023-04-26<br>Sale Price: \u00a31,130,000<br>Previous Purchase: \u00a3795,000<br>Previous Date: 2012-07-24<br>Annual Return: +3.3%/yr<br>Held for: 10.8 years"], "transaction_count": 4}, {"address": "124, St Dunstans Road", "dates": ["2006-06-07", "2022-05-17"], "prices": [429000, 856000], "hover_texts": ["<b>124, St Dunstans Road</b><br>Transaction 1 of 2<br>Date: 2006-06-07<br>Sale Price: \u00a3429,000", "<b>124, St Dunstans Road</b><br>Transaction 2 of 2<br>Date: 2022-05-17<br>Sale Price: \u00a3856,000<br>Previous Purchase: \u00a3429,000<br>Previous Date: 2006-06-07<br>Annual Return: +4.4%/yr<br>Held for: 15.9 years"], "transaction_count": 2}, {"address": "First And Second Floor Flat, 70, St Dunstans Road", "dates": ["2006-04-13", "2007-02-07", "2022-09-15"], "prices": [282500, 350000, 530000], "hover_texts": ["<b>First And Second Floor Flat, 70, St Dunstans Road</b><br>Transaction 1 of 3<br>Date: 2006-04-13<br>Sale Price: \u00a3282,500", "<b>First And Second Floor Flat, 70, St Dunstans Road</b><br>Transaction 2 of 3<br>Date: 2007-02-07<br>Sale Price: \u00a3350,000<br>Previous Purchase: \u00a3282,500<br>Previous Date: 2006-04-13<br>Annual Return: +29.8%/yr<br>Held for: 0.8 years", "<b>First And Second Floor Flat, 70, St Dunstans Road</b><br>Transaction 3 of 3<br>Date: 2022-09-15<br>Sale Price: \u00a3530,000<br>Previous Purchase: \u00a3350,000<br>Previous Date: 2007-02-07<br>Annual Return: +2.7%/yr<br>Held for: 15.6 years"], "transaction_count": 3}, {"address": "126, St Dunstans Road", "dates": ["2006-03-31", "2012-12-14"], "prices": [450000, 735000], "hover_texts": ["<b>126, St Dunstans Road</b><br>Transaction 1 of 2<br>Date: 2006-03-31<br>Sale Price: \u00a3450,000", "<b>126, St Dunstans Road</b><br>Transaction 2 of 2<br>Date: 2012-12-14<br>Sale Price: \u00a3735,000<br>Previous Purchase: \u00a3450,000<br>Previous Date: 2006-03-31<br>Annual Return: +7.6%/yr<br>Held for: 6.7 years"], "transaction_count": 2}, {"address": "Flat 2, 84, St Dunstans Road", "dates": ["2006-05-04", "2015-06-09"], "prices": [225000, 875000], "hover_texts": ["<b>Flat 2, 84, St Dunstans Road</b><br>Transaction 1 of 2<br>Date: 2006-05-04<br>Sale Price: \u00a3225,000", "<b>Flat 2, 84, St Dunstans Road</b><br>Transaction 2 of 2<br>Date: 2015-06-09<br>Sale Price: \u00a3875,000<br>Previous Purchase: \u00a3225,000<br>Previous Date: 2006-05-04<br>Annual Return: +16.1%/yr<br>Held for: 9.1 years"], "transaction_count": 2}, {"address": "68, St Dunstans Road", "dates": ["2007-12-20", "2012-07-20", "2015-06-30"], "prices": [592500, 790000, 1050000], "hover_texts": ["<b>68, St Dunstans Road</b><br>Transaction 1 of 3<br>Date: 2007-12-20<br>Sale Price: \u00a3592,500", "<b>68, St Dunstans Road</b><br>Transaction 2 of 3<br>Date: 2012-07-20<br>Sale Price: \u00a3790,000<br>Previous Purchase: \u00a3592,500<br>Previous Date: 2007-12-20<br>Annual Return: +6.5%/yr<br>Held for: 4.6 years", "<b>68, St Dunstans Road</b><br>Transaction 3 of 3<br>Date: 2015-06-30<br>Sale Price: \u00a31,050,000<br>Previous Purchase: \u00a3790,000<br>Previous Date: 2012-07-20<br>Annual Return: +10.2%/yr<br>Held for: 2.9 years"], "transaction_count": 3}, {"address": "122, St Dunstans Road", "dates": ["2013-12-06", "2024-01-05"], "prices": [784995, 1022122], "hover_texts": ["<b>122, St Dunstans Road</b><br>Transaction 1 of 2<br>Date: 2013-12-06<br>Sale Price: \u00a3784,995", "<b>122, St Dunstans Road</b><br>Transaction 2 of 2<br>Date: 2024-01-05<br>Sale Price: \u00a31,022,122<br>Previous Purchase: \u00a3784,995<br>Previous Date: 2013-12-06<br>Annual Return: +2.6%/yr<br>Held for: 10.1 years"], "transaction_count": 2}, {"address": "106, St Dunstans Road", "dates": ["2018-11-30", "2021-06-30"], "prices": [835000, 1230000], "hover_texts": ["<b>106, St Dunstans Road</b><br>Transaction 1 of 2<br>Date: 2018-11-30<br>Sale Price: \u00a3835,000", "<b>106, St Dunstans Road</b><br>Transaction 2 of 2<br>Date: 2021-06-30<br>Sale Price: \u00a31,230,000<br>Previous Purchase: \u00a3835,000<br>Previous Date: 2018-11-30<br>Annual Return: +16.2%/yr<br>Held for: 2.6 years"], "transaction_count": 2}, {"address": "Ground Floor Flat, 80, St Dunstans Road", "dates": ["2008-07-15", "2013-02-01"], "prices": [280000, 335000], "hover_texts": ["<b>Ground Floor Flat, 80, St Dunstans Road</b><br>Transaction 1 of 2<br>Date: 2008-07-15<br>Sale Price: \u00a3280,000", "<b>Ground Floor Flat, 80, St Dunstans Road</b><br>Transaction 2 of 2<br>Date: 2013-02-01<br>Sale Price: \u00a3335,000<br>Previous Purchase: \u00a3280,000<br>Previous Date: 2008-07-15<br>Annual Return: +4.0%/yr<br>Held for: 4.5 years"], "transaction_count": 2}, {"address": "First Floor Flat, 130, St Dunstans Road", "dates": ["2006-03-08", "2011-01-28", "2017-01-06"], "prices": [265000, 423000, 750000], "hover_texts": ["<b>First Floor Flat, 130, St Dunstans Road</b><br>Transaction 1 of 3<br>Date: 2006-03-08<br>Sale Price: \u00a3265,000", "<b>First Floor Flat, 130, St Dunstans Road</b><br>Transaction 2 of 3<br>Date: 2011-01-28<br>Sale Price: \u00a3423,000<br>Previous Purchase: \u00a3265,000<br>Previous Date: 2006-03-08<br>Annual Return: +10.0%/yr<br>Held for: 4.9 years", "<b>First Floor Flat, 130, St Dunstans Road</b><br>Transaction 3 of 3<br>Date: 2017-01-06<br>Sale Price: \u00a3750,000<br>Previous Purchase: \u00a3423,000<br>Previous Date: 2011-01-28<br>Annual Return: +10.1%/yr<br>Held for: 5.9 years"], "transaction_count": 3}, {"address": "64B, St Dunstans Road", "dates": ["2005-11-29", "2011-09-15"], "prices": [250000, 385000], "hover_texts": ["<b>64B, St Dunstans Road</b><br>Transaction 1 of 2<br>Date: 2005-11-29<br>Sale Price: \u00a3250,000", "<b>64B, St Dunstans Road</b><br>Transaction 2 of 2<br>Date: 2011-09-15<br>Sale Price: \u00a3385,000<br>Previous Purchase: \u00a3250,000<br>Previous Date: 2005-11-29<br>Annual Return: +7.7%/yr<br>Held for: 5.8 years"], "transaction_count": 2}, {"address": "Ground Floor Flat, 70, St Dunstans Road", "dates": ["2009-09-11", "2010-12-16"], "prices": [250000, 390000], "hover_texts": ["<b>Ground Floor Flat, 70, St Dunstans Road</b><br>Transaction 1 of 2<br>Date: 2009-09-11<br>Sale Price: \u00a3250,000", "<b>Ground Floor Flat, 70, St Dunstans Road</b><br>Transaction 2 of 2<br>Date: 2010-12-16<br>Sale Price: \u00a3390,000<br>Previous Purchase: \u00a3250,000<br>Previous Date: 2009-09-11<br>Annual Return: +42.2%/yr<br>Held for: 1.3 years"], "transaction_count": 2}, {"address": "90, St Dunstans Road", "dates": ["2018-11-22", "2020-03-10"], "prices": [530000, 770000], "hover_texts": ["<b>90, St Dunstans Road</b><br>Transaction 1 of 2<br>Date: 2018-11-22<br>Sale Price: \u00a3530,000", "<b>90, St Dunstans Road</b><br>Transaction 2 of 2<br>Date: 2020-03-10<br>Sale Price: \u00a3770,000<br>Previous Purchase: \u00a3530,000<br>Previous Date: 2018-11-22<br>Annual Return: +33.4%/yr<br>Held for: 1.3 years"], "transaction_count": 2}, {"address": "120, St Dunstans Road", "dates": ["2006-02-24", "2009-11-23"], "prices": [200000, 337500], "hover_texts": ["<b>120, St Dunstans Road</b><br>Transaction 1 of 2<br>Date: 2006-02-24<br>Sale Price: \u00a3200,000", "<b>120, St Dunstans Road</b><br>Transaction 2 of 2<br>Date: 2009-11-23<br>Sale Price: \u00a3337,500<br>Previous Purchase: \u00a3200,000<br>Previous Date: 2006-02-24<br>Annual Return: +15.0%/yr<br>Held for: 3.8 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2021-11-05", "address": "Flat 2, 80, St Dunstans Road", "price": 637500, "price_display": "\u00a3637,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-07-06", "address": "128, St Dunstans Road", "price": 425000, "price_display": "\u00a3425,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2020-05-01", "address": "100, St Dunstans Road", "price": 1075000, "price_display": "\u00a31,075,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2009-08-13", "address": "92, St Dunstans Road", "price": 425000, "price_display": "\u00a3425,000", "property_type": "F", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2019-02-21", "address": "Flat 2, 76, St Dunstans Road", "price": 615000, "price_display": "\u00a3615,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-09-30", "address": "102, St Dunstans Road", "price": 695000, "price_display": "\u00a3695,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2010-06-04", "address": "Flat D, 94, St Dunstans Road", "price": 250000, "price_display": "\u00a3250,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-08-22", "address": "132, St Dunstans Road", "price": 776000, "price_display": "\u00a3776,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2007-06-19", "address": "Ground Floor Flat, 88, St Dunstans Road", "price": 327500, "price_display": "\u00a3327,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W6-8RA', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W6-8RA');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W6-8RA', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W6-8RA', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W6-8RA" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2017-02-07</td>
+            <td>66, St Dunstans Road</td>
+            <td class="price">£999,000</td>
+        <td class="positive" title="Previous: £500,000 (2006-09-12)">+6.9%/yr</td></tr>
+
+        <tr>
+            <td>2006-09-12</td>
+            <td>66, St Dunstans Road</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-20</td>
+            <td>Flat 2, 120, St Dunstans Road</td>
+            <td class="price">£570,000</td>
+        <td class="negative" title="Previous: £570,500 (2014-06-27)">-0.0%/yr</td></tr>
+
+        <tr>
+            <td>2014-06-27</td>
+            <td>Flat 2, 120, St Dunstans Road</td>
+            <td class="price">£570,500</td>
+        <td class="positive" title="Previous: £365,000 (2011-07-04)">+16.2%/yr</td></tr>
+
+        <tr>
+            <td>2011-07-04</td>
+            <td>Flat 2, 120, St Dunstans Road</td>
+            <td class="price">£365,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-06-09</td>
+            <td>Flat 1, 84, St Dunstans Road</td>
+            <td class="price">£875,000</td>
+        <td class="positive" title="Previous: £245,000 (2006-04-27)">+15.0%/yr</td></tr>
+
+        <tr>
+            <td>2006-04-27</td>
+            <td>Flat 1, 84, St Dunstans Road</td>
+            <td class="price">£245,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-06-06</td>
+            <td>Ground Floor Flat, 86, St Dunstans Road</td>
+            <td class="price">£308,000</td>
+        <td class="positive" title="Previous: £220,000 (2006-02-03)">+5.5%/yr</td></tr>
+
+        <tr>
+            <td>2006-02-03</td>
+            <td>Ground Floor Flat, 86, St Dunstans Road</td>
+            <td class="price">£220,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-11-14</td>
+            <td>Flat 1, 76, St Dunstans Road</td>
+            <td class="price">£560,000</td>
+        <td class="positive" title="Previous: £220,000 (2006-02-10)">+11.3%/yr</td></tr>
+
+        <tr>
+            <td>2006-02-10</td>
+            <td>Flat 1, 76, St Dunstans Road</td>
+            <td class="price">£220,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-06-01</td>
+            <td>Flat 2, 114, St Dunstans Road</td>
+            <td class="price">£570,000</td>
+        <td class="positive" title="Previous: £360,000 (2010-02-05)">+9.0%/yr</td></tr>
+
+        <tr>
+            <td>2010-02-05</td>
+            <td>Flat 2, 114, St Dunstans Road</td>
+            <td class="price">£360,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-04-26</td>
+            <td>54, St Dunstans Road</td>
+            <td class="price">£1,130,000</td>
+        <td class="positive" title="Previous: £795,000 (2012-07-24)">+3.3%/yr</td></tr>
+
+        <tr>
+            <td>2012-07-24</td>
+            <td>54, St Dunstans Road</td>
+            <td class="price">£795,000</td>
+        <td class="positive" title="Previous: £683,000 (2008-05-27)">+3.7%/yr</td></tr>
+
+        <tr>
+            <td>2008-05-27</td>
+            <td>54, St Dunstans Road</td>
+            <td class="price">£683,000</td>
+        <td class="positive" title="Previous: £433,800 (2006-09-18)">+30.8%/yr</td></tr>
+
+        <tr>
+            <td>2006-09-18</td>
+            <td>54, St Dunstans Road</td>
+            <td class="price">£433,800</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-11-05</td>
+            <td>Flat 2, 80, St Dunstans Road</td>
+            <td class="price">£637,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-05-17</td>
+            <td>124, St Dunstans Road</td>
+            <td class="price">£856,000</td>
+        <td class="positive" title="Previous: £429,000 (2006-06-07)">+4.4%/yr</td></tr>
+
+        <tr>
+            <td>2006-06-07</td>
+            <td>124, St Dunstans Road</td>
+            <td class="price">£429,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-07-06</td>
+            <td>128, St Dunstans Road</td>
+            <td class="price">£425,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-05-01</td>
+            <td>100, St Dunstans Road</td>
+            <td class="price">£1,075,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-08-13</td>
+            <td>92, St Dunstans Road</td>
+            <td class="price">£425,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-02-21</td>
+            <td>Flat 2, 76, St Dunstans Road</td>
+            <td class="price">£615,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-09-15</td>
+            <td>First And Second Floor Flat, 70, St Dunstans Road</td>
+            <td class="price">£530,000</td>
+        <td class="positive" title="Previous: £350,000 (2007-02-07)">+2.7%/yr</td></tr>
+
+        <tr>
+            <td>2007-02-07</td>
+            <td>First And Second Floor Flat, 70, St Dunstans Road</td>
+            <td class="price">£350,000</td>
+        <td class="positive" title="Previous: £282,500 (2006-04-13)">+29.8%/yr</td></tr>
+
+        <tr>
+            <td>2006-04-13</td>
+            <td>First And Second Floor Flat, 70, St Dunstans Road</td>
+            <td class="price">£282,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-12-14</td>
+            <td>126, St Dunstans Road</td>
+            <td class="price">£735,000</td>
+        <td class="positive" title="Previous: £450,000 (2006-03-31)">+7.6%/yr</td></tr>
+
+        <tr>
+            <td>2006-03-31</td>
+            <td>126, St Dunstans Road</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-06-09</td>
+            <td>Flat 2, 84, St Dunstans Road</td>
+            <td class="price">£875,000</td>
+        <td class="positive" title="Previous: £225,000 (2006-05-04)">+16.1%/yr</td></tr>
+
+        <tr>
+            <td>2006-05-04</td>
+            <td>Flat 2, 84, St Dunstans Road</td>
+            <td class="price">£225,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-06-30</td>
+            <td>68, St Dunstans Road</td>
+            <td class="price">£1,050,000</td>
+        <td class="positive" title="Previous: £790,000 (2012-07-20)">+10.2%/yr</td></tr>
+
+        <tr>
+            <td>2012-07-20</td>
+            <td>68, St Dunstans Road</td>
+            <td class="price">£790,000</td>
+        <td class="positive" title="Previous: £592,500 (2007-12-20)">+6.5%/yr</td></tr>
+
+        <tr>
+            <td>2007-12-20</td>
+            <td>68, St Dunstans Road</td>
+            <td class="price">£592,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-01-05</td>
+            <td>122, St Dunstans Road</td>
+            <td class="price">£1,022,122</td>
+        <td class="positive" title="Previous: £784,995 (2013-12-06)">+2.6%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-06</td>
+            <td>122, St Dunstans Road</td>
+            <td class="price">£784,995</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-30</td>
+            <td>106, St Dunstans Road</td>
+            <td class="price">£1,230,000</td>
+        <td class="positive" title="Previous: £835,000 (2018-11-30)">+16.2%/yr</td></tr>
+
+        <tr>
+            <td>2018-11-30</td>
+            <td>106, St Dunstans Road</td>
+            <td class="price">£835,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-09-30</td>
+            <td>102, St Dunstans Road</td>
+            <td class="price">£695,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-06-04</td>
+            <td>Flat D, 94, St Dunstans Road</td>
+            <td class="price">£250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-02-01</td>
+            <td>Ground Floor Flat, 80, St Dunstans Road</td>
+            <td class="price">£335,000</td>
+        <td class="positive" title="Previous: £280,000 (2008-07-15)">+4.0%/yr</td></tr>
+
+        <tr>
+            <td>2008-07-15</td>
+            <td>Ground Floor Flat, 80, St Dunstans Road</td>
+            <td class="price">£280,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-01-06</td>
+            <td>First Floor Flat, 130, St Dunstans Road</td>
+            <td class="price">£750,000</td>
+        <td class="positive" title="Previous: £423,000 (2011-01-28)">+10.1%/yr</td></tr>
+
+        <tr>
+            <td>2011-01-28</td>
+            <td>First Floor Flat, 130, St Dunstans Road</td>
+            <td class="price">£423,000</td>
+        <td class="positive" title="Previous: £265,000 (2006-03-08)">+10.0%/yr</td></tr>
+
+        <tr>
+            <td>2006-03-08</td>
+            <td>First Floor Flat, 130, St Dunstans Road</td>
+            <td class="price">£265,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-09-15</td>
+            <td>64B, St Dunstans Road</td>
+            <td class="price">£385,000</td>
+        <td class="positive" title="Previous: £250,000 (2005-11-29)">+7.7%/yr</td></tr>
+
+        <tr>
+            <td>2005-11-29</td>
+            <td>64B, St Dunstans Road</td>
+            <td class="price">£250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-08-22</td>
+            <td>132, St Dunstans Road</td>
+            <td class="price">£776,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-12-16</td>
+            <td>Ground Floor Flat, 70, St Dunstans Road</td>
+            <td class="price">£390,000</td>
+        <td class="positive" title="Previous: £250,000 (2009-09-11)">+42.2%/yr</td></tr>
+
+        <tr>
+            <td>2009-09-11</td>
+            <td>Ground Floor Flat, 70, St Dunstans Road</td>
+            <td class="price">£250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-06-19</td>
+            <td>Ground Floor Flat, 88, St Dunstans Road</td>
+            <td class="price">£327,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-03-10</td>
+            <td>90, St Dunstans Road</td>
+            <td class="price">£770,000</td>
+        <td class="positive" title="Previous: £530,000 (2018-11-22)">+33.4%/yr</td></tr>
+
+        <tr>
+            <td>2018-11-22</td>
+            <td>90, St Dunstans Road</td>
+            <td class="price">£530,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-11-23</td>
+            <td>120, St Dunstans Road</td>
+            <td class="price">£337,500</td>
+        <td class="positive" title="Previous: £200,000 (2006-02-24)">+15.0%/yr</td></tr>
+
+        <tr>
+            <td>2006-02-24</td>
+            <td>120, St Dunstans Road</td>
+            <td class="price">£200,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W6-8RA" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W6-8RA" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+            y: [250000, 324608, 423333, 481500, 337500, 333333, 467000, 657000, 559997, 565250, 842500, 841666, 645000, 615000, 922500, 933750, 693000, 1130000, 1022122],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+            y: [250000, 282500, 350000, 683000, 337500, 360000, 423000, 790000, 784995, 570500, 875000, 776000, 570000, 615000, 1075000, 1230000, 856000, 1130000, 1022122],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W6 8RA',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W6-8RA', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 55</p>
+                    <p><strong>Unique Properties:</strong> 29</p>
+                    <p><strong>Average Price:</strong> £560,598</p>
+                    <p><strong>Median Price:</strong> £530,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W6-8RA" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W6 8 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W6 8</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W6-8RA', 'W6-8RA')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W6-8RA', 'W6-8RA')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W6-8RA" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W6-8RA" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [319811, 353814, 439070, 434756, 400684, 473171, 474514, 534166, 581119, 716173, 792141, 718670, 795483, 736651, 733530, 743159, 726453, 826606, 746756, 812246, 744415],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [295750, 307500, 388000, 396000, 380000, 449000, 430000, 455000, 492499, 570500, 737500, 623500, 770000, 617500, 627075, 693000, 635000, 724000, 632500, 675000, 627500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W6 8 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W6-8RA', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W6-8RA" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £237,000</div>
+                        <div class="cell-sell">Sell: £252,000</div>
+                        <div class="cell-return">+36.2%/yr</div>
+                        <div class="cell-count">(3 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £271,520</div>
+                        <div class="cell-sell">Sell: £370,659</div>
+                        <div class="cell-return">+12.3%/yr</div>
+                        <div class="cell-count">(36 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £348,048</div>
+                        <div class="cell-sell">Sell: £677,657</div>
+                        <div class="cell-return">+8.7%/yr</div>
+                        <div class="cell-count">(28 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £353,138</div>
+                        <div class="cell-sell">Sell: £802,680</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(18 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £401,534</div>
+                        <div class="cell-sell">Sell: £1,040,211</div>
+                        <div class="cell-return">+5.5%/yr</div>
+                        <div class="cell-count">(13 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £347,611</div>
+                        <div class="cell-sell">Sell: £437,459</div>
+                        <div class="cell-return">+13.5%/yr</div>
+                        <div class="cell-count">(63 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £407,620</div>
+                        <div class="cell-sell">Sell: £608,072</div>
+                        <div class="cell-return">+8.7%/yr</div>
+                        <div class="cell-count">(152 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £441,600</div>
+                        <div class="cell-sell">Sell: £800,981</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(63 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £440,812</div>
+                        <div class="cell-sell">Sell: £830,102</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(52 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £443,576</div>
+                        <div class="cell-sell">Sell: £653,120</div>
+                        <div class="cell-return">+18.0%/yr</div>
+                        <div class="cell-count">(40 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £570,425</div>
+                        <div class="cell-sell">Sell: £757,436</div>
+                        <div class="cell-return">+7.6%/yr</div>
+                        <div class="cell-count">(71 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £672,586</div>
+                        <div class="cell-sell">Sell: £847,147</div>
+                        <div class="cell-return">+2.8%/yr</div>
+                        <div class="cell-count">(109 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £732,553</div>
+                        <div class="cell-sell">Sell: £801,342</div>
+                        <div class="cell-return">+4.3%/yr</div>
+                        <div class="cell-count">(19 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £689,337</div>
+                        <div class="cell-sell">Sell: £799,901</div>
+                        <div class="cell-return">+4.9%/yr</div>
+                        <div class="cell-count">(82 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £604,661</div>
+                        <div class="cell-sell">Sell: £716,458</div>
+                        <div class="cell-return">+8.7%/yr</div>
+                        <div class="cell-count">(31 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W6-8RA" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W6 Analysis</h4>
+                <p class="area-info">Viewing data for entire W6 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W6-8RA', 'W6-8RA')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W6-8RA', 'W6-8RA')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W6-8RA" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W6-8RA" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [394991, 424257, 482804, 507096, 498061, 595317, 551872, 659380, 687325, 854158, 891759, 847660, 999097, 935647, 942374, 954287, 872237, 858786, 905639, 932128, 912339],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [333250, 341000, 380000, 410000, 415000, 464500, 426800, 480000, 529975, 700000, 715000, 632000, 809975, 819950, 695000, 807500, 725000, 687169, 785000, 705000, 661000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W6-8RA', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W6-8RA" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £343,433</div>
+                        <div class="cell-sell">Sell: £321,198</div>
+                        <div class="cell-return">+34.9%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £354,647</div>
+                        <div class="cell-sell">Sell: £506,536</div>
+                        <div class="cell-return">+12.9%/yr</div>
+                        <div class="cell-count">(148 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £404,687</div>
+                        <div class="cell-sell">Sell: £836,146</div>
+                        <div class="cell-return">+10.3%/yr</div>
+                        <div class="cell-count">(119 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £439,511</div>
+                        <div class="cell-sell">Sell: £1,031,792</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(59 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £436,273</div>
+                        <div class="cell-sell">Sell: £980,135</div>
+                        <div class="cell-return">+4.9%/yr</div>
+                        <div class="cell-count">(46 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £374,635</div>
+                        <div class="cell-sell">Sell: £463,248</div>
+                        <div class="cell-return">+11.3%/yr</div>
+                        <div class="cell-count">(218 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £473,024</div>
+                        <div class="cell-sell">Sell: £731,864</div>
+                        <div class="cell-return">+9.6%/yr</div>
+                        <div class="cell-count">(578 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £547,112</div>
+                        <div class="cell-sell">Sell: £956,716</div>
+                        <div class="cell-return">+6.4%/yr</div>
+                        <div class="cell-count">(278 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £520,029</div>
+                        <div class="cell-sell">Sell: £963,506</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(237 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £507,170</div>
+                        <div class="cell-sell">Sell: £723,683</div>
+                        <div class="cell-return">+18.7%/yr</div>
+                        <div class="cell-count">(209 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £617,093</div>
+                        <div class="cell-sell">Sell: £806,935</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(375 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £783,225</div>
+                        <div class="cell-sell">Sell: £997,410</div>
+                        <div class="cell-return">+2.9%/yr</div>
+                        <div class="cell-count">(412 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,001,846</div>
+                        <div class="cell-sell">Sell: £957,778</div>
+                        <div class="cell-return">+6.0%/yr</div>
+                        <div class="cell-count">(124 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £777,012</div>
+                        <div class="cell-sell">Sell: £839,487</div>
+                        <div class="cell-return">+2.8%/yr</div>
+                        <div class="cell-count">(423 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £638,804</div>
+                        <div class="cell-sell">Sell: £735,829</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(112 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W6 8'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W6'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

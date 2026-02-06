@@ -1,0 +1,1257 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>N3 2QS</h3>
+            <div class="header-stats">
+                <span><strong>67</strong> transactions</span>
+                <span><strong>36</strong> properties</span>
+                <span>Avg: <strong>£324,512</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-N3-2QS')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-N3-2QS')">
+                Sector (N3 2)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-N3-2QS')">
+                District (N3)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-N3-2QS" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-N3-2QS', 'N3-2QS')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-N3-2QS', 'N3-2QS')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-N3-2QS', 'N3-2QS')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-N3-2QS" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-N3-2QS" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "265, Squires Lane", "dates": ["2006-07-28", "2007-01-17", "2010-10-15", "2010-10-15", "2018-10-25"], "prices": [201000, 207000, 240000, 280000, 425000], "hover_texts": ["<b>265, Squires Lane</b><br>Transaction 1 of 5<br>Date: 2006-07-28<br>Sale Price: \u00a3201,000", "<b>265, Squires Lane</b><br>Transaction 2 of 5<br>Date: 2007-01-17<br>Sale Price: \u00a3207,000<br>Previous Purchase: \u00a3201,000<br>Previous Date: 2006-07-28<br>Annual Return: +6.4%/yr<br>Held for: 0.5 years", "<b>265, Squires Lane</b><br>Transaction 3 of 5<br>Date: 2010-10-15<br>Sale Price: \u00a3240,000<br>Previous Purchase: \u00a3207,000<br>Previous Date: 2007-01-17<br>Annual Return: +4.0%/yr<br>Held for: 3.7 years", "<b>265, Squires Lane</b><br>Transaction 4 of 5<br>Date: 2010-10-15<br>Sale Price: \u00a3280,000", "<b>265, Squires Lane</b><br>Transaction 5 of 5<br>Date: 2018-10-25<br>Sale Price: \u00a3425,000<br>Previous Purchase: \u00a3280,000<br>Previous Date: 2010-10-15<br>Annual Return: +5.3%/yr<br>Held for: 8.0 years"], "transaction_count": 5}, {"address": "217, Squires Lane", "dates": ["2014-08-05", "2016-07-29", "2021-01-21"], "prices": [333000, 365000, 349000], "hover_texts": ["<b>217, Squires Lane</b><br>Transaction 1 of 3<br>Date: 2014-08-05<br>Sale Price: \u00a3333,000", "<b>217, Squires Lane</b><br>Transaction 2 of 3<br>Date: 2016-07-29<br>Sale Price: \u00a3365,000<br>Previous Purchase: \u00a3333,000<br>Previous Date: 2014-08-05<br>Annual Return: +4.7%/yr<br>Held for: 2.0 years", "<b>217, Squires Lane</b><br>Transaction 3 of 3<br>Date: 2021-01-21<br>Sale Price: \u00a3349,000<br>Previous Purchase: \u00a3365,000<br>Previous Date: 2016-07-29<br>Annual Return: -1.0%/yr<br>Held for: 4.5 years"], "transaction_count": 3}, {"address": "First Floor Maisonette, 261, Squires Lane", "dates": ["2006-03-22", "2010-05-05", "2020-07-17"], "prices": [220000, 250000, 496400], "hover_texts": ["<b>First Floor Maisonette, 261, Squires Lane</b><br>Transaction 1 of 3<br>Date: 2006-03-22<br>Sale Price: \u00a3220,000", "<b>First Floor Maisonette, 261, Squires Lane</b><br>Transaction 2 of 3<br>Date: 2010-05-05<br>Sale Price: \u00a3250,000<br>Previous Purchase: \u00a3220,000<br>Previous Date: 2006-03-22<br>Annual Return: +3.1%/yr<br>Held for: 4.1 years", "<b>First Floor Maisonette, 261, Squires Lane</b><br>Transaction 3 of 3<br>Date: 2020-07-17<br>Sale Price: \u00a3496,400<br>Previous Purchase: \u00a3250,000<br>Previous Date: 2010-05-05<br>Annual Return: +7.0%/yr<br>Held for: 10.2 years"], "transaction_count": 3}, {"address": "249, Squires Lane", "dates": ["2012-10-12", "2018-05-01"], "prices": [260000, 496000], "hover_texts": ["<b>249, Squires Lane</b><br>Transaction 1 of 2<br>Date: 2012-10-12<br>Sale Price: \u00a3260,000", "<b>249, Squires Lane</b><br>Transaction 2 of 2<br>Date: 2018-05-01<br>Sale Price: \u00a3496,000<br>Previous Purchase: \u00a3260,000<br>Previous Date: 2012-10-12<br>Annual Return: +12.3%/yr<br>Held for: 5.5 years"], "transaction_count": 2}, {"address": "Flat A, 269, Squires Lane", "dates": ["2017-03-10", "2025-09-12"], "prices": [379750, 350000], "hover_texts": ["<b>Flat A, 269, Squires Lane</b><br>Transaction 1 of 2<br>Date: 2017-03-10<br>Sale Price: \u00a3379,750", "<b>Flat A, 269, Squires Lane</b><br>Transaction 2 of 2<br>Date: 2025-09-12<br>Sale Price: \u00a3350,000<br>Previous Purchase: \u00a3379,750<br>Previous Date: 2017-03-10<br>Annual Return: -0.9%/yr<br>Held for: 8.5 years"], "transaction_count": 2}, {"address": "267, Squires Lane", "dates": ["2007-02-28", "2010-12-21"], "prices": [407000, 479950], "hover_texts": ["<b>267, Squires Lane</b><br>Transaction 1 of 2<br>Date: 2007-02-28<br>Sale Price: \u00a3407,000", "<b>267, Squires Lane</b><br>Transaction 2 of 2<br>Date: 2010-12-21<br>Sale Price: \u00a3479,950<br>Previous Purchase: \u00a3407,000<br>Previous Date: 2007-02-28<br>Annual Return: +4.4%/yr<br>Held for: 3.8 years"], "transaction_count": 2}, {"address": "First Floor Flat, 225, Squires Lane", "dates": ["2007-09-21", "2016-06-10", "2020-12-17"], "prices": [218500, 375000, 353000], "hover_texts": ["<b>First Floor Flat, 225, Squires Lane</b><br>Transaction 1 of 3<br>Date: 2007-09-21<br>Sale Price: \u00a3218,500", "<b>First Floor Flat, 225, Squires Lane</b><br>Transaction 2 of 3<br>Date: 2016-06-10<br>Sale Price: \u00a3375,000<br>Previous Purchase: \u00a3218,500<br>Previous Date: 2007-09-21<br>Annual Return: +6.4%/yr<br>Held for: 8.7 years", "<b>First Floor Flat, 225, Squires Lane</b><br>Transaction 3 of 3<br>Date: 2020-12-17<br>Sale Price: \u00a3353,000<br>Previous Purchase: \u00a3375,000<br>Previous Date: 2016-06-10<br>Annual Return: -1.3%/yr<br>Held for: 4.5 years"], "transaction_count": 3}, {"address": "Ground Floor Flat, 247, Squires Lane", "dates": ["2007-02-23", "2011-10-14"], "prices": [240000, 260000], "hover_texts": ["<b>Ground Floor Flat, 247, Squires Lane</b><br>Transaction 1 of 2<br>Date: 2007-02-23<br>Sale Price: \u00a3240,000", "<b>Ground Floor Flat, 247, Squires Lane</b><br>Transaction 2 of 2<br>Date: 2011-10-14<br>Sale Price: \u00a3260,000<br>Previous Purchase: \u00a3240,000<br>Previous Date: 2007-02-23<br>Annual Return: +1.7%/yr<br>Held for: 4.6 years"], "transaction_count": 2}, {"address": "275A, Squires Lane", "dates": ["2009-04-01", "2014-10-24"], "prices": [182000, 340000], "hover_texts": ["<b>275A, Squires Lane</b><br>Transaction 1 of 2<br>Date: 2009-04-01<br>Sale Price: \u00a3182,000", "<b>275A, Squires Lane</b><br>Transaction 2 of 2<br>Date: 2014-10-24<br>Sale Price: \u00a3340,000<br>Previous Purchase: \u00a3182,000<br>Previous Date: 2009-04-01<br>Annual Return: +11.9%/yr<br>Held for: 5.6 years"], "transaction_count": 2}, {"address": "239A, Squires Lane", "dates": ["2006-11-17", "2007-04-16", "2018-05-25", "2023-09-12"], "prices": [175000, 262500, 260000, 425000], "hover_texts": ["<b>239A, Squires Lane</b><br>Transaction 1 of 4<br>Date: 2006-11-17<br>Sale Price: \u00a3175,000", "<b>239A, Squires Lane</b><br>Transaction 2 of 4<br>Date: 2007-04-16<br>Sale Price: \u00a3262,500<br>Previous Purchase: \u00a3175,000<br>Previous Date: 2006-11-17<br>Annual Return: +168.4%/yr<br>Held for: 0.4 years", "<b>239A, Squires Lane</b><br>Transaction 3 of 4<br>Date: 2018-05-25<br>Sale Price: \u00a3260,000<br>Previous Purchase: \u00a3262,500<br>Previous Date: 2007-04-16<br>Annual Return: -0.1%/yr<br>Held for: 11.1 years", "<b>239A, Squires Lane</b><br>Transaction 4 of 4<br>Date: 2023-09-12<br>Sale Price: \u00a3425,000<br>Previous Purchase: \u00a3260,000<br>Previous Date: 2018-05-25<br>Annual Return: +9.7%/yr<br>Held for: 5.3 years"], "transaction_count": 4}, {"address": "245, Squires Lane", "dates": ["2006-06-23", "2007-12-04", "2018-07-03"], "prices": [208500, 250000, 370000], "hover_texts": ["<b>245, Squires Lane</b><br>Transaction 1 of 3<br>Date: 2006-06-23<br>Sale Price: \u00a3208,500", "<b>245, Squires Lane</b><br>Transaction 2 of 3<br>Date: 2007-12-04<br>Sale Price: \u00a3250,000<br>Previous Purchase: \u00a3208,500<br>Previous Date: 2006-06-23<br>Annual Return: +13.3%/yr<br>Held for: 1.4 years", "<b>245, Squires Lane</b><br>Transaction 3 of 3<br>Date: 2018-07-03<br>Sale Price: \u00a3370,000<br>Previous Purchase: \u00a3250,000<br>Previous Date: 2007-12-04<br>Annual Return: +3.8%/yr<br>Held for: 10.6 years"], "transaction_count": 3}, {"address": "257, Squires Lane", "dates": ["2014-08-08", "2025-03-21"], "prices": [360000, 430000], "hover_texts": ["<b>257, Squires Lane</b><br>Transaction 1 of 2<br>Date: 2014-08-08<br>Sale Price: \u00a3360,000", "<b>257, Squires Lane</b><br>Transaction 2 of 2<br>Date: 2025-03-21<br>Sale Price: \u00a3430,000<br>Previous Purchase: \u00a3360,000<br>Previous Date: 2014-08-08<br>Annual Return: +1.7%/yr<br>Held for: 10.6 years"], "transaction_count": 2}, {"address": "Ground Floor Maisonette, 261, Squires Lane", "dates": ["2010-10-26", "2015-01-19"], "prices": [250000, 400000], "hover_texts": ["<b>Ground Floor Maisonette, 261, Squires Lane</b><br>Transaction 1 of 2<br>Date: 2010-10-26<br>Sale Price: \u00a3250,000", "<b>Ground Floor Maisonette, 261, Squires Lane</b><br>Transaction 2 of 2<br>Date: 2015-01-19<br>Sale Price: \u00a3400,000<br>Previous Purchase: \u00a3250,000<br>Previous Date: 2010-10-26<br>Annual Return: +11.7%/yr<br>Held for: 4.2 years"], "transaction_count": 2}, {"address": "245A, Squires Lane", "dates": ["2007-11-30", "2019-07-12", "2023-11-10"], "prices": [268000, 390000, 417000], "hover_texts": ["<b>245A, Squires Lane</b><br>Transaction 1 of 3<br>Date: 2007-11-30<br>Sale Price: \u00a3268,000", "<b>245A, Squires Lane</b><br>Transaction 2 of 3<br>Date: 2019-07-12<br>Sale Price: \u00a3390,000<br>Previous Purchase: \u00a3268,000<br>Previous Date: 2007-11-30<br>Annual Return: +3.3%/yr<br>Held for: 11.6 years", "<b>245A, Squires Lane</b><br>Transaction 3 of 3<br>Date: 2023-11-10<br>Sale Price: \u00a3417,000<br>Previous Purchase: \u00a3390,000<br>Previous Date: 2019-07-12<br>Annual Return: +1.6%/yr<br>Held for: 4.3 years"], "transaction_count": 3}, {"address": "Flat A, 243, Squires Lane", "dates": ["2006-09-13", "2025-04-01"], "prices": [199000, 210000], "hover_texts": ["<b>Flat A, 243, Squires Lane</b><br>Transaction 1 of 2<br>Date: 2006-09-13<br>Sale Price: \u00a3199,000", "<b>Flat A, 243, Squires Lane</b><br>Transaction 2 of 2<br>Date: 2025-04-01<br>Sale Price: \u00a3210,000<br>Previous Purchase: \u00a3199,000<br>Previous Date: 2006-09-13<br>Annual Return: +0.3%/yr<br>Held for: 18.6 years"], "transaction_count": 2}, {"address": "Flat 1, 241, Squires Lane", "dates": ["2014-11-10", "2015-05-29"], "prices": [389950, 380000], "hover_texts": ["<b>Flat 1, 241, Squires Lane</b><br>Transaction 1 of 2<br>Date: 2014-11-10<br>Sale Price: \u00a3389,950", "<b>Flat 1, 241, Squires Lane</b><br>Transaction 2 of 2<br>Date: 2015-05-29<br>Sale Price: \u00a3380,000<br>Previous Purchase: \u00a3389,950<br>Previous Date: 2014-11-10<br>Annual Return: -4.6%/yr<br>Held for: 0.6 years"], "transaction_count": 2}, {"address": "263, Squires Lane", "dates": ["2007-07-13", "2013-12-19"], "prices": [424999, 599950], "hover_texts": ["<b>263, Squires Lane</b><br>Transaction 1 of 2<br>Date: 2007-07-13<br>Sale Price: \u00a3424,999", "<b>263, Squires Lane</b><br>Transaction 2 of 2<br>Date: 2013-12-19<br>Sale Price: \u00a3599,950<br>Previous Purchase: \u00a3424,999<br>Previous Date: 2007-07-13<br>Annual Return: +5.5%/yr<br>Held for: 6.4 years"], "transaction_count": 2}, {"address": "First Floor Flat, 227, Squires Lane", "dates": ["2006-04-07", "2013-12-04"], "prices": [176000, 212000], "hover_texts": ["<b>First Floor Flat, 227, Squires Lane</b><br>Transaction 1 of 2<br>Date: 2006-04-07<br>Sale Price: \u00a3176,000", "<b>First Floor Flat, 227, Squires Lane</b><br>Transaction 2 of 2<br>Date: 2013-12-04<br>Sale Price: \u00a3212,000<br>Previous Purchase: \u00a3176,000<br>Previous Date: 2006-04-07<br>Annual Return: +2.5%/yr<br>Held for: 7.7 years"], "transaction_count": 2}, {"address": "253, Squires Lane", "dates": ["2010-03-19", "2019-12-02"], "prices": [240000, 397500], "hover_texts": ["<b>253, Squires Lane</b><br>Transaction 1 of 2<br>Date: 2010-03-19<br>Sale Price: \u00a3240,000", "<b>253, Squires Lane</b><br>Transaction 2 of 2<br>Date: 2019-12-02<br>Sale Price: \u00a3397,500<br>Previous Purchase: \u00a3240,000<br>Previous Date: 2010-03-19<br>Annual Return: +5.3%/yr<br>Held for: 9.7 years"], "transaction_count": 2}, {"address": "201A, Squires Lane", "dates": ["2017-12-12", "2022-07-01", "2023-04-21"], "prices": [357000, 372000, 410000], "hover_texts": ["<b>201A, Squires Lane</b><br>Transaction 1 of 3<br>Date: 2017-12-12<br>Sale Price: \u00a3357,000", "<b>201A, Squires Lane</b><br>Transaction 2 of 3<br>Date: 2022-07-01<br>Sale Price: \u00a3372,000<br>Previous Purchase: \u00a3357,000<br>Previous Date: 2017-12-12<br>Annual Return: +0.9%/yr<br>Held for: 4.5 years", "<b>201A, Squires Lane</b><br>Transaction 3 of 3<br>Date: 2023-04-21<br>Sale Price: \u00a3410,000<br>Previous Purchase: \u00a3372,000<br>Previous Date: 2022-07-01<br>Annual Return: +12.8%/yr<br>Held for: 0.8 years"], "transaction_count": 3}];
+            var singleSales = [{"date": "2007-08-10", "address": "239, Squires Lane", "price": 264000, "price_display": "\u00a3264,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-06-28", "address": "183, Squires Lane", "price": 340000, "price_display": "\u00a3340,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2019-12-02", "address": "271, Squires Lane", "price": 500000, "price_display": "\u00a3500,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2016-01-08", "address": "181A, Squires Lane", "price": 191250, "price_display": "\u00a3191,250", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-09-07", "address": "Ground Floor Flat, 249, Squires Lane", "price": 267000, "price_display": "\u00a3267,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-09-23", "address": "231, Squires Lane", "price": 322500, "price_display": "\u00a3322,500", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2019-07-26", "address": "Flat 1, 231, Squires Lane", "price": 450000, "price_display": "\u00a3450,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-04-13", "address": "279, Squires Lane", "price": 201500, "price_display": "\u00a3201,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-04-08", "address": "201B, Squires Lane", "price": 293375, "price_display": "\u00a3293,375", "property_type": "T", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-02-28", "address": "241, Squires Lane", "price": 400000, "price_display": "\u00a3400,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2008-08-22", "address": "First Floor Flat At, 221, Squires Lane", "price": 150000, "price_display": "\u00a3150,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-11-13", "address": "201, Squires Lane", "price": 250000, "price_display": "\u00a3250,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2021-11-05", "address": "207, Squires Lane", "price": 652200, "price_display": "\u00a3652,200", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2010-04-14", "address": "209, Squires Lane", "price": 360000, "price_display": "\u00a3360,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2019-03-12", "address": "257A, Squires Lane", "price": 335000, "price_display": "\u00a3335,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-04-18", "address": "275B, Squires Lane", "price": 223500, "price_display": "\u00a3223,500", "property_type": "T", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-N3-2QS', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-N3-2QS');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-N3-2QS', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-N3-2QS', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-N3-2QS" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2007-08-10</td>
+            <td>239, Squires Lane</td>
+            <td class="price">£264,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-25</td>
+            <td>265, Squires Lane</td>
+            <td class="price">£425,000</td>
+        <td class="positive" title="Previous: £280,000 (2010-10-15)">+5.3%/yr</td></tr>
+
+        <tr>
+            <td>2010-10-15</td>
+            <td>265, Squires Lane</td>
+            <td class="price">£240,000</td>
+        <td class="positive" title="Previous: £207,000 (2007-01-17)">+4.0%/yr</td></tr>
+
+        <tr>
+            <td>2010-10-15</td>
+            <td>265, Squires Lane</td>
+            <td class="price">£280,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-01-17</td>
+            <td>265, Squires Lane</td>
+            <td class="price">£207,000</td>
+        <td class="positive" title="Previous: £201,000 (2006-07-28)">+6.4%/yr</td></tr>
+
+        <tr>
+            <td>2006-07-28</td>
+            <td>265, Squires Lane</td>
+            <td class="price">£201,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-01-21</td>
+            <td>217, Squires Lane</td>
+            <td class="price">£349,000</td>
+        <td class="negative" title="Previous: £365,000 (2016-07-29)">-1.0%/yr</td></tr>
+
+        <tr>
+            <td>2016-07-29</td>
+            <td>217, Squires Lane</td>
+            <td class="price">£365,000</td>
+        <td class="positive" title="Previous: £333,000 (2014-08-05)">+4.7%/yr</td></tr>
+
+        <tr>
+            <td>2014-08-05</td>
+            <td>217, Squires Lane</td>
+            <td class="price">£333,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-07-17</td>
+            <td>First Floor Maisonette, 261, Squires Lane</td>
+            <td class="price">£496,400</td>
+        <td class="positive" title="Previous: £250,000 (2010-05-05)">+7.0%/yr</td></tr>
+
+        <tr>
+            <td>2010-05-05</td>
+            <td>First Floor Maisonette, 261, Squires Lane</td>
+            <td class="price">£250,000</td>
+        <td class="positive" title="Previous: £220,000 (2006-03-22)">+3.1%/yr</td></tr>
+
+        <tr>
+            <td>2006-03-22</td>
+            <td>First Floor Maisonette, 261, Squires Lane</td>
+            <td class="price">£220,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-01</td>
+            <td>249, Squires Lane</td>
+            <td class="price">£496,000</td>
+        <td class="positive" title="Previous: £260,000 (2012-10-12)">+12.3%/yr</td></tr>
+
+        <tr>
+            <td>2012-10-12</td>
+            <td>249, Squires Lane</td>
+            <td class="price">£260,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-09-12</td>
+            <td>Flat A, 269, Squires Lane</td>
+            <td class="price">£350,000</td>
+        <td class="negative" title="Previous: £379,750 (2017-03-10)">-0.9%/yr</td></tr>
+
+        <tr>
+            <td>2017-03-10</td>
+            <td>Flat A, 269, Squires Lane</td>
+            <td class="price">£379,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-12-21</td>
+            <td>267, Squires Lane</td>
+            <td class="price">£479,950</td>
+        <td class="positive" title="Previous: £407,000 (2007-02-28)">+4.4%/yr</td></tr>
+
+        <tr>
+            <td>2007-02-28</td>
+            <td>267, Squires Lane</td>
+            <td class="price">£407,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-06-28</td>
+            <td>183, Squires Lane</td>
+            <td class="price">£340,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-12-02</td>
+            <td>271, Squires Lane</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-12-17</td>
+            <td>First Floor Flat, 225, Squires Lane</td>
+            <td class="price">£353,000</td>
+        <td class="negative" title="Previous: £375,000 (2016-06-10)">-1.3%/yr</td></tr>
+
+        <tr>
+            <td>2016-06-10</td>
+            <td>First Floor Flat, 225, Squires Lane</td>
+            <td class="price">£375,000</td>
+        <td class="positive" title="Previous: £218,500 (2007-09-21)">+6.4%/yr</td></tr>
+
+        <tr>
+            <td>2007-09-21</td>
+            <td>First Floor Flat, 225, Squires Lane</td>
+            <td class="price">£218,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-01-08</td>
+            <td>181A, Squires Lane</td>
+            <td class="price">£191,250</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-09-07</td>
+            <td>Ground Floor Flat, 249, Squires Lane</td>
+            <td class="price">£267,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-09-23</td>
+            <td>231, Squires Lane</td>
+            <td class="price">£322,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-07-26</td>
+            <td>Flat 1, 231, Squires Lane</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-04-13</td>
+            <td>279, Squires Lane</td>
+            <td class="price">£201,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-10-14</td>
+            <td>Ground Floor Flat, 247, Squires Lane</td>
+            <td class="price">£260,000</td>
+        <td class="positive" title="Previous: £240,000 (2007-02-23)">+1.7%/yr</td></tr>
+
+        <tr>
+            <td>2007-02-23</td>
+            <td>Ground Floor Flat, 247, Squires Lane</td>
+            <td class="price">£240,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-10-24</td>
+            <td>275A, Squires Lane</td>
+            <td class="price">£340,000</td>
+        <td class="positive" title="Previous: £182,000 (2009-04-01)">+11.9%/yr</td></tr>
+
+        <tr>
+            <td>2009-04-01</td>
+            <td>275A, Squires Lane</td>
+            <td class="price">£182,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-04-08</td>
+            <td>201B, Squires Lane</td>
+            <td class="price">£293,375</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-02-28</td>
+            <td>241, Squires Lane</td>
+            <td class="price">£400,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-09-12</td>
+            <td>239A, Squires Lane</td>
+            <td class="price">£425,000</td>
+        <td class="positive" title="Previous: £260,000 (2018-05-25)">+9.7%/yr</td></tr>
+
+        <tr>
+            <td>2018-05-25</td>
+            <td>239A, Squires Lane</td>
+            <td class="price">£260,000</td>
+        <td class="negative" title="Previous: £262,500 (2007-04-16)">-0.1%/yr</td></tr>
+
+        <tr>
+            <td>2007-04-16</td>
+            <td>239A, Squires Lane</td>
+            <td class="price">£262,500</td>
+        <td class="positive" title="Previous: £175,000 (2006-11-17)">+168.4%/yr</td></tr>
+
+        <tr>
+            <td>2006-11-17</td>
+            <td>239A, Squires Lane</td>
+            <td class="price">£175,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-08-22</td>
+            <td>First Floor Flat At, 221, Squires Lane</td>
+            <td class="price">£150,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-03</td>
+            <td>245, Squires Lane</td>
+            <td class="price">£370,000</td>
+        <td class="positive" title="Previous: £250,000 (2007-12-04)">+3.8%/yr</td></tr>
+
+        <tr>
+            <td>2007-12-04</td>
+            <td>245, Squires Lane</td>
+            <td class="price">£250,000</td>
+        <td class="positive" title="Previous: £208,500 (2006-06-23)">+13.3%/yr</td></tr>
+
+        <tr>
+            <td>2006-06-23</td>
+            <td>245, Squires Lane</td>
+            <td class="price">£208,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-03-21</td>
+            <td>257, Squires Lane</td>
+            <td class="price">£430,000</td>
+        <td class="positive" title="Previous: £360,000 (2014-08-08)">+1.7%/yr</td></tr>
+
+        <tr>
+            <td>2014-08-08</td>
+            <td>257, Squires Lane</td>
+            <td class="price">£360,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-11-13</td>
+            <td>201, Squires Lane</td>
+            <td class="price">£250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-11-05</td>
+            <td>207, Squires Lane</td>
+            <td class="price">£652,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-01-19</td>
+            <td>Ground Floor Maisonette, 261, Squires Lane</td>
+            <td class="price">£400,000</td>
+        <td class="positive" title="Previous: £250,000 (2010-10-26)">+11.7%/yr</td></tr>
+
+        <tr>
+            <td>2010-10-26</td>
+            <td>Ground Floor Maisonette, 261, Squires Lane</td>
+            <td class="price">£250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-10</td>
+            <td>245A, Squires Lane</td>
+            <td class="price">£417,000</td>
+        <td class="positive" title="Previous: £390,000 (2019-07-12)">+1.6%/yr</td></tr>
+
+        <tr>
+            <td>2019-07-12</td>
+            <td>245A, Squires Lane</td>
+            <td class="price">£390,000</td>
+        <td class="positive" title="Previous: £268,000 (2007-11-30)">+3.3%/yr</td></tr>
+
+        <tr>
+            <td>2007-11-30</td>
+            <td>245A, Squires Lane</td>
+            <td class="price">£268,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-04-14</td>
+            <td>209, Squires Lane</td>
+            <td class="price">£360,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-03-12</td>
+            <td>257A, Squires Lane</td>
+            <td class="price">£335,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-04-18</td>
+            <td>275B, Squires Lane</td>
+            <td class="price">£223,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-04-01</td>
+            <td>Flat A, 243, Squires Lane</td>
+            <td class="price">£210,000</td>
+        <td class="positive" title="Previous: £199,000 (2006-09-13)">+0.3%/yr</td></tr>
+
+        <tr>
+            <td>2006-09-13</td>
+            <td>Flat A, 243, Squires Lane</td>
+            <td class="price">£199,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-05-29</td>
+            <td>Flat 1, 241, Squires Lane</td>
+            <td class="price">£380,000</td>
+        <td class="negative" title="Previous: £389,950 (2014-11-10)">-4.6%/yr</td></tr>
+
+        <tr>
+            <td>2014-11-10</td>
+            <td>Flat 1, 241, Squires Lane</td>
+            <td class="price">£389,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-19</td>
+            <td>263, Squires Lane</td>
+            <td class="price">£599,950</td>
+        <td class="positive" title="Previous: £424,999 (2007-07-13)">+5.5%/yr</td></tr>
+
+        <tr>
+            <td>2007-07-13</td>
+            <td>263, Squires Lane</td>
+            <td class="price">£424,999</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-04</td>
+            <td>First Floor Flat, 227, Squires Lane</td>
+            <td class="price">£212,000</td>
+        <td class="positive" title="Previous: £176,000 (2006-04-07)">+2.5%/yr</td></tr>
+
+        <tr>
+            <td>2006-04-07</td>
+            <td>First Floor Flat, 227, Squires Lane</td>
+            <td class="price">£176,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-12-02</td>
+            <td>253, Squires Lane</td>
+            <td class="price">£397,500</td>
+        <td class="positive" title="Previous: £240,000 (2010-03-19)">+5.3%/yr</td></tr>
+
+        <tr>
+            <td>2010-03-19</td>
+            <td>253, Squires Lane</td>
+            <td class="price">£240,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-04-21</td>
+            <td>201A, Squires Lane</td>
+            <td class="price">£410,000</td>
+        <td class="positive" title="Previous: £372,000 (2022-07-01)">+12.8%/yr</td></tr>
+
+        <tr>
+            <td>2022-07-01</td>
+            <td>201A, Squires Lane</td>
+            <td class="price">£372,000</td>
+        <td class="positive" title="Previous: £357,000 (2017-12-12)">+0.9%/yr</td></tr>
+
+        <tr>
+            <td>2017-12-12</td>
+            <td>201A, Squires Lane</td>
+            <td class="price">£357,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-N3-2QS" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-N3-2QS" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2025],
+            y: [322500, 196583, 273541, 150000, 182000, 299992, 230750, 260000, 383983, 364590, 390000, 310416, 368375, 387750, 414500, 424700, 500600, 332687, 417333, 330000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2025],
+            y: [322500, 201000, 262500, 150000, 182000, 250000, 260000, 260000, 340000, 360000, 400000, 365000, 379750, 425000, 397500, 496400, 652200, 372000, 417000, 350000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - N3 2QS',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-N3-2QS', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 67</p>
+                    <p><strong>Unique Properties:</strong> 36</p>
+                    <p><strong>Average Price:</strong> £324,512</p>
+                    <p><strong>Median Price:</strong> £335,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-N3-2QS" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector N3 2 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector N3 2</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-N3-2QS', 'N3-2QS')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-N3-2QS', 'N3-2QS')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-N3-2QS" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-N3-2QS" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [294989, 303290, 358178, 331587, 348269, 375997, 397827, 406164, 505135, 466199, 551822, 598804, 610574, 620139, 622708, 645342, 706433, 750435, 803076, 699052, 634770],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [249999, 265000, 310000, 278500, 295000, 329000, 339000, 353750, 413000, 390000, 490000, 520375, 542500, 548000, 493500, 561875, 635000, 675000, 655000, 620000, 525000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector N3 2 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-N3-2QS', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-N3-2QS" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £279,166</div>
+                        <div class="cell-sell">Sell: £295,000</div>
+                        <div class="cell-return">-4.0%/yr</div>
+                        <div class="cell-count">(3 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £284,677</div>
+                        <div class="cell-sell">Sell: £352,754</div>
+                        <div class="cell-return">+10.4%/yr</div>
+                        <div class="cell-count">(22 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £275,997</div>
+                        <div class="cell-sell">Sell: £446,450</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(20 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £232,916</div>
+                        <div class="cell-sell">Sell: £436,800</div>
+                        <div class="cell-return">+5.2%/yr</div>
+                        <div class="cell-count">(6 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £272,999</div>
+                        <div class="cell-sell">Sell: £712,857</div>
+                        <div class="cell-return">+5.9%/yr</div>
+                        <div class="cell-count">(7 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £282,577</div>
+                        <div class="cell-sell">Sell: £330,496</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(67 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £323,150</div>
+                        <div class="cell-sell">Sell: £443,718</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(111 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £303,738</div>
+                        <div class="cell-sell">Sell: £548,303</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(79 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £379,410</div>
+                        <div class="cell-sell">Sell: £726,260</div>
+                        <div class="cell-return">+4.6%/yr</div>
+                        <div class="cell-count">(44 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £345,969</div>
+                        <div class="cell-sell">Sell: £451,380</div>
+                        <div class="cell-return">+15.7%/yr</div>
+                        <div class="cell-count">(30 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £420,546</div>
+                        <div class="cell-sell">Sell: £568,939</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(98 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £462,867</div>
+                        <div class="cell-sell">Sell: £646,690</div>
+                        <div class="cell-return">+4.0%/yr</div>
+                        <div class="cell-count">(61 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £658,597</div>
+                        <div class="cell-sell">Sell: £759,117</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(34 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £550,874</div>
+                        <div class="cell-sell">Sell: £640,656</div>
+                        <div class="cell-return">+3.2%/yr</div>
+                        <div class="cell-count">(92 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £636,514</div>
+                        <div class="cell-sell">Sell: £726,592</div>
+                        <div class="cell-return">+10.1%/yr</div>
+                        <div class="cell-count">(27 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-N3-2QS" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District N3 Analysis</h4>
+                <p class="area-info">Viewing data for entire N3 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-N3-2QS', 'N3-2QS')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-N3-2QS', 'N3-2QS')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-N3-2QS" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-N3-2QS" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [354356, 363707, 440797, 417184, 426794, 482430, 487480, 502160, 584505, 620819, 691364, 678393, 732865, 721056, 669184, 716928, 799001, 748021, 786075, 764926, 784026],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [285000, 300000, 345000, 337500, 350000, 385000, 352000, 405000, 470000, 465000, 556250, 556850, 610000, 593725, 517500, 565000, 639900, 600000, 627500, 600000, 605000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District N3 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-N3-2QS', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-N3-2QS" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £293,350</div>
+                        <div class="cell-sell">Sell: £302,928</div>
+                        <div class="cell-return">-2.9%/yr</div>
+                        <div class="cell-count">(7 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £317,102</div>
+                        <div class="cell-sell">Sell: £413,114</div>
+                        <div class="cell-return">+11.6%/yr</div>
+                        <div class="cell-count">(72 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £329,449</div>
+                        <div class="cell-sell">Sell: £539,881</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(56 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £345,656</div>
+                        <div class="cell-sell">Sell: £687,619</div>
+                        <div class="cell-return">+5.8%/yr</div>
+                        <div class="cell-count">(23 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £415,092</div>
+                        <div class="cell-sell">Sell: £972,000</div>
+                        <div class="cell-return">+5.2%/yr</div>
+                        <div class="cell-count">(26 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £347,417</div>
+                        <div class="cell-sell">Sell: £429,156</div>
+                        <div class="cell-return">+12.1%/yr</div>
+                        <div class="cell-count">(164 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £377,754</div>
+                        <div class="cell-sell">Sell: £525,695</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(330 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £385,958</div>
+                        <div class="cell-sell">Sell: £650,844</div>
+                        <div class="cell-return">+5.9%/yr</div>
+                        <div class="cell-count">(197 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £430,081</div>
+                        <div class="cell-sell">Sell: £786,370</div>
+                        <div class="cell-return">+4.4%/yr</div>
+                        <div class="cell-count">(157 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £442,454</div>
+                        <div class="cell-sell">Sell: £590,138</div>
+                        <div class="cell-return">+17.3%/yr</div>
+                        <div class="cell-count">(89 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £471,326</div>
+                        <div class="cell-sell">Sell: £618,073</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(234 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £580,279</div>
+                        <div class="cell-sell">Sell: £808,710</div>
+                        <div class="cell-return">+4.2%/yr</div>
+                        <div class="cell-count">(206 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £863,033</div>
+                        <div class="cell-sell">Sell: £708,686</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(83 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £605,786</div>
+                        <div class="cell-sell">Sell: £662,739</div>
+                        <div class="cell-return">+2.9%/yr</div>
+                        <div class="cell-count">(240 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £563,033</div>
+                        <div class="cell-sell">Sell: £661,456</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(57 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'N3 2'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'N3'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

@@ -1,0 +1,1322 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>NW2 5DG</h3>
+            <div class="header-stats">
+                <span><strong>79</strong> transactions</span>
+                <span><strong>38</strong> properties</span>
+                <span>Avg: <strong>£376,992</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-NW2-5DG')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-NW2-5DG')">
+                Sector (NW2 5)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-NW2-5DG')">
+                District (NW2)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-NW2-5DG" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-NW2-5DG', 'NW2-5DG')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-NW2-5DG', 'NW2-5DG')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-NW2-5DG', 'NW2-5DG')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-NW2-5DG" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-NW2-5DG" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "22, Springhill House, 249, Willesden Lane", "dates": ["2015-05-18", "2023-10-04"], "prices": [579950, 450000], "hover_texts": ["<b>22, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-05-18<br>Sale Price: \u00a3579,950", "<b>22, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2023-10-04<br>Sale Price: \u00a3450,000<br>Previous Purchase: \u00a3579,950<br>Previous Date: 2015-05-18<br>Annual Return: -3.0%/yr<br>Held for: 8.4 years"], "transaction_count": 2}, {"address": "35, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2016-11-18", "2018-11-20"], "prices": [224863, 499450, 485000], "hover_texts": ["<b>35, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 3<br>Date: 2015-08-14<br>Sale Price: \u00a3224,863", "<b>35, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 3<br>Date: 2016-11-18<br>Sale Price: \u00a3499,450<br>Previous Purchase: \u00a3224,863<br>Previous Date: 2015-08-14<br>Annual Return: +87.9%/yr<br>Held for: 1.3 years", "<b>35, Springhill House, 249, Willesden Lane</b><br>Transaction 3 of 3<br>Date: 2018-11-20<br>Sale Price: \u00a3485,000<br>Previous Purchase: \u00a3499,450<br>Previous Date: 2016-11-18<br>Annual Return: -1.4%/yr<br>Held for: 2.0 years"], "transaction_count": 3}, {"address": "12, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2017-08-31", "2024-01-08"], "prices": [260842, 535000, 425000], "hover_texts": ["<b>12, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 3<br>Date: 2015-08-14<br>Sale Price: \u00a3260,842", "<b>12, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 3<br>Date: 2017-08-31<br>Sale Price: \u00a3535,000<br>Previous Purchase: \u00a3260,842<br>Previous Date: 2015-08-14<br>Annual Return: +42.0%/yr<br>Held for: 2.0 years", "<b>12, Springhill House, 249, Willesden Lane</b><br>Transaction 3 of 3<br>Date: 2024-01-08<br>Sale Price: \u00a3425,000<br>Previous Purchase: \u00a3535,000<br>Previous Date: 2017-08-31<br>Annual Return: -3.6%/yr<br>Held for: 6.3 years"], "transaction_count": 3}, {"address": "25, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2017-04-13"], "prices": [224863, 299962], "hover_texts": ["<b>25, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3224,863", "<b>25, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2017-04-13<br>Sale Price: \u00a3299,962<br>Previous Purchase: \u00a3224,863<br>Previous Date: 2015-08-14<br>Annual Return: +18.9%/yr<br>Held for: 1.7 years"], "transaction_count": 2}, {"address": "18, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2015-10-26", "2023-10-04"], "prices": [224863, 461950, 264800], "hover_texts": ["<b>18, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 3<br>Date: 2015-08-14<br>Sale Price: \u00a3224,863", "<b>18, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 3<br>Date: 2015-10-26<br>Sale Price: \u00a3461,950<br>Previous Purchase: \u00a3224,863<br>Previous Date: 2015-08-14<br>Annual Return: +3568.2%/yr<br>Held for: 0.2 years", "<b>18, Springhill House, 249, Willesden Lane</b><br>Transaction 3 of 3<br>Date: 2023-10-04<br>Sale Price: \u00a3264,800<br>Previous Purchase: \u00a3461,950<br>Previous Date: 2015-10-26<br>Annual Return: -6.8%/yr<br>Held for: 7.9 years"], "transaction_count": 3}, {"address": "9, Springhill House, 249, Willesden Lane", "dates": ["2015-07-01", "2025-11-17"], "prices": [546950, 435000], "hover_texts": ["<b>9, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-07-01<br>Sale Price: \u00a3546,950", "<b>9, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2025-11-17<br>Sale Price: \u00a3435,000<br>Previous Purchase: \u00a3546,950<br>Previous Date: 2015-07-01<br>Annual Return: -2.2%/yr<br>Held for: 10.4 years"], "transaction_count": 2}, {"address": "26, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2017-02-28"], "prices": [224863, 350000], "hover_texts": ["<b>26, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3224,863", "<b>26, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2017-02-28<br>Sale Price: \u00a3350,000<br>Previous Purchase: \u00a3224,863<br>Previous Date: 2015-08-14<br>Annual Return: +33.2%/yr<br>Held for: 1.5 years"], "transaction_count": 2}, {"address": "27, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2016-08-30"], "prices": [224863, 385000], "hover_texts": ["<b>27, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3224,863", "<b>27, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2016-08-30<br>Sale Price: \u00a3385,000<br>Previous Purchase: \u00a3224,863<br>Previous Date: 2015-08-14<br>Annual Return: +67.2%/yr<br>Held for: 1.1 years"], "transaction_count": 2}, {"address": "7, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2015-10-01"], "prices": [224863, 379950], "hover_texts": ["<b>7, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3224,863", "<b>7, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2015-10-01<br>Sale Price: \u00a3379,950<br>Previous Purchase: \u00a3224,863<br>Previous Date: 2015-08-14<br>Annual Return: +5313.5%/yr<br>Held for: 0.1 years"], "transaction_count": 2}, {"address": "19, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2015-08-28"], "prices": [224863, 446950], "hover_texts": ["<b>19, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3224,863", "<b>19, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2015-08-28<br>Sale Price: \u00a3446,950"], "transaction_count": 2}, {"address": "28, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2016-02-29"], "prices": [260842, 580950], "hover_texts": ["<b>28, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3260,842", "<b>28, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2016-02-29<br>Sale Price: \u00a3580,950<br>Previous Purchase: \u00a3260,842<br>Previous Date: 2015-08-14<br>Annual Return: +334.8%/yr<br>Held for: 0.5 years"], "transaction_count": 2}, {"address": "1, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2015-08-28"], "prices": [260842, 549950], "hover_texts": ["<b>1, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3260,842", "<b>1, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2015-08-28<br>Sale Price: \u00a3549,950"], "transaction_count": 2}, {"address": "20, Springhill House, 249, Willesden Lane", "dates": ["2015-05-22", "2021-10-25", "2022-03-17"], "prices": [439950, 170000, 165000], "hover_texts": ["<b>20, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 3<br>Date: 2015-05-22<br>Sale Price: \u00a3439,950", "<b>20, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 3<br>Date: 2021-10-25<br>Sale Price: \u00a3170,000<br>Previous Purchase: \u00a3439,950<br>Previous Date: 2015-05-22<br>Annual Return: -13.8%/yr<br>Held for: 6.4 years", "<b>20, Springhill House, 249, Willesden Lane</b><br>Transaction 3 of 3<br>Date: 2022-03-17<br>Sale Price: \u00a3165,000<br>Previous Purchase: \u00a3170,000<br>Previous Date: 2021-10-25<br>Annual Return: -7.3%/yr<br>Held for: 0.4 years"], "transaction_count": 3}, {"address": "13, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2016-10-14", "2024-10-15"], "prices": [224863, 399950, 265000], "hover_texts": ["<b>13, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 3<br>Date: 2015-08-14<br>Sale Price: \u00a3224,863", "<b>13, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 3<br>Date: 2016-10-14<br>Sale Price: \u00a3399,950<br>Previous Purchase: \u00a3224,863<br>Previous Date: 2015-08-14<br>Annual Return: +63.6%/yr<br>Held for: 1.2 years", "<b>13, Springhill House, 249, Willesden Lane</b><br>Transaction 3 of 3<br>Date: 2024-10-15<br>Sale Price: \u00a3265,000<br>Previous Purchase: \u00a3399,950<br>Previous Date: 2016-10-14<br>Annual Return: -5.0%/yr<br>Held for: 8.0 years"], "transaction_count": 3}, {"address": "4, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2018-07-27"], "prices": [260842, 599950], "hover_texts": ["<b>4, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3260,842", "<b>4, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2018-07-27<br>Sale Price: \u00a3599,950<br>Previous Purchase: \u00a3260,842<br>Previous Date: 2015-08-14<br>Annual Return: +32.6%/yr<br>Held for: 3.0 years"], "transaction_count": 2}, {"address": "6, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2016-07-12"], "prices": [224863, 488950], "hover_texts": ["<b>6, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3224,863", "<b>6, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2016-07-12<br>Sale Price: \u00a3488,950<br>Previous Purchase: \u00a3224,863<br>Previous Date: 2015-08-14<br>Annual Return: +134.4%/yr<br>Held for: 0.9 years"], "transaction_count": 2}, {"address": "2, Springhill House, 249, Willesden Lane", "dates": ["2015-05-28", "2024-10-04"], "prices": [449950, 200000], "hover_texts": ["<b>2, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-05-28<br>Sale Price: \u00a3449,950", "<b>2, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2024-10-04<br>Sale Price: \u00a3200,000<br>Previous Purchase: \u00a3449,950<br>Previous Date: 2015-05-28<br>Annual Return: -8.3%/yr<br>Held for: 9.4 years"], "transaction_count": 2}, {"address": "17, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2016-12-21"], "prices": [260842, 562450], "hover_texts": ["<b>17, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3260,842", "<b>17, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2016-12-21<br>Sale Price: \u00a3562,450<br>Previous Purchase: \u00a3260,842<br>Previous Date: 2015-08-14<br>Annual Return: +76.3%/yr<br>Held for: 1.4 years"], "transaction_count": 2}, {"address": "15, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2017-09-29"], "prices": [224863, 305000], "hover_texts": ["<b>15, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3224,863", "<b>15, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2017-09-29<br>Sale Price: \u00a3305,000<br>Previous Purchase: \u00a3224,863<br>Previous Date: 2015-08-14<br>Annual Return: +15.4%/yr<br>Held for: 2.1 years"], "transaction_count": 2}, {"address": "30, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2018-09-28", "2021-06-09"], "prices": [224863, 364950, 300000], "hover_texts": ["<b>30, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 3<br>Date: 2015-08-14<br>Sale Price: \u00a3224,863", "<b>30, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 3<br>Date: 2018-09-28<br>Sale Price: \u00a3364,950<br>Previous Purchase: \u00a3224,863<br>Previous Date: 2015-08-14<br>Annual Return: +16.8%/yr<br>Held for: 3.1 years", "<b>30, Springhill House, 249, Willesden Lane</b><br>Transaction 3 of 3<br>Date: 2021-06-09<br>Sale Price: \u00a3300,000<br>Previous Purchase: \u00a3364,950<br>Previous Date: 2018-09-28<br>Annual Return: -7.0%/yr<br>Held for: 2.7 years"], "transaction_count": 3}, {"address": "32, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2018-02-21"], "prices": [224863, 397950], "hover_texts": ["<b>32, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3224,863", "<b>32, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2018-02-21<br>Sale Price: \u00a3397,950<br>Previous Purchase: \u00a3224,863<br>Previous Date: 2015-08-14<br>Annual Return: +25.4%/yr<br>Held for: 2.5 years"], "transaction_count": 2}, {"address": "36, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2015-08-21"], "prices": [260842, 601950], "hover_texts": ["<b>36, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3260,842", "<b>36, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2015-08-21<br>Sale Price: \u00a3601,950"], "transaction_count": 2}, {"address": "3, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2016-03-31", "2024-06-03"], "prices": [260842, 606950, 380000], "hover_texts": ["<b>3, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 3<br>Date: 2015-08-14<br>Sale Price: \u00a3260,842", "<b>3, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 3<br>Date: 2016-03-31<br>Sale Price: \u00a3606,950<br>Previous Purchase: \u00a3260,842<br>Previous Date: 2015-08-14<br>Annual Return: +282.3%/yr<br>Held for: 0.6 years", "<b>3, Springhill House, 249, Willesden Lane</b><br>Transaction 3 of 3<br>Date: 2024-06-03<br>Sale Price: \u00a3380,000<br>Previous Purchase: \u00a3606,950<br>Previous Date: 2016-03-31<br>Annual Return: -5.6%/yr<br>Held for: 8.2 years"], "transaction_count": 3}, {"address": "38, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2019-03-06", "2023-03-03"], "prices": [224863, 334950, 250000], "hover_texts": ["<b>38, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 3<br>Date: 2015-08-14<br>Sale Price: \u00a3224,863", "<b>38, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 3<br>Date: 2019-03-06<br>Sale Price: \u00a3334,950<br>Previous Purchase: \u00a3224,863<br>Previous Date: 2015-08-14<br>Annual Return: +11.8%/yr<br>Held for: 3.6 years", "<b>38, Springhill House, 249, Willesden Lane</b><br>Transaction 3 of 3<br>Date: 2023-03-03<br>Sale Price: \u00a3250,000<br>Previous Purchase: \u00a3334,950<br>Previous Date: 2019-03-06<br>Annual Return: -7.1%/yr<br>Held for: 4.0 years"], "transaction_count": 3}, {"address": "16, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2015-08-18", "2023-07-27"], "prices": [260842, 605950, 375000], "hover_texts": ["<b>16, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 3<br>Date: 2015-08-14<br>Sale Price: \u00a3260,842", "<b>16, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 3<br>Date: 2015-08-18<br>Sale Price: \u00a3605,950", "<b>16, Springhill House, 249, Willesden Lane</b><br>Transaction 3 of 3<br>Date: 2023-07-27<br>Sale Price: \u00a3375,000<br>Previous Purchase: \u00a3605,950<br>Previous Date: 2015-08-18<br>Annual Return: -5.9%/yr<br>Held for: 7.9 years"], "transaction_count": 3}, {"address": "24, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2016-12-22"], "prices": [260842, 540450], "hover_texts": ["<b>24, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3260,842", "<b>24, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2016-12-22<br>Sale Price: \u00a3540,450<br>Previous Purchase: \u00a3260,842<br>Previous Date: 2015-08-14<br>Annual Return: +71.0%/yr<br>Held for: 1.4 years"], "transaction_count": 2}, {"address": "31, Springhill House, 249, Willesden Lane", "dates": ["2015-06-26", "2023-06-09"], "prices": [471950, 268500], "hover_texts": ["<b>31, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-06-26<br>Sale Price: \u00a3471,950", "<b>31, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2023-06-09<br>Sale Price: \u00a3268,500<br>Previous Purchase: \u00a3471,950<br>Previous Date: 2015-06-26<br>Annual Return: -6.8%/yr<br>Held for: 8.0 years"], "transaction_count": 2}, {"address": "14, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2016-07-29", "2023-02-22"], "prices": [224863, 399950, 245000], "hover_texts": ["<b>14, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 3<br>Date: 2015-08-14<br>Sale Price: \u00a3224,863", "<b>14, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 3<br>Date: 2016-07-29<br>Sale Price: \u00a3399,950<br>Previous Purchase: \u00a3224,863<br>Previous Date: 2015-08-14<br>Annual Return: +82.4%/yr<br>Held for: 1.0 years", "<b>14, Springhill House, 249, Willesden Lane</b><br>Transaction 3 of 3<br>Date: 2023-02-22<br>Sale Price: \u00a3245,000<br>Previous Purchase: \u00a3399,950<br>Previous Date: 2016-07-29<br>Annual Return: -7.2%/yr<br>Held for: 6.6 years"], "transaction_count": 3}, {"address": "10, Springhill House, 249, Willesden Lane", "dates": ["2015-05-22", "2025-12-02"], "prices": [564950, 435000], "hover_texts": ["<b>10, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-05-22<br>Sale Price: \u00a3564,950", "<b>10, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2025-12-02<br>Sale Price: \u00a3435,000<br>Previous Purchase: \u00a3564,950<br>Previous Date: 2015-05-22<br>Annual Return: -2.5%/yr<br>Held for: 10.5 years"], "transaction_count": 2}, {"address": "21, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2015-08-26"], "prices": [260842, 584950], "hover_texts": ["<b>21, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3260,842", "<b>21, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2015-08-26<br>Sale Price: \u00a3584,950"], "transaction_count": 2}, {"address": "37, Springhill House, 249, Willesden Lane", "dates": ["2015-08-14", "2016-08-30"], "prices": [260842, 589950], "hover_texts": ["<b>37, Springhill House, 249, Willesden Lane</b><br>Transaction 1 of 2<br>Date: 2015-08-14<br>Sale Price: \u00a3260,842", "<b>37, Springhill House, 249, Willesden Lane</b><br>Transaction 2 of 2<br>Date: 2016-08-30<br>Sale Price: \u00a3589,950<br>Previous Purchase: \u00a3260,842<br>Previous Date: 2015-08-14<br>Annual Return: +118.2%/yr<br>Held for: 1.1 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2015-06-30", "address": "5, Springhill House, 249, Willesden Lane", "price": 614950, "price_display": "\u00a3614,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-08-10", "address": "8, Springhill House, 249, Willesden Lane", "price": 454950, "price_display": "\u00a3454,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-08-14", "address": "34, Springhill House, 249, Willesden Lane", "price": 224863, "price_display": "\u00a3224,863", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-05-29", "address": "29, Springhill House, 249, Willesden Lane", "price": 589950, "price_display": "\u00a3589,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-07-28", "address": "33, Springhill House, 249, Willesden Lane", "price": 679950, "price_display": "\u00a3679,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-06-03", "address": "23, Springhill House, 249, Willesden Lane", "price": 584950, "price_display": "\u00a3584,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-07-24", "address": "11, Springhill House, 249, Willesden Lane", "price": 574950, "price_display": "\u00a3574,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-NW2-5DG', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-NW2-5DG');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-NW2-5DG', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-NW2-5DG', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-NW2-5DG" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2015-06-30</td>
+            <td>5, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£614,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-10</td>
+            <td>8, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£454,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>34, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£224,863</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-04</td>
+            <td>22, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£450,000</td>
+        <td class="negative" title="Previous: £579,950 (2015-05-18)">-3.0%/yr</td></tr>
+
+        <tr>
+            <td>2015-05-18</td>
+            <td>22, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£579,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-20</td>
+            <td>35, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£485,000</td>
+        <td class="negative" title="Previous: £499,450 (2016-11-18)">-1.4%/yr</td></tr>
+
+        <tr>
+            <td>2016-11-18</td>
+            <td>35, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£499,450</td>
+        <td class="positive" title="Previous: £224,863 (2015-08-14)">+87.9%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>35, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£224,863</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-01-08</td>
+            <td>12, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£425,000</td>
+        <td class="negative" title="Previous: £535,000 (2017-08-31)">-3.6%/yr</td></tr>
+
+        <tr>
+            <td>2017-08-31</td>
+            <td>12, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£535,000</td>
+        <td class="positive" title="Previous: £260,842 (2015-08-14)">+42.0%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>12, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£260,842</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-04-13</td>
+            <td>25, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£299,962</td>
+        <td class="positive" title="Previous: £224,863 (2015-08-14)">+18.9%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>25, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£224,863</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-04</td>
+            <td>18, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£264,800</td>
+        <td class="negative" title="Previous: £461,950 (2015-10-26)">-6.8%/yr</td></tr>
+
+        <tr>
+            <td>2015-10-26</td>
+            <td>18, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£461,950</td>
+        <td class="positive" title="Previous: £224,863 (2015-08-14)">+3568.2%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>18, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£224,863</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-11-17</td>
+            <td>9, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£435,000</td>
+        <td class="negative" title="Previous: £546,950 (2015-07-01)">-2.2%/yr</td></tr>
+
+        <tr>
+            <td>2015-07-01</td>
+            <td>9, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£546,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-02-28</td>
+            <td>26, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£350,000</td>
+        <td class="positive" title="Previous: £224,863 (2015-08-14)">+33.2%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>26, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£224,863</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-05-29</td>
+            <td>29, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£589,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-07-28</td>
+            <td>33, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£679,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-08-30</td>
+            <td>27, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£385,000</td>
+        <td class="positive" title="Previous: £224,863 (2015-08-14)">+67.2%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>27, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£224,863</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-10-01</td>
+            <td>7, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£379,950</td>
+        <td class="positive" title="Previous: £224,863 (2015-08-14)">+5313.5%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>7, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£224,863</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-28</td>
+            <td>19, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£446,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>19, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£224,863</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-29</td>
+            <td>28, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£580,950</td>
+        <td class="positive" title="Previous: £260,842 (2015-08-14)">+334.8%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>28, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£260,842</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-28</td>
+            <td>1, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£549,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>1, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£260,842</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-17</td>
+            <td>20, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£165,000</td>
+        <td class="negative" title="Previous: £170,000 (2021-10-25)">-7.3%/yr</td></tr>
+
+        <tr>
+            <td>2021-10-25</td>
+            <td>20, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£170,000</td>
+        <td class="negative" title="Previous: £439,950 (2015-05-22)">-13.8%/yr</td></tr>
+
+        <tr>
+            <td>2015-05-22</td>
+            <td>20, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£439,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-10-15</td>
+            <td>13, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£265,000</td>
+        <td class="negative" title="Previous: £399,950 (2016-10-14)">-5.0%/yr</td></tr>
+
+        <tr>
+            <td>2016-10-14</td>
+            <td>13, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£399,950</td>
+        <td class="positive" title="Previous: £224,863 (2015-08-14)">+63.6%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>13, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£224,863</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-06-03</td>
+            <td>23, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£584,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-27</td>
+            <td>4, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£599,950</td>
+        <td class="positive" title="Previous: £260,842 (2015-08-14)">+32.6%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>4, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£260,842</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-07-24</td>
+            <td>11, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£574,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-07-12</td>
+            <td>6, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£488,950</td>
+        <td class="positive" title="Previous: £224,863 (2015-08-14)">+134.4%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>6, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£224,863</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-10-04</td>
+            <td>2, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£200,000</td>
+        <td class="negative" title="Previous: £449,950 (2015-05-28)">-8.3%/yr</td></tr>
+
+        <tr>
+            <td>2015-05-28</td>
+            <td>2, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£449,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-12-21</td>
+            <td>17, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£562,450</td>
+        <td class="positive" title="Previous: £260,842 (2015-08-14)">+76.3%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>17, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£260,842</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-09-29</td>
+            <td>15, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£305,000</td>
+        <td class="positive" title="Previous: £224,863 (2015-08-14)">+15.4%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>15, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£224,863</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-09</td>
+            <td>30, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£300,000</td>
+        <td class="negative" title="Previous: £364,950 (2018-09-28)">-7.0%/yr</td></tr>
+
+        <tr>
+            <td>2018-09-28</td>
+            <td>30, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£364,950</td>
+        <td class="positive" title="Previous: £224,863 (2015-08-14)">+16.8%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>30, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£224,863</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-21</td>
+            <td>32, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£397,950</td>
+        <td class="positive" title="Previous: £224,863 (2015-08-14)">+25.4%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>32, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£224,863</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-21</td>
+            <td>36, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£601,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>36, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£260,842</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-06-03</td>
+            <td>3, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£380,000</td>
+        <td class="negative" title="Previous: £606,950 (2016-03-31)">-5.6%/yr</td></tr>
+
+        <tr>
+            <td>2016-03-31</td>
+            <td>3, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£606,950</td>
+        <td class="positive" title="Previous: £260,842 (2015-08-14)">+282.3%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>3, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£260,842</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-03-03</td>
+            <td>38, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£250,000</td>
+        <td class="negative" title="Previous: £334,950 (2019-03-06)">-7.1%/yr</td></tr>
+
+        <tr>
+            <td>2019-03-06</td>
+            <td>38, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£334,950</td>
+        <td class="positive" title="Previous: £224,863 (2015-08-14)">+11.8%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>38, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£224,863</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-07-27</td>
+            <td>16, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£375,000</td>
+        <td class="negative" title="Previous: £605,950 (2015-08-18)">-5.9%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-18</td>
+            <td>16, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£605,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>16, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£260,842</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-12-22</td>
+            <td>24, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£540,450</td>
+        <td class="positive" title="Previous: £260,842 (2015-08-14)">+71.0%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>24, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£260,842</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-06-09</td>
+            <td>31, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£268,500</td>
+        <td class="negative" title="Previous: £471,950 (2015-06-26)">-6.8%/yr</td></tr>
+
+        <tr>
+            <td>2015-06-26</td>
+            <td>31, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£471,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-02-22</td>
+            <td>14, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£245,000</td>
+        <td class="negative" title="Previous: £399,950 (2016-07-29)">-7.2%/yr</td></tr>
+
+        <tr>
+            <td>2016-07-29</td>
+            <td>14, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£399,950</td>
+        <td class="positive" title="Previous: £224,863 (2015-08-14)">+82.4%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>14, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£224,863</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-12-02</td>
+            <td>10, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£435,000</td>
+        <td class="negative" title="Previous: £564,950 (2015-05-22)">-2.5%/yr</td></tr>
+
+        <tr>
+            <td>2015-05-22</td>
+            <td>10, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£564,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-26</td>
+            <td>21, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£584,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>21, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£260,842</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-08-30</td>
+            <td>37, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£589,950</td>
+        <td class="positive" title="Previous: £260,842 (2015-08-14)">+118.2%/yr</td></tr>
+
+        <tr>
+            <td>2015-08-14</td>
+            <td>37, Springhill House, 249, Willesden Lane</td>
+            <td class="price">£260,842</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-NW2-5DG" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-NW2-5DG" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023, 2024, 2025],
+            y: [365050, 505405, 372490, 461962, 334950, 235000, 165000, 308883, 317500, 435000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2015, 2016, 2017, 2018, 2019, 2021, 2022, 2023, 2024, 2025],
+            y: [260842, 540450, 350000, 485000, 334950, 300000, 165000, 268500, 380000, 435000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - NW2 5DG',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-NW2-5DG', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 79</p>
+                    <p><strong>Unique Properties:</strong> 38</p>
+                    <p><strong>Average Price:</strong> £376,992</p>
+                    <p><strong>Median Price:</strong> £364,950</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-NW2-5DG" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector NW2 5 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector NW2 5</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-NW2-5DG', 'NW2-5DG')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-NW2-5DG', 'NW2-5DG')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-NW2-5DG" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-NW2-5DG" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [250465, 321281, 317532, 296746, 256741, 366004, 304087, 446549, 413052, 560241, 477347, 614826, 607500, 526586, 582506, 735384, 554517, 611199, 593044, 526229, 568493],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [212500, 250000, 257000, 250000, 225000, 262500, 265000, 305000, 350000, 425000, 415500, 505000, 482500, 462500, 472000, 575000, 450000, 494000, 509250, 425000, 450000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector NW2 5 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-NW2-5DG', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-NW2-5DG" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £197,788</div>
+                        <div class="cell-sell">Sell: £254,801</div>
+                        <div class="cell-return">+14.3%/yr</div>
+                        <div class="cell-count">(26 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £231,678</div>
+                        <div class="cell-sell">Sell: £342,893</div>
+                        <div class="cell-return">+5.6%/yr</div>
+                        <div class="cell-count">(14 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £288,999</div>
+                        <div class="cell-sell">Sell: £609,791</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(12 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £263,333</div>
+                        <div class="cell-sell">Sell: £522,611</div>
+                        <div class="cell-return">+4.0%/yr</div>
+                        <div class="cell-count">(9 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £279,509</div>
+                        <div class="cell-sell">Sell: £354,924</div>
+                        <div class="cell-return">+11.3%/yr</div>
+                        <div class="cell-count">(48 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £307,006</div>
+                        <div class="cell-sell">Sell: £463,798</div>
+                        <div class="cell-return">+9.1%/yr</div>
+                        <div class="cell-count">(123 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £357,001</div>
+                        <div class="cell-sell">Sell: £619,773</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(62 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £292,831</div>
+                        <div class="cell-sell">Sell: £484,911</div>
+                        <div class="cell-return">+3.9%/yr</div>
+                        <div class="cell-count">(45 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £342,940</div>
+                        <div class="cell-sell">Sell: £516,934</div>
+                        <div class="cell-return">+22.2%/yr</div>
+                        <div class="cell-count">(57 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £405,058</div>
+                        <div class="cell-sell">Sell: £557,134</div>
+                        <div class="cell-return">+8.5%/yr</div>
+                        <div class="cell-count">(89 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £452,055</div>
+                        <div class="cell-sell">Sell: £549,321</div>
+                        <div class="cell-return">+2.4%/yr</div>
+                        <div class="cell-count">(91 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £558,322</div>
+                        <div class="cell-sell">Sell: £543,844</div>
+                        <div class="cell-return">+9.7%/yr</div>
+                        <div class="cell-count">(29 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £543,138</div>
+                        <div class="cell-sell">Sell: £588,789</div>
+                        <div class="cell-return">+1.9%/yr</div>
+                        <div class="cell-count">(81 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £500,387</div>
+                        <div class="cell-sell">Sell: £665,108</div>
+                        <div class="cell-return">+10.9%/yr</div>
+                        <div class="cell-count">(29 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-NW2-5DG" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District NW2 Analysis</h4>
+                <p class="area-info">Viewing data for entire NW2 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-NW2-5DG', 'NW2-5DG')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-NW2-5DG', 'NW2-5DG')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-NW2-5DG" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-NW2-5DG" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [296263, 326672, 346715, 356844, 369809, 424055, 392797, 460708, 491484, 554762, 594779, 617966, 586167, 597913, 614303, 642739, 686098, 733896, 675200, 655555, 696191],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [245500, 264250, 289950, 300000, 286000, 330000, 318500, 334500, 370000, 425000, 475000, 497000, 480000, 460300, 490000, 542000, 535000, 551000, 525000, 540000, 540000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District NW2 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-NW2-5DG', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-NW2-5DG" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £186,227</div>
+                        <div class="cell-sell">Sell: £205,768</div>
+                        <div class="cell-return">-24.4%/yr</div>
+                        <div class="cell-count">(11 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £262,489</div>
+                        <div class="cell-sell">Sell: £349,127</div>
+                        <div class="cell-return">+12.3%/yr</div>
+                        <div class="cell-count">(163 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £300,925</div>
+                        <div class="cell-sell">Sell: £493,547</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(125 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £305,814</div>
+                        <div class="cell-sell">Sell: £609,384</div>
+                        <div class="cell-return">+6.0%/yr</div>
+                        <div class="cell-count">(52 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £288,818</div>
+                        <div class="cell-sell">Sell: £620,806</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(49 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £313,390</div>
+                        <div class="cell-sell">Sell: £400,794</div>
+                        <div class="cell-return">+12.2%/yr</div>
+                        <div class="cell-count">(247 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £346,976</div>
+                        <div class="cell-sell">Sell: £478,593</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(748 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £358,495</div>
+                        <div class="cell-sell">Sell: £631,974</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(353 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £386,121</div>
+                        <div class="cell-sell">Sell: £664,545</div>
+                        <div class="cell-return">+4.1%/yr</div>
+                        <div class="cell-count">(256 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £396,168</div>
+                        <div class="cell-sell">Sell: £559,254</div>
+                        <div class="cell-return">+19.1%/yr</div>
+                        <div class="cell-count">(257 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £465,821</div>
+                        <div class="cell-sell">Sell: £634,007</div>
+                        <div class="cell-return">+8.7%/yr</div>
+                        <div class="cell-count">(498 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £513,151</div>
+                        <div class="cell-sell">Sell: £678,059</div>
+                        <div class="cell-return">+3.5%/yr</div>
+                        <div class="cell-count">(469 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £551,378</div>
+                        <div class="cell-sell">Sell: £603,945</div>
+                        <div class="cell-return">+7.6%/yr</div>
+                        <div class="cell-count">(193 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £667,707</div>
+                        <div class="cell-sell">Sell: £695,137</div>
+                        <div class="cell-return">+2.9%/yr</div>
+                        <div class="cell-count">(440 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £782,735</div>
+                        <div class="cell-sell">Sell: £897,208</div>
+                        <div class="cell-return">+9.6%/yr</div>
+                        <div class="cell-count">(154 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'NW2 5'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'NW2'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

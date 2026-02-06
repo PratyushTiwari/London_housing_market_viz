@@ -1,0 +1,1275 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>SW6 3EF</h3>
+            <div class="header-stats">
+                <span><strong>70</strong> transactions</span>
+                <span><strong>50</strong> properties</span>
+                <span>Avg: <strong>£939,602</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-SW6-3EF')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-SW6-3EF')">
+                Sector (SW6 3)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-SW6-3EF')">
+                District (SW6)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-SW6-3EF" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-SW6-3EF', 'SW6-3EF')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-SW6-3EF', 'SW6-3EF')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-SW6-3EF', 'SW6-3EF')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-SW6-3EF" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-SW6-3EF" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 59, The Piper Building, Peterborough Road", "dates": ["2006-08-04", "2013-08-06", "2016-01-29"], "prices": [515000, 865000, 910000], "hover_texts": ["<b>Flat 59, The Piper Building, Peterborough Road</b><br>Transaction 1 of 3<br>Date: 2006-08-04<br>Sale Price: \u00a3515,000", "<b>Flat 59, The Piper Building, Peterborough Road</b><br>Transaction 2 of 3<br>Date: 2013-08-06<br>Sale Price: \u00a3865,000<br>Previous Purchase: \u00a3515,000<br>Previous Date: 2006-08-04<br>Annual Return: +7.7%/yr<br>Held for: 7.0 years", "<b>Flat 59, The Piper Building, Peterborough Road</b><br>Transaction 3 of 3<br>Date: 2016-01-29<br>Sale Price: \u00a3910,000<br>Previous Purchase: \u00a3865,000<br>Previous Date: 2013-08-06<br>Annual Return: +2.1%/yr<br>Held for: 2.5 years"], "transaction_count": 3}, {"address": "Flat 26, The Piper Building, Peterborough Road", "dates": ["2007-01-03", "2013-07-25"], "prices": [710000, 1080000], "hover_texts": ["<b>Flat 26, The Piper Building, Peterborough Road</b><br>Transaction 1 of 2<br>Date: 2007-01-03<br>Sale Price: \u00a3710,000", "<b>Flat 26, The Piper Building, Peterborough Road</b><br>Transaction 2 of 2<br>Date: 2013-07-25<br>Sale Price: \u00a31,080,000<br>Previous Purchase: \u00a3710,000<br>Previous Date: 2007-01-03<br>Annual Return: +6.6%/yr<br>Held for: 6.6 years"], "transaction_count": 2}, {"address": "Flat 58, The Piper Building, Peterborough Road", "dates": ["2006-06-23", "2013-11-15"], "prices": [685000, 1125000], "hover_texts": ["<b>Flat 58, The Piper Building, Peterborough Road</b><br>Transaction 1 of 2<br>Date: 2006-06-23<br>Sale Price: \u00a3685,000", "<b>Flat 58, The Piper Building, Peterborough Road</b><br>Transaction 2 of 2<br>Date: 2013-11-15<br>Sale Price: \u00a31,125,000<br>Previous Purchase: \u00a3685,000<br>Previous Date: 2006-06-23<br>Annual Return: +6.9%/yr<br>Held for: 7.4 years"], "transaction_count": 2}, {"address": "Flat 47, The Piper Building, Peterborough Road", "dates": ["2010-06-01", "2018-09-13"], "prices": [1625000, 1906250], "hover_texts": ["<b>Flat 47, The Piper Building, Peterborough Road</b><br>Transaction 1 of 2<br>Date: 2010-06-01<br>Sale Price: \u00a31,625,000", "<b>Flat 47, The Piper Building, Peterborough Road</b><br>Transaction 2 of 2<br>Date: 2018-09-13<br>Sale Price: \u00a31,906,250<br>Previous Purchase: \u00a31,625,000<br>Previous Date: 2010-06-01<br>Annual Return: +1.9%/yr<br>Held for: 8.3 years"], "transaction_count": 2}, {"address": "Flat 67, The Piper Building, Peterborough Road", "dates": ["2006-12-20", "2018-11-26"], "prices": [585000, 860000], "hover_texts": ["<b>Flat 67, The Piper Building, Peterborough Road</b><br>Transaction 1 of 2<br>Date: 2006-12-20<br>Sale Price: \u00a3585,000", "<b>Flat 67, The Piper Building, Peterborough Road</b><br>Transaction 2 of 2<br>Date: 2018-11-26<br>Sale Price: \u00a3860,000<br>Previous Purchase: \u00a3585,000<br>Previous Date: 2006-12-20<br>Annual Return: +3.3%/yr<br>Held for: 11.9 years"], "transaction_count": 2}, {"address": "Flat 14, The Piper Building, Peterborough Road", "dates": ["2005-08-05", "2016-03-31", "2020-11-26"], "prices": [485000, 972500, 1000000], "hover_texts": ["<b>Flat 14, The Piper Building, Peterborough Road</b><br>Transaction 1 of 3<br>Date: 2005-08-05<br>Sale Price: \u00a3485,000", "<b>Flat 14, The Piper Building, Peterborough Road</b><br>Transaction 2 of 3<br>Date: 2016-03-31<br>Sale Price: \u00a3972,500<br>Previous Purchase: \u00a3485,000<br>Previous Date: 2005-08-05<br>Annual Return: +6.8%/yr<br>Held for: 10.7 years", "<b>Flat 14, The Piper Building, Peterborough Road</b><br>Transaction 3 of 3<br>Date: 2020-11-26<br>Sale Price: \u00a31,000,000<br>Previous Purchase: \u00a3972,500<br>Previous Date: 2016-03-31<br>Annual Return: +0.6%/yr<br>Held for: 4.7 years"], "transaction_count": 3}, {"address": "Flat 15, The Piper Building, Peterborough Road", "dates": ["2006-05-10", "2015-09-11"], "prices": [1075000, 1860000], "hover_texts": ["<b>Flat 15, The Piper Building, Peterborough Road</b><br>Transaction 1 of 2<br>Date: 2006-05-10<br>Sale Price: \u00a31,075,000", "<b>Flat 15, The Piper Building, Peterborough Road</b><br>Transaction 2 of 2<br>Date: 2015-09-11<br>Sale Price: \u00a31,860,000<br>Previous Purchase: \u00a31,075,000<br>Previous Date: 2006-05-10<br>Annual Return: +6.0%/yr<br>Held for: 9.3 years"], "transaction_count": 2}, {"address": "Flat 48, The Piper Building, Peterborough Road", "dates": ["2009-06-17", "2011-02-04"], "prices": [840000, 920000], "hover_texts": ["<b>Flat 48, The Piper Building, Peterborough Road</b><br>Transaction 1 of 2<br>Date: 2009-06-17<br>Sale Price: \u00a3840,000", "<b>Flat 48, The Piper Building, Peterborough Road</b><br>Transaction 2 of 2<br>Date: 2011-02-04<br>Sale Price: \u00a3920,000<br>Previous Purchase: \u00a3840,000<br>Previous Date: 2009-06-17<br>Annual Return: +5.7%/yr<br>Held for: 1.6 years"], "transaction_count": 2}, {"address": "Flat 60, The Piper Building, Peterborough Road", "dates": ["2007-03-22", "2014-04-16"], "prices": [575000, 1000000], "hover_texts": ["<b>Flat 60, The Piper Building, Peterborough Road</b><br>Transaction 1 of 2<br>Date: 2007-03-22<br>Sale Price: \u00a3575,000", "<b>Flat 60, The Piper Building, Peterborough Road</b><br>Transaction 2 of 2<br>Date: 2014-04-16<br>Sale Price: \u00a31,000,000<br>Previous Purchase: \u00a3575,000<br>Previous Date: 2007-03-22<br>Annual Return: +8.1%/yr<br>Held for: 7.1 years"], "transaction_count": 2}, {"address": "Flat 25, The Piper Building, Peterborough Road", "dates": ["2010-01-08", "2013-04-10", "2014-04-29", "2020-05-29"], "prices": [875000, 1150000, 1375000, 1370000], "hover_texts": ["<b>Flat 25, The Piper Building, Peterborough Road</b><br>Transaction 1 of 4<br>Date: 2010-01-08<br>Sale Price: \u00a3875,000", "<b>Flat 25, The Piper Building, Peterborough Road</b><br>Transaction 2 of 4<br>Date: 2013-04-10<br>Sale Price: \u00a31,150,000<br>Previous Purchase: \u00a3875,000<br>Previous Date: 2010-01-08<br>Annual Return: +8.8%/yr<br>Held for: 3.2 years", "<b>Flat 25, The Piper Building, Peterborough Road</b><br>Transaction 3 of 4<br>Date: 2014-04-29<br>Sale Price: \u00a31,375,000<br>Previous Purchase: \u00a31,150,000<br>Previous Date: 2013-04-10<br>Annual Return: +18.5%/yr<br>Held for: 1.1 years", "<b>Flat 25, The Piper Building, Peterborough Road</b><br>Transaction 4 of 4<br>Date: 2020-05-29<br>Sale Price: \u00a31,370,000<br>Previous Purchase: \u00a31,375,000<br>Previous Date: 2014-04-29<br>Annual Return: -0.1%/yr<br>Held for: 6.1 years"], "transaction_count": 4}, {"address": "Flat 71, The Piper Building, Peterborough Road", "dates": ["2013-06-21", "2016-02-16"], "prices": [1999999, 2278000], "hover_texts": ["<b>Flat 71, The Piper Building, Peterborough Road</b><br>Transaction 1 of 2<br>Date: 2013-06-21<br>Sale Price: \u00a31,999,999", "<b>Flat 71, The Piper Building, Peterborough Road</b><br>Transaction 2 of 2<br>Date: 2016-02-16<br>Sale Price: \u00a32,278,000<br>Previous Purchase: \u00a31,999,999<br>Previous Date: 2013-06-21<br>Annual Return: +5.0%/yr<br>Held for: 2.7 years"], "transaction_count": 2}, {"address": "Flat 23, The Piper Building, Peterborough Road", "dates": ["2005-06-16", "2011-04-05"], "prices": [725000, 1450000], "hover_texts": ["<b>Flat 23, The Piper Building, Peterborough Road</b><br>Transaction 1 of 2<br>Date: 2005-06-16<br>Sale Price: \u00a3725,000", "<b>Flat 23, The Piper Building, Peterborough Road</b><br>Transaction 2 of 2<br>Date: 2011-04-05<br>Sale Price: \u00a31,450,000<br>Previous Purchase: \u00a3725,000<br>Previous Date: 2005-06-16<br>Annual Return: +12.7%/yr<br>Held for: 5.8 years"], "transaction_count": 2}, {"address": "Flat 45, The Piper Building, Peterborough Road", "dates": ["2009-09-23", "2018-11-23"], "prices": [500000, 800000], "hover_texts": ["<b>Flat 45, The Piper Building, Peterborough Road</b><br>Transaction 1 of 2<br>Date: 2009-09-23<br>Sale Price: \u00a3500,000", "<b>Flat 45, The Piper Building, Peterborough Road</b><br>Transaction 2 of 2<br>Date: 2018-11-23<br>Sale Price: \u00a3800,000<br>Previous Purchase: \u00a3500,000<br>Previous Date: 2009-09-23<br>Annual Return: +5.3%/yr<br>Held for: 9.2 years"], "transaction_count": 2}, {"address": "Flat 8A, The Piper Building, Peterborough Road", "dates": ["2006-10-17", "2011-07-27", "2021-03-16"], "prices": [562000, 705000, 785000], "hover_texts": ["<b>Flat 8A, The Piper Building, Peterborough Road</b><br>Transaction 1 of 3<br>Date: 2006-10-17<br>Sale Price: \u00a3562,000", "<b>Flat 8A, The Piper Building, Peterborough Road</b><br>Transaction 2 of 3<br>Date: 2011-07-27<br>Sale Price: \u00a3705,000<br>Previous Purchase: \u00a3562,000<br>Previous Date: 2006-10-17<br>Annual Return: +4.9%/yr<br>Held for: 4.8 years", "<b>Flat 8A, The Piper Building, Peterborough Road</b><br>Transaction 3 of 3<br>Date: 2021-03-16<br>Sale Price: \u00a3785,000<br>Previous Purchase: \u00a3705,000<br>Previous Date: 2011-07-27<br>Annual Return: +1.1%/yr<br>Held for: 9.6 years"], "transaction_count": 3}, {"address": "Flat 28, The Piper Building, Peterborough Road", "dates": ["2008-12-15", "2013-08-09"], "prices": [535000, 850000], "hover_texts": ["<b>Flat 28, The Piper Building, Peterborough Road</b><br>Transaction 1 of 2<br>Date: 2008-12-15<br>Sale Price: \u00a3535,000", "<b>Flat 28, The Piper Building, Peterborough Road</b><br>Transaction 2 of 2<br>Date: 2013-08-09<br>Sale Price: \u00a3850,000<br>Previous Purchase: \u00a3535,000<br>Previous Date: 2008-12-15<br>Annual Return: +10.5%/yr<br>Held for: 4.7 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2011-10-10", "address": "Flat 7, The Piper Building, Peterborough Road", "price": 685000, "price_display": "\u00a3685,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-04-23", "address": "Flat 65, The Piper Building, Peterborough Road", "price": 1210000, "price_display": "\u00a31,210,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2009-03-16", "address": "Flat 35, The Piper Building, Peterborough Road", "price": 632700, "price_display": "\u00a3632,700", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-07-10", "address": "Flat 49, The Piper Building, Peterborough Road", "price": 1300000, "price_display": "\u00a31,300,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-10-05", "address": "Flat 9A, The Piper Building, Peterborough Road", "price": 635000, "price_display": "\u00a3635,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-12-06", "address": "Flat 44, The Piper Building, Peterborough Road", "price": 930000, "price_display": "\u00a3930,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-09-26", "address": "Flat 18, The Piper Building, Peterborough Road", "price": 800000, "price_display": "\u00a3800,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-07-19", "address": "Flat 3, The Piper Building, Peterborough Road", "price": 870000, "price_display": "\u00a3870,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-03-29", "address": "Flat 29, The Piper Building, Peterborough Road", "price": 560000, "price_display": "\u00a3560,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-08-07", "address": "Flat 70, The Piper Building, Peterborough Road", "price": 2180000, "price_display": "\u00a32,180,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-05-27", "address": "Flat 66, The Piper Building, Peterborough Road", "price": 835000, "price_display": "\u00a3835,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-04-15", "address": "Flat 38, The Piper Building, Peterborough Road", "price": 1800000, "price_display": "\u00a31,800,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-10-21", "address": "Flat 27, The Piper Building, Peterborough Road", "price": 840000, "price_display": "\u00a3840,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-09-11", "address": "Flat 16, The Piper Building, Peterborough Road", "price": 1140000, "price_display": "\u00a31,140,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-07-31", "address": "Flat 23A, The Piper Building, Peterborough Road", "price": 325000, "price_display": "\u00a3325,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-11-18", "address": "Flat 46, The Piper Building, Peterborough Road", "price": 705000, "price_display": "\u00a3705,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-11-30", "address": "Flat 34, The Piper Building, Peterborough Road", "price": 535000, "price_display": "\u00a3535,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-06-15", "address": "Flat 19, The Piper Building, Peterborough Road", "price": 575000, "price_display": "\u00a3575,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-07-01", "address": "Flat 22, The Piper Building, Peterborough Road", "price": 1500000, "price_display": "\u00a31,500,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-06-24", "address": "Flat 2, The Piper Building, Peterborough Road", "price": 1000000, "price_display": "\u00a31,000,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-03-31", "address": "Flat 6, The Piper Building, Peterborough Road", "price": 915000, "price_display": "\u00a3915,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-08-07", "address": "Flat 36, The Piper Building, Peterborough Road", "price": 840000, "price_display": "\u00a3840,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-05-23", "address": "Flat 9B, The Piper Building, Peterborough Road", "price": 650000, "price_display": "\u00a3650,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-02-01", "address": "Flat 68, The Piper Building, Peterborough Road", "price": 900000, "price_display": "\u00a3900,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-09-19", "address": "Flat 43, The Piper Building, Peterborough Road", "price": 575000, "price_display": "\u00a3575,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2009-12-03", "address": "Flat 61, The Piper Building, Peterborough Road", "price": 575000, "price_display": "\u00a3575,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-06-28", "address": "Flat 50, The Piper Building, Peterborough Road", "price": 495000, "price_display": "\u00a3495,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-01-06", "address": "Flat 21, The Piper Building, Peterborough Road", "price": 978000, "price_display": "\u00a3978,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2009-04-23", "address": "Flat 5, The Piper Building, Peterborough Road", "price": 435000, "price_display": "\u00a3435,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-06", "address": "Flat 40, The Piper Building, Peterborough Road", "price": 722700, "price_display": "\u00a3722,700", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-05-10", "address": "Flat 62, The Piper Building, Peterborough Road", "price": 415000, "price_display": "\u00a3415,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-09-08", "address": "Flat 33, The Piper Building, Peterborough Road", "price": 1395000, "price_display": "\u00a31,395,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-03-01", "address": "Flat 53, The Piper Building, Peterborough Road", "price": 940000, "price_display": "\u00a3940,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-01-07", "address": "Flat 10, The Piper Building, Peterborough Road", "price": 840000, "price_display": "\u00a3840,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-03-11", "address": "Flat 13, The Piper Building, Peterborough Road", "price": 485000, "price_display": "\u00a3485,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-SW6-3EF', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-SW6-3EF');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-SW6-3EF', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-SW6-3EF', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-SW6-3EF" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2011-10-10</td>
+            <td>Flat 7, The Piper Building, Peterborough Road</td>
+            <td class="price">£685,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-23</td>
+            <td>Flat 65, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,210,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-01-29</td>
+            <td>Flat 59, The Piper Building, Peterborough Road</td>
+            <td class="price">£910,000</td>
+        <td class="positive" title="Previous: £865,000 (2013-08-06)">+2.1%/yr</td></tr>
+
+        <tr>
+            <td>2013-08-06</td>
+            <td>Flat 59, The Piper Building, Peterborough Road</td>
+            <td class="price">£865,000</td>
+        <td class="positive" title="Previous: £515,000 (2006-08-04)">+7.7%/yr</td></tr>
+
+        <tr>
+            <td>2006-08-04</td>
+            <td>Flat 59, The Piper Building, Peterborough Road</td>
+            <td class="price">£515,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-03-16</td>
+            <td>Flat 35, The Piper Building, Peterborough Road</td>
+            <td class="price">£632,700</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-07-25</td>
+            <td>Flat 26, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,080,000</td>
+        <td class="positive" title="Previous: £710,000 (2007-01-03)">+6.6%/yr</td></tr>
+
+        <tr>
+            <td>2007-01-03</td>
+            <td>Flat 26, The Piper Building, Peterborough Road</td>
+            <td class="price">£710,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-07-10</td>
+            <td>Flat 49, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,300,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-10-05</td>
+            <td>Flat 9A, The Piper Building, Peterborough Road</td>
+            <td class="price">£635,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-12-06</td>
+            <td>Flat 44, The Piper Building, Peterborough Road</td>
+            <td class="price">£930,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-15</td>
+            <td>Flat 58, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,125,000</td>
+        <td class="positive" title="Previous: £685,000 (2006-06-23)">+6.9%/yr</td></tr>
+
+        <tr>
+            <td>2006-06-23</td>
+            <td>Flat 58, The Piper Building, Peterborough Road</td>
+            <td class="price">£685,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-09-26</td>
+            <td>Flat 18, The Piper Building, Peterborough Road</td>
+            <td class="price">£800,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-07-19</td>
+            <td>Flat 3, The Piper Building, Peterborough Road</td>
+            <td class="price">£870,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-13</td>
+            <td>Flat 47, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,906,250</td>
+        <td class="positive" title="Previous: £1,625,000 (2010-06-01)">+1.9%/yr</td></tr>
+
+        <tr>
+            <td>2010-06-01</td>
+            <td>Flat 47, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,625,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-03-29</td>
+            <td>Flat 29, The Piper Building, Peterborough Road</td>
+            <td class="price">£560,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-07</td>
+            <td>Flat 70, The Piper Building, Peterborough Road</td>
+            <td class="price">£2,180,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-26</td>
+            <td>Flat 67, The Piper Building, Peterborough Road</td>
+            <td class="price">£860,000</td>
+        <td class="positive" title="Previous: £585,000 (2006-12-20)">+3.3%/yr</td></tr>
+
+        <tr>
+            <td>2006-12-20</td>
+            <td>Flat 67, The Piper Building, Peterborough Road</td>
+            <td class="price">£585,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-05-27</td>
+            <td>Flat 66, The Piper Building, Peterborough Road</td>
+            <td class="price">£835,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-04-15</td>
+            <td>Flat 38, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,800,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-10-21</td>
+            <td>Flat 27, The Piper Building, Peterborough Road</td>
+            <td class="price">£840,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-11-26</td>
+            <td>Flat 14, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,000,000</td>
+        <td class="positive" title="Previous: £972,500 (2016-03-31)">+0.6%/yr</td></tr>
+
+        <tr>
+            <td>2016-03-31</td>
+            <td>Flat 14, The Piper Building, Peterborough Road</td>
+            <td class="price">£972,500</td>
+        <td class="positive" title="Previous: £485,000 (2005-08-05)">+6.8%/yr</td></tr>
+
+        <tr>
+            <td>2005-08-05</td>
+            <td>Flat 14, The Piper Building, Peterborough Road</td>
+            <td class="price">£485,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-09-11</td>
+            <td>Flat 15, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,860,000</td>
+        <td class="positive" title="Previous: £1,075,000 (2006-05-10)">+6.0%/yr</td></tr>
+
+        <tr>
+            <td>2006-05-10</td>
+            <td>Flat 15, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,075,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-09-11</td>
+            <td>Flat 16, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,140,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-07-31</td>
+            <td>Flat 23A, The Piper Building, Peterborough Road</td>
+            <td class="price">£325,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-11-18</td>
+            <td>Flat 46, The Piper Building, Peterborough Road</td>
+            <td class="price">£705,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-02-04</td>
+            <td>Flat 48, The Piper Building, Peterborough Road</td>
+            <td class="price">£920,000</td>
+        <td class="positive" title="Previous: £840,000 (2009-06-17)">+5.7%/yr</td></tr>
+
+        <tr>
+            <td>2009-06-17</td>
+            <td>Flat 48, The Piper Building, Peterborough Road</td>
+            <td class="price">£840,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-11-30</td>
+            <td>Flat 34, The Piper Building, Peterborough Road</td>
+            <td class="price">£535,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-06-15</td>
+            <td>Flat 19, The Piper Building, Peterborough Road</td>
+            <td class="price">£575,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-07-01</td>
+            <td>Flat 22, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-06-24</td>
+            <td>Flat 2, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,000,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-03-31</td>
+            <td>Flat 6, The Piper Building, Peterborough Road</td>
+            <td class="price">£915,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-08-07</td>
+            <td>Flat 36, The Piper Building, Peterborough Road</td>
+            <td class="price">£840,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-05-23</td>
+            <td>Flat 9B, The Piper Building, Peterborough Road</td>
+            <td class="price">£650,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-04-16</td>
+            <td>Flat 60, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,000,000</td>
+        <td class="positive" title="Previous: £575,000 (2007-03-22)">+8.1%/yr</td></tr>
+
+        <tr>
+            <td>2007-03-22</td>
+            <td>Flat 60, The Piper Building, Peterborough Road</td>
+            <td class="price">£575,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-02-01</td>
+            <td>Flat 68, The Piper Building, Peterborough Road</td>
+            <td class="price">£900,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-05-29</td>
+            <td>Flat 25, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,370,000</td>
+        <td class="negative" title="Previous: £1,375,000 (2014-04-29)">-0.1%/yr</td></tr>
+
+        <tr>
+            <td>2014-04-29</td>
+            <td>Flat 25, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,375,000</td>
+        <td class="positive" title="Previous: £1,150,000 (2013-04-10)">+18.5%/yr</td></tr>
+
+        <tr>
+            <td>2013-04-10</td>
+            <td>Flat 25, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,150,000</td>
+        <td class="positive" title="Previous: £875,000 (2010-01-08)">+8.8%/yr</td></tr>
+
+        <tr>
+            <td>2010-01-08</td>
+            <td>Flat 25, The Piper Building, Peterborough Road</td>
+            <td class="price">£875,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-09-19</td>
+            <td>Flat 43, The Piper Building, Peterborough Road</td>
+            <td class="price">£575,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-12-03</td>
+            <td>Flat 61, The Piper Building, Peterborough Road</td>
+            <td class="price">£575,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-06-28</td>
+            <td>Flat 50, The Piper Building, Peterborough Road</td>
+            <td class="price">£495,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-16</td>
+            <td>Flat 71, The Piper Building, Peterborough Road</td>
+            <td class="price">£2,278,000</td>
+        <td class="positive" title="Previous: £1,999,999 (2013-06-21)">+5.0%/yr</td></tr>
+
+        <tr>
+            <td>2013-06-21</td>
+            <td>Flat 71, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,999,999</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-04-05</td>
+            <td>Flat 23, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,450,000</td>
+        <td class="positive" title="Previous: £725,000 (2005-06-16)">+12.7%/yr</td></tr>
+
+        <tr>
+            <td>2005-06-16</td>
+            <td>Flat 23, The Piper Building, Peterborough Road</td>
+            <td class="price">£725,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-01-06</td>
+            <td>Flat 21, The Piper Building, Peterborough Road</td>
+            <td class="price">£978,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-23</td>
+            <td>Flat 45, The Piper Building, Peterborough Road</td>
+            <td class="price">£800,000</td>
+        <td class="positive" title="Previous: £500,000 (2009-09-23)">+5.3%/yr</td></tr>
+
+        <tr>
+            <td>2009-09-23</td>
+            <td>Flat 45, The Piper Building, Peterborough Road</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-04-23</td>
+            <td>Flat 5, The Piper Building, Peterborough Road</td>
+            <td class="price">£435,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-06</td>
+            <td>Flat 40, The Piper Building, Peterborough Road</td>
+            <td class="price">£722,700</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-05-10</td>
+            <td>Flat 62, The Piper Building, Peterborough Road</td>
+            <td class="price">£415,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-09-08</td>
+            <td>Flat 33, The Piper Building, Peterborough Road</td>
+            <td class="price">£1,395,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-16</td>
+            <td>Flat 8A, The Piper Building, Peterborough Road</td>
+            <td class="price">£785,000</td>
+        <td class="positive" title="Previous: £705,000 (2011-07-27)">+1.1%/yr</td></tr>
+
+        <tr>
+            <td>2011-07-27</td>
+            <td>Flat 8A, The Piper Building, Peterborough Road</td>
+            <td class="price">£705,000</td>
+        <td class="positive" title="Previous: £562,000 (2006-10-17)">+4.9%/yr</td></tr>
+
+        <tr>
+            <td>2006-10-17</td>
+            <td>Flat 8A, The Piper Building, Peterborough Road</td>
+            <td class="price">£562,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-03-01</td>
+            <td>Flat 53, The Piper Building, Peterborough Road</td>
+            <td class="price">£940,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-01-07</td>
+            <td>Flat 10, The Piper Building, Peterborough Road</td>
+            <td class="price">£840,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-08-09</td>
+            <td>Flat 28, The Piper Building, Peterborough Road</td>
+            <td class="price">£850,000</td>
+        <td class="positive" title="Previous: £535,000 (2008-12-15)">+10.5%/yr</td></tr>
+
+        <tr>
+            <td>2008-12-15</td>
+            <td>Flat 28, The Piper Building, Peterborough Road</td>
+            <td class="price">£535,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-03-11</td>
+            <td>Flat 13, The Piper Building, Peterborough Road</td>
+            <td class="price">£485,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-SW6-3EF" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-SW6-3EF" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2024],
+            y: [605000, 640875, 610000, 566666, 596540, 995000, 919000, 1088999, 1098600, 1515000, 1217214, 722700, 1194062, 840000, 1185000, 785000, 930000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2024],
+            y: [725000, 585000, 575000, 535000, 575000, 875000, 835000, 1080000, 1000000, 1395000, 940000, 722700, 1210000, 840000, 1370000, 785000, 930000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - SW6 3EF',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-SW6-3EF', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 70</p>
+                    <p><strong>Unique Properties:</strong> 50</p>
+                    <p><strong>Average Price:</strong> £939,602</p>
+                    <p><strong>Median Price:</strong> £845,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-SW6-3EF" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector SW6 3 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector SW6 3</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-SW6-3EF', 'SW6-3EF')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-SW6-3EF', 'SW6-3EF')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-SW6-3EF" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-SW6-3EF" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [716472, 736079, 843747, 993047, 1041652, 1128282, 1296972, 1387684, 1463307, 1568459, 1518107, 1178927, 1408415, 1248582, 1607444, 1563472, 1571922, 1677989, 1607501, 1840314, 1911647],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [640000, 640000, 672000, 775000, 872500, 970500, 1190000, 1250000, 1230000, 1500000, 1337500, 910000, 1075000, 986500, 1455000, 1300000, 1325000, 1436250, 1460000, 1595000, 1552000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector SW6 3 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-SW6-3EF', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-SW6-3EF" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £807,583</div>
+                        <div class="cell-sell">Sell: £960,833</div>
+                        <div class="cell-return">+13.0%/yr</div>
+                        <div class="cell-count">(6 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £619,239</div>
+                        <div class="cell-sell">Sell: £954,087</div>
+                        <div class="cell-return">+15.5%/yr</div>
+                        <div class="cell-count">(52 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £741,498</div>
+                        <div class="cell-sell">Sell: £1,627,638</div>
+                        <div class="cell-return">+12.5%/yr</div>
+                        <div class="cell-count">(36 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £804,238</div>
+                        <div class="cell-sell">Sell: £1,550,728</div>
+                        <div class="cell-return">+5.2%/yr</div>
+                        <div class="cell-count">(21 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £808,361</div>
+                        <div class="cell-sell">Sell: £2,176,428</div>
+                        <div class="cell-return">+5.7%/yr</div>
+                        <div class="cell-count">(14 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £766,326</div>
+                        <div class="cell-sell">Sell: £1,083,177</div>
+                        <div class="cell-return">+13.6%/yr</div>
+                        <div class="cell-count">(112 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £929,842</div>
+                        <div class="cell-sell">Sell: £1,482,973</div>
+                        <div class="cell-return">+12.0%/yr</div>
+                        <div class="cell-count">(199 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £940,397</div>
+                        <div class="cell-sell">Sell: £1,552,862</div>
+                        <div class="cell-return">+5.6%/yr</div>
+                        <div class="cell-count">(93 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £942,857</div>
+                        <div class="cell-sell">Sell: £1,751,846</div>
+                        <div class="cell-return">+4.6%/yr</div>
+                        <div class="cell-count">(96 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,014,455</div>
+                        <div class="cell-sell">Sell: £1,508,435</div>
+                        <div class="cell-return">+21.4%/yr</div>
+                        <div class="cell-count">(58 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,266,113</div>
+                        <div class="cell-sell">Sell: £1,531,388</div>
+                        <div class="cell-return">+5.2%/yr</div>
+                        <div class="cell-count">(90 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,584,251</div>
+                        <div class="cell-sell">Sell: £2,025,189</div>
+                        <div class="cell-return">+2.9%/yr</div>
+                        <div class="cell-count">(116 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,390,515</div>
+                        <div class="cell-sell">Sell: £1,576,990</div>
+                        <div class="cell-return">+12.3%/yr</div>
+                        <div class="cell-count">(36 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,338,089</div>
+                        <div class="cell-sell">Sell: £1,598,497</div>
+                        <div class="cell-return">+5.6%/yr</div>
+                        <div class="cell-count">(88 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,681,892</div>
+                        <div class="cell-sell">Sell: £2,278,553</div>
+                        <div class="cell-return">+13.0%/yr</div>
+                        <div class="cell-count">(28 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-SW6-3EF" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District SW6 Analysis</h4>
+                <p class="area-info">Viewing data for entire SW6 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-SW6-3EF', 'SW6-3EF')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-SW6-3EF', 'SW6-3EF')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-SW6-3EF" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-SW6-3EF" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [492447, 534187, 617479, 682883, 676682, 725666, 770297, 792775, 935087, 1071397, 1107658, 1080611, 1088332, 1024688, 1009986, 1103160, 1107305, 1133932, 1123992, 1187120, 1058589],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [395000, 426000, 485000, 525000, 525000, 550000, 560000, 599500, 694000, 805000, 880000, 863200, 845000, 780000, 772500, 840000, 840000, 830000, 915000, 900000, 747500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District SW6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-SW6-3EF', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-SW6-3EF" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £553,160</div>
+                        <div class="cell-sell">Sell: £646,763</div>
+                        <div class="cell-return">+14.6%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £449,387</div>
+                        <div class="cell-sell">Sell: £642,183</div>
+                        <div class="cell-return">+14.7%/yr</div>
+                        <div class="cell-count">(437 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £479,875</div>
+                        <div class="cell-sell">Sell: £946,863</div>
+                        <div class="cell-return">+9.9%/yr</div>
+                        <div class="cell-count">(316 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £538,691</div>
+                        <div class="cell-sell">Sell: £1,119,126</div>
+                        <div class="cell-return">+6.2%/yr</div>
+                        <div class="cell-count">(107 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £544,862</div>
+                        <div class="cell-sell">Sell: £1,293,885</div>
+                        <div class="cell-return">+5.2%/yr</div>
+                        <div class="cell-count">(104 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £554,782</div>
+                        <div class="cell-sell">Sell: £722,017</div>
+                        <div class="cell-return">+11.5%/yr</div>
+                        <div class="cell-count">(694 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £606,495</div>
+                        <div class="cell-sell">Sell: £950,934</div>
+                        <div class="cell-return">+10.5%/yr</div>
+                        <div class="cell-count">(1648 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £662,286</div>
+                        <div class="cell-sell">Sell: £1,130,777</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(714 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £656,918</div>
+                        <div class="cell-sell">Sell: £1,188,473</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(644 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £685,474</div>
+                        <div class="cell-sell">Sell: £998,436</div>
+                        <div class="cell-return">+20.5%/yr</div>
+                        <div class="cell-count">(560 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £844,762</div>
+                        <div class="cell-sell">Sell: £1,042,230</div>
+                        <div class="cell-return">+5.8%/yr</div>
+                        <div class="cell-count">(1056 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £995,197</div>
+                        <div class="cell-sell">Sell: £1,211,728</div>
+                        <div class="cell-return">+2.4%/yr</div>
+                        <div class="cell-count">(1170 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £928,398</div>
+                        <div class="cell-sell">Sell: £1,026,566</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(272 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £940,021</div>
+                        <div class="cell-sell">Sell: £1,060,630</div>
+                        <div class="cell-return">+4.2%/yr</div>
+                        <div class="cell-count">(965 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,003,702</div>
+                        <div class="cell-sell">Sell: £1,154,975</div>
+                        <div class="cell-return">+9.4%/yr</div>
+                        <div class="cell-count">(313 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'SW6 3'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'SW6'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

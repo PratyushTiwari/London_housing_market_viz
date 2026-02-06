@@ -1,0 +1,1533 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>N7 6JT</h3>
+            <div class="header-stats">
+                <span><strong>113</strong> transactions</span>
+                <span><strong>63</strong> properties</span>
+                <span>Avg: <strong>£426,761</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-N7-6JT')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-N7-6JT')">
+                Sector (N7 6)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-N7-6JT')">
+                District (N7)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-N7-6JT" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-N7-6JT', 'N7-6JT')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-N7-6JT', 'N7-6JT')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-N7-6JT', 'N7-6JT')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-N7-6JT" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-N7-6JT" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 224, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2008-04-16", "2018-12-03", "2022-06-06"], "prices": [275000, 435000, 462500], "hover_texts": ["<b>Flat 224, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 3<br>Date: 2008-04-16<br>Sale Price: \u00a3275,000", "<b>Flat 224, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 3<br>Date: 2018-12-03<br>Sale Price: \u00a3435,000<br>Previous Purchase: \u00a3275,000<br>Previous Date: 2008-04-16<br>Annual Return: +4.4%/yr<br>Held for: 10.6 years", "<b>Flat 224, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 3 of 3<br>Date: 2022-06-06<br>Sale Price: \u00a3462,500<br>Previous Purchase: \u00a3435,000<br>Previous Date: 2018-12-03<br>Annual Return: +1.8%/yr<br>Held for: 3.5 years"], "transaction_count": 3}, {"address": "Flat G17, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2016-07-08", "2021-09-17"], "prices": [655000, 550000], "hover_texts": ["<b>Flat G17, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2016-07-08<br>Sale Price: \u00a3655,000", "<b>Flat G17, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2021-09-17<br>Sale Price: \u00a3550,000<br>Previous Purchase: \u00a3655,000<br>Previous Date: 2016-07-08<br>Annual Return: -3.3%/yr<br>Held for: 5.2 years"], "transaction_count": 2}, {"address": "Flat 133, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2011-05-27", "2020-11-02"], "prices": [499950, 1100000], "hover_texts": ["<b>Flat 133, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2011-05-27<br>Sale Price: \u00a3499,950", "<b>Flat 133, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2020-11-02<br>Sale Price: \u00a31,100,000<br>Previous Purchase: \u00a3499,950<br>Previous Date: 2011-05-27<br>Annual Return: +8.7%/yr<br>Held for: 9.4 years"], "transaction_count": 2}, {"address": "Flat G10, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2008-03-03", "2013-05-20", "2019-07-16"], "prices": [301500, 310000, 395000], "hover_texts": ["<b>Flat G10, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 3<br>Date: 2008-03-03<br>Sale Price: \u00a3301,500", "<b>Flat G10, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 3<br>Date: 2013-05-20<br>Sale Price: \u00a3310,000<br>Previous Purchase: \u00a3301,500<br>Previous Date: 2008-03-03<br>Annual Return: +0.5%/yr<br>Held for: 5.2 years", "<b>Flat G10, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 3 of 3<br>Date: 2019-07-16<br>Sale Price: \u00a3395,000<br>Previous Purchase: \u00a3310,000<br>Previous Date: 2013-05-20<br>Annual Return: +4.0%/yr<br>Held for: 6.2 years"], "transaction_count": 3}, {"address": "Flat 106, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2013-09-17", "2016-03-11", "2023-11-10"], "prices": [528000, 650000, 665000], "hover_texts": ["<b>Flat 106, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 3<br>Date: 2013-09-17<br>Sale Price: \u00a3528,000", "<b>Flat 106, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 3<br>Date: 2016-03-11<br>Sale Price: \u00a3650,000<br>Previous Purchase: \u00a3528,000<br>Previous Date: 2013-09-17<br>Annual Return: +8.7%/yr<br>Held for: 2.5 years", "<b>Flat 106, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 3 of 3<br>Date: 2023-11-10<br>Sale Price: \u00a3665,000<br>Previous Purchase: \u00a3650,000<br>Previous Date: 2016-03-11<br>Annual Return: +0.3%/yr<br>Held for: 7.7 years"], "transaction_count": 3}, {"address": "Flat 226, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2015-12-23", "2021-04-09"], "prices": [590000, 615000], "hover_texts": ["<b>Flat 226, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2015-12-23<br>Sale Price: \u00a3590,000", "<b>Flat 226, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2021-04-09<br>Sale Price: \u00a3615,000<br>Previous Purchase: \u00a3590,000<br>Previous Date: 2015-12-23<br>Annual Return: +0.8%/yr<br>Held for: 5.3 years"], "transaction_count": 2}, {"address": "Flat 206, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2005-12-02", "2007-07-20", "2019-10-31"], "prices": [325000, 405000, 588000], "hover_texts": ["<b>Flat 206, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 3<br>Date: 2005-12-02<br>Sale Price: \u00a3325,000", "<b>Flat 206, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 3<br>Date: 2007-07-20<br>Sale Price: \u00a3405,000<br>Previous Purchase: \u00a3325,000<br>Previous Date: 2005-12-02<br>Annual Return: +14.5%/yr<br>Held for: 1.6 years", "<b>Flat 206, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 3 of 3<br>Date: 2019-10-31<br>Sale Price: \u00a3588,000<br>Previous Purchase: \u00a3405,000<br>Previous Date: 2007-07-20<br>Annual Return: +3.1%/yr<br>Held for: 12.3 years"], "transaction_count": 3}, {"address": "Flat 234, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2005-07-20", "2010-05-07", "2023-08-21"], "prices": [409250, 705000, 1250000], "hover_texts": ["<b>Flat 234, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 3<br>Date: 2005-07-20<br>Sale Price: \u00a3409,250", "<b>Flat 234, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 3<br>Date: 2010-05-07<br>Sale Price: \u00a3705,000<br>Previous Purchase: \u00a3409,250<br>Previous Date: 2005-07-20<br>Annual Return: +12.0%/yr<br>Held for: 4.8 years", "<b>Flat 234, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 3 of 3<br>Date: 2023-08-21<br>Sale Price: \u00a31,250,000<br>Previous Purchase: \u00a3705,000<br>Previous Date: 2010-05-07<br>Annual Return: +4.4%/yr<br>Held for: 13.3 years"], "transaction_count": 3}, {"address": "Flat G07, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2013-08-15", "2016-10-14", "2019-07-05"], "prices": [310000, 442000, 417000], "hover_texts": ["<b>Flat G07, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 3<br>Date: 2013-08-15<br>Sale Price: \u00a3310,000", "<b>Flat G07, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 3<br>Date: 2016-10-14<br>Sale Price: \u00a3442,000<br>Previous Purchase: \u00a3310,000<br>Previous Date: 2013-08-15<br>Annual Return: +11.9%/yr<br>Held for: 3.2 years", "<b>Flat G07, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 3 of 3<br>Date: 2019-07-05<br>Sale Price: \u00a3417,000<br>Previous Purchase: \u00a3442,000<br>Previous Date: 2016-10-14<br>Annual Return: -2.1%/yr<br>Held for: 2.7 years"], "transaction_count": 3}, {"address": "Flat 132, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2006-08-30", "2012-11-28"], "prices": [340000, 540000], "hover_texts": ["<b>Flat 132, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2006-08-30<br>Sale Price: \u00a3340,000", "<b>Flat 132, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2012-11-28<br>Sale Price: \u00a3540,000<br>Previous Purchase: \u00a3340,000<br>Previous Date: 2006-08-30<br>Annual Return: +7.7%/yr<br>Held for: 6.2 years"], "transaction_count": 2}, {"address": "Flat 129, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2006-03-17", "2010-02-05"], "prices": [225000, 250000], "hover_texts": ["<b>Flat 129, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2006-03-17<br>Sale Price: \u00a3225,000", "<b>Flat 129, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2010-02-05<br>Sale Price: \u00a3250,000<br>Previous Purchase: \u00a3225,000<br>Previous Date: 2006-03-17<br>Annual Return: +2.8%/yr<br>Held for: 3.9 years"], "transaction_count": 2}, {"address": "Flat 233, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2005-05-25", "2010-04-13"], "prices": [377000, 455000], "hover_texts": ["<b>Flat 233, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2005-05-25<br>Sale Price: \u00a3377,000", "<b>Flat 233, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2010-04-13<br>Sale Price: \u00a3455,000<br>Previous Purchase: \u00a3377,000<br>Previous Date: 2005-05-25<br>Annual Return: +3.9%/yr<br>Held for: 4.9 years"], "transaction_count": 2}, {"address": "Flat 124, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2012-12-14", "2021-04-09"], "prices": [325000, 415000], "hover_texts": ["<b>Flat 124, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2012-12-14<br>Sale Price: \u00a3325,000", "<b>Flat 124, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2021-04-09<br>Sale Price: \u00a3415,000<br>Previous Purchase: \u00a3325,000<br>Previous Date: 2012-12-14<br>Annual Return: +3.0%/yr<br>Held for: 8.3 years"], "transaction_count": 2}, {"address": "Flat 119, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2006-09-21", "2010-10-18", "2020-10-21"], "prices": [240000, 270000, 425000], "hover_texts": ["<b>Flat 119, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 3<br>Date: 2006-09-21<br>Sale Price: \u00a3240,000", "<b>Flat 119, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 3<br>Date: 2010-10-18<br>Sale Price: \u00a3270,000<br>Previous Purchase: \u00a3240,000<br>Previous Date: 2006-09-21<br>Annual Return: +2.9%/yr<br>Held for: 4.1 years", "<b>Flat 119, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 3 of 3<br>Date: 2020-10-21<br>Sale Price: \u00a3425,000<br>Previous Purchase: \u00a3270,000<br>Previous Date: 2010-10-18<br>Annual Return: +4.6%/yr<br>Held for: 10.0 years"], "transaction_count": 3}, {"address": "Flat 125, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2006-11-03", "2010-03-26", "2016-05-27", "2025-05-30"], "prices": [309950, 360000, 620000, 615000], "hover_texts": ["<b>Flat 125, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 4<br>Date: 2006-11-03<br>Sale Price: \u00a3309,950", "<b>Flat 125, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 4<br>Date: 2010-03-26<br>Sale Price: \u00a3360,000<br>Previous Purchase: \u00a3309,950<br>Previous Date: 2006-11-03<br>Annual Return: +4.5%/yr<br>Held for: 3.4 years", "<b>Flat 125, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 3 of 4<br>Date: 2016-05-27<br>Sale Price: \u00a3620,000<br>Previous Purchase: \u00a3360,000<br>Previous Date: 2010-03-26<br>Annual Return: +9.2%/yr<br>Held for: 6.2 years", "<b>Flat 125, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 4 of 4<br>Date: 2025-05-30<br>Sale Price: \u00a3615,000<br>Previous Purchase: \u00a3620,000<br>Previous Date: 2016-05-27<br>Annual Return: -0.1%/yr<br>Held for: 9.0 years"], "transaction_count": 4}, {"address": "Flat 225, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2006-06-30", "2012-03-28", "2016-06-15"], "prices": [234880, 338000, 500000], "hover_texts": ["<b>Flat 225, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 3<br>Date: 2006-06-30<br>Sale Price: \u00a3234,880", "<b>Flat 225, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 3<br>Date: 2012-03-28<br>Sale Price: \u00a3338,000<br>Previous Purchase: \u00a3234,880<br>Previous Date: 2006-06-30<br>Annual Return: +6.5%/yr<br>Held for: 5.7 years", "<b>Flat 225, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 3 of 3<br>Date: 2016-06-15<br>Sale Price: \u00a3500,000<br>Previous Purchase: \u00a3338,000<br>Previous Date: 2012-03-28<br>Annual Return: +9.7%/yr<br>Held for: 4.2 years"], "transaction_count": 3}, {"address": "Flat 127, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2008-03-07", "2012-08-24", "2019-12-06", "2023-11-09"], "prices": [360000, 390000, 540000, 545000], "hover_texts": ["<b>Flat 127, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 4<br>Date: 2008-03-07<br>Sale Price: \u00a3360,000", "<b>Flat 127, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 4<br>Date: 2012-08-24<br>Sale Price: \u00a3390,000<br>Previous Purchase: \u00a3360,000<br>Previous Date: 2008-03-07<br>Annual Return: +1.8%/yr<br>Held for: 4.5 years", "<b>Flat 127, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 3 of 4<br>Date: 2019-12-06<br>Sale Price: \u00a3540,000<br>Previous Purchase: \u00a3390,000<br>Previous Date: 2012-08-24<br>Annual Return: +4.6%/yr<br>Held for: 7.3 years", "<b>Flat 127, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 4 of 4<br>Date: 2023-11-09<br>Sale Price: \u00a3545,000<br>Previous Purchase: \u00a3540,000<br>Previous Date: 2019-12-06<br>Annual Return: +0.2%/yr<br>Held for: 3.9 years"], "transaction_count": 4}, {"address": "Flat 205, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2005-04-04", "2014-07-19"], "prices": [327500, 565000], "hover_texts": ["<b>Flat 205, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2005-04-04<br>Sale Price: \u00a3327,500", "<b>Flat 205, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2014-07-19<br>Sale Price: \u00a3565,000<br>Previous Purchase: \u00a3327,500<br>Previous Date: 2005-04-04<br>Annual Return: +6.0%/yr<br>Held for: 9.3 years"], "transaction_count": 2}, {"address": "Flat 110, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2006-08-25", "2022-05-06"], "prices": [366000, 710000], "hover_texts": ["<b>Flat 110, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2006-08-25<br>Sale Price: \u00a3366,000", "<b>Flat 110, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2022-05-06<br>Sale Price: \u00a3710,000<br>Previous Purchase: \u00a3366,000<br>Previous Date: 2006-08-25<br>Annual Return: +4.3%/yr<br>Held for: 15.7 years"], "transaction_count": 2}, {"address": "Flat 229, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2005-02-11", "2013-07-30"], "prices": [190000, 275000], "hover_texts": ["<b>Flat 229, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2005-02-11<br>Sale Price: \u00a3190,000", "<b>Flat 229, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2013-07-30<br>Sale Price: \u00a3275,000<br>Previous Purchase: \u00a3190,000<br>Previous Date: 2005-02-11<br>Annual Return: +4.5%/yr<br>Held for: 8.5 years"], "transaction_count": 2}, {"address": "Flat G04, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2006-10-27", "2015-12-10", "2022-02-25"], "prices": [349950, 675000, 650000], "hover_texts": ["<b>Flat G04, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 3<br>Date: 2006-10-27<br>Sale Price: \u00a3349,950", "<b>Flat G04, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 3<br>Date: 2015-12-10<br>Sale Price: \u00a3675,000<br>Previous Purchase: \u00a3349,950<br>Previous Date: 2006-10-27<br>Annual Return: +7.5%/yr<br>Held for: 9.1 years", "<b>Flat G04, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 3 of 3<br>Date: 2022-02-25<br>Sale Price: \u00a3650,000<br>Previous Purchase: \u00a3675,000<br>Previous Date: 2015-12-10<br>Annual Return: -0.6%/yr<br>Held for: 6.2 years"], "transaction_count": 3}, {"address": "The Beaux-Arts Building, Manor Gardens", "dates": ["2007-09-07", "2011-10-20", "2017-11-30", "2021-04-29"], "prices": [280000, 276000, 419000, 490000], "hover_texts": ["<b>The Beaux-Arts Building, Manor Gardens</b><br>Transaction 1 of 4<br>Date: 2007-09-07<br>Sale Price: \u00a3280,000", "<b>The Beaux-Arts Building, Manor Gardens</b><br>Transaction 2 of 4<br>Date: 2011-10-20<br>Sale Price: \u00a3276,000<br>Previous Purchase: \u00a3280,000<br>Previous Date: 2007-09-07<br>Annual Return: -0.3%/yr<br>Held for: 4.1 years", "<b>The Beaux-Arts Building, Manor Gardens</b><br>Transaction 3 of 4<br>Date: 2017-11-30<br>Sale Price: \u00a3419,000<br>Previous Purchase: \u00a3276,000<br>Previous Date: 2011-10-20<br>Annual Return: +7.1%/yr<br>Held for: 6.1 years", "<b>The Beaux-Arts Building, Manor Gardens</b><br>Transaction 4 of 4<br>Date: 2021-04-29<br>Sale Price: \u00a3490,000<br>Previous Purchase: \u00a3419,000<br>Previous Date: 2017-11-30<br>Annual Return: +4.7%/yr<br>Held for: 3.4 years"], "transaction_count": 4}, {"address": "Flat 217, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2010-05-04", "2021-06-28"], "prices": [347500, 550000], "hover_texts": ["<b>Flat 217, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2010-05-04<br>Sale Price: \u00a3347,500", "<b>Flat 217, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2021-06-28<br>Sale Price: \u00a3550,000<br>Previous Purchase: \u00a3347,500<br>Previous Date: 2010-05-04<br>Annual Return: +4.2%/yr<br>Held for: 11.2 years"], "transaction_count": 2}, {"address": "Flat G8, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2007-01-26", "2011-06-09"], "prices": [245000, 285000], "hover_texts": ["<b>Flat G8, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2007-01-26<br>Sale Price: \u00a3245,000", "<b>Flat G8, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2011-06-09<br>Sale Price: \u00a3285,000<br>Previous Purchase: \u00a3245,000<br>Previous Date: 2007-01-26<br>Annual Return: +3.5%/yr<br>Held for: 4.4 years"], "transaction_count": 2}, {"address": "Flat 209, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2005-01-03", "2005-08-31", "2007-03-30", "2011-04-19", "2024-09-26"], "prices": [241000, 240000, 305000, 320000, 497000], "hover_texts": ["<b>Flat 209, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 5<br>Date: 2005-01-03<br>Sale Price: \u00a3241,000", "<b>Flat 209, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 5<br>Date: 2005-08-31<br>Sale Price: \u00a3240,000<br>Previous Purchase: \u00a3241,000<br>Previous Date: 2005-01-03<br>Annual Return: -0.6%/yr<br>Held for: 0.7 years", "<b>Flat 209, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 3 of 5<br>Date: 2007-03-30<br>Sale Price: \u00a3305,000<br>Previous Purchase: \u00a3240,000<br>Previous Date: 2005-08-31<br>Annual Return: +16.4%/yr<br>Held for: 1.6 years", "<b>Flat 209, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 4 of 5<br>Date: 2011-04-19<br>Sale Price: \u00a3320,000<br>Previous Purchase: \u00a3305,000<br>Previous Date: 2007-03-30<br>Annual Return: +1.2%/yr<br>Held for: 4.0 years", "<b>Flat 209, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 5 of 5<br>Date: 2024-09-26<br>Sale Price: \u00a3497,000<br>Previous Purchase: \u00a3320,000<br>Previous Date: 2011-04-19<br>Annual Return: +3.3%/yr<br>Held for: 13.4 years"], "transaction_count": 5}, {"address": "Flat 221, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2006-08-01", "2011-09-29"], "prices": [275000, 325000], "hover_texts": ["<b>Flat 221, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2006-08-01<br>Sale Price: \u00a3275,000", "<b>Flat 221, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2011-09-29<br>Sale Price: \u00a3325,000<br>Previous Purchase: \u00a3275,000<br>Previous Date: 2006-08-01<br>Annual Return: +3.3%/yr<br>Held for: 5.2 years"], "transaction_count": 2}, {"address": "Flat G18, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2005-12-09", "2017-05-12", "2020-05-01"], "prices": [270000, 705000, 760070], "hover_texts": ["<b>Flat G18, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 3<br>Date: 2005-12-09<br>Sale Price: \u00a3270,000", "<b>Flat G18, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 3<br>Date: 2017-05-12<br>Sale Price: \u00a3705,000<br>Previous Purchase: \u00a3270,000<br>Previous Date: 2005-12-09<br>Annual Return: +8.8%/yr<br>Held for: 11.4 years", "<b>Flat G18, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 3 of 3<br>Date: 2020-05-01<br>Sale Price: \u00a3760,070<br>Previous Purchase: \u00a3705,000<br>Previous Date: 2017-05-12<br>Annual Return: +2.6%/yr<br>Held for: 3.0 years"], "transaction_count": 3}, {"address": "Flat 231, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2006-07-07", "2016-10-31"], "prices": [250000, 600000], "hover_texts": ["<b>Flat 231, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2006-07-07<br>Sale Price: \u00a3250,000", "<b>Flat 231, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2016-10-31<br>Sale Price: \u00a3600,000<br>Previous Purchase: \u00a3250,000<br>Previous Date: 2006-07-07<br>Annual Return: +8.8%/yr<br>Held for: 10.3 years"], "transaction_count": 2}, {"address": "Flat G02, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2009-07-24", "2016-01-11"], "prices": [325000, 730000], "hover_texts": ["<b>Flat G02, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2009-07-24<br>Sale Price: \u00a3325,000", "<b>Flat G02, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2016-01-11<br>Sale Price: \u00a3730,000<br>Previous Purchase: \u00a3325,000<br>Previous Date: 2009-07-24<br>Annual Return: +13.3%/yr<br>Held for: 6.5 years"], "transaction_count": 2}, {"address": "Flat 203, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2005-01-14", "2025-01-24"], "prices": [247250, 475000], "hover_texts": ["<b>Flat 203, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2005-01-14<br>Sale Price: \u00a3247,250", "<b>Flat 203, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2025-01-24<br>Sale Price: \u00a3475,000<br>Previous Purchase: \u00a3247,250<br>Previous Date: 2005-01-14<br>Annual Return: +3.3%/yr<br>Held for: 20.0 years"], "transaction_count": 2}, {"address": "Flat 209A, The Beaux Arts Building, 10 - 18, Manor Gardens", "dates": ["2010-06-15", "2020-11-02"], "prices": [280000, 430000], "hover_texts": ["<b>Flat 209A, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 1 of 2<br>Date: 2010-06-15<br>Sale Price: \u00a3280,000", "<b>Flat 209A, The Beaux Arts Building, 10 - 18, Manor Gardens</b><br>Transaction 2 of 2<br>Date: 2020-11-02<br>Sale Price: \u00a3430,000<br>Previous Purchase: \u00a3280,000<br>Previous Date: 2010-06-15<br>Annual Return: +4.2%/yr<br>Held for: 10.4 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2025-02-13", "address": "Flat 131, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 629000, "price_display": "\u00a3629,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-05-02", "address": "Flat 208, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 225000, "price_display": "\u00a3225,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-06-06", "address": "Flat 121, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 299000, "price_display": "\u00a3299,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-04", "address": "Flat 117, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 535000, "price_display": "\u00a3535,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-09-29", "address": "Flat G7, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 210000, "price_display": "\u00a3210,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-18", "address": "Flat G12, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 592500, "price_display": "\u00a3592,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-04-26", "address": "Flat 204, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 490000, "price_display": "\u00a3490,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-06-13", "address": "Flat 214, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 249950, "price_display": "\u00a3249,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-10-25", "address": "Flat G03, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 350000, "price_display": "\u00a3350,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2012-05-18", "address": "Flat 108, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 305000, "price_display": "\u00a3305,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-03-29", "address": "Flat 215, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 273000, "price_display": "\u00a3273,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-06-17", "address": "Flat G9, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 290000, "price_display": "\u00a3290,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-02-11", "address": "Flat 114, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 210000, "price_display": "\u00a3210,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-09-09", "address": "Flat 213, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 203000, "price_display": "\u00a3203,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-05-02", "address": "Flat 228, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 270000, "price_display": "\u00a3270,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-30", "address": "Flat 120, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 525000, "price_display": "\u00a3525,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-10-26", "address": "Flat 101, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 465500, "price_display": "\u00a3465,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-07-05", "address": "Flat G21, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 270000, "price_display": "\u00a3270,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-04-12", "address": "Flat 118, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 398000, "price_display": "\u00a3398,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2012-04-18", "address": "Flat 227, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 393000, "price_display": "\u00a3393,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-03-27", "address": "Flat G15, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 375000, "price_display": "\u00a3375,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-04-14", "address": "Flat 115, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 405000, "price_display": "\u00a3405,000", "property_type": "O", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-09-01", "address": "Flat 109, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 740000, "price_display": "\u00a3740,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-03-17", "address": "Flat 232, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 335000, "price_display": "\u00a3335,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-09-11", "address": "Flat G05, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 610000, "price_display": "\u00a3610,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-06-06", "address": "Flat 210, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 368750, "price_display": "\u00a3368,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-05-25", "address": "Flat G06, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 405500, "price_display": "\u00a3405,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-03-02", "address": "Flat 103, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 410000, "price_display": "\u00a3410,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-10-17", "address": "Flat 202, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 610000, "price_display": "\u00a3610,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-08-18", "address": "Flat 103A, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 220000, "price_display": "\u00a3220,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-11-19", "address": "Flat 104, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 512500, "price_display": "\u00a3512,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-05-02", "address": "Flat 216, The Beaux Arts Building, 10 - 18, Manor Gardens", "price": 215000, "price_display": "\u00a3215,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-N7-6JT', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-N7-6JT');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-N7-6JT', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-N7-6JT', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-N7-6JT" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2022-06-06</td>
+            <td>Flat 224, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£462,500</td>
+        <td class="positive" title="Previous: £435,000 (2018-12-03)">+1.8%/yr</td></tr>
+
+        <tr>
+            <td>2018-12-03</td>
+            <td>Flat 224, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£435,000</td>
+        <td class="positive" title="Previous: £275,000 (2008-04-16)">+4.4%/yr</td></tr>
+
+        <tr>
+            <td>2008-04-16</td>
+            <td>Flat 224, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£275,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-02-13</td>
+            <td>Flat 131, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£629,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-09-17</td>
+            <td>Flat G17, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£550,000</td>
+        <td class="negative" title="Previous: £655,000 (2016-07-08)">-3.3%/yr</td></tr>
+
+        <tr>
+            <td>2016-07-08</td>
+            <td>Flat G17, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£655,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-11-02</td>
+            <td>Flat 133, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£1,100,000</td>
+        <td class="positive" title="Previous: £499,950 (2011-05-27)">+8.7%/yr</td></tr>
+
+        <tr>
+            <td>2011-05-27</td>
+            <td>Flat 133, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£499,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-07-16</td>
+            <td>Flat G10, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£395,000</td>
+        <td class="positive" title="Previous: £310,000 (2013-05-20)">+4.0%/yr</td></tr>
+
+        <tr>
+            <td>2013-05-20</td>
+            <td>Flat G10, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£310,000</td>
+        <td class="positive" title="Previous: £301,500 (2008-03-03)">+0.5%/yr</td></tr>
+
+        <tr>
+            <td>2008-03-03</td>
+            <td>Flat G10, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£301,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-05-02</td>
+            <td>Flat 208, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£225,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-10</td>
+            <td>Flat 106, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£665,000</td>
+        <td class="positive" title="Previous: £650,000 (2016-03-11)">+0.3%/yr</td></tr>
+
+        <tr>
+            <td>2016-03-11</td>
+            <td>Flat 106, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£650,000</td>
+        <td class="positive" title="Previous: £528,000 (2013-09-17)">+8.7%/yr</td></tr>
+
+        <tr>
+            <td>2013-09-17</td>
+            <td>Flat 106, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£528,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-06-06</td>
+            <td>Flat 121, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£299,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-04</td>
+            <td>Flat 117, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£535,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-09-29</td>
+            <td>Flat G7, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£210,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-04-09</td>
+            <td>Flat 226, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£615,000</td>
+        <td class="positive" title="Previous: £590,000 (2015-12-23)">+0.8%/yr</td></tr>
+
+        <tr>
+            <td>2015-12-23</td>
+            <td>Flat 226, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£590,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-31</td>
+            <td>Flat 206, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£588,000</td>
+        <td class="positive" title="Previous: £405,000 (2007-07-20)">+3.1%/yr</td></tr>
+
+        <tr>
+            <td>2007-07-20</td>
+            <td>Flat 206, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£405,000</td>
+        <td class="positive" title="Previous: £325,000 (2005-12-02)">+14.5%/yr</td></tr>
+
+        <tr>
+            <td>2005-12-02</td>
+            <td>Flat 206, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£325,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-18</td>
+            <td>Flat G12, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£592,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-08-21</td>
+            <td>Flat 234, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£1,250,000</td>
+        <td class="positive" title="Previous: £705,000 (2010-05-07)">+4.4%/yr</td></tr>
+
+        <tr>
+            <td>2010-05-07</td>
+            <td>Flat 234, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£705,000</td>
+        <td class="positive" title="Previous: £409,250 (2005-07-20)">+12.0%/yr</td></tr>
+
+        <tr>
+            <td>2005-07-20</td>
+            <td>Flat 234, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£409,250</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-04-26</td>
+            <td>Flat 204, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£490,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-07-05</td>
+            <td>Flat G07, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£417,000</td>
+        <td class="negative" title="Previous: £442,000 (2016-10-14)">-2.1%/yr</td></tr>
+
+        <tr>
+            <td>2016-10-14</td>
+            <td>Flat G07, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£442,000</td>
+        <td class="positive" title="Previous: £310,000 (2013-08-15)">+11.9%/yr</td></tr>
+
+        <tr>
+            <td>2013-08-15</td>
+            <td>Flat G07, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£310,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-11-28</td>
+            <td>Flat 132, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£540,000</td>
+        <td class="positive" title="Previous: £340,000 (2006-08-30)">+7.7%/yr</td></tr>
+
+        <tr>
+            <td>2006-08-30</td>
+            <td>Flat 132, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£340,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-02-05</td>
+            <td>Flat 129, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£250,000</td>
+        <td class="positive" title="Previous: £225,000 (2006-03-17)">+2.8%/yr</td></tr>
+
+        <tr>
+            <td>2006-03-17</td>
+            <td>Flat 129, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£225,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-04-13</td>
+            <td>Flat 233, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£455,000</td>
+        <td class="positive" title="Previous: £377,000 (2005-05-25)">+3.9%/yr</td></tr>
+
+        <tr>
+            <td>2005-05-25</td>
+            <td>Flat 233, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£377,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-04-09</td>
+            <td>Flat 124, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£415,000</td>
+        <td class="positive" title="Previous: £325,000 (2012-12-14)">+3.0%/yr</td></tr>
+
+        <tr>
+            <td>2012-12-14</td>
+            <td>Flat 124, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£325,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-10-21</td>
+            <td>Flat 119, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£425,000</td>
+        <td class="positive" title="Previous: £270,000 (2010-10-18)">+4.6%/yr</td></tr>
+
+        <tr>
+            <td>2010-10-18</td>
+            <td>Flat 119, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£270,000</td>
+        <td class="positive" title="Previous: £240,000 (2006-09-21)">+2.9%/yr</td></tr>
+
+        <tr>
+            <td>2006-09-21</td>
+            <td>Flat 119, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£240,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-05-30</td>
+            <td>Flat 125, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£615,000</td>
+        <td class="negative" title="Previous: £620,000 (2016-05-27)">-0.1%/yr</td></tr>
+
+        <tr>
+            <td>2016-05-27</td>
+            <td>Flat 125, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£620,000</td>
+        <td class="positive" title="Previous: £360,000 (2010-03-26)">+9.2%/yr</td></tr>
+
+        <tr>
+            <td>2010-03-26</td>
+            <td>Flat 125, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£360,000</td>
+        <td class="positive" title="Previous: £309,950 (2006-11-03)">+4.5%/yr</td></tr>
+
+        <tr>
+            <td>2006-11-03</td>
+            <td>Flat 125, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£309,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-06-13</td>
+            <td>Flat 214, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£249,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-06-15</td>
+            <td>Flat 225, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£500,000</td>
+        <td class="positive" title="Previous: £338,000 (2012-03-28)">+9.7%/yr</td></tr>
+
+        <tr>
+            <td>2012-03-28</td>
+            <td>Flat 225, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£338,000</td>
+        <td class="positive" title="Previous: £234,880 (2006-06-30)">+6.5%/yr</td></tr>
+
+        <tr>
+            <td>2006-06-30</td>
+            <td>Flat 225, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£234,880</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-10-25</td>
+            <td>Flat G03, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£350,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-09</td>
+            <td>Flat 127, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£545,000</td>
+        <td class="positive" title="Previous: £540,000 (2019-12-06)">+0.2%/yr</td></tr>
+
+        <tr>
+            <td>2019-12-06</td>
+            <td>Flat 127, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£540,000</td>
+        <td class="positive" title="Previous: £390,000 (2012-08-24)">+4.6%/yr</td></tr>
+
+        <tr>
+            <td>2012-08-24</td>
+            <td>Flat 127, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£390,000</td>
+        <td class="positive" title="Previous: £360,000 (2008-03-07)">+1.8%/yr</td></tr>
+
+        <tr>
+            <td>2008-03-07</td>
+            <td>Flat 127, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£360,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-05-18</td>
+            <td>Flat 108, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£305,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-07-19</td>
+            <td>Flat 205, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£565,000</td>
+        <td class="positive" title="Previous: £327,500 (2005-04-04)">+6.0%/yr</td></tr>
+
+        <tr>
+            <td>2005-04-04</td>
+            <td>Flat 205, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£327,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-03-29</td>
+            <td>Flat 215, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£273,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-06-17</td>
+            <td>Flat G9, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£290,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-05-06</td>
+            <td>Flat 110, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£710,000</td>
+        <td class="positive" title="Previous: £366,000 (2006-08-25)">+4.3%/yr</td></tr>
+
+        <tr>
+            <td>2006-08-25</td>
+            <td>Flat 110, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£366,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-02-11</td>
+            <td>Flat 114, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£210,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-07-30</td>
+            <td>Flat 229, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£275,000</td>
+        <td class="positive" title="Previous: £190,000 (2005-02-11)">+4.5%/yr</td></tr>
+
+        <tr>
+            <td>2005-02-11</td>
+            <td>Flat 229, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£190,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-02-25</td>
+            <td>Flat G04, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£650,000</td>
+        <td class="negative" title="Previous: £675,000 (2015-12-10)">-0.6%/yr</td></tr>
+
+        <tr>
+            <td>2015-12-10</td>
+            <td>Flat G04, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£675,000</td>
+        <td class="positive" title="Previous: £349,950 (2006-10-27)">+7.5%/yr</td></tr>
+
+        <tr>
+            <td>2006-10-27</td>
+            <td>Flat G04, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£349,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-09-09</td>
+            <td>Flat 213, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£203,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-05-02</td>
+            <td>Flat 228, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£270,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-30</td>
+            <td>Flat 120, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£525,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-10-26</td>
+            <td>Flat 101, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£465,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-04-29</td>
+            <td>The Beaux-Arts Building, Manor Gardens</td>
+            <td class="price">£490,000</td>
+        <td class="positive" title="Previous: £419,000 (2017-11-30)">+4.7%/yr</td></tr>
+
+        <tr>
+            <td>2017-11-30</td>
+            <td>The Beaux-Arts Building, Manor Gardens</td>
+            <td class="price">£419,000</td>
+        <td class="positive" title="Previous: £276,000 (2011-10-20)">+7.1%/yr</td></tr>
+
+        <tr>
+            <td>2011-10-20</td>
+            <td>The Beaux-Arts Building, Manor Gardens</td>
+            <td class="price">£276,000</td>
+        <td class="negative" title="Previous: £280,000 (2007-09-07)">-0.3%/yr</td></tr>
+
+        <tr>
+            <td>2007-09-07</td>
+            <td>The Beaux-Arts Building, Manor Gardens</td>
+            <td class="price">£280,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-07-05</td>
+            <td>Flat G21, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£270,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-04-12</td>
+            <td>Flat 118, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£398,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-28</td>
+            <td>Flat 217, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£550,000</td>
+        <td class="positive" title="Previous: £347,500 (2010-05-04)">+4.2%/yr</td></tr>
+
+        <tr>
+            <td>2010-05-04</td>
+            <td>Flat 217, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£347,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-04-18</td>
+            <td>Flat 227, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£393,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-06-09</td>
+            <td>Flat G8, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£285,000</td>
+        <td class="positive" title="Previous: £245,000 (2007-01-26)">+3.5%/yr</td></tr>
+
+        <tr>
+            <td>2007-01-26</td>
+            <td>Flat G8, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£245,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-03-27</td>
+            <td>Flat G15, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£375,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-04-14</td>
+            <td>Flat 115, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£405,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-09-01</td>
+            <td>Flat 109, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£740,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-03-17</td>
+            <td>Flat 232, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£335,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-09-26</td>
+            <td>Flat 209, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£497,000</td>
+        <td class="positive" title="Previous: £320,000 (2011-04-19)">+3.3%/yr</td></tr>
+
+        <tr>
+            <td>2011-04-19</td>
+            <td>Flat 209, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£320,000</td>
+        <td class="positive" title="Previous: £305,000 (2007-03-30)">+1.2%/yr</td></tr>
+
+        <tr>
+            <td>2007-03-30</td>
+            <td>Flat 209, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£305,000</td>
+        <td class="positive" title="Previous: £240,000 (2005-08-31)">+16.4%/yr</td></tr>
+
+        <tr>
+            <td>2005-08-31</td>
+            <td>Flat 209, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£240,000</td>
+        <td class="negative" title="Previous: £241,000 (2005-01-03)">-0.6%/yr</td></tr>
+
+        <tr>
+            <td>2005-01-03</td>
+            <td>Flat 209, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£241,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-09-11</td>
+            <td>Flat G05, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£610,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-06-06</td>
+            <td>Flat 210, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£368,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-05-25</td>
+            <td>Flat G06, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£405,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-03-02</td>
+            <td>Flat 103, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£410,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-10-17</td>
+            <td>Flat 202, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£610,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-08-18</td>
+            <td>Flat 103A, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£220,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-11-19</td>
+            <td>Flat 104, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£512,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-09-29</td>
+            <td>Flat 221, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£325,000</td>
+        <td class="positive" title="Previous: £275,000 (2006-08-01)">+3.3%/yr</td></tr>
+
+        <tr>
+            <td>2006-08-01</td>
+            <td>Flat 221, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£275,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-05-01</td>
+            <td>Flat G18, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£760,070</td>
+        <td class="positive" title="Previous: £705,000 (2017-05-12)">+2.6%/yr</td></tr>
+
+        <tr>
+            <td>2017-05-12</td>
+            <td>Flat G18, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£705,000</td>
+        <td class="positive" title="Previous: £270,000 (2005-12-09)">+8.8%/yr</td></tr>
+
+        <tr>
+            <td>2005-12-09</td>
+            <td>Flat G18, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£270,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-10-31</td>
+            <td>Flat 231, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£600,000</td>
+        <td class="positive" title="Previous: £250,000 (2006-07-07)">+8.8%/yr</td></tr>
+
+        <tr>
+            <td>2006-07-07</td>
+            <td>Flat 231, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-01-11</td>
+            <td>Flat G02, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£730,000</td>
+        <td class="positive" title="Previous: £325,000 (2009-07-24)">+13.3%/yr</td></tr>
+
+        <tr>
+            <td>2009-07-24</td>
+            <td>Flat G02, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£325,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-05-02</td>
+            <td>Flat 216, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£215,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-01-24</td>
+            <td>Flat 203, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£475,000</td>
+        <td class="positive" title="Previous: £247,250 (2005-01-14)">+3.3%/yr</td></tr>
+
+        <tr>
+            <td>2005-01-14</td>
+            <td>Flat 203, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£247,250</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-11-02</td>
+            <td>Flat 209A, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£430,000</td>
+        <td class="positive" title="Previous: £280,000 (2010-06-15)">+4.2%/yr</td></tr>
+
+        <tr>
+            <td>2010-06-15</td>
+            <td>Flat 209A, The Beaux Arts Building, 10 - 18, Manor Gardens</td>
+            <td class="price">£280,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-N7-6JT" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-N7-6JT" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [271666, 279718, 296990, 319050, 325000, 391625, 318493, 381833, 355750, 587500, 625500, 591500, 562000, 513750, 485000, 618014, 503000, 543500, 633416, 497000, 573000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [247250, 270000, 280000, 301500, 325000, 360000, 299000, 390000, 310000, 610000, 610000, 620000, 705000, 592500, 540000, 430000, 550000, 490000, 545000, 497000, 615000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - N7 6JT',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-N7-6JT', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 113</p>
+                    <p><strong>Unique Properties:</strong> 63</p>
+                    <p><strong>Average Price:</strong> £426,761</p>
+                    <p><strong>Median Price:</strong> £393,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-N7-6JT" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector N7 6 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector N7 6</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-N7-6JT', 'N7-6JT')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-N7-6JT', 'N7-6JT')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-N7-6JT" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-N7-6JT" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [266575, 300201, 353973, 321643, 308658, 366075, 391349, 373550, 439933, 578413, 571442, 590749, 633566, 630949, 655569, 632306, 667928, 686699, 690212, 751516, 702204],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [245000, 278750, 317500, 302000, 280000, 320000, 330000, 336250, 397500, 475000, 485000, 540000, 531000, 542500, 520000, 550000, 568500, 590000, 575000, 611250, 607500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector N7 6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-N7-6JT', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-N7-6JT" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £216,983</div>
+                        <div class="cell-sell">Sell: £225,833</div>
+                        <div class="cell-return">-3.8%/yr</div>
+                        <div class="cell-count">(3 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £281,571</div>
+                        <div class="cell-sell">Sell: £380,998</div>
+                        <div class="cell-return">+11.6%/yr</div>
+                        <div class="cell-count">(32 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £250,523</div>
+                        <div class="cell-sell">Sell: £432,171</div>
+                        <div class="cell-return">+8.5%/yr</div>
+                        <div class="cell-count">(38 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £270,965</div>
+                        <div class="cell-sell">Sell: £523,400</div>
+                        <div class="cell-return">+5.5%/yr</div>
+                        <div class="cell-count">(10 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £253,440</div>
+                        <div class="cell-sell">Sell: £515,274</div>
+                        <div class="cell-return">+4.2%/yr</div>
+                        <div class="cell-count">(5 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £296,904</div>
+                        <div class="cell-sell">Sell: £338,890</div>
+                        <div class="cell-return">+7.5%/yr</div>
+                        <div class="cell-count">(41 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £309,796</div>
+                        <div class="cell-sell">Sell: £456,367</div>
+                        <div class="cell-return">+7.8%/yr</div>
+                        <div class="cell-count">(114 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £311,514</div>
+                        <div class="cell-sell">Sell: £559,018</div>
+                        <div class="cell-return">+6.6%/yr</div>
+                        <div class="cell-count">(57 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £329,091</div>
+                        <div class="cell-sell">Sell: £609,757</div>
+                        <div class="cell-return">+4.4%/yr</div>
+                        <div class="cell-count">(50 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £369,651</div>
+                        <div class="cell-sell">Sell: £489,318</div>
+                        <div class="cell-return">+18.0%/yr</div>
+                        <div class="cell-count">(43 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £443,978</div>
+                        <div class="cell-sell">Sell: £591,858</div>
+                        <div class="cell-return">+7.5%/yr</div>
+                        <div class="cell-count">(85 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £479,812</div>
+                        <div class="cell-sell">Sell: £611,334</div>
+                        <div class="cell-return">+3.1%/yr</div>
+                        <div class="cell-count">(109 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £544,079</div>
+                        <div class="cell-sell">Sell: £734,948</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(22 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £555,312</div>
+                        <div class="cell-sell">Sell: £613,388</div>
+                        <div class="cell-return">+2.4%/yr</div>
+                        <div class="cell-count">(78 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £749,175</div>
+                        <div class="cell-sell">Sell: £994,524</div>
+                        <div class="cell-return">+3.7%/yr</div>
+                        <div class="cell-count">(20 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-N7-6JT" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District N7 Analysis</h4>
+                <p class="area-info">Viewing data for entire N7 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-N7-6JT', 'N7-6JT')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-N7-6JT', 'N7-6JT')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-N7-6JT" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-N7-6JT" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [269222, 291020, 338587, 342857, 308446, 365452, 406269, 400216, 434432, 501301, 579780, 625172, 606934, 609489, 627217, 674695, 668958, 705359, 690141, 704025, 688773],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [241000, 262500, 297660, 295000, 275000, 325000, 340000, 359949, 385000, 450000, 500000, 500000, 513500, 515000, 545000, 565000, 560000, 600000, 553500, 556500, 599000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District N7 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-N7-6JT', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-N7-6JT" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £209,921</div>
+                        <div class="cell-sell">Sell: £244,278</div>
+                        <div class="cell-return">+4.0%/yr</div>
+                        <div class="cell-count">(7 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £262,996</div>
+                        <div class="cell-sell">Sell: £341,765</div>
+                        <div class="cell-return">+12.2%/yr</div>
+                        <div class="cell-count">(161 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £275,783</div>
+                        <div class="cell-sell">Sell: £442,289</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(146 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £254,739</div>
+                        <div class="cell-sell">Sell: £556,570</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(34 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £257,547</div>
+                        <div class="cell-sell">Sell: £584,540</div>
+                        <div class="cell-return">+4.9%/yr</div>
+                        <div class="cell-count">(36 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £285,136</div>
+                        <div class="cell-sell">Sell: £334,932</div>
+                        <div class="cell-return">+9.6%/yr</div>
+                        <div class="cell-count">(248 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £315,373</div>
+                        <div class="cell-sell">Sell: £459,914</div>
+                        <div class="cell-return">+7.7%/yr</div>
+                        <div class="cell-count">(767 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £321,398</div>
+                        <div class="cell-sell">Sell: £567,430</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(369 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £326,619</div>
+                        <div class="cell-sell">Sell: £604,175</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(288 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £386,991</div>
+                        <div class="cell-sell">Sell: £544,859</div>
+                        <div class="cell-return">+17.0%/yr</div>
+                        <div class="cell-count">(224 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £488,645</div>
+                        <div class="cell-sell">Sell: £602,748</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(547 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £497,867</div>
+                        <div class="cell-sell">Sell: £627,510</div>
+                        <div class="cell-return">+2.8%/yr</div>
+                        <div class="cell-count">(510 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £676,772</div>
+                        <div class="cell-sell">Sell: £609,751</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(110 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £602,365</div>
+                        <div class="cell-sell">Sell: £652,613</div>
+                        <div class="cell-return">+2.2%/yr</div>
+                        <div class="cell-count">(443 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £735,035</div>
+                        <div class="cell-sell">Sell: £810,915</div>
+                        <div class="cell-return">+5.9%/yr</div>
+                        <div class="cell-count">(125 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'N7 6'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'N7'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

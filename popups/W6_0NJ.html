@@ -1,0 +1,1442 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W6 0NJ</h3>
+            <div class="header-stats">
+                <span><strong>99</strong> transactions</span>
+                <span><strong>64</strong> properties</span>
+                <span>Avg: <strong>£448,446</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W6-0NJ')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W6-0NJ')">
+                Sector (W6 0)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W6-0NJ')">
+                District (W6)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W6-0NJ" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W6-0NJ', 'W6-0NJ')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W6-0NJ', 'W6-0NJ')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W6-0NJ', 'W6-0NJ')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W6-0NJ" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W6-0NJ" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat D, 127, Hammersmith Grove", "dates": ["2015-02-25", "2021-02-18"], "prices": [835000, 825000], "hover_texts": ["<b>Flat D, 127, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2015-02-25<br>Sale Price: \u00a3835,000", "<b>Flat D, 127, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2021-02-18<br>Sale Price: \u00a3825,000<br>Previous Purchase: \u00a3835,000<br>Previous Date: 2015-02-25<br>Annual Return: -0.2%/yr<br>Held for: 6.0 years"], "transaction_count": 2}, {"address": "165A, Hammersmith Grove", "dates": ["2005-10-21", "2010-01-11", "2018-11-23", "2024-04-30"], "prices": [376000, 482500, 825000, 840000], "hover_texts": ["<b>165A, Hammersmith Grove</b><br>Transaction 1 of 4<br>Date: 2005-10-21<br>Sale Price: \u00a3376,000", "<b>165A, Hammersmith Grove</b><br>Transaction 2 of 4<br>Date: 2010-01-11<br>Sale Price: \u00a3482,500<br>Previous Purchase: \u00a3376,000<br>Previous Date: 2005-10-21<br>Annual Return: +6.1%/yr<br>Held for: 4.2 years", "<b>165A, Hammersmith Grove</b><br>Transaction 3 of 4<br>Date: 2018-11-23<br>Sale Price: \u00a3825,000<br>Previous Purchase: \u00a3482,500<br>Previous Date: 2010-01-11<br>Annual Return: +6.2%/yr<br>Held for: 8.9 years", "<b>165A, Hammersmith Grove</b><br>Transaction 4 of 4<br>Date: 2024-04-30<br>Sale Price: \u00a3840,000<br>Previous Purchase: \u00a3825,000<br>Previous Date: 2018-11-23<br>Annual Return: +0.3%/yr<br>Held for: 5.4 years"], "transaction_count": 4}, {"address": "Flat 1, 133, Hammersmith Grove", "dates": ["2006-02-17", "2024-10-24"], "prices": [345000, 500000], "hover_texts": ["<b>Flat 1, 133, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2006-02-17<br>Sale Price: \u00a3345,000", "<b>Flat 1, 133, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2024-10-24<br>Sale Price: \u00a3500,000<br>Previous Purchase: \u00a3345,000<br>Previous Date: 2006-02-17<br>Annual Return: +2.0%/yr<br>Held for: 18.7 years"], "transaction_count": 2}, {"address": "121, Hammersmith Grove", "dates": ["2007-07-23", "2012-12-04"], "prices": [345000, 577000], "hover_texts": ["<b>121, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2007-07-23<br>Sale Price: \u00a3345,000", "<b>121, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2012-12-04<br>Sale Price: \u00a3577,000<br>Previous Purchase: \u00a3345,000<br>Previous Date: 2007-07-23<br>Annual Return: +10.1%/yr<br>Held for: 5.4 years"], "transaction_count": 2}, {"address": "Flat 5, 133, Hammersmith Grove", "dates": ["2013-12-19", "2015-08-21"], "prices": [482500, 680000], "hover_texts": ["<b>Flat 5, 133, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2013-12-19<br>Sale Price: \u00a3482,500", "<b>Flat 5, 133, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2015-08-21<br>Sale Price: \u00a3680,000<br>Previous Purchase: \u00a3482,500<br>Previous Date: 2013-12-19<br>Annual Return: +22.8%/yr<br>Held for: 1.7 years"], "transaction_count": 2}, {"address": "125A, Hammersmith Grove", "dates": ["2015-03-24", "2020-11-26", "2022-11-25"], "prices": [710000, 735000, 865000], "hover_texts": ["<b>125A, Hammersmith Grove</b><br>Transaction 1 of 3<br>Date: 2015-03-24<br>Sale Price: \u00a3710,000", "<b>125A, Hammersmith Grove</b><br>Transaction 2 of 3<br>Date: 2020-11-26<br>Sale Price: \u00a3735,000<br>Previous Purchase: \u00a3710,000<br>Previous Date: 2015-03-24<br>Annual Return: +0.6%/yr<br>Held for: 5.7 years", "<b>125A, Hammersmith Grove</b><br>Transaction 3 of 3<br>Date: 2022-11-25<br>Sale Price: \u00a3865,000<br>Previous Purchase: \u00a3735,000<br>Previous Date: 2020-11-26<br>Annual Return: +8.5%/yr<br>Held for: 2.0 years"], "transaction_count": 3}, {"address": "Flat 4, 145, Hammersmith Grove", "dates": ["2011-11-11", "2024-06-28"], "prices": [330000, 445000], "hover_texts": ["<b>Flat 4, 145, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2011-11-11<br>Sale Price: \u00a3330,000", "<b>Flat 4, 145, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2024-06-28<br>Sale Price: \u00a3445,000<br>Previous Purchase: \u00a3330,000<br>Previous Date: 2011-11-11<br>Annual Return: +2.4%/yr<br>Held for: 12.6 years"], "transaction_count": 2}, {"address": "Flat 5, 161, Hammersmith Grove", "dates": ["2006-05-23", "2016-03-24", "2020-09-11"], "prices": [207500, 350000, 350000], "hover_texts": ["<b>Flat 5, 161, Hammersmith Grove</b><br>Transaction 1 of 3<br>Date: 2006-05-23<br>Sale Price: \u00a3207,500", "<b>Flat 5, 161, Hammersmith Grove</b><br>Transaction 2 of 3<br>Date: 2016-03-24<br>Sale Price: \u00a3350,000<br>Previous Purchase: \u00a3207,500<br>Previous Date: 2006-05-23<br>Annual Return: +5.5%/yr<br>Held for: 9.8 years", "<b>Flat 5, 161, Hammersmith Grove</b><br>Transaction 3 of 3<br>Date: 2020-09-11<br>Sale Price: \u00a3350,000<br>Previous Purchase: \u00a3350,000<br>Previous Date: 2016-03-24<br>Annual Return: +0.0%/yr<br>Held for: 4.5 years"], "transaction_count": 3}, {"address": "129A, Hammersmith Grove", "dates": ["2013-03-13", "2020-11-16"], "prices": [538852, 665750], "hover_texts": ["<b>129A, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2013-03-13<br>Sale Price: \u00a3538,852", "<b>129A, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2020-11-16<br>Sale Price: \u00a3665,750<br>Previous Purchase: \u00a3538,852<br>Previous Date: 2013-03-13<br>Annual Return: +2.8%/yr<br>Held for: 7.7 years"], "transaction_count": 2}, {"address": "Basement, 157, Hammersmith Grove", "dates": ["2006-08-23", "2013-08-08", "2021-06-29", "2025-02-28"], "prices": [325000, 610000, 805000, 728000], "hover_texts": ["<b>Basement, 157, Hammersmith Grove</b><br>Transaction 1 of 4<br>Date: 2006-08-23<br>Sale Price: \u00a3325,000", "<b>Basement, 157, Hammersmith Grove</b><br>Transaction 2 of 4<br>Date: 2013-08-08<br>Sale Price: \u00a3610,000<br>Previous Purchase: \u00a3325,000<br>Previous Date: 2006-08-23<br>Annual Return: +9.5%/yr<br>Held for: 7.0 years", "<b>Basement, 157, Hammersmith Grove</b><br>Transaction 3 of 4<br>Date: 2021-06-29<br>Sale Price: \u00a3805,000<br>Previous Purchase: \u00a3610,000<br>Previous Date: 2013-08-08<br>Annual Return: +3.6%/yr<br>Held for: 7.9 years", "<b>Basement, 157, Hammersmith Grove</b><br>Transaction 4 of 4<br>Date: 2025-02-28<br>Sale Price: \u00a3728,000<br>Previous Purchase: \u00a3805,000<br>Previous Date: 2021-06-29<br>Annual Return: -2.7%/yr<br>Held for: 3.7 years"], "transaction_count": 4}, {"address": "Flat 10, 151, Hammersmith Grove", "dates": ["2006-09-08", "2012-10-18", "2022-10-28"], "prices": [245100, 350000, 500000], "hover_texts": ["<b>Flat 10, 151, Hammersmith Grove</b><br>Transaction 1 of 3<br>Date: 2006-09-08<br>Sale Price: \u00a3245,100", "<b>Flat 10, 151, Hammersmith Grove</b><br>Transaction 2 of 3<br>Date: 2012-10-18<br>Sale Price: \u00a3350,000<br>Previous Purchase: \u00a3245,100<br>Previous Date: 2006-09-08<br>Annual Return: +6.0%/yr<br>Held for: 6.1 years", "<b>Flat 10, 151, Hammersmith Grove</b><br>Transaction 3 of 3<br>Date: 2022-10-28<br>Sale Price: \u00a3500,000<br>Previous Purchase: \u00a3350,000<br>Previous Date: 2012-10-18<br>Annual Return: +3.6%/yr<br>Held for: 10.0 years"], "transaction_count": 3}, {"address": "Flat 7, 149, Hammersmith Grove", "dates": ["2006-06-23", "2006-11-07"], "prices": [170000, 205000], "hover_texts": ["<b>Flat 7, 149, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2006-06-23<br>Sale Price: \u00a3170,000", "<b>Flat 7, 149, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2006-11-07<br>Sale Price: \u00a3205,000<br>Previous Purchase: \u00a3170,000<br>Previous Date: 2006-06-23<br>Annual Return: +64.7%/yr<br>Held for: 0.4 years"], "transaction_count": 2}, {"address": "Flat 2, 143, Hammersmith Grove", "dates": ["2005-08-04", "2010-06-17"], "prices": [309950, 445000], "hover_texts": ["<b>Flat 2, 143, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2005-08-04<br>Sale Price: \u00a3309,950", "<b>Flat 2, 143, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2010-06-17<br>Sale Price: \u00a3445,000<br>Previous Purchase: \u00a3309,950<br>Previous Date: 2005-08-04<br>Annual Return: +7.7%/yr<br>Held for: 4.9 years"], "transaction_count": 2}, {"address": "Top Floor Flat, 141, Hammersmith Grove", "dates": ["2007-03-02", "2014-02-17"], "prices": [250000, 535000], "hover_texts": ["<b>Top Floor Flat, 141, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2007-03-02<br>Sale Price: \u00a3250,000", "<b>Top Floor Flat, 141, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2014-02-17<br>Sale Price: \u00a3535,000<br>Previous Purchase: \u00a3250,000<br>Previous Date: 2007-03-02<br>Annual Return: +11.5%/yr<br>Held for: 7.0 years"], "transaction_count": 2}, {"address": "Flat 5, 139, Hammersmith Grove", "dates": ["2015-05-22", "2021-06-30"], "prices": [675000, 620000], "hover_texts": ["<b>Flat 5, 139, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2015-05-22<br>Sale Price: \u00a3675,000", "<b>Flat 5, 139, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2021-06-30<br>Sale Price: \u00a3620,000<br>Previous Purchase: \u00a3675,000<br>Previous Date: 2015-05-22<br>Annual Return: -1.4%/yr<br>Held for: 6.1 years"], "transaction_count": 2}, {"address": "Flat 3, 147, Hammersmith Grove", "dates": ["2005-03-18", "2007-10-19"], "prices": [245000, 345000], "hover_texts": ["<b>Flat 3, 147, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2005-03-18<br>Sale Price: \u00a3245,000", "<b>Flat 3, 147, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2007-10-19<br>Sale Price: \u00a3345,000<br>Previous Purchase: \u00a3245,000<br>Previous Date: 2005-03-18<br>Annual Return: +14.1%/yr<br>Held for: 2.6 years"], "transaction_count": 2}, {"address": "Third Floor Flat, 141, Hammersmith Grove", "dates": ["2021-01-15", "2024-10-23"], "prices": [585000, 565000], "hover_texts": ["<b>Third Floor Flat, 141, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2021-01-15<br>Sale Price: \u00a3585,000", "<b>Third Floor Flat, 141, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2024-10-23<br>Sale Price: \u00a3565,000<br>Previous Purchase: \u00a3585,000<br>Previous Date: 2021-01-15<br>Annual Return: -0.9%/yr<br>Held for: 3.8 years"], "transaction_count": 2}, {"address": "125C, Hammersmith Grove", "dates": ["2006-06-09", "2017-06-20"], "prices": [269950, 550000], "hover_texts": ["<b>125C, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2006-06-09<br>Sale Price: \u00a3269,950", "<b>125C, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2017-06-20<br>Sale Price: \u00a3550,000<br>Previous Purchase: \u00a3269,950<br>Previous Date: 2006-06-09<br>Annual Return: +6.7%/yr<br>Held for: 11.0 years"], "transaction_count": 2}, {"address": "Flat 2, 139, Hammersmith Grove", "dates": ["2005-07-29", "2012-04-27"], "prices": [245000, 396000], "hover_texts": ["<b>Flat 2, 139, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2005-07-29<br>Sale Price: \u00a3245,000", "<b>Flat 2, 139, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2012-04-27<br>Sale Price: \u00a3396,000<br>Previous Purchase: \u00a3245,000<br>Previous Date: 2005-07-29<br>Annual Return: +7.4%/yr<br>Held for: 6.8 years"], "transaction_count": 2}, {"address": "Lower Ground Floor Flat, 141, Hammersmith Grove", "dates": ["2007-05-11", "2021-06-28"], "prices": [361000, 785000], "hover_texts": ["<b>Lower Ground Floor Flat, 141, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2007-05-11<br>Sale Price: \u00a3361,000", "<b>Lower Ground Floor Flat, 141, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2021-06-28<br>Sale Price: \u00a3785,000<br>Previous Purchase: \u00a3361,000<br>Previous Date: 2007-05-11<br>Annual Return: +5.7%/yr<br>Held for: 14.1 years"], "transaction_count": 2}, {"address": "Second And Third Floor Flat, 125, Hammersmith Grove", "dates": ["2005-08-19", "2007-05-17", "2014-11-10", "2023-08-15"], "prices": [425000, 475000, 790000, 1075000], "hover_texts": ["<b>Second And Third Floor Flat, 125, Hammersmith Grove</b><br>Transaction 1 of 4<br>Date: 2005-08-19<br>Sale Price: \u00a3425,000", "<b>Second And Third Floor Flat, 125, Hammersmith Grove</b><br>Transaction 2 of 4<br>Date: 2007-05-17<br>Sale Price: \u00a3475,000<br>Previous Purchase: \u00a3425,000<br>Previous Date: 2005-08-19<br>Annual Return: +6.6%/yr<br>Held for: 1.7 years", "<b>Second And Third Floor Flat, 125, Hammersmith Grove</b><br>Transaction 3 of 4<br>Date: 2014-11-10<br>Sale Price: \u00a3790,000<br>Previous Purchase: \u00a3475,000<br>Previous Date: 2007-05-17<br>Annual Return: +7.0%/yr<br>Held for: 7.5 years", "<b>Second And Third Floor Flat, 125, Hammersmith Grove</b><br>Transaction 4 of 4<br>Date: 2023-08-15<br>Sale Price: \u00a31,075,000<br>Previous Purchase: \u00a3790,000<br>Previous Date: 2014-11-10<br>Annual Return: +3.6%/yr<br>Held for: 8.8 years"], "transaction_count": 4}, {"address": "Flat 4, 165, Hammersmith Grove", "dates": ["2006-03-17", "2018-02-05"], "prices": [170000, 305000], "hover_texts": ["<b>Flat 4, 165, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2006-03-17<br>Sale Price: \u00a3170,000", "<b>Flat 4, 165, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2018-02-05<br>Sale Price: \u00a3305,000<br>Previous Purchase: \u00a3170,000<br>Previous Date: 2006-03-17<br>Annual Return: +5.0%/yr<br>Held for: 11.9 years"], "transaction_count": 2}, {"address": "Second Floor Flat, 135, Hammersmith Grove", "dates": ["2007-06-22", "2021-04-27"], "prices": [370000, 493594], "hover_texts": ["<b>Second Floor Flat, 135, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2007-06-22<br>Sale Price: \u00a3370,000", "<b>Second Floor Flat, 135, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2021-04-27<br>Sale Price: \u00a3493,594<br>Previous Purchase: \u00a3370,000<br>Previous Date: 2007-06-22<br>Annual Return: +2.1%/yr<br>Held for: 13.8 years"], "transaction_count": 2}, {"address": "Flat 3, 133, Hammersmith Grove", "dates": ["2007-02-14", "2009-12-18"], "prices": [350000, 407500], "hover_texts": ["<b>Flat 3, 133, Hammersmith Grove</b><br>Transaction 1 of 2<br>Date: 2007-02-14<br>Sale Price: \u00a3350,000", "<b>Flat 3, 133, Hammersmith Grove</b><br>Transaction 2 of 2<br>Date: 2009-12-18<br>Sale Price: \u00a3407,500<br>Previous Purchase: \u00a3350,000<br>Previous Date: 2007-02-14<br>Annual Return: +5.5%/yr<br>Held for: 2.8 years"], "transaction_count": 2}, {"address": "Flat 3, 151, Hammersmith Grove", "dates": ["2006-05-02", "2013-03-22", "2020-10-30"], "prices": [164000, 242500, 306000], "hover_texts": ["<b>Flat 3, 151, Hammersmith Grove</b><br>Transaction 1 of 3<br>Date: 2006-05-02<br>Sale Price: \u00a3164,000", "<b>Flat 3, 151, Hammersmith Grove</b><br>Transaction 2 of 3<br>Date: 2013-03-22<br>Sale Price: \u00a3242,500<br>Previous Purchase: \u00a3164,000<br>Previous Date: 2006-05-02<br>Annual Return: +5.8%/yr<br>Held for: 6.9 years", "<b>Flat 3, 151, Hammersmith Grove</b><br>Transaction 3 of 3<br>Date: 2020-10-30<br>Sale Price: \u00a3306,000<br>Previous Purchase: \u00a3242,500<br>Previous Date: 2013-03-22<br>Annual Return: +3.1%/yr<br>Held for: 7.6 years"], "transaction_count": 3}];
+            var singleSales = [{"date": "2009-08-24", "address": "Basement Flat, 139, Hammersmith Grove", "price": 380000, "price_display": "\u00a3380,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-08-05", "address": "Flat 4, 143, Hammersmith Grove", "price": 390000, "price_display": "\u00a3390,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-04-07", "address": "First Floor Flat, 157, Hammersmith Grove", "price": 335000, "price_display": "\u00a3335,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-12-02", "address": "163A, Hammersmith Grove", "price": 1270000, "price_display": "\u00a31,270,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": true}, {"date": "2011-10-14", "address": "Ground Floor Flat, 123, Hammersmith Grove", "price": 325000, "price_display": "\u00a3325,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-04-05", "address": "Second And Third Floor Flat, 157, Hammersmith Grove", "price": 660000, "price_display": "\u00a3660,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-11-07", "address": "Flat 5, 149, Hammersmith Grove", "price": 205000, "price_display": "\u00a3205,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-09-01", "address": "149, Hammersmith Grove", "price": 273000, "price_display": "\u00a3273,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-06-09", "address": "Third Floor Flat, 135, Hammersmith Grove", "price": 530000, "price_display": "\u00a3530,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2012-10-19", "address": "Flat 5, 143, Hammersmith Grove", "price": 383000, "price_display": "\u00a3383,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-06-12", "address": "Flat 4, 149, Hammersmith Grove", "price": 202500, "price_display": "\u00a3202,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-09-26", "address": "Flat 2, 161, Hammersmith Grove", "price": 285000, "price_display": "\u00a3285,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-10-17", "address": "Flat 4, 147, Hammersmith Grove", "price": 227500, "price_display": "\u00a3227,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2012-07-04", "address": "Ground Floor Flat, 135, Hammersmith Grove", "price": 475000, "price_display": "\u00a3475,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-08-03", "address": "Flat 2, 145, Hammersmith Grove", "price": 273000, "price_display": "\u00a3273,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-06-16", "address": "Flat 2, 149, Hammersmith Grove", "price": 295000, "price_display": "\u00a3295,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-11-07", "address": "Flat 8, 149, Hammersmith Grove", "price": 215000, "price_display": "\u00a3215,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-07-18", "address": "Flat 1, 161, Hammersmith Grove", "price": 208000, "price_display": "\u00a3208,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-03-30", "address": "Flat 3, 145, Hammersmith Grove", "price": 575000, "price_display": "\u00a3575,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2009-02-27", "address": "First Floor Flat, 121, Hammersmith Grove", "price": 285000, "price_display": "\u00a3285,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2009-08-14", "address": "Flat 4, 133, Hammersmith Grove", "price": 352500, "price_display": "\u00a3352,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-09-03", "address": "Flat 10, 149, Hammersmith Grove", "price": 345000, "price_display": "\u00a3345,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-07-29", "address": "Flat 5, 131, Hammersmith Grove", "price": 460000, "price_display": "\u00a3460,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-10-05", "address": "Flat 8, 161, Hammersmith Grove", "price": 250000, "price_display": "\u00a3250,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-09-30", "address": "Ground Floor Flat, 125, Hammersmith Grove", "price": 595000, "price_display": "\u00a3595,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-09-23", "address": "Second Floor Flat, 165, Hammersmith Grove", "price": 500000, "price_display": "\u00a3500,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-05-31", "address": "First Floor Flat, 123, Hammersmith Grove", "price": 455000, "price_display": "\u00a3455,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-12-15", "address": "Flat 9, 149, Hammersmith Grove", "price": 208500, "price_display": "\u00a3208,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-07-01", "address": "Upper Ground Floor Flat, 141, Hammersmith Grove", "price": 641000, "price_display": "\u00a3641,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-06-12", "address": "Flat 5, 145, Hammersmith Grove", "price": 400000, "price_display": "\u00a3400,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-04-07", "address": "127A, Hammersmith Grove", "price": 720000, "price_display": "\u00a3720,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-09-01", "address": "Flat 1, 149, Hammersmith Grove", "price": 225000, "price_display": "\u00a3225,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-08-15", "address": "Flat 3, 139, Hammersmith Grove", "price": 500000, "price_display": "\u00a3500,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-05-01", "address": "Flat 1, 147, Hammersmith Grove", "price": 360000, "price_display": "\u00a3360,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-10-10", "address": "Flat 3, 161, Hammersmith Grove", "price": 250000, "price_display": "\u00a3250,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-11-12", "address": "Flat 4, 139, Hammersmith Grove", "price": 290000, "price_display": "\u00a3290,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-05-25", "address": "Flat 5, 147, Hammersmith Grove", "price": 337500, "price_display": "\u00a3337,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-09-09", "address": "Flat 3, 131, Hammersmith Grove", "price": 420000, "price_display": "\u00a3420,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-03-23", "address": "Flat 2, 147, Hammersmith Grove", "price": 291000, "price_display": "\u00a3291,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W6-0NJ', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W6-0NJ');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W6-0NJ', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W6-0NJ', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W6-0NJ" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2009-08-24</td>
+            <td>Basement Flat, 139, Hammersmith Grove</td>
+            <td class="price">£380,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-08-05</td>
+            <td>Flat 4, 143, Hammersmith Grove</td>
+            <td class="price">£390,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-18</td>
+            <td>Flat D, 127, Hammersmith Grove</td>
+            <td class="price">£825,000</td>
+        <td class="negative" title="Previous: £835,000 (2015-02-25)">-0.2%/yr</td></tr>
+
+        <tr>
+            <td>2015-02-25</td>
+            <td>Flat D, 127, Hammersmith Grove</td>
+            <td class="price">£835,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-04-07</td>
+            <td>First Floor Flat, 157, Hammersmith Grove</td>
+            <td class="price">£335,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-04-30</td>
+            <td>165A, Hammersmith Grove</td>
+            <td class="price">£840,000</td>
+        <td class="positive" title="Previous: £825,000 (2018-11-23)">+0.3%/yr</td></tr>
+
+        <tr>
+            <td>2018-11-23</td>
+            <td>165A, Hammersmith Grove</td>
+            <td class="price">£825,000</td>
+        <td class="positive" title="Previous: £482,500 (2010-01-11)">+6.2%/yr</td></tr>
+
+        <tr>
+            <td>2010-01-11</td>
+            <td>165A, Hammersmith Grove</td>
+            <td class="price">£482,500</td>
+        <td class="positive" title="Previous: £376,000 (2005-10-21)">+6.1%/yr</td></tr>
+
+        <tr>
+            <td>2005-10-21</td>
+            <td>165A, Hammersmith Grove</td>
+            <td class="price">£376,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-12-02</td>
+            <td>163A, Hammersmith Grove</td>
+            <td class="price">£1,270,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-10-14</td>
+            <td>Ground Floor Flat, 123, Hammersmith Grove</td>
+            <td class="price">£325,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-10-24</td>
+            <td>Flat 1, 133, Hammersmith Grove</td>
+            <td class="price">£500,000</td>
+        <td class="positive" title="Previous: £345,000 (2006-02-17)">+2.0%/yr</td></tr>
+
+        <tr>
+            <td>2006-02-17</td>
+            <td>Flat 1, 133, Hammersmith Grove</td>
+            <td class="price">£345,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-04-05</td>
+            <td>Second And Third Floor Flat, 157, Hammersmith Grove</td>
+            <td class="price">£660,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-11-07</td>
+            <td>Flat 5, 149, Hammersmith Grove</td>
+            <td class="price">£205,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-12-04</td>
+            <td>121, Hammersmith Grove</td>
+            <td class="price">£577,000</td>
+        <td class="positive" title="Previous: £345,000 (2007-07-23)">+10.1%/yr</td></tr>
+
+        <tr>
+            <td>2007-07-23</td>
+            <td>121, Hammersmith Grove</td>
+            <td class="price">£345,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-09-01</td>
+            <td>149, Hammersmith Grove</td>
+            <td class="price">£273,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-21</td>
+            <td>Flat 5, 133, Hammersmith Grove</td>
+            <td class="price">£680,000</td>
+        <td class="positive" title="Previous: £482,500 (2013-12-19)">+22.8%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-19</td>
+            <td>Flat 5, 133, Hammersmith Grove</td>
+            <td class="price">£482,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-11-25</td>
+            <td>125A, Hammersmith Grove</td>
+            <td class="price">£865,000</td>
+        <td class="positive" title="Previous: £735,000 (2020-11-26)">+8.5%/yr</td></tr>
+
+        <tr>
+            <td>2020-11-26</td>
+            <td>125A, Hammersmith Grove</td>
+            <td class="price">£735,000</td>
+        <td class="positive" title="Previous: £710,000 (2015-03-24)">+0.6%/yr</td></tr>
+
+        <tr>
+            <td>2015-03-24</td>
+            <td>125A, Hammersmith Grove</td>
+            <td class="price">£710,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-06-28</td>
+            <td>Flat 4, 145, Hammersmith Grove</td>
+            <td class="price">£445,000</td>
+        <td class="positive" title="Previous: £330,000 (2011-11-11)">+2.4%/yr</td></tr>
+
+        <tr>
+            <td>2011-11-11</td>
+            <td>Flat 4, 145, Hammersmith Grove</td>
+            <td class="price">£330,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-06-09</td>
+            <td>Third Floor Flat, 135, Hammersmith Grove</td>
+            <td class="price">£530,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-09-11</td>
+            <td>Flat 5, 161, Hammersmith Grove</td>
+            <td class="price">£350,000</td>
+        <td class="negative" title="Previous: £350,000 (2016-03-24)">+0.0%/yr</td></tr>
+
+        <tr>
+            <td>2016-03-24</td>
+            <td>Flat 5, 161, Hammersmith Grove</td>
+            <td class="price">£350,000</td>
+        <td class="positive" title="Previous: £207,500 (2006-05-23)">+5.5%/yr</td></tr>
+
+        <tr>
+            <td>2006-05-23</td>
+            <td>Flat 5, 161, Hammersmith Grove</td>
+            <td class="price">£207,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-10-19</td>
+            <td>Flat 5, 143, Hammersmith Grove</td>
+            <td class="price">£383,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-11-16</td>
+            <td>129A, Hammersmith Grove</td>
+            <td class="price">£665,750</td>
+        <td class="positive" title="Previous: £538,852 (2013-03-13)">+2.8%/yr</td></tr>
+
+        <tr>
+            <td>2013-03-13</td>
+            <td>129A, Hammersmith Grove</td>
+            <td class="price">£538,852</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-06-12</td>
+            <td>Flat 4, 149, Hammersmith Grove</td>
+            <td class="price">£202,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-09-26</td>
+            <td>Flat 2, 161, Hammersmith Grove</td>
+            <td class="price">£285,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-10-17</td>
+            <td>Flat 4, 147, Hammersmith Grove</td>
+            <td class="price">£227,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-07-04</td>
+            <td>Ground Floor Flat, 135, Hammersmith Grove</td>
+            <td class="price">£475,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-02-28</td>
+            <td>Basement, 157, Hammersmith Grove</td>
+            <td class="price">£728,000</td>
+        <td class="negative" title="Previous: £805,000 (2021-06-29)">-2.7%/yr</td></tr>
+
+        <tr>
+            <td>2021-06-29</td>
+            <td>Basement, 157, Hammersmith Grove</td>
+            <td class="price">£805,000</td>
+        <td class="positive" title="Previous: £610,000 (2013-08-08)">+3.6%/yr</td></tr>
+
+        <tr>
+            <td>2013-08-08</td>
+            <td>Basement, 157, Hammersmith Grove</td>
+            <td class="price">£610,000</td>
+        <td class="positive" title="Previous: £325,000 (2006-08-23)">+9.5%/yr</td></tr>
+
+        <tr>
+            <td>2006-08-23</td>
+            <td>Basement, 157, Hammersmith Grove</td>
+            <td class="price">£325,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-10-28</td>
+            <td>Flat 10, 151, Hammersmith Grove</td>
+            <td class="price">£500,000</td>
+        <td class="positive" title="Previous: £350,000 (2012-10-18)">+3.6%/yr</td></tr>
+
+        <tr>
+            <td>2012-10-18</td>
+            <td>Flat 10, 151, Hammersmith Grove</td>
+            <td class="price">£350,000</td>
+        <td class="positive" title="Previous: £245,100 (2006-09-08)">+6.0%/yr</td></tr>
+
+        <tr>
+            <td>2006-09-08</td>
+            <td>Flat 10, 151, Hammersmith Grove</td>
+            <td class="price">£245,100</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-11-07</td>
+            <td>Flat 7, 149, Hammersmith Grove</td>
+            <td class="price">£205,000</td>
+        <td class="positive" title="Previous: £170,000 (2006-06-23)">+64.7%/yr</td></tr>
+
+        <tr>
+            <td>2006-06-23</td>
+            <td>Flat 7, 149, Hammersmith Grove</td>
+            <td class="price">£170,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-08-03</td>
+            <td>Flat 2, 145, Hammersmith Grove</td>
+            <td class="price">£273,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-06-17</td>
+            <td>Flat 2, 143, Hammersmith Grove</td>
+            <td class="price">£445,000</td>
+        <td class="positive" title="Previous: £309,950 (2005-08-04)">+7.7%/yr</td></tr>
+
+        <tr>
+            <td>2005-08-04</td>
+            <td>Flat 2, 143, Hammersmith Grove</td>
+            <td class="price">£309,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-02-17</td>
+            <td>Top Floor Flat, 141, Hammersmith Grove</td>
+            <td class="price">£535,000</td>
+        <td class="positive" title="Previous: £250,000 (2007-03-02)">+11.5%/yr</td></tr>
+
+        <tr>
+            <td>2007-03-02</td>
+            <td>Top Floor Flat, 141, Hammersmith Grove</td>
+            <td class="price">£250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-06-16</td>
+            <td>Flat 2, 149, Hammersmith Grove</td>
+            <td class="price">£295,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-11-07</td>
+            <td>Flat 8, 149, Hammersmith Grove</td>
+            <td class="price">£215,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-07-18</td>
+            <td>Flat 1, 161, Hammersmith Grove</td>
+            <td class="price">£208,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-30</td>
+            <td>Flat 5, 139, Hammersmith Grove</td>
+            <td class="price">£620,000</td>
+        <td class="negative" title="Previous: £675,000 (2015-05-22)">-1.4%/yr</td></tr>
+
+        <tr>
+            <td>2015-05-22</td>
+            <td>Flat 5, 139, Hammersmith Grove</td>
+            <td class="price">£675,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-03-30</td>
+            <td>Flat 3, 145, Hammersmith Grove</td>
+            <td class="price">£575,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-02-27</td>
+            <td>First Floor Flat, 121, Hammersmith Grove</td>
+            <td class="price">£285,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-10-19</td>
+            <td>Flat 3, 147, Hammersmith Grove</td>
+            <td class="price">£345,000</td>
+        <td class="positive" title="Previous: £245,000 (2005-03-18)">+14.1%/yr</td></tr>
+
+        <tr>
+            <td>2005-03-18</td>
+            <td>Flat 3, 147, Hammersmith Grove</td>
+            <td class="price">£245,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-10-23</td>
+            <td>Third Floor Flat, 141, Hammersmith Grove</td>
+            <td class="price">£565,000</td>
+        <td class="negative" title="Previous: £585,000 (2021-01-15)">-0.9%/yr</td></tr>
+
+        <tr>
+            <td>2021-01-15</td>
+            <td>Third Floor Flat, 141, Hammersmith Grove</td>
+            <td class="price">£585,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-08-14</td>
+            <td>Flat 4, 133, Hammersmith Grove</td>
+            <td class="price">£352,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-09-03</td>
+            <td>Flat 10, 149, Hammersmith Grove</td>
+            <td class="price">£345,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-07-29</td>
+            <td>Flat 5, 131, Hammersmith Grove</td>
+            <td class="price">£460,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-10-05</td>
+            <td>Flat 8, 161, Hammersmith Grove</td>
+            <td class="price">£250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-09-30</td>
+            <td>Ground Floor Flat, 125, Hammersmith Grove</td>
+            <td class="price">£595,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-09-23</td>
+            <td>Second Floor Flat, 165, Hammersmith Grove</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-05-31</td>
+            <td>First Floor Flat, 123, Hammersmith Grove</td>
+            <td class="price">£455,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-12-15</td>
+            <td>Flat 9, 149, Hammersmith Grove</td>
+            <td class="price">£208,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-07-01</td>
+            <td>Upper Ground Floor Flat, 141, Hammersmith Grove</td>
+            <td class="price">£641,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-06-12</td>
+            <td>Flat 5, 145, Hammersmith Grove</td>
+            <td class="price">£400,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-04-07</td>
+            <td>127A, Hammersmith Grove</td>
+            <td class="price">£720,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-06-20</td>
+            <td>125C, Hammersmith Grove</td>
+            <td class="price">£550,000</td>
+        <td class="positive" title="Previous: £269,950 (2006-06-09)">+6.7%/yr</td></tr>
+
+        <tr>
+            <td>2006-06-09</td>
+            <td>125C, Hammersmith Grove</td>
+            <td class="price">£269,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-09-01</td>
+            <td>Flat 1, 149, Hammersmith Grove</td>
+            <td class="price">£225,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-08-15</td>
+            <td>Flat 3, 139, Hammersmith Grove</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-04-27</td>
+            <td>Flat 2, 139, Hammersmith Grove</td>
+            <td class="price">£396,000</td>
+        <td class="positive" title="Previous: £245,000 (2005-07-29)">+7.4%/yr</td></tr>
+
+        <tr>
+            <td>2005-07-29</td>
+            <td>Flat 2, 139, Hammersmith Grove</td>
+            <td class="price">£245,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-05-01</td>
+            <td>Flat 1, 147, Hammersmith Grove</td>
+            <td class="price">£360,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-10-10</td>
+            <td>Flat 3, 161, Hammersmith Grove</td>
+            <td class="price">£250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-28</td>
+            <td>Lower Ground Floor Flat, 141, Hammersmith Grove</td>
+            <td class="price">£785,000</td>
+        <td class="positive" title="Previous: £361,000 (2007-05-11)">+5.7%/yr</td></tr>
+
+        <tr>
+            <td>2007-05-11</td>
+            <td>Lower Ground Floor Flat, 141, Hammersmith Grove</td>
+            <td class="price">£361,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-08-15</td>
+            <td>Second And Third Floor Flat, 125, Hammersmith Grove</td>
+            <td class="price">£1,075,000</td>
+        <td class="positive" title="Previous: £790,000 (2014-11-10)">+3.6%/yr</td></tr>
+
+        <tr>
+            <td>2014-11-10</td>
+            <td>Second And Third Floor Flat, 125, Hammersmith Grove</td>
+            <td class="price">£790,000</td>
+        <td class="positive" title="Previous: £475,000 (2007-05-17)">+7.0%/yr</td></tr>
+
+        <tr>
+            <td>2007-05-17</td>
+            <td>Second And Third Floor Flat, 125, Hammersmith Grove</td>
+            <td class="price">£475,000</td>
+        <td class="positive" title="Previous: £425,000 (2005-08-19)">+6.6%/yr</td></tr>
+
+        <tr>
+            <td>2005-08-19</td>
+            <td>Second And Third Floor Flat, 125, Hammersmith Grove</td>
+            <td class="price">£425,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-11-12</td>
+            <td>Flat 4, 139, Hammersmith Grove</td>
+            <td class="price">£290,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-05-25</td>
+            <td>Flat 5, 147, Hammersmith Grove</td>
+            <td class="price">£337,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-05</td>
+            <td>Flat 4, 165, Hammersmith Grove</td>
+            <td class="price">£305,000</td>
+        <td class="positive" title="Previous: £170,000 (2006-03-17)">+5.0%/yr</td></tr>
+
+        <tr>
+            <td>2006-03-17</td>
+            <td>Flat 4, 165, Hammersmith Grove</td>
+            <td class="price">£170,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-04-27</td>
+            <td>Second Floor Flat, 135, Hammersmith Grove</td>
+            <td class="price">£493,594</td>
+        <td class="positive" title="Previous: £370,000 (2007-06-22)">+2.1%/yr</td></tr>
+
+        <tr>
+            <td>2007-06-22</td>
+            <td>Second Floor Flat, 135, Hammersmith Grove</td>
+            <td class="price">£370,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-09-09</td>
+            <td>Flat 3, 131, Hammersmith Grove</td>
+            <td class="price">£420,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-03-23</td>
+            <td>Flat 2, 147, Hammersmith Grove</td>
+            <td class="price">£291,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-12-18</td>
+            <td>Flat 3, 133, Hammersmith Grove</td>
+            <td class="price">£407,500</td>
+        <td class="positive" title="Previous: £350,000 (2007-02-14)">+5.5%/yr</td></tr>
+
+        <tr>
+            <td>2007-02-14</td>
+            <td>Flat 3, 133, Hammersmith Grove</td>
+            <td class="price">£350,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-10-30</td>
+            <td>Flat 3, 151, Hammersmith Grove</td>
+            <td class="price">£306,000</td>
+        <td class="positive" title="Previous: £242,500 (2013-03-22)">+3.1%/yr</td></tr>
+
+        <tr>
+            <td>2013-03-22</td>
+            <td>Flat 3, 151, Hammersmith Grove</td>
+            <td class="price">£242,500</td>
+        <td class="positive" title="Previous: £164,000 (2006-05-02)">+5.8%/yr</td></tr>
+
+        <tr>
+            <td>2006-05-02</td>
+            <td>Flat 3, 151, Hammersmith Grove</td>
+            <td class="price">£164,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W6-0NJ" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W6-0NJ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [320181, 230253, 335772, 284333, 356250, 390625, 408000, 436200, 474770, 721833, 660000, 462500, 550000, 565000, 514187, 690513, 631666, 1075000, 561000, 728000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [309950, 208500, 345000, 285000, 380000, 445000, 335000, 396000, 500000, 641000, 680000, 575000, 550000, 825000, 665750, 720000, 530000, 1075000, 500000, 728000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W6 0NJ',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W6-0NJ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 99</p>
+                    <p><strong>Unique Properties:</strong> 64</p>
+                    <p><strong>Average Price:</strong> £448,446</p>
+                    <p><strong>Median Price:</strong> £383,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W6-0NJ" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W6 0 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W6 0</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W6-0NJ', 'W6-0NJ')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W6-0NJ', 'W6-0NJ')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W6-0NJ" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W6-0NJ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [434208, 432131, 545817, 595377, 487712, 641777, 570997, 732623, 801998, 873680, 851778, 840106, 815982, 890404, 952165, 979584, 859529, 825355, 943172, 940639, 915510],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [370000, 349950, 440000, 452500, 402500, 527500, 424800, 532750, 587500, 722500, 640000, 625000, 715000, 829950, 768550, 780000, 730000, 672500, 788046, 745000, 622500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W6 0 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W6-0NJ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W6-0NJ" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £363,636</div>
+                        <div class="cell-sell">Sell: £508,900</div>
+                        <div class="cell-return">+12.4%/yr</div>
+                        <div class="cell-count">(45 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £413,839</div>
+                        <div class="cell-sell">Sell: £902,805</div>
+                        <div class="cell-return">+11.9%/yr</div>
+                        <div class="cell-count">(47 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £521,357</div>
+                        <div class="cell-sell">Sell: £1,332,119</div>
+                        <div class="cell-return">+7.9%/yr</div>
+                        <div class="cell-count">(21 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £378,453</div>
+                        <div class="cell-sell">Sell: £861,750</div>
+                        <div class="cell-return">+5.0%/yr</div>
+                        <div class="cell-count">(16 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £419,850</div>
+                        <div class="cell-sell">Sell: £523,501</div>
+                        <div class="cell-return">+10.2%/yr</div>
+                        <div class="cell-count">(67 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £543,304</div>
+                        <div class="cell-sell">Sell: £850,248</div>
+                        <div class="cell-return">+10.2%/yr</div>
+                        <div class="cell-count">(220 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £600,732</div>
+                        <div class="cell-sell">Sell: £1,061,709</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(108 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £513,992</div>
+                        <div class="cell-sell">Sell: £937,502</div>
+                        <div class="cell-return">+4.4%/yr</div>
+                        <div class="cell-count">(82 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £534,678</div>
+                        <div class="cell-sell">Sell: £735,843</div>
+                        <div class="cell-return">+17.1%/yr</div>
+                        <div class="cell-count">(96 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £688,241</div>
+                        <div class="cell-sell">Sell: £875,201</div>
+                        <div class="cell-return">+6.1%/yr</div>
+                        <div class="cell-count">(143 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £834,376</div>
+                        <div class="cell-sell">Sell: £1,075,699</div>
+                        <div class="cell-return">+3.0%/yr</div>
+                        <div class="cell-count">(147 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £885,351</div>
+                        <div class="cell-sell">Sell: £883,918</div>
+                        <div class="cell-return">+8.2%/yr</div>
+                        <div class="cell-count">(49 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £761,064</div>
+                        <div class="cell-sell">Sell: £839,635</div>
+                        <div class="cell-return">+3.1%/yr</div>
+                        <div class="cell-count">(145 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £532,607</div>
+                        <div class="cell-sell">Sell: £593,133</div>
+                        <div class="cell-return">+5.7%/yr</div>
+                        <div class="cell-count">(39 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W6-0NJ" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W6 Analysis</h4>
+                <p class="area-info">Viewing data for entire W6 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W6-0NJ', 'W6-0NJ')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W6-0NJ', 'W6-0NJ')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W6-0NJ" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W6-0NJ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [394991, 424257, 482804, 507096, 498061, 595317, 551872, 659380, 687325, 854158, 891759, 847660, 999097, 935647, 942374, 954287, 872237, 858786, 905639, 932128, 912339],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [333250, 341000, 380000, 410000, 415000, 464500, 426800, 480000, 529975, 700000, 715000, 632000, 809975, 819950, 695000, 807500, 725000, 687169, 785000, 705000, 661000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W6-0NJ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W6-0NJ" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £343,433</div>
+                        <div class="cell-sell">Sell: £321,198</div>
+                        <div class="cell-return">+34.9%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £354,647</div>
+                        <div class="cell-sell">Sell: £506,536</div>
+                        <div class="cell-return">+12.9%/yr</div>
+                        <div class="cell-count">(148 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £404,687</div>
+                        <div class="cell-sell">Sell: £836,146</div>
+                        <div class="cell-return">+10.3%/yr</div>
+                        <div class="cell-count">(119 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £439,511</div>
+                        <div class="cell-sell">Sell: £1,031,792</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(59 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £436,273</div>
+                        <div class="cell-sell">Sell: £980,135</div>
+                        <div class="cell-return">+4.9%/yr</div>
+                        <div class="cell-count">(46 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £374,635</div>
+                        <div class="cell-sell">Sell: £463,248</div>
+                        <div class="cell-return">+11.3%/yr</div>
+                        <div class="cell-count">(218 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £473,024</div>
+                        <div class="cell-sell">Sell: £731,864</div>
+                        <div class="cell-return">+9.6%/yr</div>
+                        <div class="cell-count">(578 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £547,112</div>
+                        <div class="cell-sell">Sell: £956,716</div>
+                        <div class="cell-return">+6.4%/yr</div>
+                        <div class="cell-count">(278 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £520,029</div>
+                        <div class="cell-sell">Sell: £963,506</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(237 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £507,170</div>
+                        <div class="cell-sell">Sell: £723,683</div>
+                        <div class="cell-return">+18.7%/yr</div>
+                        <div class="cell-count">(209 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £617,093</div>
+                        <div class="cell-sell">Sell: £806,935</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(375 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £783,225</div>
+                        <div class="cell-sell">Sell: £997,410</div>
+                        <div class="cell-return">+2.9%/yr</div>
+                        <div class="cell-count">(412 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,001,846</div>
+                        <div class="cell-sell">Sell: £957,778</div>
+                        <div class="cell-return">+6.0%/yr</div>
+                        <div class="cell-count">(124 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £777,012</div>
+                        <div class="cell-sell">Sell: £839,487</div>
+                        <div class="cell-return">+2.8%/yr</div>
+                        <div class="cell-count">(423 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £638,804</div>
+                        <div class="cell-sell">Sell: £735,829</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(112 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W6 0'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W6'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

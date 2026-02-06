@@ -1,0 +1,1604 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>N7 9GY</h3>
+            <div class="header-stats">
+                <span><strong>126</strong> transactions</span>
+                <span><strong>105</strong> properties</span>
+                <span>Avg: <strong>£618,571</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-N7-9GY')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-N7-9GY')">
+                Sector (N7 9)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-N7-9GY')">
+                District (N7)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-N7-9GY" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-N7-9GY', 'N7-9GY')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-N7-9GY', 'N7-9GY')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-N7-9GY', 'N7-9GY')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-N7-9GY" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-N7-9GY" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 44, 9A, York Way", "dates": ["2018-11-01", "2024-01-03"], "prices": [600000, 485000], "hover_texts": ["<b>Flat 44, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2018-11-01<br>Sale Price: \u00a3600,000", "<b>Flat 44, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2024-01-03<br>Sale Price: \u00a3485,000<br>Previous Purchase: \u00a3600,000<br>Previous Date: 2018-11-01<br>Annual Return: -4.0%/yr<br>Held for: 5.2 years"], "transaction_count": 2}, {"address": "Flat 66, 9A, York Way", "dates": ["2022-04-22", "2022-11-16"], "prices": [503572, 700000], "hover_texts": ["<b>Flat 66, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2022-04-22<br>Sale Price: \u00a3503,572", "<b>Flat 66, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2022-11-16<br>Sale Price: \u00a3700,000<br>Previous Purchase: \u00a3503,572<br>Previous Date: 2022-04-22<br>Annual Return: +78.3%/yr<br>Held for: 0.6 years"], "transaction_count": 2}, {"address": "Flat 46, 9A, York Way", "dates": ["2017-11-15", "2021-06-14"], "prices": [752500, 752500], "hover_texts": ["<b>Flat 46, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2017-11-15<br>Sale Price: \u00a3752,500", "<b>Flat 46, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2021-06-14<br>Sale Price: \u00a3752,500<br>Previous Purchase: \u00a3752,500<br>Previous Date: 2017-11-15<br>Annual Return: +0.0%/yr<br>Held for: 3.6 years"], "transaction_count": 2}, {"address": "Flat 14, 9B, York Way", "dates": ["2017-11-03", "2024-05-03"], "prices": [666336, 755000], "hover_texts": ["<b>Flat 14, 9B, York Way</b><br>Transaction 1 of 2<br>Date: 2017-11-03<br>Sale Price: \u00a3666,336", "<b>Flat 14, 9B, York Way</b><br>Transaction 2 of 2<br>Date: 2024-05-03<br>Sale Price: \u00a3755,000<br>Previous Purchase: \u00a3666,336<br>Previous Date: 2017-11-03<br>Annual Return: +1.9%/yr<br>Held for: 6.5 years"], "transaction_count": 2}, {"address": "Flat 88, 9A, York Way", "dates": ["2022-04-22", "2023-05-12"], "prices": [503571, 580000], "hover_texts": ["<b>Flat 88, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2022-04-22<br>Sale Price: \u00a3503,571", "<b>Flat 88, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2023-05-12<br>Sale Price: \u00a3580,000<br>Previous Purchase: \u00a3503,571<br>Previous Date: 2022-04-22<br>Annual Return: +14.3%/yr<br>Held for: 1.1 years"], "transaction_count": 2}, {"address": "Flat 23, 9A, York Way", "dates": ["2017-12-04", "2025-03-21"], "prices": [545000, 495000], "hover_texts": ["<b>Flat 23, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2017-12-04<br>Sale Price: \u00a3545,000", "<b>Flat 23, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2025-03-21<br>Sale Price: \u00a3495,000<br>Previous Purchase: \u00a3545,000<br>Previous Date: 2017-12-04<br>Annual Return: -1.3%/yr<br>Held for: 7.3 years"], "transaction_count": 2}, {"address": "Flat 6, 9C, York Way", "dates": ["2017-11-13", "2021-05-28"], "prices": [672262, 760000], "hover_texts": ["<b>Flat 6, 9C, York Way</b><br>Transaction 1 of 2<br>Date: 2017-11-13<br>Sale Price: \u00a3672,262", "<b>Flat 6, 9C, York Way</b><br>Transaction 2 of 2<br>Date: 2021-05-28<br>Sale Price: \u00a3760,000<br>Previous Purchase: \u00a3672,262<br>Previous Date: 2017-11-13<br>Annual Return: +3.5%/yr<br>Held for: 3.5 years"], "transaction_count": 2}, {"address": "Flat 64, 9A, York Way", "dates": ["2022-04-22", "2022-08-03"], "prices": [503571, 605000], "hover_texts": ["<b>Flat 64, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2022-04-22<br>Sale Price: \u00a3503,571", "<b>Flat 64, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2022-08-03<br>Sale Price: \u00a3605,000<br>Previous Purchase: \u00a3503,571<br>Previous Date: 2022-04-22<br>Annual Return: +91.7%/yr<br>Held for: 0.3 years"], "transaction_count": 2}, {"address": "Flat 19, 9A, York Way", "dates": ["2017-12-04", "2021-02-05"], "prices": [600000, 525000], "hover_texts": ["<b>Flat 19, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2017-12-04<br>Sale Price: \u00a3600,000", "<b>Flat 19, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2021-02-05<br>Sale Price: \u00a3525,000<br>Previous Purchase: \u00a3600,000<br>Previous Date: 2017-12-04<br>Annual Return: -4.1%/yr<br>Held for: 3.2 years"], "transaction_count": 2}, {"address": "Flat 51, 9A, York Way", "dates": ["2022-04-22", "2022-11-11"], "prices": [503572, 715000], "hover_texts": ["<b>Flat 51, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2022-04-22<br>Sale Price: \u00a3503,572", "<b>Flat 51, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2022-11-11<br>Sale Price: \u00a3715,000<br>Previous Purchase: \u00a3503,572<br>Previous Date: 2022-04-22<br>Annual Return: +87.9%/yr<br>Held for: 0.6 years"], "transaction_count": 2}, {"address": "Flat 21, 9C, York Way", "dates": ["2017-11-16", "2021-06-30"], "prices": [695000, 700000], "hover_texts": ["<b>Flat 21, 9C, York Way</b><br>Transaction 1 of 2<br>Date: 2017-11-16<br>Sale Price: \u00a3695,000", "<b>Flat 21, 9C, York Way</b><br>Transaction 2 of 2<br>Date: 2021-06-30<br>Sale Price: \u00a3700,000<br>Previous Purchase: \u00a3695,000<br>Previous Date: 2017-11-16<br>Annual Return: +0.2%/yr<br>Held for: 3.6 years"], "transaction_count": 2}, {"address": "Flat 87, 9A, York Way", "dates": ["2022-04-22", "2022-12-14"], "prices": [503572, 750000], "hover_texts": ["<b>Flat 87, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2022-04-22<br>Sale Price: \u00a3503,572", "<b>Flat 87, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2022-12-14<br>Sale Price: \u00a3750,000<br>Previous Purchase: \u00a3503,572<br>Previous Date: 2022-04-22<br>Annual Return: +85.2%/yr<br>Held for: 0.7 years"], "transaction_count": 2}, {"address": "Flat 28, 9A, York Way", "dates": ["2018-01-15", "2024-04-09"], "prices": [550000, 510000], "hover_texts": ["<b>Flat 28, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2018-01-15<br>Sale Price: \u00a3550,000", "<b>Flat 28, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2024-04-09<br>Sale Price: \u00a3510,000<br>Previous Purchase: \u00a3550,000<br>Previous Date: 2018-01-15<br>Annual Return: -1.2%/yr<br>Held for: 6.2 years"], "transaction_count": 2}, {"address": "Flat 83, 9A, York Way", "dates": ["2022-04-22", "2023-05-15"], "prices": [503571, 570000], "hover_texts": ["<b>Flat 83, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2022-04-22<br>Sale Price: \u00a3503,571", "<b>Flat 83, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2023-05-15<br>Sale Price: \u00a3570,000<br>Previous Purchase: \u00a3503,571<br>Previous Date: 2022-04-22<br>Annual Return: +12.4%/yr<br>Held for: 1.1 years"], "transaction_count": 2}, {"address": "Flat 12, 9C, York Way", "dates": ["2017-11-10", "2023-02-10"], "prices": [654300, 765000], "hover_texts": ["<b>Flat 12, 9C, York Way</b><br>Transaction 1 of 2<br>Date: 2017-11-10<br>Sale Price: \u00a3654,300", "<b>Flat 12, 9C, York Way</b><br>Transaction 2 of 2<br>Date: 2023-02-10<br>Sale Price: \u00a3765,000<br>Previous Purchase: \u00a3654,300<br>Previous Date: 2017-11-10<br>Annual Return: +3.0%/yr<br>Held for: 5.2 years"], "transaction_count": 2}, {"address": "Flat 69, 9A, York Way", "dates": ["2022-04-22", "2023-04-14"], "prices": [503571, 540000], "hover_texts": ["<b>Flat 69, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2022-04-22<br>Sale Price: \u00a3503,571", "<b>Flat 69, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2023-04-14<br>Sale Price: \u00a3540,000<br>Previous Purchase: \u00a3503,571<br>Previous Date: 2022-04-22<br>Annual Return: +7.4%/yr<br>Held for: 1.0 years"], "transaction_count": 2}, {"address": "Flat 75, 9A, York Way", "dates": ["2022-04-22", "2022-11-08"], "prices": [503571, 530000], "hover_texts": ["<b>Flat 75, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2022-04-22<br>Sale Price: \u00a3503,571", "<b>Flat 75, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2022-11-08<br>Sale Price: \u00a3530,000<br>Previous Purchase: \u00a3503,571<br>Previous Date: 2022-04-22<br>Annual Return: +9.8%/yr<br>Held for: 0.6 years"], "transaction_count": 2}, {"address": "Flat 84, 9A, York Way", "dates": ["2022-04-22", "2023-04-21"], "prices": [503571, 545000], "hover_texts": ["<b>Flat 84, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2022-04-22<br>Sale Price: \u00a3503,571", "<b>Flat 84, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2023-04-21<br>Sale Price: \u00a3545,000<br>Previous Purchase: \u00a3503,571<br>Previous Date: 2022-04-22<br>Annual Return: +8.3%/yr<br>Held for: 1.0 years"], "transaction_count": 2}, {"address": "Flat 92, 9A, York Way", "dates": ["2022-04-22", "2022-07-22"], "prices": [503572, 815000], "hover_texts": ["<b>Flat 92, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2022-04-22<br>Sale Price: \u00a3503,572", "<b>Flat 92, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2022-07-22<br>Sale Price: \u00a3815,000<br>Previous Purchase: \u00a3503,572<br>Previous Date: 2022-04-22<br>Annual Return: +590.6%/yr<br>Held for: 0.2 years"], "transaction_count": 2}, {"address": "Flat 79, 9A, York Way", "dates": ["2022-04-22", "2023-04-21"], "prices": [503571, 575000], "hover_texts": ["<b>Flat 79, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2022-04-22<br>Sale Price: \u00a3503,571", "<b>Flat 79, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2023-04-21<br>Sale Price: \u00a3575,000<br>Previous Purchase: \u00a3503,571<br>Previous Date: 2022-04-22<br>Annual Return: +14.2%/yr<br>Held for: 1.0 years"], "transaction_count": 2}, {"address": "Flat 54, 9A, York Way", "dates": ["2022-04-22", "2022-11-16"], "prices": [503571, 520000], "hover_texts": ["<b>Flat 54, 9A, York Way</b><br>Transaction 1 of 2<br>Date: 2022-04-22<br>Sale Price: \u00a3503,571", "<b>Flat 54, 9A, York Way</b><br>Transaction 2 of 2<br>Date: 2022-11-16<br>Sale Price: \u00a3520,000<br>Previous Purchase: \u00a3503,571<br>Previous Date: 2022-04-22<br>Annual Return: +5.8%/yr<br>Held for: 0.6 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2022-04-22", "address": "Flat 71, 9A, York Way", "price": 770000, "price_display": "\u00a3770,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-09", "address": "Flat 65, 9A, York Way", "price": 615125, "price_display": "\u00a3615,125", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-23", "address": "Flat 45, 9A, York Way", "price": 627500, "price_display": "\u00a3627,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-12", "address": "Flat 55, 9A, York Way", "price": 606000, "price_display": "\u00a3606,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 25, 9B, York Way", "price": 648736, "price_display": "\u00a3648,736", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-05", "address": "Flat 35, 9A, York Way", "price": 588000, "price_display": "\u00a3588,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-17", "address": "Flat 63, 9A, York Way", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 19, 9B, York Way", "price": 666336, "price_display": "\u00a3666,336", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-06", "address": "Flat 18, 9C, York Way", "price": 482650, "price_display": "\u00a3482,650", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 21, 9B, York Way", "price": 648736, "price_display": "\u00a3648,736", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-03-22", "address": "Flat 82, 9A, York Way", "price": 715000, "price_display": "\u00a3715,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-22", "address": "Flat 90, 9A, York Way", "price": 690000, "price_display": "\u00a3690,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-21", "address": "Flat 18, 9A, York Way", "price": 544750, "price_display": "\u00a3544,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-09", "address": "Flat 29, 9C, York Way", "price": 731500, "price_display": "\u00a3731,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 29, 9B, York Way", "price": 666336, "price_display": "\u00a3666,336", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 9, 9B, York Way", "price": 666336, "price_display": "\u00a3666,336", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-11", "address": "Flat 25, 9A, York Way", "price": 598387, "price_display": "\u00a3598,387", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-06-20", "address": "Flat 86, 9A, York Way", "price": 850250, "price_display": "\u00a3850,250", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-19", "address": "Flat 11, 9C, York Way", "price": 635800, "price_display": "\u00a3635,800", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-14", "address": "Flat 14, 9C, York Way", "price": 654300, "price_display": "\u00a3654,300", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-05", "address": "Flat 76, 9A, York Way", "price": 862500, "price_display": "\u00a3862,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-20", "address": "Flat 50, 9A, York Way", "price": 600900, "price_display": "\u00a3600,900", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-21", "address": "Flat 28, 9C, York Way", "price": 524000, "price_display": "\u00a3524,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-07", "address": "Flat 68, 9A, York Way", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-09", "address": "Flat 70, 9A, York Way", "price": 619875, "price_display": "\u00a3619,875", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-02-09", "address": "Flat 29, 9A, York Way", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-22", "address": "Flat 58, 9A, York Way", "price": 599500, "price_display": "\u00a3599,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-11", "address": "Flat 40, 9A, York Way", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 22, 9B, York Way", "price": 666336, "price_display": "\u00a3666,336", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 16, 9B, York Way", "price": 648736, "price_display": "\u00a3648,736", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-06", "address": "Flat 53, 9A, York Way", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-16", "address": "Flat 13, 9C, York Way", "price": 507000, "price_display": "\u00a3507,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 24, 9B, York Way", "price": 666336, "price_display": "\u00a3666,336", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 15, 9B, York Way", "price": 648736, "price_display": "\u00a3648,736", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-14", "address": "Flat 27, 9C, York Way", "price": 750000, "price_display": "\u00a3750,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-23", "address": "Flat 30, 9A, York Way", "price": 581900, "price_display": "\u00a3581,900", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-24", "address": "Flat 74, 9A, York Way", "price": 655000, "price_display": "\u00a3655,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-22", "address": "Flat 41, 9A, York Way", "price": 745750, "price_display": "\u00a3745,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 27, 9B, York Way", "price": 666336, "price_display": "\u00a3666,336", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 10, 9B, York Way", "price": 648736, "price_display": "\u00a3648,736", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-04-22", "address": "Flat 81, 9A, York Way", "price": 503572, "price_display": "\u00a3503,572", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-15", "address": "Flat 26, 9C, York Way", "price": 735000, "price_display": "\u00a3735,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-18", "address": "Flat 80, 9A, York Way", "price": 587000, "price_display": "\u00a3587,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-07", "address": "Flat 38, 9A, York Way", "price": 590000, "price_display": "\u00a3590,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-04-27", "address": "Flat 85, 9A, York Way", "price": 646000, "price_display": "\u00a3646,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-10", "address": "Flat 31, 9A, York Way", "price": 731500, "price_display": "\u00a3731,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-24", "address": "Flat 39, 9A, York Way", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-05", "address": "Flat 49, 9A, York Way", "price": 622000, "price_display": "\u00a3622,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-17", "address": "Flat 23, 9C, York Way", "price": 497500, "price_display": "\u00a3497,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-12", "address": "Flat 89, 9A, York Way", "price": 598975, "price_display": "\u00a3598,975", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-14", "address": "Flat 19, 9C, York Way", "price": 720000, "price_display": "\u00a3720,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-18", "address": "Flat 73, 9A, York Way", "price": 593750, "price_display": "\u00a3593,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 28, 9B, York Way", "price": 443136, "price_display": "\u00a3443,136", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-30", "address": "Flat 8, 9C, York Way", "price": 450000, "price_display": "\u00a3450,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 30, 9B, York Way", "price": 648736, "price_display": "\u00a3648,736", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 12, 9B, York Way", "price": 666336, "price_display": "\u00a3666,336", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-15", "address": "Flat 34, 9A, York Way", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-11", "address": "Flat 78, 9A, York Way", "price": 583999, "price_display": "\u00a3583,999", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 17, 9B, York Way", "price": 666336, "price_display": "\u00a3666,336", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-08-16", "address": "Flat 72, 9A, York Way", "price": 695000, "price_display": "\u00a3695,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-21", "address": "Flat 7, 9C, York Way", "price": 685000, "price_display": "\u00a3685,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-11-19", "address": "Flat 33, 9A, York Way", "price": 575000, "price_display": "\u00a3575,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-05", "address": "Flat 48, 9A, York Way", "price": 588000, "price_display": "\u00a3588,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 6, 9B, York Way", "price": 648736, "price_display": "\u00a3648,736", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 20, 9B, York Way", "price": 648736, "price_display": "\u00a3648,736", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-20", "address": "Flat 60, 9A, York Way", "price": 610400, "price_display": "\u00a3610,400", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-16", "address": "Flat 24, 9A, York Way", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 13, 9B, York Way", "price": 443136, "price_display": "\u00a3443,136", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 11, 9B, York Way", "price": 648736, "price_display": "\u00a3648,736", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 8, 9B, York Way", "price": 443136, "price_display": "\u00a3443,136", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-19", "address": "Flat 15, 9C, York Way", "price": 638100, "price_display": "\u00a3638,100", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 7, 9B, York Way", "price": 666336, "price_display": "\u00a3666,336", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-07-23", "address": "Flat 20, 9A, York Way", "price": 592000, "price_display": "\u00a3592,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-22", "address": "Flat 43, 9A, York Way", "price": 565250, "price_display": "\u00a3565,250", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-28", "address": "Flat 61, 9A, York Way", "price": 774325, "price_display": "\u00a3774,325", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 18, 9B, York Way", "price": 443136, "price_display": "\u00a3443,136", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 26, 9B, York Way", "price": 648736, "price_display": "\u00a3648,736", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-21", "address": "Flat 22, 9C, York Way", "price": 719000, "price_display": "\u00a3719,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-03-18", "address": "Flat 91, 9A, York Way", "price": 776650, "price_display": "\u00a3776,650", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-22", "address": "Flat 67, 9A, York Way", "price": 690000, "price_display": "\u00a3690,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-03", "address": "Flat 23, 9B, York Way", "price": 443136, "price_display": "\u00a3443,136", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-03-31", "address": "Flat 77, 9A, York Way", "price": 693500, "price_display": "\u00a3693,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-18", "address": "Flat 56, 9A, York Way", "price": 767000, "price_display": "\u00a3767,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-11-17", "address": "Flat 9, 9C, York Way", "price": 685000, "price_display": "\u00a3685,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-N7-9GY', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-N7-9GY');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-N7-9GY', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-N7-9GY', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-N7-9GY" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2022-04-22</td>
+            <td>Flat 71, 9A, York Way</td>
+            <td class="price">£770,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-09</td>
+            <td>Flat 65, 9A, York Way</td>
+            <td class="price">£615,125</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-01-03</td>
+            <td>Flat 44, 9A, York Way</td>
+            <td class="price">£485,000</td>
+        <td class="negative" title="Previous: £600,000 (2018-11-01)">-4.0%/yr</td></tr>
+
+        <tr>
+            <td>2018-11-01</td>
+            <td>Flat 44, 9A, York Way</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-23</td>
+            <td>Flat 45, 9A, York Way</td>
+            <td class="price">£627,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-12</td>
+            <td>Flat 55, 9A, York Way</td>
+            <td class="price">£606,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 25, 9B, York Way</td>
+            <td class="price">£648,736</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-05</td>
+            <td>Flat 35, 9A, York Way</td>
+            <td class="price">£588,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-17</td>
+            <td>Flat 63, 9A, York Way</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 19, 9B, York Way</td>
+            <td class="price">£666,336</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-11-16</td>
+            <td>Flat 66, 9A, York Way</td>
+            <td class="price">£700,000</td>
+        <td class="positive" title="Previous: £503,572 (2022-04-22)">+78.3%/yr</td></tr>
+
+        <tr>
+            <td>2022-04-22</td>
+            <td>Flat 66, 9A, York Way</td>
+            <td class="price">£503,572</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-06</td>
+            <td>Flat 18, 9C, York Way</td>
+            <td class="price">£482,650</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 21, 9B, York Way</td>
+            <td class="price">£648,736</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-22</td>
+            <td>Flat 82, 9A, York Way</td>
+            <td class="price">£715,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-22</td>
+            <td>Flat 90, 9A, York Way</td>
+            <td class="price">£690,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-21</td>
+            <td>Flat 18, 9A, York Way</td>
+            <td class="price">£544,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-09</td>
+            <td>Flat 29, 9C, York Way</td>
+            <td class="price">£731,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-14</td>
+            <td>Flat 46, 9A, York Way</td>
+            <td class="price">£752,500</td>
+        <td class="negative" title="Previous: £752,500 (2017-11-15)">+0.0%/yr</td></tr>
+
+        <tr>
+            <td>2017-11-15</td>
+            <td>Flat 46, 9A, York Way</td>
+            <td class="price">£752,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-05-03</td>
+            <td>Flat 14, 9B, York Way</td>
+            <td class="price">£755,000</td>
+        <td class="positive" title="Previous: £666,336 (2017-11-03)">+1.9%/yr</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 14, 9B, York Way</td>
+            <td class="price">£666,336</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 29, 9B, York Way</td>
+            <td class="price">£666,336</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 9, 9B, York Way</td>
+            <td class="price">£666,336</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-11</td>
+            <td>Flat 25, 9A, York Way</td>
+            <td class="price">£598,387</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-20</td>
+            <td>Flat 86, 9A, York Way</td>
+            <td class="price">£850,250</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-19</td>
+            <td>Flat 11, 9C, York Way</td>
+            <td class="price">£635,800</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-14</td>
+            <td>Flat 14, 9C, York Way</td>
+            <td class="price">£654,300</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-05</td>
+            <td>Flat 76, 9A, York Way</td>
+            <td class="price">£862,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-05-12</td>
+            <td>Flat 88, 9A, York Way</td>
+            <td class="price">£580,000</td>
+        <td class="positive" title="Previous: £503,571 (2022-04-22)">+14.3%/yr</td></tr>
+
+        <tr>
+            <td>2022-04-22</td>
+            <td>Flat 88, 9A, York Way</td>
+            <td class="price">£503,571</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-20</td>
+            <td>Flat 50, 9A, York Way</td>
+            <td class="price">£600,900</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-21</td>
+            <td>Flat 28, 9C, York Way</td>
+            <td class="price">£524,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-03-21</td>
+            <td>Flat 23, 9A, York Way</td>
+            <td class="price">£495,000</td>
+        <td class="negative" title="Previous: £545,000 (2017-12-04)">-1.3%/yr</td></tr>
+
+        <tr>
+            <td>2017-12-04</td>
+            <td>Flat 23, 9A, York Way</td>
+            <td class="price">£545,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-05-28</td>
+            <td>Flat 6, 9C, York Way</td>
+            <td class="price">£760,000</td>
+        <td class="positive" title="Previous: £672,262 (2017-11-13)">+3.5%/yr</td></tr>
+
+        <tr>
+            <td>2017-11-13</td>
+            <td>Flat 6, 9C, York Way</td>
+            <td class="price">£672,262</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-07</td>
+            <td>Flat 68, 9A, York Way</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-09</td>
+            <td>Flat 70, 9A, York Way</td>
+            <td class="price">£619,875</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-02-09</td>
+            <td>Flat 29, 9A, York Way</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-22</td>
+            <td>Flat 58, 9A, York Way</td>
+            <td class="price">£599,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-11</td>
+            <td>Flat 40, 9A, York Way</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 22, 9B, York Way</td>
+            <td class="price">£666,336</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 16, 9B, York Way</td>
+            <td class="price">£648,736</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-06</td>
+            <td>Flat 53, 9A, York Way</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-16</td>
+            <td>Flat 13, 9C, York Way</td>
+            <td class="price">£507,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-08-03</td>
+            <td>Flat 64, 9A, York Way</td>
+            <td class="price">£605,000</td>
+        <td class="positive" title="Previous: £503,571 (2022-04-22)">+91.7%/yr</td></tr>
+
+        <tr>
+            <td>2022-04-22</td>
+            <td>Flat 64, 9A, York Way</td>
+            <td class="price">£503,571</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 24, 9B, York Way</td>
+            <td class="price">£666,336</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 15, 9B, York Way</td>
+            <td class="price">£648,736</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-14</td>
+            <td>Flat 27, 9C, York Way</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-05</td>
+            <td>Flat 19, 9A, York Way</td>
+            <td class="price">£525,000</td>
+        <td class="negative" title="Previous: £600,000 (2017-12-04)">-4.1%/yr</td></tr>
+
+        <tr>
+            <td>2017-12-04</td>
+            <td>Flat 19, 9A, York Way</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-23</td>
+            <td>Flat 30, 9A, York Way</td>
+            <td class="price">£581,900</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-24</td>
+            <td>Flat 74, 9A, York Way</td>
+            <td class="price">£655,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-22</td>
+            <td>Flat 41, 9A, York Way</td>
+            <td class="price">£745,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 27, 9B, York Way</td>
+            <td class="price">£666,336</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 10, 9B, York Way</td>
+            <td class="price">£648,736</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-04-22</td>
+            <td>Flat 81, 9A, York Way</td>
+            <td class="price">£503,572</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-11-11</td>
+            <td>Flat 51, 9A, York Way</td>
+            <td class="price">£715,000</td>
+        <td class="positive" title="Previous: £503,572 (2022-04-22)">+87.9%/yr</td></tr>
+
+        <tr>
+            <td>2022-04-22</td>
+            <td>Flat 51, 9A, York Way</td>
+            <td class="price">£503,572</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-30</td>
+            <td>Flat 21, 9C, York Way</td>
+            <td class="price">£700,000</td>
+        <td class="positive" title="Previous: £695,000 (2017-11-16)">+0.2%/yr</td></tr>
+
+        <tr>
+            <td>2017-11-16</td>
+            <td>Flat 21, 9C, York Way</td>
+            <td class="price">£695,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-15</td>
+            <td>Flat 26, 9C, York Way</td>
+            <td class="price">£735,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-12-14</td>
+            <td>Flat 87, 9A, York Way</td>
+            <td class="price">£750,000</td>
+        <td class="positive" title="Previous: £503,572 (2022-04-22)">+85.2%/yr</td></tr>
+
+        <tr>
+            <td>2022-04-22</td>
+            <td>Flat 87, 9A, York Way</td>
+            <td class="price">£503,572</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-18</td>
+            <td>Flat 80, 9A, York Way</td>
+            <td class="price">£587,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-04-09</td>
+            <td>Flat 28, 9A, York Way</td>
+            <td class="price">£510,000</td>
+        <td class="negative" title="Previous: £550,000 (2018-01-15)">-1.2%/yr</td></tr>
+
+        <tr>
+            <td>2018-01-15</td>
+            <td>Flat 28, 9A, York Way</td>
+            <td class="price">£550,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-07</td>
+            <td>Flat 38, 9A, York Way</td>
+            <td class="price">£590,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-04-27</td>
+            <td>Flat 85, 9A, York Way</td>
+            <td class="price">£646,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-05-15</td>
+            <td>Flat 83, 9A, York Way</td>
+            <td class="price">£570,000</td>
+        <td class="positive" title="Previous: £503,571 (2022-04-22)">+12.4%/yr</td></tr>
+
+        <tr>
+            <td>2022-04-22</td>
+            <td>Flat 83, 9A, York Way</td>
+            <td class="price">£503,571</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-10</td>
+            <td>Flat 31, 9A, York Way</td>
+            <td class="price">£731,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-24</td>
+            <td>Flat 39, 9A, York Way</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-02-10</td>
+            <td>Flat 12, 9C, York Way</td>
+            <td class="price">£765,000</td>
+        <td class="positive" title="Previous: £654,300 (2017-11-10)">+3.0%/yr</td></tr>
+
+        <tr>
+            <td>2017-11-10</td>
+            <td>Flat 12, 9C, York Way</td>
+            <td class="price">£654,300</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-05</td>
+            <td>Flat 49, 9A, York Way</td>
+            <td class="price">£622,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-17</td>
+            <td>Flat 23, 9C, York Way</td>
+            <td class="price">£497,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-12</td>
+            <td>Flat 89, 9A, York Way</td>
+            <td class="price">£598,975</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-14</td>
+            <td>Flat 19, 9C, York Way</td>
+            <td class="price">£720,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-04-14</td>
+            <td>Flat 69, 9A, York Way</td>
+            <td class="price">£540,000</td>
+        <td class="positive" title="Previous: £503,571 (2022-04-22)">+7.4%/yr</td></tr>
+
+        <tr>
+            <td>2022-04-22</td>
+            <td>Flat 69, 9A, York Way</td>
+            <td class="price">£503,571</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-18</td>
+            <td>Flat 73, 9A, York Way</td>
+            <td class="price">£593,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-11-08</td>
+            <td>Flat 75, 9A, York Way</td>
+            <td class="price">£530,000</td>
+        <td class="positive" title="Previous: £503,571 (2022-04-22)">+9.8%/yr</td></tr>
+
+        <tr>
+            <td>2022-04-22</td>
+            <td>Flat 75, 9A, York Way</td>
+            <td class="price">£503,571</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 28, 9B, York Way</td>
+            <td class="price">£443,136</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-30</td>
+            <td>Flat 8, 9C, York Way</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 30, 9B, York Way</td>
+            <td class="price">£648,736</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 12, 9B, York Way</td>
+            <td class="price">£666,336</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-15</td>
+            <td>Flat 34, 9A, York Way</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-11</td>
+            <td>Flat 78, 9A, York Way</td>
+            <td class="price">£583,999</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 17, 9B, York Way</td>
+            <td class="price">£666,336</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-08-16</td>
+            <td>Flat 72, 9A, York Way</td>
+            <td class="price">£695,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-21</td>
+            <td>Flat 7, 9C, York Way</td>
+            <td class="price">£685,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-19</td>
+            <td>Flat 33, 9A, York Way</td>
+            <td class="price">£575,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-05</td>
+            <td>Flat 48, 9A, York Way</td>
+            <td class="price">£588,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 6, 9B, York Way</td>
+            <td class="price">£648,736</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 20, 9B, York Way</td>
+            <td class="price">£648,736</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-04-21</td>
+            <td>Flat 84, 9A, York Way</td>
+            <td class="price">£545,000</td>
+        <td class="positive" title="Previous: £503,571 (2022-04-22)">+8.3%/yr</td></tr>
+
+        <tr>
+            <td>2022-04-22</td>
+            <td>Flat 84, 9A, York Way</td>
+            <td class="price">£503,571</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-07-22</td>
+            <td>Flat 92, 9A, York Way</td>
+            <td class="price">£815,000</td>
+        <td class="positive" title="Previous: £503,572 (2022-04-22)">+590.6%/yr</td></tr>
+
+        <tr>
+            <td>2022-04-22</td>
+            <td>Flat 92, 9A, York Way</td>
+            <td class="price">£503,572</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-20</td>
+            <td>Flat 60, 9A, York Way</td>
+            <td class="price">£610,400</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-16</td>
+            <td>Flat 24, 9A, York Way</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 13, 9B, York Way</td>
+            <td class="price">£443,136</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 11, 9B, York Way</td>
+            <td class="price">£648,736</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 8, 9B, York Way</td>
+            <td class="price">£443,136</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-04-21</td>
+            <td>Flat 79, 9A, York Way</td>
+            <td class="price">£575,000</td>
+        <td class="positive" title="Previous: £503,571 (2022-04-22)">+14.2%/yr</td></tr>
+
+        <tr>
+            <td>2022-04-22</td>
+            <td>Flat 79, 9A, York Way</td>
+            <td class="price">£503,571</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-11-16</td>
+            <td>Flat 54, 9A, York Way</td>
+            <td class="price">£520,000</td>
+        <td class="positive" title="Previous: £503,571 (2022-04-22)">+5.8%/yr</td></tr>
+
+        <tr>
+            <td>2022-04-22</td>
+            <td>Flat 54, 9A, York Way</td>
+            <td class="price">£503,571</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-19</td>
+            <td>Flat 15, 9C, York Way</td>
+            <td class="price">£638,100</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 7, 9B, York Way</td>
+            <td class="price">£666,336</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-23</td>
+            <td>Flat 20, 9A, York Way</td>
+            <td class="price">£592,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-22</td>
+            <td>Flat 43, 9A, York Way</td>
+            <td class="price">£565,250</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-28</td>
+            <td>Flat 61, 9A, York Way</td>
+            <td class="price">£774,325</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 18, 9B, York Way</td>
+            <td class="price">£443,136</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 26, 9B, York Way</td>
+            <td class="price">£648,736</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-21</td>
+            <td>Flat 22, 9C, York Way</td>
+            <td class="price">£719,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-18</td>
+            <td>Flat 91, 9A, York Way</td>
+            <td class="price">£776,650</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-22</td>
+            <td>Flat 67, 9A, York Way</td>
+            <td class="price">£690,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-03</td>
+            <td>Flat 23, 9B, York Way</td>
+            <td class="price">£443,136</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-31</td>
+            <td>Flat 77, 9A, York Way</td>
+            <td class="price">£693,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-18</td>
+            <td>Flat 56, 9A, York Way</td>
+            <td class="price">£767,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-11-17</td>
+            <td>Flat 9, 9C, York Way</td>
+            <td class="price">£685,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-N7-9GY" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-N7-9GY" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2017, 2018, 2019, 2021, 2022, 2023, 2024, 2025],
+            y: [628107, 626360, 583999, 663559, 589024, 595833, 583333, 495000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2017, 2018, 2019, 2021, 2022, 2023, 2024, 2025],
+            y: [648736, 600000, 583999, 695000, 503572, 575000, 510000, 495000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - N7 9GY',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-N7-9GY', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 126</p>
+                    <p><strong>Unique Properties:</strong> 105</p>
+                    <p><strong>Average Price:</strong> £618,571</p>
+                    <p><strong>Median Price:</strong> £608,200</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-N7-9GY" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector N7 9 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector N7 9</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-N7-9GY', 'N7-9GY')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-N7-9GY', 'N7-9GY')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-N7-9GY" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-N7-9GY" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [271210, 280520, 348221, 318287, 291726, 315201, 438717, 382286, 429226, 457468, 590918, 614807, 603454, 586617, 674442, 652678, 639160, 705351, 655975, 647987, 610784],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [249995, 248500, 285000, 285000, 248000, 275000, 351250, 357449, 375000, 405000, 485000, 495000, 606000, 550000, 630000, 639500, 517500, 604000, 524500, 560000, 538000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector N7 9 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-N7-9GY', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-N7-9GY" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £251,185</div>
+                        <div class="cell-sell">Sell: £334,389</div>
+                        <div class="cell-return">+11.3%/yr</div>
+                        <div class="cell-count">(14 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £285,929</div>
+                        <div class="cell-sell">Sell: £409,636</div>
+                        <div class="cell-return">+5.9%/yr</div>
+                        <div class="cell-count">(22 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £224,000</div>
+                        <div class="cell-sell">Sell: £466,000</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(5 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £269,285</div>
+                        <div class="cell-sell">Sell: £622,000</div>
+                        <div class="cell-return">+5.0%/yr</div>
+                        <div class="cell-count">(7 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £276,850</div>
+                        <div class="cell-sell">Sell: £334,668</div>
+                        <div class="cell-return">+11.3%/yr</div>
+                        <div class="cell-count">(40 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £304,942</div>
+                        <div class="cell-sell">Sell: £452,679</div>
+                        <div class="cell-return">+8.1%/yr</div>
+                        <div class="cell-count">(143 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £292,865</div>
+                        <div class="cell-sell">Sell: £582,861</div>
+                        <div class="cell-return">+8.0%/yr</div>
+                        <div class="cell-count">(48 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £278,576</div>
+                        <div class="cell-sell">Sell: £506,464</div>
+                        <div class="cell-return">+4.4%/yr</div>
+                        <div class="cell-count">(68 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £407,321</div>
+                        <div class="cell-sell">Sell: £618,237</div>
+                        <div class="cell-return">+18.9%/yr</div>
+                        <div class="cell-count">(32 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £634,833</div>
+                        <div class="cell-sell">Sell: £608,294</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(104 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £468,891</div>
+                        <div class="cell-sell">Sell: £619,692</div>
+                        <div class="cell-return">+3.1%/yr</div>
+                        <div class="cell-count">(94 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,260,904</div>
+                        <div class="cell-sell">Sell: £557,581</div>
+                        <div class="cell-return">+2.2%/yr</div>
+                        <div class="cell-count">(21 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £585,035</div>
+                        <div class="cell-sell">Sell: £627,856</div>
+                        <div class="cell-return">+2.6%/yr</div>
+                        <div class="cell-count">(92 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £591,720</div>
+                        <div class="cell-sell">Sell: £667,315</div>
+                        <div class="cell-return">-0.1%/yr</div>
+                        <div class="cell-count">(22 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-N7-9GY" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District N7 Analysis</h4>
+                <p class="area-info">Viewing data for entire N7 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-N7-9GY', 'N7-9GY')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-N7-9GY', 'N7-9GY')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-N7-9GY" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-N7-9GY" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [269222, 291020, 338587, 342857, 308446, 365452, 406269, 400216, 434432, 501301, 579780, 625172, 606934, 609489, 627217, 674695, 668958, 705359, 690141, 704025, 688773],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [241000, 262500, 297660, 295000, 275000, 325000, 340000, 359949, 385000, 450000, 500000, 500000, 513500, 515000, 545000, 565000, 560000, 600000, 553500, 556500, 599000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District N7 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-N7-9GY', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-N7-9GY" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £209,921</div>
+                        <div class="cell-sell">Sell: £244,278</div>
+                        <div class="cell-return">+4.0%/yr</div>
+                        <div class="cell-count">(7 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £262,996</div>
+                        <div class="cell-sell">Sell: £341,765</div>
+                        <div class="cell-return">+12.2%/yr</div>
+                        <div class="cell-count">(161 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £275,783</div>
+                        <div class="cell-sell">Sell: £442,289</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(146 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £254,739</div>
+                        <div class="cell-sell">Sell: £556,570</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(34 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £257,547</div>
+                        <div class="cell-sell">Sell: £584,540</div>
+                        <div class="cell-return">+4.9%/yr</div>
+                        <div class="cell-count">(36 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £285,136</div>
+                        <div class="cell-sell">Sell: £334,932</div>
+                        <div class="cell-return">+9.6%/yr</div>
+                        <div class="cell-count">(248 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £315,373</div>
+                        <div class="cell-sell">Sell: £459,914</div>
+                        <div class="cell-return">+7.7%/yr</div>
+                        <div class="cell-count">(767 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £321,398</div>
+                        <div class="cell-sell">Sell: £567,430</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(369 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £326,619</div>
+                        <div class="cell-sell">Sell: £604,175</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(288 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £386,991</div>
+                        <div class="cell-sell">Sell: £544,859</div>
+                        <div class="cell-return">+17.0%/yr</div>
+                        <div class="cell-count">(224 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £488,645</div>
+                        <div class="cell-sell">Sell: £602,748</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(547 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £497,867</div>
+                        <div class="cell-sell">Sell: £627,510</div>
+                        <div class="cell-return">+2.8%/yr</div>
+                        <div class="cell-count">(510 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £676,772</div>
+                        <div class="cell-sell">Sell: £609,751</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(110 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £602,365</div>
+                        <div class="cell-sell">Sell: £652,613</div>
+                        <div class="cell-return">+2.2%/yr</div>
+                        <div class="cell-count">(443 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £735,035</div>
+                        <div class="cell-sell">Sell: £810,915</div>
+                        <div class="cell-return">+5.9%/yr</div>
+                        <div class="cell-count">(125 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'N7 9'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'N7'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

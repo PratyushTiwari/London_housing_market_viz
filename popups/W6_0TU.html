@@ -1,0 +1,1532 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W6 0TU</h3>
+            <div class="header-stats">
+                <span><strong>114</strong> transactions</span>
+                <span><strong>106</strong> properties</span>
+                <span>Avg: <strong>£885,683</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W6-0TU')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W6-0TU')">
+                Sector (W6 0)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W6-0TU')">
+                District (W6)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W6-0TU" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W6-0TU', 'W6-0TU')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W6-0TU', 'W6-0TU')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W6-0TU', 'W6-0TU')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W6-0TU" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W6-0TU" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "43, Ravenscourt Gardens", "dates": ["2011-03-23", "2014-09-08", "2015-12-07"], "prices": [850000, 900000, 2250000], "hover_texts": ["<b>43, Ravenscourt Gardens</b><br>Transaction 1 of 3<br>Date: 2011-03-23<br>Sale Price: \u00a3850,000", "<b>43, Ravenscourt Gardens</b><br>Transaction 2 of 3<br>Date: 2014-09-08<br>Sale Price: \u00a3900,000<br>Previous Purchase: \u00a3850,000<br>Previous Date: 2011-03-23<br>Annual Return: +1.7%/yr<br>Held for: 3.5 years", "<b>43, Ravenscourt Gardens</b><br>Transaction 3 of 3<br>Date: 2015-12-07<br>Sale Price: \u00a32,250,000<br>Previous Purchase: \u00a3900,000<br>Previous Date: 2014-09-08<br>Annual Return: +108.7%/yr<br>Held for: 1.2 years"], "transaction_count": 3}, {"address": "64, Ravenscourt Gardens", "dates": ["2010-01-05", "2021-05-27"], "prices": [850000, 2205000], "hover_texts": ["<b>64, Ravenscourt Gardens</b><br>Transaction 1 of 2<br>Date: 2010-01-05<br>Sale Price: \u00a3850,000", "<b>64, Ravenscourt Gardens</b><br>Transaction 2 of 2<br>Date: 2021-05-27<br>Sale Price: \u00a32,205,000<br>Previous Purchase: \u00a3850,000<br>Previous Date: 2010-01-05<br>Annual Return: +8.7%/yr<br>Held for: 11.4 years"], "transaction_count": 2}, {"address": "33, Ravenscourt Gardens", "dates": ["2011-03-31", "2024-02-08"], "prices": [1175000, 2240000], "hover_texts": ["<b>33, Ravenscourt Gardens</b><br>Transaction 1 of 2<br>Date: 2011-03-31<br>Sale Price: \u00a31,175,000", "<b>33, Ravenscourt Gardens</b><br>Transaction 2 of 2<br>Date: 2024-02-08<br>Sale Price: \u00a32,240,000<br>Previous Purchase: \u00a31,175,000<br>Previous Date: 2011-03-31<br>Annual Return: +5.2%/yr<br>Held for: 12.9 years"], "transaction_count": 2}, {"address": "49, Ravenscourt Gardens", "dates": ["2006-06-12", "2016-11-23"], "prices": [880000, 1875000], "hover_texts": ["<b>49, Ravenscourt Gardens</b><br>Transaction 1 of 2<br>Date: 2006-06-12<br>Sale Price: \u00a3880,000", "<b>49, Ravenscourt Gardens</b><br>Transaction 2 of 2<br>Date: 2016-11-23<br>Sale Price: \u00a31,875,000<br>Previous Purchase: \u00a3880,000<br>Previous Date: 2006-06-12<br>Annual Return: +7.5%/yr<br>Held for: 10.4 years"], "transaction_count": 2}, {"address": "34, Ravenscourt Gardens", "dates": ["2005-11-25", "2015-07-17"], "prices": [535000, 1100000], "hover_texts": ["<b>34, Ravenscourt Gardens</b><br>Transaction 1 of 2<br>Date: 2005-11-25<br>Sale Price: \u00a3535,000", "<b>34, Ravenscourt Gardens</b><br>Transaction 2 of 2<br>Date: 2015-07-17<br>Sale Price: \u00a31,100,000<br>Previous Purchase: \u00a3535,000<br>Previous Date: 2005-11-25<br>Annual Return: +7.8%/yr<br>Held for: 9.6 years"], "transaction_count": 2}, {"address": "30A, Ravenscourt Gardens", "dates": ["2015-09-25", "2015-09-25"], "prices": [550000, 470000], "hover_texts": ["<b>30A, Ravenscourt Gardens</b><br>Transaction 1 of 2<br>Date: 2015-09-25<br>Sale Price: \u00a3550,000", "<b>30A, Ravenscourt Gardens</b><br>Transaction 2 of 2<br>Date: 2015-09-25<br>Sale Price: \u00a3470,000"], "transaction_count": 2}, {"address": "29, Ravenscourt Gardens", "dates": ["2012-02-15", "2017-02-10"], "prices": [1300000, 1573105], "hover_texts": ["<b>29, Ravenscourt Gardens</b><br>Transaction 1 of 2<br>Date: 2012-02-15<br>Sale Price: \u00a31,300,000", "<b>29, Ravenscourt Gardens</b><br>Transaction 2 of 2<br>Date: 2017-02-10<br>Sale Price: \u00a31,573,105<br>Previous Purchase: \u00a31,300,000<br>Previous Date: 2012-02-15<br>Annual Return: +3.9%/yr<br>Held for: 5.0 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2020-09-25", "address": "Flat 28, Ashlar Court, 21, Ravenscourt Gardens", "price": 880000, "price_display": "\u00a3880,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-08-29", "address": "62 Ashlar Court, 21, Ravenscourt Gardens", "price": 800000, "price_display": "\u00a3800,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2025-12-11", "address": "Flat 24, Ashlar Court, 21, Ravenscourt Gardens", "price": 729000, "price_display": "\u00a3729,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-04-05", "address": "29A, Ravenscourt Gardens", "price": 1175000, "price_display": "\u00a31,175,000", "property_type": "D", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-30", "address": "5 Ashlar Court, 21, Ravenscourt Gardens", "price": 790000, "price_display": "\u00a3790,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-09-18", "address": "58, Ravenscourt Gardens", "price": 1525000, "price_display": "\u00a31,525,000", "property_type": "S", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-30", "address": "7 Ashlar Court, 21, Ravenscourt Gardens", "price": 999995, "price_display": "\u00a3999,995", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-04-30", "address": "4, Ravenscourt Gardens", "price": 857000, "price_display": "\u00a3857,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-09-15", "address": "2 Ashlar Court, 21, Ravenscourt Gardens", "price": 785000, "price_display": "\u00a3785,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-01-31", "address": "40 Ashlar Court, 21, Ravenscourt Gardens", "price": 950000, "price_display": "\u00a3950,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-04-30", "address": "53 Ashlar Court, 21, Ravenscourt Gardens", "price": 380000, "price_display": "\u00a3380,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-09-17", "address": "24 Ashlar Court, 21, Ravenscourt Gardens", "price": 750000, "price_display": "\u00a3750,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-05-30", "address": "8 Ashlar Court, 21, Ravenscourt Gardens", "price": 460000, "price_display": "\u00a3460,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-10-14", "address": "Flat 25, Ashlar Court, 21, Ravenscourt Gardens", "price": 700000, "price_display": "\u00a3700,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-30", "address": "55 Ashlar Court, 21, Ravenscourt Gardens", "price": 750000, "price_display": "\u00a3750,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-04-14", "address": "23, Ashlar Court, 21, Ravenscourt Gardens", "price": 505000, "price_display": "\u00a3505,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-12-15", "address": "50 Ashlar Court, 21, Ravenscourt Gardens", "price": 750000, "price_display": "\u00a3750,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-06-16", "address": "46, Ravenscourt Gardens", "price": 1413759, "price_display": "\u00a31,413,759", "property_type": "S", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2021-06-14", "address": "26, Ravenscourt Gardens", "price": 1150000, "price_display": "\u00a31,150,000", "property_type": "S", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-26", "address": "1 Ashlar Court, 21, Ravenscourt Gardens", "price": 775000, "price_display": "\u00a3775,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-30", "address": "56 Ashlar Court, 21, Ravenscourt Gardens", "price": 999995, "price_display": "\u00a3999,995", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-04-30", "address": "44 Ashlar Court, 21, Ravenscourt Gardens", "price": 470000, "price_display": "\u00a3470,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-11-10", "address": "18, Ravenscourt Gardens", "price": 550000, "price_display": "\u00a3550,000", "property_type": "S", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2011-09-22", "address": "52, Ravenscourt Gardens", "price": 1295000, "price_display": "\u00a31,295,000", "property_type": "S", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-30", "address": "13 Ashlar Court, 21, Ravenscourt Gardens", "price": 1075000, "price_display": "\u00a31,075,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-05-15", "address": "52 Ashlar Court, 21, Ravenscourt Gardens", "price": 386500, "price_display": "\u00a3386,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-09-15", "address": "32, Ravenscourt Gardens", "price": 1000000, "price_display": "\u00a31,000,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2015-05-21", "address": "20, Ashlar Court, 21, Ravenscourt Gardens", "price": 1060000, "price_display": "\u00a31,060,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-11-18", "address": "Flat 9, Ashlar Court, 21, Ravenscourt Gardens", "price": 835000, "price_display": "\u00a3835,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-27", "address": "25 Ashlar Court, 21, Ravenscourt Gardens", "price": 835000, "price_display": "\u00a3835,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-12-06", "address": "36, Ravenscourt Gardens", "price": 880000, "price_display": "\u00a3880,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2017-05-26", "address": "10, Ravenscourt Gardens", "price": 1195000, "price_display": "\u00a31,195,000", "property_type": "S", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2017-12-19", "address": "Flat 34, Ashlar Court, 21, Ravenscourt Gardens", "price": 225000, "price_display": "\u00a3225,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-30", "address": "26 Ashlar Court, 21, Ravenscourt Gardens", "price": 775000, "price_display": "\u00a3775,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-03-24", "address": "56, Ashlar Court, 21, Ravenscourt Gardens", "price": 900000, "price_display": "\u00a3900,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-01-03", "address": "42, Ravenscourt Gardens", "price": 1106000, "price_display": "\u00a31,106,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-27", "address": "54 Ashlar Court, 21, Ravenscourt Gardens", "price": 345000, "price_display": "\u00a3345,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-08-05", "address": "60, Ravenscourt Gardens", "price": 1500000, "price_display": "\u00a31,500,000", "property_type": "S", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-27", "address": "4 Ashlar Court, 21, Ravenscourt Gardens", "price": 780000, "price_display": "\u00a3780,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-03-31", "address": "39 Ashlar Court, 21, Ravenscourt Gardens", "price": 1085000, "price_display": "\u00a31,085,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-12-05", "address": "25, Ravenscourt Gardens", "price": 500000, "price_display": "\u00a3500,000", "property_type": "D", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-04-30", "address": "42 Ashlar Court, 21, Ravenscourt Gardens", "price": 400000, "price_display": "\u00a3400,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-27", "address": "57 Ashlar Court, 21, Ravenscourt Gardens", "price": 350000, "price_display": "\u00a3350,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-11-20", "address": "2F, Ravenscourt Gardens", "price": 580000, "price_display": "\u00a3580,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-05-30", "address": "41 Ashlar Court, 21, Ravenscourt Gardens", "price": 940000, "price_display": "\u00a3940,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-10-17", "address": "15 Ashlar Court, 21, Ravenscourt Gardens", "price": 800000, "price_display": "\u00a3800,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-27", "address": "6 Ashlar Court, 21, Ravenscourt Gardens", "price": 599995, "price_display": "\u00a3599,995", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-04-30", "address": "29 Ashlar Court, 21, Ravenscourt Gardens", "price": 820000, "price_display": "\u00a3820,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-30", "address": "3 Ashlar Court, 21, Ravenscourt Gardens", "price": 815000, "price_display": "\u00a3815,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-30", "address": "48 Ashlar Court, 21, Ravenscourt Gardens", "price": 745000, "price_display": "\u00a3745,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-06", "address": "60 Ashlar Court, 21, Ravenscourt Gardens", "price": 462750, "price_display": "\u00a3462,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-04-30", "address": "11, Ravenscourt Gardens", "price": 1100000, "price_display": "\u00a31,100,000", "property_type": "D", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-05-29", "address": "17 Ashlar Court, 21, Ravenscourt Gardens", "price": 465000, "price_display": "\u00a3465,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-10-29", "address": "54, Ravenscourt Gardens", "price": 1587500, "price_display": "\u00a31,587,500", "property_type": "S", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-05-30", "address": "11 Ashlar Court, 21, Ravenscourt Gardens", "price": 390000, "price_display": "\u00a3390,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-01-23", "address": "2, Ravenscourt Gardens", "price": 1000000, "price_display": "\u00a31,000,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-05-29", "address": "46 Ashlar Court, 21, Ravenscourt Gardens", "price": 375000, "price_display": "\u00a3375,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-05-29", "address": "47 Ashlar Court, 21, Ravenscourt Gardens", "price": 465000, "price_display": "\u00a3465,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-08-20", "address": "Flat 36, Ashlar Court, 21, Ravenscourt Gardens", "price": 1010000, "price_display": "\u00a31,010,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-05-19", "address": "Flat 12, Ashlar Court, 21, Ravenscourt Gardens", "price": 970000, "price_display": "\u00a3970,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-11-27", "address": "Flat 1, Ashlar Court, 21, Ravenscourt Gardens", "price": 778272, "price_display": "\u00a3778,272", "property_type": "O", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-05-29", "address": "18 Ashlar Court, 21, Ravenscourt Gardens", "price": 375000, "price_display": "\u00a3375,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-12-19", "address": "19 Ashlar Court, 21, Ravenscourt Gardens", "price": 580000, "price_display": "\u00a3580,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-30", "address": "32 Ashlar Court, 21, Ravenscourt Gardens", "price": 800000, "price_display": "\u00a3800,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-01-31", "address": "30 Ashlar Court, 21, Ravenscourt Gardens", "price": 790000, "price_display": "\u00a3790,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-03-16", "address": "Flat 64, Ashlar Court, 21, Ravenscourt Gardens", "price": 395000, "price_display": "\u00a3395,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-04-14", "address": "31 Ashlar Court, 21, Ravenscourt Gardens", "price": 796000, "price_display": "\u00a3796,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-06-11", "address": "14, Ravenscourt Gardens", "price": 1387500, "price_display": "\u00a31,387,500", "property_type": "S", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2008-08-08", "address": "31, Ravenscourt Gardens", "price": 1248550, "price_display": "\u00a31,248,550", "property_type": "S", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2008-09-04", "address": "44, Ravenscourt Gardens", "price": 678000, "price_display": "\u00a3678,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2016-03-03", "address": "39, Ashlar Court, 21, Ravenscourt Gardens", "price": 1160000, "price_display": "\u00a31,160,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-07-01", "address": "9 Ashlar Court, 21, Ravenscourt Gardens", "price": 950000, "price_display": "\u00a3950,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-27", "address": "23 Ashlar Court, 21, Ravenscourt Gardens", "price": 450000, "price_display": "\u00a3450,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-23", "address": "43 Ashlar Court, 21, Ravenscourt Gardens", "price": 950000, "price_display": "\u00a3950,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-04-30", "address": "51 Ashlar Court, 21, Ravenscourt Gardens", "price": 380000, "price_display": "\u00a3380,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-12-20", "address": "36 Ashlar Court, 21, Ravenscourt Gardens", "price": 999995, "price_display": "\u00a3999,995", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-27", "address": "10 Ashlar Court, 21, Ravenscourt Gardens", "price": 1155000, "price_display": "\u00a31,155,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-30", "address": "22 Ashlar Court, 21, Ravenscourt Gardens", "price": 835000, "price_display": "\u00a3835,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-11-14", "address": "49 Ashlar Court, 21, Ravenscourt Gardens", "price": 850000, "price_display": "\u00a3850,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-05-02", "address": "37 Ashlar Court, 21, Ravenscourt Gardens", "price": 400000, "price_display": "\u00a3400,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-09-25", "address": "30B, Ravenscourt Gardens", "price": 550000, "price_display": "\u00a3550,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-30", "address": "63 Ashlar Gardens, 21, Ravenscourt Gardens", "price": 840000, "price_display": "\u00a3840,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-27", "address": "21 Ashlar Court, 21, Ravenscourt Gardens", "price": 845000, "price_display": "\u00a3845,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-05-30", "address": "65 Ashlar Court, 21, Ravenscourt Gardens", "price": 250000, "price_display": "\u00a3250,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-14", "address": "Flat 37, Ashlar Court, 21, Ravenscourt Gardens", "price": 460000, "price_display": "\u00a3460,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-04-30", "address": "64 Ashlar Court, 21, Ravenscourt Gardens", "price": 472000, "price_display": "\u00a3472,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-09-13", "address": "Flat 52, Ashlar Court, 21, Ravenscourt Gardens", "price": 370000, "price_display": "\u00a3370,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-30", "address": "12 Ashlar Court, 21, Ravenscourt Gardens", "price": 900000, "price_display": "\u00a3900,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-06-27", "address": "48, Ravenscourt Gardens", "price": 1625000, "price_display": "\u00a31,625,000", "property_type": "S", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2015-02-17", "address": "28, Ashlar Court, 21, Ravenscourt Gardens", "price": 850000, "price_display": "\u00a3850,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-15", "address": "53, Ashlar Court, 21, Ravenscourt Gardens", "price": 445000, "price_display": "\u00a3445,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-30", "address": "45 Ashlar Court, 21, Ravenscourt Gardens", "price": 767000, "price_display": "\u00a3767,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-04-18", "address": "2E, Ravenscourt Gardens", "price": 440000, "price_display": "\u00a3440,000", "property_type": "F", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-30", "address": "16 Ashlar Court, 21, Ravenscourt Gardens", "price": 975000, "price_display": "\u00a3975,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2025-02-21", "address": "Flat 47, Ashlar Court, 21, Ravenscourt Gardens", "price": 525000, "price_display": "\u00a3525,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-10-29", "address": "35 - 37, Ravenscourt Gardens", "price": 4030000, "price_display": "\u00a34,030,000", "property_type": "O", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-27", "address": "61 Ashlar Court, 21, Ravenscourt Gardens", "price": 1060000, "price_display": "\u00a31,060,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-01-13", "address": "Flat 50, Ashlar Court, 21, Ravenscourt Gardens", "price": 680000, "price_display": "\u00a3680,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-09-20", "address": "24, Ravenscourt Gardens", "price": 1375000, "price_display": "\u00a31,375,000", "property_type": "S", "tenure": "F", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W6-0TU', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W6-0TU');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W6-0TU', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W6-0TU', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W6-0TU" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2020-09-25</td>
+            <td>Flat 28, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£880,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-08-29</td>
+            <td>62 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£800,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-12-11</td>
+            <td>Flat 24, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£729,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-04-05</td>
+            <td>29A, Ravenscourt Gardens</td>
+            <td class="price">£1,175,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>5 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£790,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-09-18</td>
+            <td>58, Ravenscourt Gardens</td>
+            <td class="price">£1,525,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>7 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£999,995</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-04-30</td>
+            <td>4, Ravenscourt Gardens</td>
+            <td class="price">£857,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-09-15</td>
+            <td>2 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£785,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-01-31</td>
+            <td>40 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£950,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-04-30</td>
+            <td>53 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£380,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-09-17</td>
+            <td>24 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-05-30</td>
+            <td>8 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£460,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-10-14</td>
+            <td>Flat 25, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£700,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>55 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-12-07</td>
+            <td>43, Ravenscourt Gardens</td>
+            <td class="price">£2,250,000</td>
+        <td class="positive" title="Previous: £900,000 (2014-09-08)">+108.7%/yr</td></tr>
+
+        <tr>
+            <td>2014-09-08</td>
+            <td>43, Ravenscourt Gardens</td>
+            <td class="price">£900,000</td>
+        <td class="positive" title="Previous: £850,000 (2011-03-23)">+1.7%/yr</td></tr>
+
+        <tr>
+            <td>2011-03-23</td>
+            <td>43, Ravenscourt Gardens</td>
+            <td class="price">£850,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-05-27</td>
+            <td>64, Ravenscourt Gardens</td>
+            <td class="price">£2,205,000</td>
+        <td class="positive" title="Previous: £850,000 (2010-01-05)">+8.7%/yr</td></tr>
+
+        <tr>
+            <td>2010-01-05</td>
+            <td>64, Ravenscourt Gardens</td>
+            <td class="price">£850,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-04-14</td>
+            <td>23, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£505,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-12-15</td>
+            <td>50 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-06-16</td>
+            <td>46, Ravenscourt Gardens</td>
+            <td class="price">£1,413,759</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-14</td>
+            <td>26, Ravenscourt Gardens</td>
+            <td class="price">£1,150,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-26</td>
+            <td>1 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£775,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>56 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£999,995</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-04-30</td>
+            <td>44 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£470,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-11-10</td>
+            <td>18, Ravenscourt Gardens</td>
+            <td class="price">£550,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-09-22</td>
+            <td>52, Ravenscourt Gardens</td>
+            <td class="price">£1,295,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>13 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£1,075,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-05-15</td>
+            <td>52 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£386,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-09-15</td>
+            <td>32, Ravenscourt Gardens</td>
+            <td class="price">£1,000,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-05-21</td>
+            <td>20, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£1,060,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-11-18</td>
+            <td>Flat 9, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£835,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-27</td>
+            <td>25 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£835,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-12-06</td>
+            <td>36, Ravenscourt Gardens</td>
+            <td class="price">£880,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-02-08</td>
+            <td>33, Ravenscourt Gardens</td>
+            <td class="price">£2,240,000</td>
+        <td class="positive" title="Previous: £1,175,000 (2011-03-31)">+5.2%/yr</td></tr>
+
+        <tr>
+            <td>2011-03-31</td>
+            <td>33, Ravenscourt Gardens</td>
+            <td class="price">£1,175,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-05-26</td>
+            <td>10, Ravenscourt Gardens</td>
+            <td class="price">£1,195,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-12-19</td>
+            <td>Flat 34, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£225,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>26 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£775,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-03-24</td>
+            <td>56, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£900,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-01-03</td>
+            <td>42, Ravenscourt Gardens</td>
+            <td class="price">£1,106,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-27</td>
+            <td>54 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£345,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-08-05</td>
+            <td>60, Ravenscourt Gardens</td>
+            <td class="price">£1,500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-27</td>
+            <td>4 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£780,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-03-31</td>
+            <td>39 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£1,085,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-12-05</td>
+            <td>25, Ravenscourt Gardens</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-04-30</td>
+            <td>42 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£400,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-27</td>
+            <td>57 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£350,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-20</td>
+            <td>2F, Ravenscourt Gardens</td>
+            <td class="price">£580,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-05-30</td>
+            <td>41 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£940,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-10-17</td>
+            <td>15 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£800,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-27</td>
+            <td>6 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£599,995</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-04-30</td>
+            <td>29 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£820,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-11-23</td>
+            <td>49, Ravenscourt Gardens</td>
+            <td class="price">£1,875,000</td>
+        <td class="positive" title="Previous: £880,000 (2006-06-12)">+7.5%/yr</td></tr>
+
+        <tr>
+            <td>2006-06-12</td>
+            <td>49, Ravenscourt Gardens</td>
+            <td class="price">£880,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>3 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£815,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>48 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£745,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-06</td>
+            <td>60 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£462,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-04-30</td>
+            <td>11, Ravenscourt Gardens</td>
+            <td class="price">£1,100,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-05-29</td>
+            <td>17 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£465,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-10-29</td>
+            <td>54, Ravenscourt Gardens</td>
+            <td class="price">£1,587,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-05-30</td>
+            <td>11 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£390,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-01-23</td>
+            <td>2, Ravenscourt Gardens</td>
+            <td class="price">£1,000,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-05-29</td>
+            <td>46 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£375,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-05-29</td>
+            <td>47 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£465,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-08-20</td>
+            <td>Flat 36, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£1,010,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-05-19</td>
+            <td>Flat 12, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£970,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-11-27</td>
+            <td>Flat 1, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£778,272</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-05-29</td>
+            <td>18 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£375,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-12-19</td>
+            <td>19 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£580,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>32 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£800,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-01-31</td>
+            <td>30 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£790,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-03-16</td>
+            <td>Flat 64, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£395,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-04-14</td>
+            <td>31 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£796,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-11</td>
+            <td>14, Ravenscourt Gardens</td>
+            <td class="price">£1,387,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-08-08</td>
+            <td>31, Ravenscourt Gardens</td>
+            <td class="price">£1,248,550</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-09-04</td>
+            <td>44, Ravenscourt Gardens</td>
+            <td class="price">£678,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-03-03</td>
+            <td>39, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£1,160,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-07-01</td>
+            <td>9 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£950,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-27</td>
+            <td>23 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-23</td>
+            <td>43 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£950,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-04-30</td>
+            <td>51 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£380,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-12-20</td>
+            <td>36 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£999,995</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-27</td>
+            <td>10 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£1,155,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>22 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£835,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-11-14</td>
+            <td>49 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£850,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-05-02</td>
+            <td>37 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£400,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-09-25</td>
+            <td>30B, Ravenscourt Gardens</td>
+            <td class="price">£550,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>63 Ashlar Gardens, 21, Ravenscourt Gardens</td>
+            <td class="price">£840,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-27</td>
+            <td>21 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£845,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-05-30</td>
+            <td>65 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-14</td>
+            <td>Flat 37, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£460,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-04-30</td>
+            <td>64 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£472,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-13</td>
+            <td>Flat 52, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£370,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-07-17</td>
+            <td>34, Ravenscourt Gardens</td>
+            <td class="price">£1,100,000</td>
+        <td class="positive" title="Previous: £535,000 (2005-11-25)">+7.8%/yr</td></tr>
+
+        <tr>
+            <td>2005-11-25</td>
+            <td>34, Ravenscourt Gardens</td>
+            <td class="price">£535,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>12 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£900,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-06-27</td>
+            <td>48, Ravenscourt Gardens</td>
+            <td class="price">£1,625,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-02-17</td>
+            <td>28, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£850,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-15</td>
+            <td>53, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£445,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>45 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£767,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-09-25</td>
+            <td>30A, Ravenscourt Gardens</td>
+            <td class="price">£550,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-09-25</td>
+            <td>30A, Ravenscourt Gardens</td>
+            <td class="price">£470,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-02-10</td>
+            <td>29, Ravenscourt Gardens</td>
+            <td class="price">£1,573,105</td>
+        <td class="positive" title="Previous: £1,300,000 (2012-02-15)">+3.9%/yr</td></tr>
+
+        <tr>
+            <td>2012-02-15</td>
+            <td>29, Ravenscourt Gardens</td>
+            <td class="price">£1,300,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-04-18</td>
+            <td>2E, Ravenscourt Gardens</td>
+            <td class="price">£440,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>16 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£975,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-02-21</td>
+            <td>Flat 47, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£525,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-10-29</td>
+            <td>35 - 37, Ravenscourt Gardens</td>
+            <td class="price">£4,030,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-27</td>
+            <td>61 Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£1,060,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-01-13</td>
+            <td>Flat 50, Ashlar Court, 21, Ravenscourt Gardens</td>
+            <td class="price">£680,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-09-20</td>
+            <td>24, Ravenscourt Gardens</td>
+            <td class="price">£1,375,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W6-0TU" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W6-0TU" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [535000, 715000, 440000, 963275, 865000, 1099000, 1300000, 974997, 698895, 991250, 977000, 1178621, 520000, 716090, 1048951, 1597437, 700000, 395000, 1817500, 627000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [535000, 880000, 440000, 1248550, 880000, 1175000, 1300000, 999995, 775000, 1060000, 900000, 1375000, 580000, 778272, 1010000, 1387500, 700000, 395000, 1625000, 729000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W6 0TU',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W6-0TU', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 114</p>
+                    <p><strong>Unique Properties:</strong> 106</p>
+                    <p><strong>Average Price:</strong> £885,683</p>
+                    <p><strong>Median Price:</strong> £827,500</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W6-0TU" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W6 0 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W6 0</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W6-0TU', 'W6-0TU')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W6-0TU', 'W6-0TU')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W6-0TU" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W6-0TU" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [434208, 432131, 545817, 595377, 487712, 641777, 570997, 732623, 801998, 873680, 851778, 840106, 815982, 890404, 952165, 979584, 859529, 825355, 943172, 940639, 915510],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [370000, 349950, 440000, 452500, 402500, 527500, 424800, 532750, 587500, 722500, 640000, 625000, 715000, 829950, 768550, 780000, 730000, 672500, 788046, 745000, 622500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W6 0 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W6-0TU', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W6-0TU" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £363,636</div>
+                        <div class="cell-sell">Sell: £508,900</div>
+                        <div class="cell-return">+12.4%/yr</div>
+                        <div class="cell-count">(45 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £413,839</div>
+                        <div class="cell-sell">Sell: £902,805</div>
+                        <div class="cell-return">+11.9%/yr</div>
+                        <div class="cell-count">(47 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £521,357</div>
+                        <div class="cell-sell">Sell: £1,332,119</div>
+                        <div class="cell-return">+7.9%/yr</div>
+                        <div class="cell-count">(21 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £378,453</div>
+                        <div class="cell-sell">Sell: £861,750</div>
+                        <div class="cell-return">+5.0%/yr</div>
+                        <div class="cell-count">(16 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £419,850</div>
+                        <div class="cell-sell">Sell: £523,501</div>
+                        <div class="cell-return">+10.2%/yr</div>
+                        <div class="cell-count">(67 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £543,304</div>
+                        <div class="cell-sell">Sell: £850,248</div>
+                        <div class="cell-return">+10.2%/yr</div>
+                        <div class="cell-count">(220 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £600,732</div>
+                        <div class="cell-sell">Sell: £1,061,709</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(108 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £513,992</div>
+                        <div class="cell-sell">Sell: £937,502</div>
+                        <div class="cell-return">+4.4%/yr</div>
+                        <div class="cell-count">(82 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £534,678</div>
+                        <div class="cell-sell">Sell: £735,843</div>
+                        <div class="cell-return">+17.1%/yr</div>
+                        <div class="cell-count">(96 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £688,241</div>
+                        <div class="cell-sell">Sell: £875,201</div>
+                        <div class="cell-return">+6.1%/yr</div>
+                        <div class="cell-count">(143 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £834,376</div>
+                        <div class="cell-sell">Sell: £1,075,699</div>
+                        <div class="cell-return">+3.0%/yr</div>
+                        <div class="cell-count">(147 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £885,351</div>
+                        <div class="cell-sell">Sell: £883,918</div>
+                        <div class="cell-return">+8.2%/yr</div>
+                        <div class="cell-count">(49 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £761,064</div>
+                        <div class="cell-sell">Sell: £839,635</div>
+                        <div class="cell-return">+3.1%/yr</div>
+                        <div class="cell-count">(145 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £532,607</div>
+                        <div class="cell-sell">Sell: £593,133</div>
+                        <div class="cell-return">+5.7%/yr</div>
+                        <div class="cell-count">(39 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W6-0TU" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W6 Analysis</h4>
+                <p class="area-info">Viewing data for entire W6 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W6-0TU', 'W6-0TU')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W6-0TU', 'W6-0TU')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W6-0TU" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W6-0TU" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [394991, 424257, 482804, 507096, 498061, 595317, 551872, 659380, 687325, 854158, 891759, 847660, 999097, 935647, 942374, 954287, 872237, 858786, 905639, 932128, 912339],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [333250, 341000, 380000, 410000, 415000, 464500, 426800, 480000, 529975, 700000, 715000, 632000, 809975, 819950, 695000, 807500, 725000, 687169, 785000, 705000, 661000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W6-0TU', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W6-0TU" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £343,433</div>
+                        <div class="cell-sell">Sell: £321,198</div>
+                        <div class="cell-return">+34.9%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £354,647</div>
+                        <div class="cell-sell">Sell: £506,536</div>
+                        <div class="cell-return">+12.9%/yr</div>
+                        <div class="cell-count">(148 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £404,687</div>
+                        <div class="cell-sell">Sell: £836,146</div>
+                        <div class="cell-return">+10.3%/yr</div>
+                        <div class="cell-count">(119 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £439,511</div>
+                        <div class="cell-sell">Sell: £1,031,792</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(59 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £436,273</div>
+                        <div class="cell-sell">Sell: £980,135</div>
+                        <div class="cell-return">+4.9%/yr</div>
+                        <div class="cell-count">(46 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £374,635</div>
+                        <div class="cell-sell">Sell: £463,248</div>
+                        <div class="cell-return">+11.3%/yr</div>
+                        <div class="cell-count">(218 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £473,024</div>
+                        <div class="cell-sell">Sell: £731,864</div>
+                        <div class="cell-return">+9.6%/yr</div>
+                        <div class="cell-count">(578 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £547,112</div>
+                        <div class="cell-sell">Sell: £956,716</div>
+                        <div class="cell-return">+6.4%/yr</div>
+                        <div class="cell-count">(278 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £520,029</div>
+                        <div class="cell-sell">Sell: £963,506</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(237 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £507,170</div>
+                        <div class="cell-sell">Sell: £723,683</div>
+                        <div class="cell-return">+18.7%/yr</div>
+                        <div class="cell-count">(209 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £617,093</div>
+                        <div class="cell-sell">Sell: £806,935</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(375 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £783,225</div>
+                        <div class="cell-sell">Sell: £997,410</div>
+                        <div class="cell-return">+2.9%/yr</div>
+                        <div class="cell-count">(412 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,001,846</div>
+                        <div class="cell-sell">Sell: £957,778</div>
+                        <div class="cell-return">+6.0%/yr</div>
+                        <div class="cell-count">(124 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £777,012</div>
+                        <div class="cell-sell">Sell: £839,487</div>
+                        <div class="cell-return">+2.8%/yr</div>
+                        <div class="cell-count">(423 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £638,804</div>
+                        <div class="cell-sell">Sell: £735,829</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(112 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W6 0'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W6'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

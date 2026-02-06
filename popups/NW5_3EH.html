@@ -1,0 +1,1208 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>NW5 3EH</h3>
+            <div class="header-stats">
+                <span><strong>60</strong> transactions</span>
+                <span><strong>38</strong> properties</span>
+                <span>Avg: <strong>£865,725</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-NW5-3EH')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-NW5-3EH')">
+                Sector (NW5 3)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-NW5-3EH')">
+                District (NW5)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-NW5-3EH" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-NW5-3EH', 'NW5-3EH')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-NW5-3EH', 'NW5-3EH')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-NW5-3EH', 'NW5-3EH')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-NW5-3EH" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-NW5-3EH" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "34, Ryland Road", "dates": ["2006-04-13", "2017-06-30"], "prices": [400000, 945000], "hover_texts": ["<b>34, Ryland Road</b><br>Transaction 1 of 2<br>Date: 2006-04-13<br>Sale Price: \u00a3400,000", "<b>34, Ryland Road</b><br>Transaction 2 of 2<br>Date: 2017-06-30<br>Sale Price: \u00a3945,000<br>Previous Purchase: \u00a3400,000<br>Previous Date: 2006-04-13<br>Annual Return: +8.0%/yr<br>Held for: 11.2 years"], "transaction_count": 2}, {"address": "Apartment 002, Brinsmead Apartments, 25A, Ryland Road", "dates": ["2015-10-29", "2022-10-10"], "prices": [985000, 1080000], "hover_texts": ["<b>Apartment 002, Brinsmead Apartments, 25A, Ryland Road</b><br>Transaction 1 of 2<br>Date: 2015-10-29<br>Sale Price: \u00a3985,000", "<b>Apartment 002, Brinsmead Apartments, 25A, Ryland Road</b><br>Transaction 2 of 2<br>Date: 2022-10-10<br>Sale Price: \u00a31,080,000<br>Previous Purchase: \u00a3985,000<br>Previous Date: 2015-10-29<br>Annual Return: +1.3%/yr<br>Held for: 7.0 years"], "transaction_count": 2}, {"address": "Flat 8, Hampstead Gates, 38, Ryland Road", "dates": ["2007-09-03", "2013-08-20"], "prices": [670000, 705000], "hover_texts": ["<b>Flat 8, Hampstead Gates, 38, Ryland Road</b><br>Transaction 1 of 2<br>Date: 2007-09-03<br>Sale Price: \u00a3670,000", "<b>Flat 8, Hampstead Gates, 38, Ryland Road</b><br>Transaction 2 of 2<br>Date: 2013-08-20<br>Sale Price: \u00a3705,000<br>Previous Purchase: \u00a3670,000<br>Previous Date: 2007-09-03<br>Annual Return: +0.9%/yr<br>Held for: 6.0 years"], "transaction_count": 2}, {"address": "Flat 17, Hampstead Gates, 38, Ryland Road", "dates": ["2012-06-29", "2022-07-22"], "prices": [417500, 450000], "hover_texts": ["<b>Flat 17, Hampstead Gates, 38, Ryland Road</b><br>Transaction 1 of 2<br>Date: 2012-06-29<br>Sale Price: \u00a3417,500", "<b>Flat 17, Hampstead Gates, 38, Ryland Road</b><br>Transaction 2 of 2<br>Date: 2022-07-22<br>Sale Price: \u00a3450,000<br>Previous Purchase: \u00a3417,500<br>Previous Date: 2012-06-29<br>Annual Return: +0.8%/yr<br>Held for: 10.1 years"], "transaction_count": 2}, {"address": "Flat 12, Hampstead Gates, 38, Ryland Road", "dates": ["2007-06-08", "2011-11-01", "2018-03-29"], "prices": [385000, 390000, 560000], "hover_texts": ["<b>Flat 12, Hampstead Gates, 38, Ryland Road</b><br>Transaction 1 of 3<br>Date: 2007-06-08<br>Sale Price: \u00a3385,000", "<b>Flat 12, Hampstead Gates, 38, Ryland Road</b><br>Transaction 2 of 3<br>Date: 2011-11-01<br>Sale Price: \u00a3390,000<br>Previous Purchase: \u00a3385,000<br>Previous Date: 2007-06-08<br>Annual Return: +0.3%/yr<br>Held for: 4.4 years", "<b>Flat 12, Hampstead Gates, 38, Ryland Road</b><br>Transaction 3 of 3<br>Date: 2018-03-29<br>Sale Price: \u00a3560,000<br>Previous Purchase: \u00a3390,000<br>Previous Date: 2011-11-01<br>Annual Return: +5.8%/yr<br>Held for: 6.4 years"], "transaction_count": 3}, {"address": "Flat 23, Hampstead Gates, 38, Ryland Road", "dates": ["2007-01-26", "2024-07-05"], "prices": [445000, 860000], "hover_texts": ["<b>Flat 23, Hampstead Gates, 38, Ryland Road</b><br>Transaction 1 of 2<br>Date: 2007-01-26<br>Sale Price: \u00a3445,000", "<b>Flat 23, Hampstead Gates, 38, Ryland Road</b><br>Transaction 2 of 2<br>Date: 2024-07-05<br>Sale Price: \u00a3860,000<br>Previous Purchase: \u00a3445,000<br>Previous Date: 2007-01-26<br>Annual Return: +3.9%/yr<br>Held for: 17.4 years"], "transaction_count": 2}, {"address": "Flat 9, Hampstead Gates, 38, Ryland Road", "dates": ["2010-08-06", "2014-08-26", "2024-07-01"], "prices": [435000, 650000, 690000], "hover_texts": ["<b>Flat 9, Hampstead Gates, 38, Ryland Road</b><br>Transaction 1 of 3<br>Date: 2010-08-06<br>Sale Price: \u00a3435,000", "<b>Flat 9, Hampstead Gates, 38, Ryland Road</b><br>Transaction 2 of 3<br>Date: 2014-08-26<br>Sale Price: \u00a3650,000<br>Previous Purchase: \u00a3435,000<br>Previous Date: 2010-08-06<br>Annual Return: +10.4%/yr<br>Held for: 4.0 years", "<b>Flat 9, Hampstead Gates, 38, Ryland Road</b><br>Transaction 3 of 3<br>Date: 2024-07-01<br>Sale Price: \u00a3690,000<br>Previous Purchase: \u00a3650,000<br>Previous Date: 2014-08-26<br>Annual Return: +0.6%/yr<br>Held for: 9.8 years"], "transaction_count": 3}, {"address": "Apartment 203, Brinsmead Apartments, 25A, Ryland Road", "dates": ["2013-03-28", "2020-09-08"], "prices": [930000, 1340000], "hover_texts": ["<b>Apartment 203, Brinsmead Apartments, 25A, Ryland Road</b><br>Transaction 1 of 2<br>Date: 2013-03-28<br>Sale Price: \u00a3930,000", "<b>Apartment 203, Brinsmead Apartments, 25A, Ryland Road</b><br>Transaction 2 of 2<br>Date: 2020-09-08<br>Sale Price: \u00a31,340,000<br>Previous Purchase: \u00a3930,000<br>Previous Date: 2013-03-28<br>Annual Return: +5.0%/yr<br>Held for: 7.5 years"], "transaction_count": 2}, {"address": "Flat 22, Hampstead Gates, 38, Ryland Road", "dates": ["2007-06-29", "2015-06-26"], "prices": [685000, 1100000], "hover_texts": ["<b>Flat 22, Hampstead Gates, 38, Ryland Road</b><br>Transaction 1 of 2<br>Date: 2007-06-29<br>Sale Price: \u00a3685,000", "<b>Flat 22, Hampstead Gates, 38, Ryland Road</b><br>Transaction 2 of 2<br>Date: 2015-06-26<br>Sale Price: \u00a31,100,000<br>Previous Purchase: \u00a3685,000<br>Previous Date: 2007-06-29<br>Annual Return: +6.1%/yr<br>Held for: 8.0 years"], "transaction_count": 2}, {"address": "Apartment 003, Brinsmead Apartments, 25A, Ryland Road", "dates": ["2015-09-25", "2020-12-14"], "prices": [1149500, 1150000], "hover_texts": ["<b>Apartment 003, Brinsmead Apartments, 25A, Ryland Road</b><br>Transaction 1 of 2<br>Date: 2015-09-25<br>Sale Price: \u00a31,149,500", "<b>Apartment 003, Brinsmead Apartments, 25A, Ryland Road</b><br>Transaction 2 of 2<br>Date: 2020-12-14<br>Sale Price: \u00a31,150,000<br>Previous Purchase: \u00a31,149,500<br>Previous Date: 2015-09-25<br>Annual Return: +0.0%/yr<br>Held for: 5.2 years"], "transaction_count": 2}, {"address": "Apartment 001, Brinsmead Apartments, 25A, Ryland Road", "dates": ["2015-04-10", "2022-09-30"], "prices": [820000, 790000], "hover_texts": ["<b>Apartment 001, Brinsmead Apartments, 25A, Ryland Road</b><br>Transaction 1 of 2<br>Date: 2015-04-10<br>Sale Price: \u00a3820,000", "<b>Apartment 001, Brinsmead Apartments, 25A, Ryland Road</b><br>Transaction 2 of 2<br>Date: 2022-09-30<br>Sale Price: \u00a3790,000<br>Previous Purchase: \u00a3820,000<br>Previous Date: 2015-04-10<br>Annual Return: -0.5%/yr<br>Held for: 7.5 years"], "transaction_count": 2}, {"address": "Flat 21, Hampstead Gates, 38, Ryland Road", "dates": ["2013-11-27", "2025-10-10"], "prices": [850000, 960000], "hover_texts": ["<b>Flat 21, Hampstead Gates, 38, Ryland Road</b><br>Transaction 1 of 2<br>Date: 2013-11-27<br>Sale Price: \u00a3850,000", "<b>Flat 21, Hampstead Gates, 38, Ryland Road</b><br>Transaction 2 of 2<br>Date: 2025-10-10<br>Sale Price: \u00a3960,000<br>Previous Purchase: \u00a3850,000<br>Previous Date: 2013-11-27<br>Annual Return: +1.0%/yr<br>Held for: 11.9 years"], "transaction_count": 2}, {"address": "Flat 24, Hampstead Gates, 38, Ryland Road", "dates": ["2006-05-16", "2009-10-22", "2017-05-30"], "prices": [468000, 500000, 875000], "hover_texts": ["<b>Flat 24, Hampstead Gates, 38, Ryland Road</b><br>Transaction 1 of 3<br>Date: 2006-05-16<br>Sale Price: \u00a3468,000", "<b>Flat 24, Hampstead Gates, 38, Ryland Road</b><br>Transaction 2 of 3<br>Date: 2009-10-22<br>Sale Price: \u00a3500,000<br>Previous Purchase: \u00a3468,000<br>Previous Date: 2006-05-16<br>Annual Return: +1.9%/yr<br>Held for: 3.4 years", "<b>Flat 24, Hampstead Gates, 38, Ryland Road</b><br>Transaction 3 of 3<br>Date: 2017-05-30<br>Sale Price: \u00a3875,000<br>Previous Purchase: \u00a3500,000<br>Previous Date: 2009-10-22<br>Annual Return: +7.6%/yr<br>Held for: 7.6 years"], "transaction_count": 3}, {"address": "Apartment 102, Brinsmead Apartments, 25A, Ryland Road", "dates": ["2015-11-12", "2023-08-29"], "prices": [985000, 1050000], "hover_texts": ["<b>Apartment 102, Brinsmead Apartments, 25A, Ryland Road</b><br>Transaction 1 of 2<br>Date: 2015-11-12<br>Sale Price: \u00a3985,000", "<b>Apartment 102, Brinsmead Apartments, 25A, Ryland Road</b><br>Transaction 2 of 2<br>Date: 2023-08-29<br>Sale Price: \u00a31,050,000<br>Previous Purchase: \u00a3985,000<br>Previous Date: 2015-11-12<br>Annual Return: +0.8%/yr<br>Held for: 7.8 years"], "transaction_count": 2}, {"address": "Flat 14, Hampstead Gates, 38, Ryland Road", "dates": ["2007-04-03", "2012-09-06"], "prices": [395000, 530000], "hover_texts": ["<b>Flat 14, Hampstead Gates, 38, Ryland Road</b><br>Transaction 1 of 2<br>Date: 2007-04-03<br>Sale Price: \u00a3395,000", "<b>Flat 14, Hampstead Gates, 38, Ryland Road</b><br>Transaction 2 of 2<br>Date: 2012-09-06<br>Sale Price: \u00a3530,000<br>Previous Purchase: \u00a3395,000<br>Previous Date: 2007-04-03<br>Annual Return: +5.6%/yr<br>Held for: 5.4 years"], "transaction_count": 2}, {"address": "Flat 11, Hampstead Gates, 38, Ryland Road", "dates": ["2017-02-15", "2024-02-21"], "prices": [925000, 950000], "hover_texts": ["<b>Flat 11, Hampstead Gates, 38, Ryland Road</b><br>Transaction 1 of 2<br>Date: 2017-02-15<br>Sale Price: \u00a3925,000", "<b>Flat 11, Hampstead Gates, 38, Ryland Road</b><br>Transaction 2 of 2<br>Date: 2024-02-21<br>Sale Price: \u00a3950,000<br>Previous Purchase: \u00a3925,000<br>Previous Date: 2017-02-15<br>Annual Return: +0.4%/yr<br>Held for: 7.0 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2007-12-18", "address": "Flat 10, Hampstead Gates, 38, Ryland Road", "price": 500000, "price_display": "\u00a3500,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-04-26", "address": "Flat 302, Brinsmead Apartments, 25A, Ryland Road", "price": 730000, "price_display": "\u00a3730,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-03-03", "address": "007, Brinsmead Apartments, 25A, Ryland Road", "price": 1850000, "price_display": "\u00a31,850,000", "property_type": "S", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-09-17", "address": "Nursery, 37, Ryland Road", "price": 1450000, "price_display": "\u00a31,450,000", "property_type": "O", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-01-17", "address": "Flat 16, Hampstead Gates, 38, Ryland Road", "price": 890000, "price_display": "\u00a3890,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-04-04", "address": "Apartment 402, Brinsmead Apartments, 25A, Ryland Road", "price": 750000, "price_display": "\u00a3750,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-08-28", "address": "26, Ryland Road", "price": 1190000, "price_display": "\u00a31,190,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2021-09-03", "address": "Apartment 501, Brinsmead Apartments, 25A, Ryland Road", "price": 2150000, "price_display": "\u00a32,150,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": true, "annual_return": 3.56, "holding_period": 8.44, "previous_price": 1600000, "previous_price_display": "\u00a31,600,000", "previous_date": "2013-03-28"}, {"date": "2013-03-28", "address": "Flat 501, Brinsmead Apartments, 25A, Ryland Road", "price": 1600000, "price_display": "\u00a31,600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": true}, {"date": "2013-03-28", "address": "Flat 301, Brinsmead Apartment, 25A, Ryland Road", "price": 610000, "price_display": "\u00a3610,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-10-22", "address": "Flat 18, Hampstead Gates, 38, Ryland Road", "price": 650000, "price_display": "\u00a3650,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-10-04", "address": "Flat 19, Hampstead Gates, 38, Ryland Road", "price": 800000, "price_display": "\u00a3800,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-10-16", "address": "Apartment 202, Brinsmead Apartments, 25A, Ryland Road", "price": 1090000, "price_display": "\u00a31,090,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": true, "annual_return": 5.83, "holding_period": 7.56, "previous_price": 710000, "previous_price_display": "\u00a3710,000", "previous_date": "2013-03-25"}, {"date": "2013-03-25", "address": "Flat 202, Brinsmead Apartments, 25A, Ryland Road", "price": 710000, "price_display": "\u00a3710,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": true}, {"date": "2013-04-02", "address": "Flat 401, Brinsmead Apartments, 25A, Ryland Road", "price": 999000, "price_display": "\u00a3999,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2025-04-17", "address": "Apartment 301, Brinsmead Apartments, 25A, Ryland Road", "price": 950000, "price_display": "\u00a3950,000", "property_type": "O", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-03-27", "address": "Flat 201, Brinsmead Apartments, 25A, Ryland Road", "price": 630000, "price_display": "\u00a3630,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-11-29", "address": "Flat 15, Hampstead Gates, 38, Ryland Road", "price": 800000, "price_display": "\u00a3800,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-02-19", "address": "Apartment 101, Brinsmead Apartments, 25A, Ryland Road", "price": 880000, "price_display": "\u00a3880,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-06-19", "address": "33, Ryland Road", "price": 623000, "price_display": "\u00a3623,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2014-08-08", "address": "Flat 20, Hampstead Gates, 38, Ryland Road", "price": 776500, "price_display": "\u00a3776,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-01", "address": "Apartment 303, Brinsmead Apartments, 25A, Ryland Road", "price": 1520000, "price_display": "\u00a31,520,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": true, "annual_return": 4.37, "holding_period": 10.51, "previous_price": 970000, "previous_price_display": "\u00a3970,000", "previous_date": "2013-04-29"}, {"date": "2013-04-29", "address": "Flat 303, Brinsmead Apartments, 25A, Ryland Road", "price": 970000, "price_display": "\u00a3970,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": true}, {"date": "2022-06-30", "address": "Apartment 403, Brinsmead Apartments, 25A, Ryland Road", "price": 1570000, "price_display": "\u00a31,570,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-12-07", "address": "28, Ryland Road", "price": 735000, "price_display": "\u00a3735,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-NW5-3EH', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-NW5-3EH');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-NW5-3EH', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-NW5-3EH', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-NW5-3EH" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2007-12-18</td>
+            <td>Flat 10, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-04-26</td>
+            <td>Flat 302, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£730,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-03-03</td>
+            <td>007, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£1,850,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-06-30</td>
+            <td>34, Ryland Road</td>
+            <td class="price">£945,000</td>
+        <td class="positive" title="Previous: £400,000 (2006-04-13)">+8.0%/yr</td></tr>
+
+        <tr>
+            <td>2006-04-13</td>
+            <td>34, Ryland Road</td>
+            <td class="price">£400,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-10-10</td>
+            <td>Apartment 002, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£1,080,000</td>
+        <td class="positive" title="Previous: £985,000 (2015-10-29)">+1.3%/yr</td></tr>
+
+        <tr>
+            <td>2015-10-29</td>
+            <td>Apartment 002, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£985,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-08-20</td>
+            <td>Flat 8, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£705,000</td>
+        <td class="positive" title="Previous: £670,000 (2007-09-03)">+0.9%/yr</td></tr>
+
+        <tr>
+            <td>2007-09-03</td>
+            <td>Flat 8, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£670,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-17</td>
+            <td>Nursery, 37, Ryland Road</td>
+            <td class="price">£1,450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-01-17</td>
+            <td>Flat 16, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£890,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-07-22</td>
+            <td>Flat 17, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£450,000</td>
+        <td class="positive" title="Previous: £417,500 (2012-06-29)">+0.8%/yr</td></tr>
+
+        <tr>
+            <td>2012-06-29</td>
+            <td>Flat 17, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£417,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-29</td>
+            <td>Flat 12, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£560,000</td>
+        <td class="positive" title="Previous: £390,000 (2011-11-01)">+5.8%/yr</td></tr>
+
+        <tr>
+            <td>2011-11-01</td>
+            <td>Flat 12, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£390,000</td>
+        <td class="positive" title="Previous: £385,000 (2007-06-08)">+0.3%/yr</td></tr>
+
+        <tr>
+            <td>2007-06-08</td>
+            <td>Flat 12, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£385,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-04-04</td>
+            <td>Apartment 402, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-08-28</td>
+            <td>26, Ryland Road</td>
+            <td class="price">£1,190,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-09-03</td>
+            <td>Apartment 501, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£2,150,000</td>
+        <td class="positive" title="Previous: £1,600,000 (2013-03-28)">+3.6%/yr</td></tr>
+
+        <tr>
+            <td>2013-03-28</td>
+            <td>Flat 501, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£1,600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-03-28</td>
+            <td>Flat 301, Brinsmead Apartment, 25A, Ryland Road</td>
+            <td class="price">£610,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-07-05</td>
+            <td>Flat 23, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£860,000</td>
+        <td class="positive" title="Previous: £445,000 (2007-01-26)">+3.9%/yr</td></tr>
+
+        <tr>
+            <td>2007-01-26</td>
+            <td>Flat 23, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£445,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-10-22</td>
+            <td>Flat 18, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£650,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-07-01</td>
+            <td>Flat 9, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£690,000</td>
+        <td class="positive" title="Previous: £650,000 (2014-08-26)">+0.6%/yr</td></tr>
+
+        <tr>
+            <td>2014-08-26</td>
+            <td>Flat 9, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£650,000</td>
+        <td class="positive" title="Previous: £435,000 (2010-08-06)">+10.4%/yr</td></tr>
+
+        <tr>
+            <td>2010-08-06</td>
+            <td>Flat 9, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£435,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-09-08</td>
+            <td>Apartment 203, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£1,340,000</td>
+        <td class="positive" title="Previous: £930,000 (2013-03-28)">+5.0%/yr</td></tr>
+
+        <tr>
+            <td>2013-03-28</td>
+            <td>Apartment 203, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£930,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-10-04</td>
+            <td>Flat 19, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£800,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-06-26</td>
+            <td>Flat 22, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£1,100,000</td>
+        <td class="positive" title="Previous: £685,000 (2007-06-29)">+6.1%/yr</td></tr>
+
+        <tr>
+            <td>2007-06-29</td>
+            <td>Flat 22, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£685,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-10-16</td>
+            <td>Apartment 202, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£1,090,000</td>
+        <td class="positive" title="Previous: £710,000 (2013-03-25)">+5.8%/yr</td></tr>
+
+        <tr>
+            <td>2013-03-25</td>
+            <td>Flat 202, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£710,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-12-14</td>
+            <td>Apartment 003, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£1,150,000</td>
+        <td class="positive" title="Previous: £1,149,500 (2015-09-25)">+0.0%/yr</td></tr>
+
+        <tr>
+            <td>2015-09-25</td>
+            <td>Apartment 003, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£1,149,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-04-02</td>
+            <td>Flat 401, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£999,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-04-17</td>
+            <td>Apartment 301, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£950,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-03-27</td>
+            <td>Flat 201, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£630,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-09-30</td>
+            <td>Apartment 001, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£790,000</td>
+        <td class="negative" title="Previous: £820,000 (2015-04-10)">-0.5%/yr</td></tr>
+
+        <tr>
+            <td>2015-04-10</td>
+            <td>Apartment 001, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£820,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-10-10</td>
+            <td>Flat 21, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£960,000</td>
+        <td class="positive" title="Previous: £850,000 (2013-11-27)">+1.0%/yr</td></tr>
+
+        <tr>
+            <td>2013-11-27</td>
+            <td>Flat 21, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£850,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-11-29</td>
+            <td>Flat 15, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£800,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-02-19</td>
+            <td>Apartment 101, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£880,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-06-19</td>
+            <td>33, Ryland Road</td>
+            <td class="price">£623,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-08-08</td>
+            <td>Flat 20, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£776,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-05-30</td>
+            <td>Flat 24, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£875,000</td>
+        <td class="positive" title="Previous: £500,000 (2009-10-22)">+7.6%/yr</td></tr>
+
+        <tr>
+            <td>2009-10-22</td>
+            <td>Flat 24, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£500,000</td>
+        <td class="positive" title="Previous: £468,000 (2006-05-16)">+1.9%/yr</td></tr>
+
+        <tr>
+            <td>2006-05-16</td>
+            <td>Flat 24, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£468,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-08-29</td>
+            <td>Apartment 102, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£1,050,000</td>
+        <td class="positive" title="Previous: £985,000 (2015-11-12)">+0.8%/yr</td></tr>
+
+        <tr>
+            <td>2015-11-12</td>
+            <td>Apartment 102, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£985,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-01</td>
+            <td>Apartment 303, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£1,520,000</td>
+        <td class="positive" title="Previous: £970,000 (2013-04-29)">+4.4%/yr</td></tr>
+
+        <tr>
+            <td>2013-04-29</td>
+            <td>Flat 303, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£970,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-06-30</td>
+            <td>Apartment 403, Brinsmead Apartments, 25A, Ryland Road</td>
+            <td class="price">£1,570,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-09-06</td>
+            <td>Flat 14, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£530,000</td>
+        <td class="positive" title="Previous: £395,000 (2007-04-03)">+5.6%/yr</td></tr>
+
+        <tr>
+            <td>2007-04-03</td>
+            <td>Flat 14, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£395,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-12-07</td>
+            <td>28, Ryland Road</td>
+            <td class="price">£735,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-02-21</td>
+            <td>Flat 11, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£950,000</td>
+        <td class="positive" title="Previous: £925,000 (2017-02-15)">+0.4%/yr</td></tr>
+
+        <tr>
+            <td>2017-02-15</td>
+            <td>Flat 11, Hampstead Gates, 38, Ryland Road</td>
+            <td class="price">£925,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-NW5-3EH" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-NW5-3EH" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2006, 2007, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [434000, 529000, 500000, 585000, 390000, 473750, 838142, 772166, 1015642, 1148750, 560000, 1450000, 1193333, 2150000, 972500, 1285000, 833333, 955000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2006, 2007, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [468000, 500000, 500000, 735000, 390000, 530000, 800000, 776500, 985000, 945000, 560000, 1450000, 1150000, 2150000, 1080000, 1520000, 860000, 960000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - NW5 3EH',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-NW5-3EH', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 60</p>
+                    <p><strong>Unique Properties:</strong> 38</p>
+                    <p><strong>Average Price:</strong> £865,725</p>
+                    <p><strong>Median Price:</strong> £810,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-NW5-3EH" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector NW5 3 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector NW5 3</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-NW5-3EH', 'NW5-3EH')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-NW5-3EH', 'NW5-3EH')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-NW5-3EH" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-NW5-3EH" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [296826, 359093, 423882, 371028, 436553, 521004, 491331, 509467, 763013, 656876, 841021, 742297, 805757, 842070, 885882, 866278, 971394, 874880, 834261, 916081, 789542],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [249000, 355000, 390000, 287000, 416350, 416500, 382000, 427500, 780000, 570000, 666000, 599950, 737000, 732500, 630000, 725000, 750000, 740000, 750000, 899950, 650000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector NW5 3 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-NW5-3EH', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-NW5-3EH" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="4" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £261,800</div>
+                        <div class="cell-sell">Sell: £389,000</div>
+                        <div class="cell-return">+9.9%/yr</div>
+                        <div class="cell-count">(10 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £276,666</div>
+                        <div class="cell-sell">Sell: £438,833</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(9 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £282,743</div>
+                        <div class="cell-sell">Sell: £748,500</div>
+                        <div class="cell-return">+8.7%/yr</div>
+                        <div class="cell-count">(8 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £357,687</div>
+                        <div class="cell-sell">Sell: £915,000</div>
+                        <div class="cell-return">+5.5%/yr</div>
+                        <div class="cell-count">(8 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £347,515</div>
+                        <div class="cell-sell">Sell: £429,445</div>
+                        <div class="cell-return">+7.2%/yr</div>
+                        <div class="cell-count">(30 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £414,563</div>
+                        <div class="cell-sell">Sell: £656,232</div>
+                        <div class="cell-return">+8.9%/yr</div>
+                        <div class="cell-count">(52 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £453,168</div>
+                        <div class="cell-sell">Sell: £796,015</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(40 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £376,018</div>
+                        <div class="cell-sell">Sell: £702,021</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(25 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £364,781</div>
+                        <div class="cell-sell">Sell: £506,253</div>
+                        <div class="cell-return">+17.4%/yr</div>
+                        <div class="cell-count">(16 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £657,321</div>
+                        <div class="cell-sell">Sell: £815,338</div>
+                        <div class="cell-return">+4.6%/yr</div>
+                        <div class="cell-count">(45 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £707,220</div>
+                        <div class="cell-sell">Sell: £901,174</div>
+                        <div class="cell-return">+2.9%/yr</div>
+                        <div class="cell-count">(62 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,978,142</div>
+                        <div class="cell-sell">Sell: £780,628</div>
+                        <div class="cell-return">+1.5%/yr</div>
+                        <div class="cell-count">(7 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £792,735</div>
+                        <div class="cell-sell">Sell: £869,292</div>
+                        <div class="cell-return">+4.1%/yr</div>
+                        <div class="cell-count">(47 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £705,264</div>
+                        <div class="cell-sell">Sell: £815,923</div>
+                        <div class="cell-return">+5.2%/yr</div>
+                        <div class="cell-count">(17 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-NW5-3EH" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District NW5 Analysis</h4>
+                <p class="area-info">Viewing data for entire NW5 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-NW5-3EH', 'NW5-3EH')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-NW5-3EH', 'NW5-3EH')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-NW5-3EH" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-NW5-3EH" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [356407, 370088, 437160, 425216, 437234, 496341, 531209, 558837, 669760, 735435, 805972, 834001, 831687, 863936, 929601, 805917, 859722, 899838, 900256, 908954, 869053],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [270000, 314000, 348000, 313500, 330000, 372500, 390000, 425000, 502500, 595000, 595000, 640025, 640000, 690000, 685000, 602500, 651000, 650000, 642500, 680000, 655000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District NW5 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-NW5-3EH', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-NW5-3EH" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £210,000</div>
+                        <div class="cell-sell">Sell: £245,983</div>
+                        <div class="cell-return">-29.5%/yr</div>
+                        <div class="cell-count">(3 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £296,763</div>
+                        <div class="cell-sell">Sell: £409,591</div>
+                        <div class="cell-return">+11.6%/yr</div>
+                        <div class="cell-count">(87 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £327,498</div>
+                        <div class="cell-sell">Sell: £582,932</div>
+                        <div class="cell-return">+8.0%/yr</div>
+                        <div class="cell-count">(73 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £339,711</div>
+                        <div class="cell-sell">Sell: £820,023</div>
+                        <div class="cell-return">+7.4%/yr</div>
+                        <div class="cell-count">(40 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £388,727</div>
+                        <div class="cell-sell">Sell: £999,045</div>
+                        <div class="cell-return">+5.5%/yr</div>
+                        <div class="cell-count">(33 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £353,447</div>
+                        <div class="cell-sell">Sell: £422,201</div>
+                        <div class="cell-return">+8.3%/yr</div>
+                        <div class="cell-count">(155 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £378,827</div>
+                        <div class="cell-sell">Sell: £579,629</div>
+                        <div class="cell-return">+8.7%/yr</div>
+                        <div class="cell-count">(381 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £411,756</div>
+                        <div class="cell-sell">Sell: £749,560</div>
+                        <div class="cell-return">+6.9%/yr</div>
+                        <div class="cell-count">(211 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £428,908</div>
+                        <div class="cell-sell">Sell: £834,531</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(179 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £446,854</div>
+                        <div class="cell-sell">Sell: £622,104</div>
+                        <div class="cell-return">+16.8%/yr</div>
+                        <div class="cell-count">(108 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £599,279</div>
+                        <div class="cell-sell">Sell: £773,188</div>
+                        <div class="cell-return">+6.3%/yr</div>
+                        <div class="cell-count">(273 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £667,011</div>
+                        <div class="cell-sell">Sell: £872,891</div>
+                        <div class="cell-return">+3.2%/yr</div>
+                        <div class="cell-count">(293 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,104,085</div>
+                        <div class="cell-sell">Sell: £841,385</div>
+                        <div class="cell-return">+3.5%/yr</div>
+                        <div class="cell-count">(63 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £721,491</div>
+                        <div class="cell-sell">Sell: £803,137</div>
+                        <div class="cell-return">+3.0%/yr</div>
+                        <div class="cell-count">(289 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £722,003</div>
+                        <div class="cell-sell">Sell: £823,076</div>
+                        <div class="cell-return">+6.2%/yr</div>
+                        <div class="cell-count">(80 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'NW5 3'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'NW5'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

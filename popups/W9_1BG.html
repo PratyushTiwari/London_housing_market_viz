@@ -1,0 +1,1347 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W9 1BG</h3>
+            <div class="header-stats">
+                <span><strong>82</strong> transactions</span>
+                <span><strong>53</strong> properties</span>
+                <span>Avg: <strong>£851,186</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W9-1BG')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W9-1BG')">
+                Sector (W9 1)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W9-1BG')">
+                District (W9)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W9-1BG" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W9-1BG', 'W9-1BG')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W9-1BG', 'W9-1BG')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W9-1BG', 'W9-1BG')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W9-1BG" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W9-1BG" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 12, Regents Court, 92, Randolph Avenue", "dates": ["2007-10-03", "2020-03-12"], "prices": [800000, 1120000], "hover_texts": ["<b>Flat 12, Regents Court, 92, Randolph Avenue</b><br>Transaction 1 of 2<br>Date: 2007-10-03<br>Sale Price: \u00a3800,000", "<b>Flat 12, Regents Court, 92, Randolph Avenue</b><br>Transaction 2 of 2<br>Date: 2020-03-12<br>Sale Price: \u00a31,120,000<br>Previous Purchase: \u00a3800,000<br>Previous Date: 2007-10-03<br>Annual Return: +2.7%/yr<br>Held for: 12.4 years"], "transaction_count": 2}, {"address": "68G, Randolph Avenue", "dates": ["2013-06-07", "2020-10-08"], "prices": [710000, 700000], "hover_texts": ["<b>68G, Randolph Avenue</b><br>Transaction 1 of 2<br>Date: 2013-06-07<br>Sale Price: \u00a3710,000", "<b>68G, Randolph Avenue</b><br>Transaction 2 of 2<br>Date: 2020-10-08<br>Sale Price: \u00a3700,000<br>Previous Purchase: \u00a3710,000<br>Previous Date: 2013-06-07<br>Annual Return: -0.2%/yr<br>Held for: 7.3 years"], "transaction_count": 2}, {"address": "Basement, 74, Randolph Avenue", "dates": ["2007-10-01", "2014-07-04"], "prices": [1200000, 1999950], "hover_texts": ["<b>Basement, 74, Randolph Avenue</b><br>Transaction 1 of 2<br>Date: 2007-10-01<br>Sale Price: \u00a31,200,000", "<b>Basement, 74, Randolph Avenue</b><br>Transaction 2 of 2<br>Date: 2014-07-04<br>Sale Price: \u00a31,999,950<br>Previous Purchase: \u00a31,200,000<br>Previous Date: 2007-10-01<br>Annual Return: +7.8%/yr<br>Held for: 6.8 years"], "transaction_count": 2}, {"address": "Flat 5, Regents Court, 92, Randolph Avenue", "dates": ["2013-10-11", "2022-04-06"], "prices": [1775000, 1675000], "hover_texts": ["<b>Flat 5, Regents Court, 92, Randolph Avenue</b><br>Transaction 1 of 2<br>Date: 2013-10-11<br>Sale Price: \u00a31,775,000", "<b>Flat 5, Regents Court, 92, Randolph Avenue</b><br>Transaction 2 of 2<br>Date: 2022-04-06<br>Sale Price: \u00a31,675,000<br>Previous Purchase: \u00a31,775,000<br>Previous Date: 2013-10-11<br>Annual Return: -0.7%/yr<br>Held for: 8.5 years"], "transaction_count": 2}, {"address": "72A, Randolph Avenue", "dates": ["2011-07-11", "2023-04-25"], "prices": [470000, 685000], "hover_texts": ["<b>72A, Randolph Avenue</b><br>Transaction 1 of 2<br>Date: 2011-07-11<br>Sale Price: \u00a3470,000", "<b>72A, Randolph Avenue</b><br>Transaction 2 of 2<br>Date: 2023-04-25<br>Sale Price: \u00a3685,000<br>Previous Purchase: \u00a3470,000<br>Previous Date: 2011-07-11<br>Annual Return: +3.2%/yr<br>Held for: 11.8 years"], "transaction_count": 2}, {"address": "Flat 1, Carriage House, 88 - 90, Randolph Avenue", "dates": ["2006-02-21", "2012-03-30"], "prices": [275000, 415000], "hover_texts": ["<b>Flat 1, Carriage House, 88 - 90, Randolph Avenue</b><br>Transaction 1 of 2<br>Date: 2006-02-21<br>Sale Price: \u00a3275,000", "<b>Flat 1, Carriage House, 88 - 90, Randolph Avenue</b><br>Transaction 2 of 2<br>Date: 2012-03-30<br>Sale Price: \u00a3415,000<br>Previous Purchase: \u00a3275,000<br>Previous Date: 2006-02-21<br>Annual Return: +7.0%/yr<br>Held for: 6.1 years"], "transaction_count": 2}, {"address": "72C, Randolph Avenue", "dates": ["2007-12-14", "2013-12-11", "2018-01-12"], "prices": [440000, 630000, 700000], "hover_texts": ["<b>72C, Randolph Avenue</b><br>Transaction 1 of 3<br>Date: 2007-12-14<br>Sale Price: \u00a3440,000", "<b>72C, Randolph Avenue</b><br>Transaction 2 of 3<br>Date: 2013-12-11<br>Sale Price: \u00a3630,000<br>Previous Purchase: \u00a3440,000<br>Previous Date: 2007-12-14<br>Annual Return: +6.2%/yr<br>Held for: 6.0 years", "<b>72C, Randolph Avenue</b><br>Transaction 3 of 3<br>Date: 2018-01-12<br>Sale Price: \u00a3700,000<br>Previous Purchase: \u00a3630,000<br>Previous Date: 2013-12-11<br>Annual Return: +2.6%/yr<br>Held for: 4.1 years"], "transaction_count": 3}, {"address": "68J, Randolph Avenue", "dates": ["2006-07-10", "2010-06-21"], "prices": [795000, 1100000], "hover_texts": ["<b>68J, Randolph Avenue</b><br>Transaction 1 of 2<br>Date: 2006-07-10<br>Sale Price: \u00a3795,000", "<b>68J, Randolph Avenue</b><br>Transaction 2 of 2<br>Date: 2010-06-21<br>Sale Price: \u00a31,100,000<br>Previous Purchase: \u00a3795,000<br>Previous Date: 2006-07-10<br>Annual Return: +8.6%/yr<br>Held for: 4.0 years"], "transaction_count": 2}, {"address": "80B, Randolph Avenue", "dates": ["2012-07-13", "2022-05-31"], "prices": [1150000, 1425000], "hover_texts": ["<b>80B, Randolph Avenue</b><br>Transaction 1 of 2<br>Date: 2012-07-13<br>Sale Price: \u00a31,150,000", "<b>80B, Randolph Avenue</b><br>Transaction 2 of 2<br>Date: 2022-05-31<br>Sale Price: \u00a31,425,000<br>Previous Purchase: \u00a31,150,000<br>Previous Date: 2012-07-13<br>Annual Return: +2.2%/yr<br>Held for: 9.9 years"], "transaction_count": 2}, {"address": "Second Floor Flat, 76, Randolph Avenue", "dates": ["2011-12-28", "2020-12-04"], "prices": [500000, 645000], "hover_texts": ["<b>Second Floor Flat, 76, Randolph Avenue</b><br>Transaction 1 of 2<br>Date: 2011-12-28<br>Sale Price: \u00a3500,000", "<b>Second Floor Flat, 76, Randolph Avenue</b><br>Transaction 2 of 2<br>Date: 2020-12-04<br>Sale Price: \u00a3645,000<br>Previous Purchase: \u00a3500,000<br>Previous Date: 2011-12-28<br>Annual Return: +2.9%/yr<br>Held for: 8.9 years"], "transaction_count": 2}, {"address": "72F, Randolph Avenue", "dates": ["2008-09-23", "2015-10-15"], "prices": [465000, 765000], "hover_texts": ["<b>72F, Randolph Avenue</b><br>Transaction 1 of 2<br>Date: 2008-09-23<br>Sale Price: \u00a3465,000", "<b>72F, Randolph Avenue</b><br>Transaction 2 of 2<br>Date: 2015-10-15<br>Sale Price: \u00a3765,000<br>Previous Purchase: \u00a3465,000<br>Previous Date: 2008-09-23<br>Annual Return: +7.3%/yr<br>Held for: 7.1 years"], "transaction_count": 2}, {"address": "84A, Randolph Avenue", "dates": ["2007-02-20", "2007-05-06", "2022-04-07"], "prices": [325000, 385000, 655000], "hover_texts": ["<b>84A, Randolph Avenue</b><br>Transaction 1 of 3<br>Date: 2007-02-20<br>Sale Price: \u00a3325,000", "<b>84A, Randolph Avenue</b><br>Transaction 2 of 3<br>Date: 2007-05-06<br>Sale Price: \u00a3385,000<br>Previous Purchase: \u00a3325,000<br>Previous Date: 2007-02-20<br>Annual Return: +128.2%/yr<br>Held for: 0.2 years", "<b>84A, Randolph Avenue</b><br>Transaction 3 of 3<br>Date: 2022-04-07<br>Sale Price: \u00a3655,000<br>Previous Purchase: \u00a3385,000<br>Previous Date: 2007-05-06<br>Annual Return: +3.6%/yr<br>Held for: 14.9 years"], "transaction_count": 3}, {"address": "66, Randolph Avenue", "dates": ["2013-03-18", "2014-07-09"], "prices": [1250000, 995000], "hover_texts": ["<b>66, Randolph Avenue</b><br>Transaction 1 of 2<br>Date: 2013-03-18<br>Sale Price: \u00a31,250,000", "<b>66, Randolph Avenue</b><br>Transaction 2 of 2<br>Date: 2014-07-09<br>Sale Price: \u00a3995,000<br>Previous Purchase: \u00a31,250,000<br>Previous Date: 2013-03-18<br>Annual Return: -16.0%/yr<br>Held for: 1.3 years"], "transaction_count": 2}, {"address": "Flat 9, Carriage House 88-90, Randolph Avenue", "dates": ["2006-08-17", "2009-05-01", "2013-01-11"], "prices": [345000, 391500, 540000], "hover_texts": ["<b>Flat 9, Carriage House 88-90, Randolph Avenue</b><br>Transaction 1 of 3<br>Date: 2006-08-17<br>Sale Price: \u00a3345,000", "<b>Flat 9, Carriage House 88-90, Randolph Avenue</b><br>Transaction 2 of 3<br>Date: 2009-05-01<br>Sale Price: \u00a3391,500<br>Previous Purchase: \u00a3345,000<br>Previous Date: 2006-08-17<br>Annual Return: +4.8%/yr<br>Held for: 2.7 years", "<b>Flat 9, Carriage House 88-90, Randolph Avenue</b><br>Transaction 3 of 3<br>Date: 2013-01-11<br>Sale Price: \u00a3540,000<br>Previous Purchase: \u00a3391,500<br>Previous Date: 2009-05-01<br>Annual Return: +9.1%/yr<br>Held for: 3.7 years"], "transaction_count": 3}, {"address": "Flat 2, Regents Court, 92, Randolph Avenue", "dates": ["2006-04-21", "2009-09-11", "2017-07-06", "2022-05-20"], "prices": [465000, 616000, 915000, 925000], "hover_texts": ["<b>Flat 2, Regents Court, 92, Randolph Avenue</b><br>Transaction 1 of 4<br>Date: 2006-04-21<br>Sale Price: \u00a3465,000", "<b>Flat 2, Regents Court, 92, Randolph Avenue</b><br>Transaction 2 of 4<br>Date: 2009-09-11<br>Sale Price: \u00a3616,000<br>Previous Purchase: \u00a3465,000<br>Previous Date: 2006-04-21<br>Annual Return: +8.6%/yr<br>Held for: 3.4 years", "<b>Flat 2, Regents Court, 92, Randolph Avenue</b><br>Transaction 3 of 4<br>Date: 2017-07-06<br>Sale Price: \u00a3915,000<br>Previous Purchase: \u00a3616,000<br>Previous Date: 2009-09-11<br>Annual Return: +5.2%/yr<br>Held for: 7.8 years", "<b>Flat 2, Regents Court, 92, Randolph Avenue</b><br>Transaction 4 of 4<br>Date: 2022-05-20<br>Sale Price: \u00a3925,000<br>Previous Purchase: \u00a3915,000<br>Previous Date: 2017-07-06<br>Annual Return: +0.2%/yr<br>Held for: 4.9 years"], "transaction_count": 4}, {"address": "80J, Randolph Avenue", "dates": ["2010-03-02", "2010-12-03", "2021-11-11"], "prices": [915000, 1390000, 1800000], "hover_texts": ["<b>80J, Randolph Avenue</b><br>Transaction 1 of 3<br>Date: 2010-03-02<br>Sale Price: \u00a3915,000", "<b>80J, Randolph Avenue</b><br>Transaction 2 of 3<br>Date: 2010-12-03<br>Sale Price: \u00a31,390,000<br>Previous Purchase: \u00a3915,000<br>Previous Date: 2010-03-02<br>Annual Return: +73.9%/yr<br>Held for: 0.8 years", "<b>80J, Randolph Avenue</b><br>Transaction 3 of 3<br>Date: 2021-11-11<br>Sale Price: \u00a31,800,000<br>Previous Purchase: \u00a31,390,000<br>Previous Date: 2010-12-03<br>Annual Return: +2.4%/yr<br>Held for: 10.9 years"], "transaction_count": 3}, {"address": "84D, Randolph Avenue", "dates": ["2007-10-12", "2011-07-18", "2016-09-16", "2024-09-18"], "prices": [455000, 535000, 725000, 725000], "hover_texts": ["<b>84D, Randolph Avenue</b><br>Transaction 1 of 4<br>Date: 2007-10-12<br>Sale Price: \u00a3455,000", "<b>84D, Randolph Avenue</b><br>Transaction 2 of 4<br>Date: 2011-07-18<br>Sale Price: \u00a3535,000<br>Previous Purchase: \u00a3455,000<br>Previous Date: 2007-10-12<br>Annual Return: +4.4%/yr<br>Held for: 3.8 years", "<b>84D, Randolph Avenue</b><br>Transaction 3 of 4<br>Date: 2016-09-16<br>Sale Price: \u00a3725,000<br>Previous Purchase: \u00a3535,000<br>Previous Date: 2011-07-18<br>Annual Return: +6.1%/yr<br>Held for: 5.2 years", "<b>84D, Randolph Avenue</b><br>Transaction 4 of 4<br>Date: 2024-09-18<br>Sale Price: \u00a3725,000<br>Previous Purchase: \u00a3725,000<br>Previous Date: 2016-09-16<br>Annual Return: +0.0%/yr<br>Held for: 8.0 years"], "transaction_count": 4}, {"address": "Flat 2, Carriage House 88-90, Randolph Avenue", "dates": ["2006-04-28", "2010-06-28"], "prices": [275000, 365000], "hover_texts": ["<b>Flat 2, Carriage House 88-90, Randolph Avenue</b><br>Transaction 1 of 2<br>Date: 2006-04-28<br>Sale Price: \u00a3275,000", "<b>Flat 2, Carriage House 88-90, Randolph Avenue</b><br>Transaction 2 of 2<br>Date: 2010-06-28<br>Sale Price: \u00a3365,000<br>Previous Purchase: \u00a3275,000<br>Previous Date: 2006-04-28<br>Annual Return: +7.0%/yr<br>Held for: 4.2 years"], "transaction_count": 2}, {"address": "68F, Randolph Avenue", "dates": ["2006-08-29", "2007-05-25", "2008-05-27"], "prices": [595000, 780000, 1080000], "hover_texts": ["<b>68F, Randolph Avenue</b><br>Transaction 1 of 3<br>Date: 2006-08-29<br>Sale Price: \u00a3595,000", "<b>68F, Randolph Avenue</b><br>Transaction 2 of 3<br>Date: 2007-05-25<br>Sale Price: \u00a3780,000<br>Previous Purchase: \u00a3595,000<br>Previous Date: 2006-08-29<br>Annual Return: +44.4%/yr<br>Held for: 0.7 years", "<b>68F, Randolph Avenue</b><br>Transaction 3 of 3<br>Date: 2008-05-27<br>Sale Price: \u00a31,080,000<br>Previous Purchase: \u00a3780,000<br>Previous Date: 2007-05-25<br>Annual Return: +38.1%/yr<br>Held for: 1.0 years"], "transaction_count": 3}];
+            var singleSales = [{"date": "2008-04-04", "address": "72G, Randolph Avenue", "price": 450000, "price_display": "\u00a3450,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-02-21", "address": "Flat 15, Regents Court, 92, Randolph Avenue", "price": 860000, "price_display": "\u00a3860,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-07-25", "address": "Flat 13, Carriage House 88-90, Randolph Avenue", "price": 470000, "price_display": "\u00a3470,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-10-04", "address": "72L, Randolph Avenue", "price": 2300000, "price_display": "\u00a32,300,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-12-15", "address": "Flat 7, Regents Court, 92, Randolph Avenue", "price": 632500, "price_display": "\u00a3632,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-04-10", "address": "Flat J, 72 - 74, Randolph Avenue", "price": 1325000, "price_display": "\u00a31,325,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-08-02", "address": "86A, Randolph Avenue", "price": 2585000, "price_display": "\u00a32,585,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2009-05-28", "address": "Ground Floor Flat, 76, Randolph Avenue", "price": 400000, "price_display": "\u00a3400,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2009-11-27", "address": "Flat 6, Carriage House 88-90, Randolph Avenue", "price": 625000, "price_display": "\u00a3625,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2009-11-04", "address": "72E, Randolph Avenue", "price": 500000, "price_display": "\u00a3500,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-01-10", "address": "68D, Randolph Avenue", "price": 1280000, "price_display": "\u00a31,280,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-09-18", "address": "80C, Randolph Avenue", "price": 450000, "price_display": "\u00a3450,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-08-02", "address": "Flat 17, Regents Court, 92, Randolph Avenue", "price": 570000, "price_display": "\u00a3570,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-08-29", "address": "84C, Randolph Avenue", "price": 650000, "price_display": "\u00a3650,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-05-11", "address": "68B, Randolph Avenue", "price": 1050000, "price_display": "\u00a31,050,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-02-12", "address": "80F, Randolph Avenue", "price": 1455340, "price_display": "\u00a31,455,340", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2013-05-28", "address": "80H, Randolph Avenue", "price": 1850000, "price_display": "\u00a31,850,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-02-15", "address": "68A, Randolph Avenue", "price": 249500, "price_display": "\u00a3249,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-12-19", "address": "84A - 84H, Randolph Avenue", "price": 486000, "price_display": "\u00a3486,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-05-09", "address": "Flat 7, Carriage House 88-90, Randolph Avenue", "price": 650000, "price_display": "\u00a3650,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-01-05", "address": "Flat 12, Carriage House, 88 - 90, Randolph Avenue", "price": 1265000, "price_display": "\u00a31,265,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2015-04-07", "address": "84B, Randolph Avenue", "price": 585000, "price_display": "\u00a3585,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-01-27", "address": "Flat 1, Regents Court, 92, Randolph Avenue", "price": 1175000, "price_display": "\u00a31,175,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-08-14", "address": "Flat 6, Regents Court, 92, Randolph Avenue", "price": 725000, "price_display": "\u00a3725,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-12-06", "address": "Flat 18, Regents Court, 92, Randolph Avenue", "price": 650000, "price_display": "\u00a3650,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-10-04", "address": "72K, Randolph Avenue", "price": 700000, "price_display": "\u00a3700,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-11-21", "address": "Garden Flat, 78, Randolph Avenue", "price": 1675000, "price_display": "\u00a31,675,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-10-07", "address": "84E, Randolph Avenue", "price": 1170000, "price_display": "\u00a31,170,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2010-02-04", "address": "80D, Randolph Avenue", "price": 995000, "price_display": "\u00a3995,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-26", "address": "72H, Randolph Avenue", "price": 882500, "price_display": "\u00a3882,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2012-01-18", "address": "Flat 8, Carriage House 88-90, Randolph Avenue", "price": 800000, "price_display": "\u00a3800,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-06-21", "address": "Flat 10, Regents Court, 92, Randolph Avenue", "price": 780000, "price_display": "\u00a3780,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2008-04-11", "address": "Flat 3, Carriage House 88-90, Randolph Avenue", "price": 374000, "price_display": "\u00a3374,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-04-21", "address": "Flat 2, Carriage House, 88 - 90, Randolph Avenue", "price": 575000, "price_display": "\u00a3575,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": true, "annual_return": 6.9, "holding_period": 6.81, "previous_price": 365000, "previous_price_display": "\u00a3365,000", "previous_date": "2010-06-28"}, {"date": "2014-01-31", "address": "68E, Randolph Avenue", "price": 720000, "price_display": "\u00a3720,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W9-1BG', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W9-1BG');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W9-1BG', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W9-1BG', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W9-1BG" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2008-04-04</td>
+            <td>72G, Randolph Avenue</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-02-21</td>
+            <td>Flat 15, Regents Court, 92, Randolph Avenue</td>
+            <td class="price">£860,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-07-25</td>
+            <td>Flat 13, Carriage House 88-90, Randolph Avenue</td>
+            <td class="price">£470,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-10-04</td>
+            <td>72L, Randolph Avenue</td>
+            <td class="price">£2,300,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-12-15</td>
+            <td>Flat 7, Regents Court, 92, Randolph Avenue</td>
+            <td class="price">£632,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-04-10</td>
+            <td>Flat J, 72 - 74, Randolph Avenue</td>
+            <td class="price">£1,325,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-08-02</td>
+            <td>86A, Randolph Avenue</td>
+            <td class="price">£2,585,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-05-28</td>
+            <td>Ground Floor Flat, 76, Randolph Avenue</td>
+            <td class="price">£400,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-11-27</td>
+            <td>Flat 6, Carriage House 88-90, Randolph Avenue</td>
+            <td class="price">£625,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-11-04</td>
+            <td>72E, Randolph Avenue</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-03-12</td>
+            <td>Flat 12, Regents Court, 92, Randolph Avenue</td>
+            <td class="price">£1,120,000</td>
+        <td class="positive" title="Previous: £800,000 (2007-10-03)">+2.7%/yr</td></tr>
+
+        <tr>
+            <td>2007-10-03</td>
+            <td>Flat 12, Regents Court, 92, Randolph Avenue</td>
+            <td class="price">£800,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-01-10</td>
+            <td>68D, Randolph Avenue</td>
+            <td class="price">£1,280,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-10-08</td>
+            <td>68G, Randolph Avenue</td>
+            <td class="price">£700,000</td>
+        <td class="negative" title="Previous: £710,000 (2013-06-07)">-0.2%/yr</td></tr>
+
+        <tr>
+            <td>2013-06-07</td>
+            <td>68G, Randolph Avenue</td>
+            <td class="price">£710,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-07-04</td>
+            <td>Basement, 74, Randolph Avenue</td>
+            <td class="price">£1,999,950</td>
+        <td class="positive" title="Previous: £1,200,000 (2007-10-01)">+7.8%/yr</td></tr>
+
+        <tr>
+            <td>2007-10-01</td>
+            <td>Basement, 74, Randolph Avenue</td>
+            <td class="price">£1,200,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-04-06</td>
+            <td>Flat 5, Regents Court, 92, Randolph Avenue</td>
+            <td class="price">£1,675,000</td>
+        <td class="negative" title="Previous: £1,775,000 (2013-10-11)">-0.7%/yr</td></tr>
+
+        <tr>
+            <td>2013-10-11</td>
+            <td>Flat 5, Regents Court, 92, Randolph Avenue</td>
+            <td class="price">£1,775,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-09-18</td>
+            <td>80C, Randolph Avenue</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-08-02</td>
+            <td>Flat 17, Regents Court, 92, Randolph Avenue</td>
+            <td class="price">£570,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-08-29</td>
+            <td>84C, Randolph Avenue</td>
+            <td class="price">£650,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-05-11</td>
+            <td>68B, Randolph Avenue</td>
+            <td class="price">£1,050,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-02-12</td>
+            <td>80F, Randolph Avenue</td>
+            <td class="price">£1,455,340</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-05-28</td>
+            <td>80H, Randolph Avenue</td>
+            <td class="price">£1,850,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-02-15</td>
+            <td>68A, Randolph Avenue</td>
+            <td class="price">£249,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-12-19</td>
+            <td>84A - 84H, Randolph Avenue</td>
+            <td class="price">£486,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-05-09</td>
+            <td>Flat 7, Carriage House 88-90, Randolph Avenue</td>
+            <td class="price">£650,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-05</td>
+            <td>Flat 12, Carriage House, 88 - 90, Randolph Avenue</td>
+            <td class="price">£1,265,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-04-25</td>
+            <td>72A, Randolph Avenue</td>
+            <td class="price">£685,000</td>
+        <td class="positive" title="Previous: £470,000 (2011-07-11)">+3.2%/yr</td></tr>
+
+        <tr>
+            <td>2011-07-11</td>
+            <td>72A, Randolph Avenue</td>
+            <td class="price">£470,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-03-30</td>
+            <td>Flat 1, Carriage House, 88 - 90, Randolph Avenue</td>
+            <td class="price">£415,000</td>
+        <td class="positive" title="Previous: £275,000 (2006-02-21)">+7.0%/yr</td></tr>
+
+        <tr>
+            <td>2006-02-21</td>
+            <td>Flat 1, Carriage House, 88 - 90, Randolph Avenue</td>
+            <td class="price">£275,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-01-12</td>
+            <td>72C, Randolph Avenue</td>
+            <td class="price">£700,000</td>
+        <td class="positive" title="Previous: £630,000 (2013-12-11)">+2.6%/yr</td></tr>
+
+        <tr>
+            <td>2013-12-11</td>
+            <td>72C, Randolph Avenue</td>
+            <td class="price">£630,000</td>
+        <td class="positive" title="Previous: £440,000 (2007-12-14)">+6.2%/yr</td></tr>
+
+        <tr>
+            <td>2007-12-14</td>
+            <td>72C, Randolph Avenue</td>
+            <td class="price">£440,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-04-07</td>
+            <td>84B, Randolph Avenue</td>
+            <td class="price">£585,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-06-21</td>
+            <td>68J, Randolph Avenue</td>
+            <td class="price">£1,100,000</td>
+        <td class="positive" title="Previous: £795,000 (2006-07-10)">+8.6%/yr</td></tr>
+
+        <tr>
+            <td>2006-07-10</td>
+            <td>68J, Randolph Avenue</td>
+            <td class="price">£795,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-01-27</td>
+            <td>Flat 1, Regents Court, 92, Randolph Avenue</td>
+            <td class="price">£1,175,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-05-31</td>
+            <td>80B, Randolph Avenue</td>
+            <td class="price">£1,425,000</td>
+        <td class="positive" title="Previous: £1,150,000 (2012-07-13)">+2.2%/yr</td></tr>
+
+        <tr>
+            <td>2012-07-13</td>
+            <td>80B, Randolph Avenue</td>
+            <td class="price">£1,150,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-12-04</td>
+            <td>Second Floor Flat, 76, Randolph Avenue</td>
+            <td class="price">£645,000</td>
+        <td class="positive" title="Previous: £500,000 (2011-12-28)">+2.9%/yr</td></tr>
+
+        <tr>
+            <td>2011-12-28</td>
+            <td>Second Floor Flat, 76, Randolph Avenue</td>
+            <td class="price">£500,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-08-14</td>
+            <td>Flat 6, Regents Court, 92, Randolph Avenue</td>
+            <td class="price">£725,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2015-10-15</td>
+            <td>72F, Randolph Avenue</td>
+            <td class="price">£765,000</td>
+        <td class="positive" title="Previous: £465,000 (2008-09-23)">+7.3%/yr</td></tr>
+
+        <tr>
+            <td>2008-09-23</td>
+            <td>72F, Randolph Avenue</td>
+            <td class="price">£465,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-04-07</td>
+            <td>84A, Randolph Avenue</td>
+            <td class="price">£655,000</td>
+        <td class="positive" title="Previous: £385,000 (2007-05-06)">+3.6%/yr</td></tr>
+
+        <tr>
+            <td>2007-05-06</td>
+            <td>84A, Randolph Avenue</td>
+            <td class="price">£385,000</td>
+        <td class="positive" title="Previous: £325,000 (2007-02-20)">+128.2%/yr</td></tr>
+
+        <tr>
+            <td>2007-02-20</td>
+            <td>84A, Randolph Avenue</td>
+            <td class="price">£325,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-07-09</td>
+            <td>66, Randolph Avenue</td>
+            <td class="price">£995,000</td>
+        <td class="negative" title="Previous: £1,250,000 (2013-03-18)">-16.0%/yr</td></tr>
+
+        <tr>
+            <td>2013-03-18</td>
+            <td>66, Randolph Avenue</td>
+            <td class="price">£1,250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-12-06</td>
+            <td>Flat 18, Regents Court, 92, Randolph Avenue</td>
+            <td class="price">£650,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-01-11</td>
+            <td>Flat 9, Carriage House 88-90, Randolph Avenue</td>
+            <td class="price">£540,000</td>
+        <td class="positive" title="Previous: £391,500 (2009-05-01)">+9.1%/yr</td></tr>
+
+        <tr>
+            <td>2009-05-01</td>
+            <td>Flat 9, Carriage House 88-90, Randolph Avenue</td>
+            <td class="price">£391,500</td>
+        <td class="positive" title="Previous: £345,000 (2006-08-17)">+4.8%/yr</td></tr>
+
+        <tr>
+            <td>2006-08-17</td>
+            <td>Flat 9, Carriage House 88-90, Randolph Avenue</td>
+            <td class="price">£345,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-10-04</td>
+            <td>72K, Randolph Avenue</td>
+            <td class="price">£700,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-11-21</td>
+            <td>Garden Flat, 78, Randolph Avenue</td>
+            <td class="price">£1,675,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-10-07</td>
+            <td>84E, Randolph Avenue</td>
+            <td class="price">£1,170,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-02-04</td>
+            <td>80D, Randolph Avenue</td>
+            <td class="price">£995,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-05-20</td>
+            <td>Flat 2, Regents Court, 92, Randolph Avenue</td>
+            <td class="price">£925,000</td>
+        <td class="positive" title="Previous: £915,000 (2017-07-06)">+0.2%/yr</td></tr>
+
+        <tr>
+            <td>2017-07-06</td>
+            <td>Flat 2, Regents Court, 92, Randolph Avenue</td>
+            <td class="price">£915,000</td>
+        <td class="positive" title="Previous: £616,000 (2009-09-11)">+5.2%/yr</td></tr>
+
+        <tr>
+            <td>2009-09-11</td>
+            <td>Flat 2, Regents Court, 92, Randolph Avenue</td>
+            <td class="price">£616,000</td>
+        <td class="positive" title="Previous: £465,000 (2006-04-21)">+8.6%/yr</td></tr>
+
+        <tr>
+            <td>2006-04-21</td>
+            <td>Flat 2, Regents Court, 92, Randolph Avenue</td>
+            <td class="price">£465,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-26</td>
+            <td>72H, Randolph Avenue</td>
+            <td class="price">£882,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-11-11</td>
+            <td>80J, Randolph Avenue</td>
+            <td class="price">£1,800,000</td>
+        <td class="positive" title="Previous: £1,390,000 (2010-12-03)">+2.4%/yr</td></tr>
+
+        <tr>
+            <td>2010-12-03</td>
+            <td>80J, Randolph Avenue</td>
+            <td class="price">£1,390,000</td>
+        <td class="positive" title="Previous: £915,000 (2010-03-02)">+73.9%/yr</td></tr>
+
+        <tr>
+            <td>2010-03-02</td>
+            <td>80J, Randolph Avenue</td>
+            <td class="price">£915,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2012-01-18</td>
+            <td>Flat 8, Carriage House 88-90, Randolph Avenue</td>
+            <td class="price">£800,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-06-21</td>
+            <td>Flat 10, Regents Court, 92, Randolph Avenue</td>
+            <td class="price">£780,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-09-18</td>
+            <td>84D, Randolph Avenue</td>
+            <td class="price">£725,000</td>
+        <td class="negative" title="Previous: £725,000 (2016-09-16)">+0.0%/yr</td></tr>
+
+        <tr>
+            <td>2016-09-16</td>
+            <td>84D, Randolph Avenue</td>
+            <td class="price">£725,000</td>
+        <td class="positive" title="Previous: £535,000 (2011-07-18)">+6.1%/yr</td></tr>
+
+        <tr>
+            <td>2011-07-18</td>
+            <td>84D, Randolph Avenue</td>
+            <td class="price">£535,000</td>
+        <td class="positive" title="Previous: £455,000 (2007-10-12)">+4.4%/yr</td></tr>
+
+        <tr>
+            <td>2007-10-12</td>
+            <td>84D, Randolph Avenue</td>
+            <td class="price">£455,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-04-11</td>
+            <td>Flat 3, Carriage House 88-90, Randolph Avenue</td>
+            <td class="price">£374,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-04-21</td>
+            <td>Flat 2, Carriage House, 88 - 90, Randolph Avenue</td>
+            <td class="price">£575,000</td>
+        <td class="positive" title="Previous: £365,000 (2010-06-28)">+6.9%/yr</td></tr>
+
+        <tr>
+            <td>2010-06-28</td>
+            <td>Flat 2, Carriage House 88-90, Randolph Avenue</td>
+            <td class="price">£365,000</td>
+        <td class="positive" title="Previous: £275,000 (2006-04-28)">+7.0%/yr</td></tr>
+
+        <tr>
+            <td>2006-04-28</td>
+            <td>Flat 2, Carriage House 88-90, Randolph Avenue</td>
+            <td class="price">£275,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2008-05-27</td>
+            <td>68F, Randolph Avenue</td>
+            <td class="price">£1,080,000</td>
+        <td class="positive" title="Previous: £780,000 (2007-05-25)">+38.1%/yr</td></tr>
+
+        <tr>
+            <td>2007-05-25</td>
+            <td>68F, Randolph Avenue</td>
+            <td class="price">£780,000</td>
+        <td class="positive" title="Previous: £595,000 (2006-08-29)">+44.4%/yr</td></tr>
+
+        <tr>
+            <td>2006-08-29</td>
+            <td>68F, Randolph Avenue</td>
+            <td class="price">£595,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-01-31</td>
+            <td>68E, Randolph Avenue</td>
+            <td class="price">£720,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W9-1BG" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W9-1BG" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+            y: [603200, 606875, 563800, 506500, 953000, 535166, 788333, 1172905, 1238316, 891666, 725000, 745000, 916250, 860000, 821666, 1341250, 1170000, 1046666, 1272857],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024],
+            y: [595000, 470000, 450000, 500000, 995000, 535000, 800000, 1250000, 995000, 765000, 725000, 915000, 1050000, 860000, 700000, 1800000, 1425000, 1175000, 780000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W9 1BG',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W9-1BG', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 82</p>
+                    <p><strong>Unique Properties:</strong> 53</p>
+                    <p><strong>Average Price:</strong> £851,186</p>
+                    <p><strong>Median Price:</strong> £705,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W9-1BG" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W9 1 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W9 1</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W9-1BG', 'W9-1BG')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W9-1BG', 'W9-1BG')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W9-1BG" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W9-1BG" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [503628, 496801, 641637, 687843, 624423, 760997, 746228, 843162, 979680, 1042012, 998837, 973559, 1084399, 1098087, 987179, 1164348, 1165985, 1227869, 1098567, 1066304, 988367],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [423500, 458250, 555000, 580000, 550000, 661750, 657000, 748533, 825000, 900000, 948750, 950000, 950000, 950000, 920000, 950000, 990000, 979694, 975000, 900000, 867500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W9 1 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W9-1BG', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W9-1BG" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £420,000</div>
+                        <div class="cell-sell">Sell: £496,428</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(7 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £502,376</div>
+                        <div class="cell-sell">Sell: £774,255</div>
+                        <div class="cell-return">+15.7%/yr</div>
+                        <div class="cell-count">(70 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £438,940</div>
+                        <div class="cell-sell">Sell: £875,403</div>
+                        <div class="cell-return">+9.7%/yr</div>
+                        <div class="cell-count">(58 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £480,242</div>
+                        <div class="cell-sell">Sell: £1,057,471</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(18 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £565,666</div>
+                        <div class="cell-sell">Sell: £1,351,900</div>
+                        <div class="cell-return">+5.0%/yr</div>
+                        <div class="cell-count">(15 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £546,848</div>
+                        <div class="cell-sell">Sell: £726,790</div>
+                        <div class="cell-return">+16.5%/yr</div>
+                        <div class="cell-count">(161 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £615,584</div>
+                        <div class="cell-sell">Sell: £931,491</div>
+                        <div class="cell-return">+9.0%/yr</div>
+                        <div class="cell-count">(281 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £536,615</div>
+                        <div class="cell-sell">Sell: £936,147</div>
+                        <div class="cell-return">+6.8%/yr</div>
+                        <div class="cell-count">(121 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £662,961</div>
+                        <div class="cell-sell">Sell: £1,053,898</div>
+                        <div class="cell-return">+3.4%/yr</div>
+                        <div class="cell-count">(143 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £762,350</div>
+                        <div class="cell-sell">Sell: £1,051,651</div>
+                        <div class="cell-return">+15.5%/yr</div>
+                        <div class="cell-count">(87 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £912,665</div>
+                        <div class="cell-sell">Sell: £1,140,202</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(156 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £864,000</div>
+                        <div class="cell-sell">Sell: £1,010,998</div>
+                        <div class="cell-return">+1.9%/yr</div>
+                        <div class="cell-count">(143 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £1,036,548</div>
+                        <div class="cell-sell">Sell: £1,097,227</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(24 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £931,564</div>
+                        <div class="cell-sell">Sell: £1,122,889</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(93 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £945,824</div>
+                        <div class="cell-sell">Sell: £1,158,609</div>
+                        <div class="cell-return">+14.5%/yr</div>
+                        <div class="cell-count">(32 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W9-1BG" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W9 Analysis</h4>
+                <p class="area-info">Viewing data for entire W9 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W9-1BG', 'W9-1BG')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W9-1BG', 'W9-1BG')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W9-1BG" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W9-1BG" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [403624, 410084, 502031, 542342, 509576, 576762, 589622, 614397, 705978, 771780, 801927, 810651, 878155, 846353, 767023, 883314, 833566, 911149, 877071, 829490, 787919],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [315000, 330000, 405000, 420000, 390000, 441000, 470571, 483000, 540000, 586000, 635750, 645000, 680000, 645500, 603000, 633750, 650000, 694825, 727500, 650000, 670000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W9 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W9-1BG', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W9-1BG" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £367,147</div>
+                        <div class="cell-sell">Sell: £491,926</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(17 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £399,568</div>
+                        <div class="cell-sell">Sell: £581,118</div>
+                        <div class="cell-return">+14.7%/yr</div>
+                        <div class="cell-count">(178 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £362,568</div>
+                        <div class="cell-sell">Sell: £704,548</div>
+                        <div class="cell-return">+9.3%/yr</div>
+                        <div class="cell-count">(130 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £414,683</div>
+                        <div class="cell-sell">Sell: £890,023</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(42 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £408,641</div>
+                        <div class="cell-sell">Sell: £924,027</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(36 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £437,771</div>
+                        <div class="cell-sell">Sell: £560,484</div>
+                        <div class="cell-return">+14.4%/yr</div>
+                        <div class="cell-count">(386 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £465,731</div>
+                        <div class="cell-sell">Sell: £706,243</div>
+                        <div class="cell-return">+9.2%/yr</div>
+                        <div class="cell-count">(768 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £455,620</div>
+                        <div class="cell-sell">Sell: £784,797</div>
+                        <div class="cell-return">+6.4%/yr</div>
+                        <div class="cell-count">(300 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £534,729</div>
+                        <div class="cell-sell">Sell: £876,256</div>
+                        <div class="cell-return">+3.6%/yr</div>
+                        <div class="cell-count">(281 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £537,913</div>
+                        <div class="cell-sell">Sell: £738,717</div>
+                        <div class="cell-return">+17.9%/yr</div>
+                        <div class="cell-count">(320 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £691,264</div>
+                        <div class="cell-sell">Sell: £867,537</div>
+                        <div class="cell-return">+6.9%/yr</div>
+                        <div class="cell-count">(462 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £686,757</div>
+                        <div class="cell-sell">Sell: £799,312</div>
+                        <div class="cell-return">+1.8%/yr</div>
+                        <div class="cell-count">(450 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £732,271</div>
+                        <div class="cell-sell">Sell: £780,342</div>
+                        <div class="cell-return">+10.9%/yr</div>
+                        <div class="cell-count">(99 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £720,092</div>
+                        <div class="cell-sell">Sell: £817,153</div>
+                        <div class="cell-return">+4.3%/yr</div>
+                        <div class="cell-count">(362 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £830,485</div>
+                        <div class="cell-sell">Sell: £874,471</div>
+                        <div class="cell-return">+11.0%/yr</div>
+                        <div class="cell-count">(106 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W9 1'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W9'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

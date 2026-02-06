@@ -1,0 +1,1255 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>N6 5LX</h3>
+            <div class="header-stats">
+                <span><strong>69</strong> transactions</span>
+                <span><strong>33</strong> properties</span>
+                <span>Avg: <strong>£335,252</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-N6-5LX')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-N6-5LX')">
+                Sector (N6 5)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-N6-5LX')">
+                District (N6)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-N6-5LX" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-N6-5LX', 'N6-5LX')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-N6-5LX', 'N6-5LX')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-N6-5LX', 'N6-5LX')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-N6-5LX" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-N6-5LX" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 4, Fitzwarren House, 12B, Hornsey Lane", "dates": ["2012-05-23", "2024-07-31"], "prices": [155000, 295000], "hover_texts": ["<b>Flat 4, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 1 of 2<br>Date: 2012-05-23<br>Sale Price: \u00a3155,000", "<b>Flat 4, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 2 of 2<br>Date: 2024-07-31<br>Sale Price: \u00a3295,000<br>Previous Purchase: \u00a3155,000<br>Previous Date: 2012-05-23<br>Annual Return: +5.4%/yr<br>Held for: 12.2 years"], "transaction_count": 2}, {"address": "Flat 3, 16 - 18, Hornsey Lane", "dates": ["2006-08-11", "2011-09-12", "2016-10-07", "2022-04-27"], "prices": [235000, 345000, 540000, 542500], "hover_texts": ["<b>Flat 3, 16 - 18, Hornsey Lane</b><br>Transaction 1 of 4<br>Date: 2006-08-11<br>Sale Price: \u00a3235,000", "<b>Flat 3, 16 - 18, Hornsey Lane</b><br>Transaction 2 of 4<br>Date: 2011-09-12<br>Sale Price: \u00a3345,000<br>Previous Purchase: \u00a3235,000<br>Previous Date: 2006-08-11<br>Annual Return: +7.8%/yr<br>Held for: 5.1 years", "<b>Flat 3, 16 - 18, Hornsey Lane</b><br>Transaction 3 of 4<br>Date: 2016-10-07<br>Sale Price: \u00a3540,000<br>Previous Purchase: \u00a3345,000<br>Previous Date: 2011-09-12<br>Annual Return: +9.2%/yr<br>Held for: 5.1 years", "<b>Flat 3, 16 - 18, Hornsey Lane</b><br>Transaction 4 of 4<br>Date: 2022-04-27<br>Sale Price: \u00a3542,500<br>Previous Purchase: \u00a3540,000<br>Previous Date: 2016-10-07<br>Annual Return: +0.1%/yr<br>Held for: 5.5 years"], "transaction_count": 4}, {"address": "Flat 16, Fitzwarren House, 12B, Hornsey Lane", "dates": ["2006-12-19", "2014-12-16"], "prices": [220000, 375000], "hover_texts": ["<b>Flat 16, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 1 of 2<br>Date: 2006-12-19<br>Sale Price: \u00a3220,000", "<b>Flat 16, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 2 of 2<br>Date: 2014-12-16<br>Sale Price: \u00a3375,000<br>Previous Purchase: \u00a3220,000<br>Previous Date: 2006-12-19<br>Annual Return: +6.9%/yr<br>Held for: 8.0 years"], "transaction_count": 2}, {"address": "Flat 10, Fitzwarren House, 12B, Hornsey Lane", "dates": ["2006-03-31", "2013-05-03"], "prices": [180000, 232750], "hover_texts": ["<b>Flat 10, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 1 of 2<br>Date: 2006-03-31<br>Sale Price: \u00a3180,000", "<b>Flat 10, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 2 of 2<br>Date: 2013-05-03<br>Sale Price: \u00a3232,750<br>Previous Purchase: \u00a3180,000<br>Previous Date: 2006-03-31<br>Annual Return: +3.7%/yr<br>Held for: 7.1 years"], "transaction_count": 2}, {"address": "Flat 8, Fitzwarren House 12B, Hornsey Lane", "dates": ["2005-11-24", "2019-01-04", "2024-06-14"], "prices": [245000, 390000, 350000], "hover_texts": ["<b>Flat 8, Fitzwarren House 12B, Hornsey Lane</b><br>Transaction 1 of 3<br>Date: 2005-11-24<br>Sale Price: \u00a3245,000", "<b>Flat 8, Fitzwarren House 12B, Hornsey Lane</b><br>Transaction 2 of 3<br>Date: 2019-01-04<br>Sale Price: \u00a3390,000<br>Previous Purchase: \u00a3245,000<br>Previous Date: 2005-11-24<br>Annual Return: +3.6%/yr<br>Held for: 13.1 years", "<b>Flat 8, Fitzwarren House 12B, Hornsey Lane</b><br>Transaction 3 of 3<br>Date: 2024-06-14<br>Sale Price: \u00a3350,000<br>Previous Purchase: \u00a3390,000<br>Previous Date: 2019-01-04<br>Annual Return: -2.0%/yr<br>Held for: 5.4 years"], "transaction_count": 3}, {"address": "Flat 1A, 16 - 18, Hornsey Lane", "dates": ["2013-10-29", "2025-03-31"], "prices": [379950, 435000], "hover_texts": ["<b>Flat 1A, 16 - 18, Hornsey Lane</b><br>Transaction 1 of 2<br>Date: 2013-10-29<br>Sale Price: \u00a3379,950", "<b>Flat 1A, 16 - 18, Hornsey Lane</b><br>Transaction 2 of 2<br>Date: 2025-03-31<br>Sale Price: \u00a3435,000<br>Previous Purchase: \u00a3379,950<br>Previous Date: 2013-10-29<br>Annual Return: +1.2%/yr<br>Held for: 11.4 years"], "transaction_count": 2}, {"address": "Flat 5, Fitzwarren House, 12B, Hornsey Lane", "dates": ["2007-08-24", "2016-12-06"], "prices": [150000, 313800], "hover_texts": ["<b>Flat 5, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 1 of 2<br>Date: 2007-08-24<br>Sale Price: \u00a3150,000", "<b>Flat 5, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 2 of 2<br>Date: 2016-12-06<br>Sale Price: \u00a3313,800<br>Previous Purchase: \u00a3150,000<br>Previous Date: 2007-08-24<br>Annual Return: +8.3%/yr<br>Held for: 9.3 years"], "transaction_count": 2}, {"address": "24A, Hornsey Lane", "dates": ["2006-08-11", "2010-09-10", "2014-01-24", "2025-03-28"], "prices": [220000, 292000, 425000, 435000], "hover_texts": ["<b>24A, Hornsey Lane</b><br>Transaction 1 of 4<br>Date: 2006-08-11<br>Sale Price: \u00a3220,000", "<b>24A, Hornsey Lane</b><br>Transaction 2 of 4<br>Date: 2010-09-10<br>Sale Price: \u00a3292,000<br>Previous Purchase: \u00a3220,000<br>Previous Date: 2006-08-11<br>Annual Return: +7.2%/yr<br>Held for: 4.1 years", "<b>24A, Hornsey Lane</b><br>Transaction 3 of 4<br>Date: 2014-01-24<br>Sale Price: \u00a3425,000<br>Previous Purchase: \u00a3292,000<br>Previous Date: 2010-09-10<br>Annual Return: +11.8%/yr<br>Held for: 3.4 years", "<b>24A, Hornsey Lane</b><br>Transaction 4 of 4<br>Date: 2025-03-28<br>Sale Price: \u00a3435,000<br>Previous Purchase: \u00a3425,000<br>Previous Date: 2014-01-24<br>Annual Return: +0.2%/yr<br>Held for: 11.2 years"], "transaction_count": 4}, {"address": "Flat 2, 22, Hornsey Lane", "dates": ["2006-07-28", "2011-04-27", "2022-11-23"], "prices": [240000, 335000, 512500], "hover_texts": ["<b>Flat 2, 22, Hornsey Lane</b><br>Transaction 1 of 3<br>Date: 2006-07-28<br>Sale Price: \u00a3240,000", "<b>Flat 2, 22, Hornsey Lane</b><br>Transaction 2 of 3<br>Date: 2011-04-27<br>Sale Price: \u00a3335,000<br>Previous Purchase: \u00a3240,000<br>Previous Date: 2006-07-28<br>Annual Return: +7.3%/yr<br>Held for: 4.8 years", "<b>Flat 2, 22, Hornsey Lane</b><br>Transaction 3 of 3<br>Date: 2022-11-23<br>Sale Price: \u00a3512,500<br>Previous Purchase: \u00a3335,000<br>Previous Date: 2011-04-27<br>Annual Return: +3.7%/yr<br>Held for: 11.6 years"], "transaction_count": 3}, {"address": "Flat 6, 16 - 18, Hornsey Lane", "dates": ["2006-06-23", "2011-12-05", "2023-04-28"], "prices": [250000, 425000, 525000], "hover_texts": ["<b>Flat 6, 16 - 18, Hornsey Lane</b><br>Transaction 1 of 3<br>Date: 2006-06-23<br>Sale Price: \u00a3250,000", "<b>Flat 6, 16 - 18, Hornsey Lane</b><br>Transaction 2 of 3<br>Date: 2011-12-05<br>Sale Price: \u00a3425,000<br>Previous Purchase: \u00a3250,000<br>Previous Date: 2006-06-23<br>Annual Return: +10.2%/yr<br>Held for: 5.5 years", "<b>Flat 6, 16 - 18, Hornsey Lane</b><br>Transaction 3 of 3<br>Date: 2023-04-28<br>Sale Price: \u00a3525,000<br>Previous Purchase: \u00a3425,000<br>Previous Date: 2011-12-05<br>Annual Return: +1.9%/yr<br>Held for: 11.4 years"], "transaction_count": 3}, {"address": "Flat 5, 16 - 18, Hornsey Lane", "dates": ["2006-09-07", "2009-11-04"], "prices": [235000, 260000], "hover_texts": ["<b>Flat 5, 16 - 18, Hornsey Lane</b><br>Transaction 1 of 2<br>Date: 2006-09-07<br>Sale Price: \u00a3235,000", "<b>Flat 5, 16 - 18, Hornsey Lane</b><br>Transaction 2 of 2<br>Date: 2009-11-04<br>Sale Price: \u00a3260,000<br>Previous Purchase: \u00a3235,000<br>Previous Date: 2006-09-07<br>Annual Return: +3.2%/yr<br>Held for: 3.2 years"], "transaction_count": 2}, {"address": "Flat 5, 22, Hornsey Lane", "dates": ["2006-08-16", "2013-06-21", "2021-10-29"], "prices": [250000, 431000, 535000], "hover_texts": ["<b>Flat 5, 22, Hornsey Lane</b><br>Transaction 1 of 3<br>Date: 2006-08-16<br>Sale Price: \u00a3250,000", "<b>Flat 5, 22, Hornsey Lane</b><br>Transaction 2 of 3<br>Date: 2013-06-21<br>Sale Price: \u00a3431,000<br>Previous Purchase: \u00a3250,000<br>Previous Date: 2006-08-16<br>Annual Return: +8.3%/yr<br>Held for: 6.8 years", "<b>Flat 5, 22, Hornsey Lane</b><br>Transaction 3 of 3<br>Date: 2021-10-29<br>Sale Price: \u00a3535,000<br>Previous Purchase: \u00a3431,000<br>Previous Date: 2013-06-21<br>Annual Return: +2.6%/yr<br>Held for: 8.4 years"], "transaction_count": 3}, {"address": "Flat 8, 16 - 18, Hornsey Lane", "dates": ["2009-10-19", "2011-06-15", "2022-10-19"], "prices": [248000, 375000, 500000], "hover_texts": ["<b>Flat 8, 16 - 18, Hornsey Lane</b><br>Transaction 1 of 3<br>Date: 2009-10-19<br>Sale Price: \u00a3248,000", "<b>Flat 8, 16 - 18, Hornsey Lane</b><br>Transaction 2 of 3<br>Date: 2011-06-15<br>Sale Price: \u00a3375,000<br>Previous Purchase: \u00a3248,000<br>Previous Date: 2009-10-19<br>Annual Return: +28.4%/yr<br>Held for: 1.6 years", "<b>Flat 8, 16 - 18, Hornsey Lane</b><br>Transaction 3 of 3<br>Date: 2022-10-19<br>Sale Price: \u00a3500,000<br>Previous Purchase: \u00a3375,000<br>Previous Date: 2011-06-15<br>Annual Return: +2.6%/yr<br>Held for: 11.3 years"], "transaction_count": 3}, {"address": "Flat 7, 22, Hornsey Lane", "dates": ["2016-03-24", "2018-03-15", "2022-06-17"], "prices": [567500, 565000, 570000], "hover_texts": ["<b>Flat 7, 22, Hornsey Lane</b><br>Transaction 1 of 3<br>Date: 2016-03-24<br>Sale Price: \u00a3567,500", "<b>Flat 7, 22, Hornsey Lane</b><br>Transaction 2 of 3<br>Date: 2018-03-15<br>Sale Price: \u00a3565,000<br>Previous Purchase: \u00a3567,500<br>Previous Date: 2016-03-24<br>Annual Return: -0.2%/yr<br>Held for: 2.0 years", "<b>Flat 7, 22, Hornsey Lane</b><br>Transaction 3 of 3<br>Date: 2022-06-17<br>Sale Price: \u00a3570,000<br>Previous Purchase: \u00a3565,000<br>Previous Date: 2018-03-15<br>Annual Return: +0.2%/yr<br>Held for: 4.3 years"], "transaction_count": 3}, {"address": "Flat 17, Fitzwarren House, 12B, Hornsey Lane", "dates": ["2011-12-02", "2019-08-07", "2021-06-24"], "prices": [320000, 400000, 340000], "hover_texts": ["<b>Flat 17, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 1 of 3<br>Date: 2011-12-02<br>Sale Price: \u00a3320,000", "<b>Flat 17, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 2 of 3<br>Date: 2019-08-07<br>Sale Price: \u00a3400,000<br>Previous Purchase: \u00a3320,000<br>Previous Date: 2011-12-02<br>Annual Return: +3.0%/yr<br>Held for: 7.7 years", "<b>Flat 17, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 3 of 3<br>Date: 2021-06-24<br>Sale Price: \u00a3340,000<br>Previous Purchase: \u00a3400,000<br>Previous Date: 2019-08-07<br>Annual Return: -8.3%/yr<br>Held for: 1.9 years"], "transaction_count": 3}, {"address": "Flat 6, Fitzwarren House, 12B, Hornsey Lane", "dates": ["2012-09-19", "2024-12-04"], "prices": [185000, 282500], "hover_texts": ["<b>Flat 6, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 1 of 2<br>Date: 2012-09-19<br>Sale Price: \u00a3185,000", "<b>Flat 6, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 2 of 2<br>Date: 2024-12-04<br>Sale Price: \u00a3282,500<br>Previous Purchase: \u00a3185,000<br>Previous Date: 2012-09-19<br>Annual Return: +3.5%/yr<br>Held for: 12.2 years"], "transaction_count": 2}, {"address": "Flat 2, Fitzwarren House, 12B, Hornsey Lane", "dates": ["2008-02-19", "2013-09-04", "2024-09-20"], "prices": [283000, 340000, 342500], "hover_texts": ["<b>Flat 2, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 1 of 3<br>Date: 2008-02-19<br>Sale Price: \u00a3283,000", "<b>Flat 2, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 2 of 3<br>Date: 2013-09-04<br>Sale Price: \u00a3340,000<br>Previous Purchase: \u00a3283,000<br>Previous Date: 2008-02-19<br>Annual Return: +3.4%/yr<br>Held for: 5.5 years", "<b>Flat 2, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 3 of 3<br>Date: 2024-09-20<br>Sale Price: \u00a3342,500<br>Previous Purchase: \u00a3340,000<br>Previous Date: 2013-09-04<br>Annual Return: +0.1%/yr<br>Held for: 11.0 years"], "transaction_count": 3}, {"address": "Flat 11, Fitzwarren House, 12B, Hornsey Lane", "dates": ["2010-01-22", "2019-04-18"], "prices": [260000, 380000], "hover_texts": ["<b>Flat 11, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 1 of 2<br>Date: 2010-01-22<br>Sale Price: \u00a3260,000", "<b>Flat 11, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 2 of 2<br>Date: 2019-04-18<br>Sale Price: \u00a3380,000<br>Previous Purchase: \u00a3260,000<br>Previous Date: 2010-01-22<br>Annual Return: +4.2%/yr<br>Held for: 9.2 years"], "transaction_count": 2}, {"address": "Flat 2, 16 - 18, Hornsey Lane", "dates": ["2006-06-22", "2010-01-08", "2017-07-17", "2022-04-04"], "prices": [217500, 277000, 465000, 488000], "hover_texts": ["<b>Flat 2, 16 - 18, Hornsey Lane</b><br>Transaction 1 of 4<br>Date: 2006-06-22<br>Sale Price: \u00a3217,500", "<b>Flat 2, 16 - 18, Hornsey Lane</b><br>Transaction 2 of 4<br>Date: 2010-01-08<br>Sale Price: \u00a3277,000<br>Previous Purchase: \u00a3217,500<br>Previous Date: 2006-06-22<br>Annual Return: +7.0%/yr<br>Held for: 3.5 years", "<b>Flat 2, 16 - 18, Hornsey Lane</b><br>Transaction 3 of 4<br>Date: 2017-07-17<br>Sale Price: \u00a3465,000<br>Previous Purchase: \u00a3277,000<br>Previous Date: 2010-01-08<br>Annual Return: +7.1%/yr<br>Held for: 7.5 years", "<b>Flat 2, 16 - 18, Hornsey Lane</b><br>Transaction 4 of 4<br>Date: 2022-04-04<br>Sale Price: \u00a3488,000<br>Previous Purchase: \u00a3465,000<br>Previous Date: 2017-07-17<br>Annual Return: +1.0%/yr<br>Held for: 4.7 years"], "transaction_count": 4}, {"address": "Flat 3, 22, Hornsey Lane", "dates": ["2006-08-16", "2025-03-28"], "prices": [259900, 535000], "hover_texts": ["<b>Flat 3, 22, Hornsey Lane</b><br>Transaction 1 of 2<br>Date: 2006-08-16<br>Sale Price: \u00a3259,900", "<b>Flat 3, 22, Hornsey Lane</b><br>Transaction 2 of 2<br>Date: 2025-03-28<br>Sale Price: \u00a3535,000<br>Previous Purchase: \u00a3259,900<br>Previous Date: 2006-08-16<br>Annual Return: +4.0%/yr<br>Held for: 18.6 years"], "transaction_count": 2}, {"address": "Flat 9, Fitzwarren House, 12B, Hornsey Lane", "dates": ["2007-08-24", "2019-04-08"], "prices": [150000, 361000], "hover_texts": ["<b>Flat 9, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 1 of 2<br>Date: 2007-08-24<br>Sale Price: \u00a3150,000", "<b>Flat 9, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 2 of 2<br>Date: 2019-04-08<br>Sale Price: \u00a3361,000<br>Previous Purchase: \u00a3150,000<br>Previous Date: 2007-08-24<br>Annual Return: +7.8%/yr<br>Held for: 11.6 years"], "transaction_count": 2}, {"address": "Flat 1, Fitzwarren House, 12B, Hornsey Lane", "dates": ["2006-11-24", "2010-10-01"], "prices": [246000, 280000], "hover_texts": ["<b>Flat 1, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 1 of 2<br>Date: 2006-11-24<br>Sale Price: \u00a3246,000", "<b>Flat 1, Fitzwarren House, 12B, Hornsey Lane</b><br>Transaction 2 of 2<br>Date: 2010-10-01<br>Sale Price: \u00a3280,000<br>Previous Purchase: \u00a3246,000<br>Previous Date: 2006-11-24<br>Annual Return: +3.4%/yr<br>Held for: 3.9 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2006-05-12", "address": "Ground Floor Flat, 24, Hornsey Lane", "price": 250000, "price_display": "\u00a3250,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2009-02-03", "address": "Flat 8, 22, Hornsey Lane", "price": 207500, "price_display": "\u00a3207,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-12-10", "address": "Flat 12, Fitzwarren House, 12B, Hornsey Lane", "price": 332000, "price_display": "\u00a3332,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2009-02-02", "address": "Flat 7, 22 - 24, Hornsey Lane", "price": 213500, "price_display": "\u00a3213,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-07-21", "address": "12, Fitzwarren House, 12B, Hornsey Lane", "price": 215000, "price_display": "\u00a3215,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2009-03-20", "address": "Flat 15, Fitzwarren House, 12B, Hornsey Lane", "price": 205000, "price_display": "\u00a3205,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-06-20", "address": "Second Floor Flat, 22, Hornsey Lane", "price": 282000, "price_display": "\u00a3282,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-10-19", "address": "Flat 14, Fitzwarren House, 12B, Hornsey Lane", "price": 430000, "price_display": "\u00a3430,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2006-07-21", "address": "12A, Fitzwarren House, 12B, Hornsey Lane", "price": 205000, "price_display": "\u00a3205,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-11-18", "address": "Flat 3, Fitzwarren House, 12B, Hornsey Lane", "price": 385000, "price_display": "\u00a3385,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-05-01", "address": "Flat 12A, Fitzwarren House, 12B, Hornsey Lane", "price": 415000, "price_display": "\u00a3415,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-N6-5LX', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-N6-5LX');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-N6-5LX', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-N6-5LX', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-N6-5LX" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2024-07-31</td>
+            <td>Flat 4, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£295,000</td>
+        <td class="positive" title="Previous: £155,000 (2012-05-23)">+5.4%/yr</td></tr>
+
+        <tr>
+            <td>2012-05-23</td>
+            <td>Flat 4, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£155,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-04-27</td>
+            <td>Flat 3, 16 - 18, Hornsey Lane</td>
+            <td class="price">£542,500</td>
+        <td class="positive" title="Previous: £540,000 (2016-10-07)">+0.1%/yr</td></tr>
+
+        <tr>
+            <td>2016-10-07</td>
+            <td>Flat 3, 16 - 18, Hornsey Lane</td>
+            <td class="price">£540,000</td>
+        <td class="positive" title="Previous: £345,000 (2011-09-12)">+9.2%/yr</td></tr>
+
+        <tr>
+            <td>2011-09-12</td>
+            <td>Flat 3, 16 - 18, Hornsey Lane</td>
+            <td class="price">£345,000</td>
+        <td class="positive" title="Previous: £235,000 (2006-08-11)">+7.8%/yr</td></tr>
+
+        <tr>
+            <td>2006-08-11</td>
+            <td>Flat 3, 16 - 18, Hornsey Lane</td>
+            <td class="price">£235,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-12-16</td>
+            <td>Flat 16, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£375,000</td>
+        <td class="positive" title="Previous: £220,000 (2006-12-19)">+6.9%/yr</td></tr>
+
+        <tr>
+            <td>2006-12-19</td>
+            <td>Flat 16, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£220,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2013-05-03</td>
+            <td>Flat 10, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£232,750</td>
+        <td class="positive" title="Previous: £180,000 (2006-03-31)">+3.7%/yr</td></tr>
+
+        <tr>
+            <td>2006-03-31</td>
+            <td>Flat 10, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£180,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-05-12</td>
+            <td>Ground Floor Flat, 24, Hornsey Lane</td>
+            <td class="price">£250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-06-14</td>
+            <td>Flat 8, Fitzwarren House 12B, Hornsey Lane</td>
+            <td class="price">£350,000</td>
+        <td class="negative" title="Previous: £390,000 (2019-01-04)">-2.0%/yr</td></tr>
+
+        <tr>
+            <td>2019-01-04</td>
+            <td>Flat 8, Fitzwarren House 12B, Hornsey Lane</td>
+            <td class="price">£390,000</td>
+        <td class="positive" title="Previous: £245,000 (2005-11-24)">+3.6%/yr</td></tr>
+
+        <tr>
+            <td>2005-11-24</td>
+            <td>Flat 8, Fitzwarren House 12B, Hornsey Lane</td>
+            <td class="price">£245,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-02-03</td>
+            <td>Flat 8, 22, Hornsey Lane</td>
+            <td class="price">£207,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-03-31</td>
+            <td>Flat 1A, 16 - 18, Hornsey Lane</td>
+            <td class="price">£435,000</td>
+        <td class="positive" title="Previous: £379,950 (2013-10-29)">+1.2%/yr</td></tr>
+
+        <tr>
+            <td>2013-10-29</td>
+            <td>Flat 1A, 16 - 18, Hornsey Lane</td>
+            <td class="price">£379,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-12-06</td>
+            <td>Flat 5, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£313,800</td>
+        <td class="positive" title="Previous: £150,000 (2007-08-24)">+8.3%/yr</td></tr>
+
+        <tr>
+            <td>2007-08-24</td>
+            <td>Flat 5, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£150,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-03-28</td>
+            <td>24A, Hornsey Lane</td>
+            <td class="price">£435,000</td>
+        <td class="positive" title="Previous: £425,000 (2014-01-24)">+0.2%/yr</td></tr>
+
+        <tr>
+            <td>2014-01-24</td>
+            <td>24A, Hornsey Lane</td>
+            <td class="price">£425,000</td>
+        <td class="positive" title="Previous: £292,000 (2010-09-10)">+11.8%/yr</td></tr>
+
+        <tr>
+            <td>2010-09-10</td>
+            <td>24A, Hornsey Lane</td>
+            <td class="price">£292,000</td>
+        <td class="positive" title="Previous: £220,000 (2006-08-11)">+7.2%/yr</td></tr>
+
+        <tr>
+            <td>2006-08-11</td>
+            <td>24A, Hornsey Lane</td>
+            <td class="price">£220,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-12-10</td>
+            <td>Flat 12, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£332,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-11-23</td>
+            <td>Flat 2, 22, Hornsey Lane</td>
+            <td class="price">£512,500</td>
+        <td class="positive" title="Previous: £335,000 (2011-04-27)">+3.7%/yr</td></tr>
+
+        <tr>
+            <td>2011-04-27</td>
+            <td>Flat 2, 22, Hornsey Lane</td>
+            <td class="price">£335,000</td>
+        <td class="positive" title="Previous: £240,000 (2006-07-28)">+7.3%/yr</td></tr>
+
+        <tr>
+            <td>2006-07-28</td>
+            <td>Flat 2, 22, Hornsey Lane</td>
+            <td class="price">£240,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-04-28</td>
+            <td>Flat 6, 16 - 18, Hornsey Lane</td>
+            <td class="price">£525,000</td>
+        <td class="positive" title="Previous: £425,000 (2011-12-05)">+1.9%/yr</td></tr>
+
+        <tr>
+            <td>2011-12-05</td>
+            <td>Flat 6, 16 - 18, Hornsey Lane</td>
+            <td class="price">£425,000</td>
+        <td class="positive" title="Previous: £250,000 (2006-06-23)">+10.2%/yr</td></tr>
+
+        <tr>
+            <td>2006-06-23</td>
+            <td>Flat 6, 16 - 18, Hornsey Lane</td>
+            <td class="price">£250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-11-04</td>
+            <td>Flat 5, 16 - 18, Hornsey Lane</td>
+            <td class="price">£260,000</td>
+        <td class="positive" title="Previous: £235,000 (2006-09-07)">+3.2%/yr</td></tr>
+
+        <tr>
+            <td>2006-09-07</td>
+            <td>Flat 5, 16 - 18, Hornsey Lane</td>
+            <td class="price">£235,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-10-29</td>
+            <td>Flat 5, 22, Hornsey Lane</td>
+            <td class="price">£535,000</td>
+        <td class="positive" title="Previous: £431,000 (2013-06-21)">+2.6%/yr</td></tr>
+
+        <tr>
+            <td>2013-06-21</td>
+            <td>Flat 5, 22, Hornsey Lane</td>
+            <td class="price">£431,000</td>
+        <td class="positive" title="Previous: £250,000 (2006-08-16)">+8.3%/yr</td></tr>
+
+        <tr>
+            <td>2006-08-16</td>
+            <td>Flat 5, 22, Hornsey Lane</td>
+            <td class="price">£250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-02-02</td>
+            <td>Flat 7, 22 - 24, Hornsey Lane</td>
+            <td class="price">£213,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-10-19</td>
+            <td>Flat 8, 16 - 18, Hornsey Lane</td>
+            <td class="price">£500,000</td>
+        <td class="positive" title="Previous: £375,000 (2011-06-15)">+2.6%/yr</td></tr>
+
+        <tr>
+            <td>2011-06-15</td>
+            <td>Flat 8, 16 - 18, Hornsey Lane</td>
+            <td class="price">£375,000</td>
+        <td class="positive" title="Previous: £248,000 (2009-10-19)">+28.4%/yr</td></tr>
+
+        <tr>
+            <td>2009-10-19</td>
+            <td>Flat 8, 16 - 18, Hornsey Lane</td>
+            <td class="price">£248,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-07-21</td>
+            <td>12, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£215,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2009-03-20</td>
+            <td>Flat 15, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£205,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-06-17</td>
+            <td>Flat 7, 22, Hornsey Lane</td>
+            <td class="price">£570,000</td>
+        <td class="positive" title="Previous: £565,000 (2018-03-15)">+0.2%/yr</td></tr>
+
+        <tr>
+            <td>2018-03-15</td>
+            <td>Flat 7, 22, Hornsey Lane</td>
+            <td class="price">£565,000</td>
+        <td class="negative" title="Previous: £567,500 (2016-03-24)">-0.2%/yr</td></tr>
+
+        <tr>
+            <td>2016-03-24</td>
+            <td>Flat 7, 22, Hornsey Lane</td>
+            <td class="price">£567,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-24</td>
+            <td>Flat 17, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£340,000</td>
+        <td class="negative" title="Previous: £400,000 (2019-08-07)">-8.3%/yr</td></tr>
+
+        <tr>
+            <td>2019-08-07</td>
+            <td>Flat 17, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£400,000</td>
+        <td class="positive" title="Previous: £320,000 (2011-12-02)">+3.0%/yr</td></tr>
+
+        <tr>
+            <td>2011-12-02</td>
+            <td>Flat 17, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£320,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-12-04</td>
+            <td>Flat 6, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£282,500</td>
+        <td class="positive" title="Previous: £185,000 (2012-09-19)">+3.5%/yr</td></tr>
+
+        <tr>
+            <td>2012-09-19</td>
+            <td>Flat 6, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£185,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-06-20</td>
+            <td>Second Floor Flat, 22, Hornsey Lane</td>
+            <td class="price">£282,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-09-20</td>
+            <td>Flat 2, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£342,500</td>
+        <td class="positive" title="Previous: £340,000 (2013-09-04)">+0.1%/yr</td></tr>
+
+        <tr>
+            <td>2013-09-04</td>
+            <td>Flat 2, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£340,000</td>
+        <td class="positive" title="Previous: £283,000 (2008-02-19)">+3.4%/yr</td></tr>
+
+        <tr>
+            <td>2008-02-19</td>
+            <td>Flat 2, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£283,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-04-18</td>
+            <td>Flat 11, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£380,000</td>
+        <td class="positive" title="Previous: £260,000 (2010-01-22)">+4.2%/yr</td></tr>
+
+        <tr>
+            <td>2010-01-22</td>
+            <td>Flat 11, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£260,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-10-19</td>
+            <td>Flat 14, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£430,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-04-04</td>
+            <td>Flat 2, 16 - 18, Hornsey Lane</td>
+            <td class="price">£488,000</td>
+        <td class="positive" title="Previous: £465,000 (2017-07-17)">+1.0%/yr</td></tr>
+
+        <tr>
+            <td>2017-07-17</td>
+            <td>Flat 2, 16 - 18, Hornsey Lane</td>
+            <td class="price">£465,000</td>
+        <td class="positive" title="Previous: £277,000 (2010-01-08)">+7.1%/yr</td></tr>
+
+        <tr>
+            <td>2010-01-08</td>
+            <td>Flat 2, 16 - 18, Hornsey Lane</td>
+            <td class="price">£277,000</td>
+        <td class="positive" title="Previous: £217,500 (2006-06-22)">+7.0%/yr</td></tr>
+
+        <tr>
+            <td>2006-06-22</td>
+            <td>Flat 2, 16 - 18, Hornsey Lane</td>
+            <td class="price">£217,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2006-07-21</td>
+            <td>12A, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£205,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-03-28</td>
+            <td>Flat 3, 22, Hornsey Lane</td>
+            <td class="price">£535,000</td>
+        <td class="positive" title="Previous: £259,900 (2006-08-16)">+4.0%/yr</td></tr>
+
+        <tr>
+            <td>2006-08-16</td>
+            <td>Flat 3, 22, Hornsey Lane</td>
+            <td class="price">£259,900</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-04-08</td>
+            <td>Flat 9, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£361,000</td>
+        <td class="positive" title="Previous: £150,000 (2007-08-24)">+7.8%/yr</td></tr>
+
+        <tr>
+            <td>2007-08-24</td>
+            <td>Flat 9, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£150,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-11-18</td>
+            <td>Flat 3, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£385,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-10-01</td>
+            <td>Flat 1, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£280,000</td>
+        <td class="positive" title="Previous: £246,000 (2006-11-24)">+3.4%/yr</td></tr>
+
+        <tr>
+            <td>2006-11-24</td>
+            <td>Flat 1, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£246,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-05-01</td>
+            <td>Flat 12A, Fitzwarren House, 12B, Hornsey Lane</td>
+            <td class="price">£415,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-N6-5LX" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-N6-5LX" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016, 2017, 2018, 2019, 2021, 2022, 2023, 2024, 2025],
+            y: [263500, 230242, 150000, 283000, 226800, 277250, 360000, 170000, 345925, 400000, 462825, 465000, 565000, 389200, 402333, 499666, 525000, 317500, 468333],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2016, 2017, 2018, 2019, 2021, 2022, 2023, 2024, 2025],
+            y: [282000, 235000, 150000, 283000, 213500, 280000, 345000, 185000, 379950, 425000, 540000, 465000, 565000, 390000, 340000, 512500, 525000, 342500, 435000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - N6 5LX',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-N6-5LX', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 69</p>
+                    <p><strong>Unique Properties:</strong> 33</p>
+                    <p><strong>Average Price:</strong> £335,252</p>
+                    <p><strong>Median Price:</strong> £320,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-N6-5LX" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector N6 5 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector N6 5</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-N6-5LX', 'N6-5LX')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-N6-5LX', 'N6-5LX')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-N6-5LX" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-N6-5LX" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [404208, 435997, 502692, 500477, 541740, 555225, 624242, 570997, 745265, 888604, 865307, 1007144, 961825, 942973, 927816, 1028081, 1025959, 1131780, 964809, 947802, 895496],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [295000, 327250, 395000, 388500, 391500, 405000, 435000, 440000, 499950, 630000, 625000, 686000, 694975, 671000, 660000, 745000, 730000, 743446, 661000, 715000, 637500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector N6 5 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-N6-5LX', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-N6-5LX" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £395,146</div>
+                        <div class="cell-sell">Sell: £512,299</div>
+                        <div class="cell-return">+11.8%/yr</div>
+                        <div class="cell-count">(72 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £357,928</div>
+                        <div class="cell-sell">Sell: £603,310</div>
+                        <div class="cell-return">+7.4%/yr</div>
+                        <div class="cell-count">(60 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £474,120</div>
+                        <div class="cell-sell">Sell: £1,135,337</div>
+                        <div class="cell-return">+7.4%/yr</div>
+                        <div class="cell-count">(20 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £383,234</div>
+                        <div class="cell-sell">Sell: £908,210</div>
+                        <div class="cell-return">+5.1%/yr</div>
+                        <div class="cell-count">(19 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £415,344</div>
+                        <div class="cell-sell">Sell: £498,617</div>
+                        <div class="cell-return">+9.4%/yr</div>
+                        <div class="cell-count">(118 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £473,338</div>
+                        <div class="cell-sell">Sell: £702,027</div>
+                        <div class="cell-return">+8.4%/yr</div>
+                        <div class="cell-count">(284 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £504,978</div>
+                        <div class="cell-sell">Sell: £883,600</div>
+                        <div class="cell-return">+6.5%/yr</div>
+                        <div class="cell-count">(107 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £473,104</div>
+                        <div class="cell-sell">Sell: £914,711</div>
+                        <div class="cell-return">+5.0%/yr</div>
+                        <div class="cell-count">(116 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £518,329</div>
+                        <div class="cell-sell">Sell: £731,214</div>
+                        <div class="cell-return">+17.1%/yr</div>
+                        <div class="cell-count">(72 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £667,265</div>
+                        <div class="cell-sell">Sell: £866,724</div>
+                        <div class="cell-return">+6.0%/yr</div>
+                        <div class="cell-count">(185 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £684,130</div>
+                        <div class="cell-sell">Sell: £928,271</div>
+                        <div class="cell-return">+3.5%/yr</div>
+                        <div class="cell-count">(177 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £641,336</div>
+                        <div class="cell-sell">Sell: £678,662</div>
+                        <div class="cell-return">+7.4%/yr</div>
+                        <div class="cell-count">(43 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £796,268</div>
+                        <div class="cell-sell">Sell: £908,071</div>
+                        <div class="cell-return">+3.1%/yr</div>
+                        <div class="cell-count">(145 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £981,562</div>
+                        <div class="cell-sell">Sell: £1,075,076</div>
+                        <div class="cell-return">+4.7%/yr</div>
+                        <div class="cell-count">(40 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-N6-5LX" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District N6 Analysis</h4>
+                <p class="area-info">Viewing data for entire N6 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-N6-5LX', 'N6-5LX')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-N6-5LX', 'N6-5LX')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-N6-5LX" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-N6-5LX" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [480066, 549859, 609152, 654757, 656519, 779992, 690822, 707809, 847314, 1000046, 1067275, 1042397, 1016755, 1117795, 1053351, 1112939, 1118062, 1176934, 1164599, 1055870, 1079386],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [310000, 354000, 420000, 450000, 455000, 460000, 473000, 474500, 547500, 687500, 749500, 700000, 739997, 838000, 730000, 830000, 785000, 770000, 823500, 755000, 747500],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District N6 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-N6-5LX', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-N6-5LX" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £396,744</div>
+                        <div class="cell-sell">Sell: £543,849</div>
+                        <div class="cell-return">+11.3%/yr</div>
+                        <div class="cell-count">(112 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £373,612</div>
+                        <div class="cell-sell">Sell: £662,878</div>
+                        <div class="cell-return">+7.8%/yr</div>
+                        <div class="cell-count">(82 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £532,451</div>
+                        <div class="cell-sell">Sell: £1,283,037</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(33 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £466,090</div>
+                        <div class="cell-sell">Sell: £1,101,522</div>
+                        <div class="cell-return">+5.1%/yr</div>
+                        <div class="cell-count">(27 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £542,780</div>
+                        <div class="cell-sell">Sell: £647,561</div>
+                        <div class="cell-return">+11.7%/yr</div>
+                        <div class="cell-count">(191 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £544,079</div>
+                        <div class="cell-sell">Sell: £786,859</div>
+                        <div class="cell-return">+8.3%/yr</div>
+                        <div class="cell-count">(447 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £607,300</div>
+                        <div class="cell-sell">Sell: £1,011,332</div>
+                        <div class="cell-return">+6.0%/yr</div>
+                        <div class="cell-count">(181 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £539,766</div>
+                        <div class="cell-sell">Sell: £1,019,331</div>
+                        <div class="cell-return">+4.7%/yr</div>
+                        <div class="cell-count">(182 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £588,052</div>
+                        <div class="cell-sell">Sell: £785,470</div>
+                        <div class="cell-return">+16.5%/yr</div>
+                        <div class="cell-count">(117 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £678,064</div>
+                        <div class="cell-sell">Sell: £880,395</div>
+                        <div class="cell-return">+6.2%/yr</div>
+                        <div class="cell-count">(276 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £794,092</div>
+                        <div class="cell-sell">Sell: £1,061,161</div>
+                        <div class="cell-return">+3.4%/yr</div>
+                        <div class="cell-count">(279 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £695,435</div>
+                        <div class="cell-sell">Sell: £794,611</div>
+                        <div class="cell-return">+7.4%/yr</div>
+                        <div class="cell-count">(63 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £794,367</div>
+                        <div class="cell-sell">Sell: £918,956</div>
+                        <div class="cell-return">+3.3%/yr</div>
+                        <div class="cell-count">(230 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £868,722</div>
+                        <div class="cell-sell">Sell: £1,043,987</div>
+                        <div class="cell-return">+5.5%/yr</div>
+                        <div class="cell-count">(70 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'N6 5'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'N6'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>
