@@ -135,85 +135,40 @@
     ],
     "cohort_analysis": [
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2005-",
-        "transaction_count": 5,
-        "avg_buy_price": 228500,
-        "avg_sell_price": 283880,
-        "avg_holding_period": 0.32,
-        "weighted_annual_return": 29.71
+        "buy_cohort": "2005-2010",
+        "sell_cohort": "2005-2010",
+        "transaction_count": 323,
+        "avg_buy_price": 301659,
+        "avg_sell_price": 395626,
+        "avg_holding_period": 2.52,
+        "weighted_annual_return": 11.17
       },
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 115,
-        "avg_buy_price": 285517,
-        "avg_sell_price": 393334,
-        "avg_holding_period": 3.26,
-        "weighted_annual_return": 11.66
-      },
-      {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2011-2015",
-        "transaction_count": 131,
-        "avg_buy_price": 303879,
-        "avg_sell_price": 539265,
-        "avg_holding_period": 7.67,
-        "weighted_annual_return": 8.02
+        "transaction_count": 732,
+        "avg_buy_price": 358336,
+        "avg_sell_price": 552111,
+        "avg_holding_period": 5.87,
+        "weighted_annual_return": 8.54
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2016-2020",
-        "transaction_count": 48,
-        "avg_buy_price": 289824,
-        "avg_sell_price": 648760,
-        "avg_holding_period": 12.92,
-        "weighted_annual_return": 6.71
+        "transaction_count": 307,
+        "avg_buy_price": 384113,
+        "avg_sell_price": 735681,
+        "avg_holding_period": 10.2,
+        "weighted_annual_return": 7.22
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2021-2025",
-        "transaction_count": 33,
-        "avg_buy_price": 363246,
-        "avg_sell_price": 847589,
-        "avg_holding_period": 17.59,
-        "weighted_annual_return": 5.04
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 203,
-        "avg_buy_price": 312606,
-        "avg_sell_price": 399676,
-        "avg_holding_period": 2.16,
-        "weighted_annual_return": 10.72
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2011-2015",
-        "transaction_count": 601,
-        "avg_buy_price": 370206,
-        "avg_sell_price": 554911,
-        "avg_holding_period": 5.48,
-        "weighted_annual_return": 8.65
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2016-2020",
-        "transaction_count": 259,
-        "avg_buy_price": 401588,
-        "avg_sell_price": 751789,
-        "avg_holding_period": 9.7,
-        "weighted_annual_return": 7.3
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2021-2025",
-        "transaction_count": 212,
-        "avg_buy_price": 457731,
-        "avg_sell_price": 845379,
-        "avg_holding_period": 14.64,
-        "weighted_annual_return": 4.51
+        "transaction_count": 245,
+        "avg_buy_price": 445005,
+        "avg_sell_price": 845676,
+        "avg_holding_period": 15.04,
+        "weighted_annual_return": 4.58
       },
       {
         "buy_cohort": "2011-2015",
@@ -407,85 +362,40 @@
     ],
     "cohort_analysis": [
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2005-",
-        "transaction_count": 11,
-        "avg_buy_price": 186227,
-        "avg_sell_price": 205768,
-        "avg_holding_period": 0.28,
-        "weighted_annual_return": -24.44
+        "buy_cohort": "2005-2010",
+        "sell_cohort": "2005-2010",
+        "transaction_count": 421,
+        "avg_buy_price": 290360,
+        "avg_sell_price": 375694,
+        "avg_holding_period": 2.19,
+        "weighted_annual_return": 12.11
       },
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 163,
-        "avg_buy_price": 262489,
-        "avg_sell_price": 349127,
-        "avg_holding_period": 2.75,
-        "weighted_annual_return": 12.28
-      },
-      {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2011-2015",
-        "transaction_count": 125,
-        "avg_buy_price": 300925,
-        "avg_sell_price": 493547,
-        "avg_holding_period": 7.95,
-        "weighted_annual_return": 6.77
+        "transaction_count": 873,
+        "avg_buy_price": 340382,
+        "avg_sell_price": 480734,
+        "avg_holding_period": 5.89,
+        "weighted_annual_return": 7.23
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2016-2020",
-        "transaction_count": 52,
-        "avg_buy_price": 305814,
-        "avg_sell_price": 609384,
-        "avg_holding_period": 12.48,
-        "weighted_annual_return": 5.95
+        "transaction_count": 405,
+        "avg_buy_price": 351731,
+        "avg_sell_price": 629074,
+        "avg_holding_period": 10.28,
+        "weighted_annual_return": 6.45
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2021-2025",
-        "transaction_count": 49,
-        "avg_buy_price": 288818,
-        "avg_sell_price": 620806,
-        "avg_holding_period": 17.84,
-        "weighted_annual_return": 4.76
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 247,
-        "avg_buy_price": 313390,
-        "avg_sell_price": 400794,
-        "avg_holding_period": 1.9,
-        "weighted_annual_return": 12.22
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2011-2015",
-        "transaction_count": 748,
-        "avg_buy_price": 346976,
-        "avg_sell_price": 478593,
-        "avg_holding_period": 5.55,
-        "weighted_annual_return": 7.31
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2016-2020",
-        "transaction_count": 353,
-        "avg_buy_price": 358495,
-        "avg_sell_price": 631974,
-        "avg_holding_period": 9.96,
-        "weighted_annual_return": 6.53
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2021-2025",
-        "transaction_count": 256,
-        "avg_buy_price": 386121,
-        "avg_sell_price": 664545,
-        "avg_holding_period": 14.79,
-        "weighted_annual_return": 4.07
+        "transaction_count": 305,
+        "avg_buy_price": 370489,
+        "avg_sell_price": 657518,
+        "avg_holding_period": 15.28,
+        "weighted_annual_return": 4.18
       },
       {
         "buy_cohort": "2011-2015",
@@ -679,85 +589,40 @@
     ],
     "cohort_analysis": [
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2005-",
-        "transaction_count": 20,
-        "avg_buy_price": 260915,
-        "avg_sell_price": 274322,
-        "avg_holding_period": 0.3,
-        "weighted_annual_return": 13.89
+        "buy_cohort": "2005-2010",
+        "sell_cohort": "2005-2010",
+        "transaction_count": 507,
+        "avg_buy_price": 268139,
+        "avg_sell_price": 337252,
+        "avg_holding_period": 2.13,
+        "weighted_annual_return": 12.36
       },
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 177,
-        "avg_buy_price": 235128,
-        "avg_sell_price": 315007,
-        "avg_holding_period": 2.8,
-        "weighted_annual_return": 12.23
-      },
-      {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2011-2015",
-        "transaction_count": 134,
-        "avg_buy_price": 267299,
-        "avg_sell_price": 498476,
-        "avg_holding_period": 8.16,
-        "weighted_annual_return": 8.28
+        "transaction_count": 872,
+        "avg_buy_price": 310610,
+        "avg_sell_price": 482905,
+        "avg_holding_period": 5.98,
+        "weighted_annual_return": 8.54
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2016-2020",
-        "transaction_count": 71,
-        "avg_buy_price": 256209,
-        "avg_sell_price": 624655,
-        "avg_holding_period": 12.65,
-        "weighted_annual_return": 8.05
+        "transaction_count": 508,
+        "avg_buy_price": 310065,
+        "avg_sell_price": 605518,
+        "avg_holding_period": 10.13,
+        "weighted_annual_return": 7.76
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2021-2025",
-        "transaction_count": 52,
-        "avg_buy_price": 264518,
-        "avg_sell_price": 670817,
-        "avg_holding_period": 17.85,
-        "weighted_annual_return": 6.18
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 310,
-        "avg_buy_price": 287454,
-        "avg_sell_price": 354013,
-        "avg_holding_period": 1.86,
-        "weighted_annual_return": 12.41
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2011-2015",
-        "transaction_count": 738,
-        "avg_buy_price": 318474,
-        "avg_sell_price": 480078,
-        "avg_holding_period": 5.59,
-        "weighted_annual_return": 8.59
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2016-2020",
-        "transaction_count": 437,
-        "avg_buy_price": 318815,
-        "avg_sell_price": 602408,
-        "avg_holding_period": 9.72,
-        "weighted_annual_return": 7.72
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2021-2025",
-        "transaction_count": 380,
-        "avg_buy_price": 328865,
-        "avg_sell_price": 652713,
-        "avg_holding_period": 15.04,
-        "weighted_annual_return": 5.13
+        "transaction_count": 432,
+        "avg_buy_price": 321120,
+        "avg_sell_price": 654892,
+        "avg_holding_period": 15.38,
+        "weighted_annual_return": 5.26
       },
       {
         "buy_cohort": "2011-2015",
@@ -951,85 +816,40 @@
     ],
     "cohort_analysis": [
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2005-",
-        "transaction_count": 17,
-        "avg_buy_price": 367147,
-        "avg_sell_price": 491926,
-        "avg_holding_period": 0.33,
-        "weighted_annual_return": 4.78
+        "buy_cohort": "2005-2010",
+        "sell_cohort": "2005-2010",
+        "transaction_count": 581,
+        "avg_buy_price": 424000,
+        "avg_sell_price": 564799,
+        "avg_holding_period": 2.24,
+        "weighted_annual_return": 14.45
       },
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 178,
-        "avg_buy_price": 399568,
-        "avg_sell_price": 581118,
-        "avg_holding_period": 3.02,
-        "weighted_annual_return": 14.73
-      },
-      {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2011-2015",
-        "transaction_count": 130,
-        "avg_buy_price": 362568,
-        "avg_sell_price": 704548,
-        "avg_holding_period": 7.69,
-        "weighted_annual_return": 9.32
+        "transaction_count": 898,
+        "avg_buy_price": 450796,
+        "avg_sell_price": 705997,
+        "avg_holding_period": 5.62,
+        "weighted_annual_return": 9.19
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2016-2020",
-        "transaction_count": 42,
-        "avg_buy_price": 414683,
-        "avg_sell_price": 890023,
-        "avg_holding_period": 12.57,
-        "weighted_annual_return": 6.71
+        "transaction_count": 342,
+        "avg_buy_price": 450593,
+        "avg_sell_price": 797719,
+        "avg_holding_period": 10.17,
+        "weighted_annual_return": 6.46
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2021-2025",
-        "transaction_count": 36,
-        "avg_buy_price": 408641,
-        "avg_sell_price": 924027,
-        "avg_holding_period": 17.86,
-        "weighted_annual_return": 4.76
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 386,
-        "avg_buy_price": 437771,
-        "avg_sell_price": 560484,
-        "avg_holding_period": 1.96,
-        "weighted_annual_return": 14.36
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2011-2015",
-        "transaction_count": 768,
-        "avg_buy_price": 465731,
-        "avg_sell_price": 706243,
-        "avg_holding_period": 5.27,
-        "weighted_annual_return": 9.17
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2016-2020",
-        "transaction_count": 300,
-        "avg_buy_price": 455620,
-        "avg_sell_price": 784797,
-        "avg_holding_period": 9.84,
-        "weighted_annual_return": 6.42
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2021-2025",
-        "transaction_count": 281,
-        "avg_buy_price": 534729,
-        "avg_sell_price": 876256,
-        "avg_holding_period": 14.98,
-        "weighted_annual_return": 3.61
+        "transaction_count": 317,
+        "avg_buy_price": 520410,
+        "avg_sell_price": 881681,
+        "avg_holding_period": 15.31,
+        "weighted_annual_return": 3.75
       },
       {
         "buy_cohort": "2011-2015",
@@ -1223,85 +1043,40 @@
     ],
     "cohort_analysis": [
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2005-",
-        "transaction_count": 15,
-        "avg_buy_price": 343433,
-        "avg_sell_price": 321198,
-        "avg_holding_period": 0.37,
-        "weighted_annual_return": 34.86
+        "buy_cohort": "2005-2010",
+        "sell_cohort": "2005-2010",
+        "transaction_count": 381,
+        "avg_buy_price": 365642,
+        "avg_sell_price": 474471,
+        "avg_holding_period": 2.44,
+        "weighted_annual_return": 12.24
       },
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 148,
-        "avg_buy_price": 354647,
-        "avg_sell_price": 506536,
-        "avg_holding_period": 3.01,
-        "weighted_annual_return": 12.92
-      },
-      {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2011-2015",
-        "transaction_count": 119,
-        "avg_buy_price": 404687,
-        "avg_sell_price": 836146,
-        "avg_holding_period": 7.8,
-        "weighted_annual_return": 10.3
+        "transaction_count": 697,
+        "avg_buy_price": 461357,
+        "avg_sell_price": 749668,
+        "avg_holding_period": 5.78,
+        "weighted_annual_return": 9.72
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2016-2020",
-        "transaction_count": 59,
-        "avg_buy_price": 439511,
-        "avg_sell_price": 1031792,
-        "avg_holding_period": 12.96,
-        "weighted_annual_return": 7.05
+        "transaction_count": 337,
+        "avg_buy_price": 528274,
+        "avg_sell_price": 969860,
+        "avg_holding_period": 10.35,
+        "weighted_annual_return": 6.55
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2021-2025",
-        "transaction_count": 46,
-        "avg_buy_price": 436273,
-        "avg_sell_price": 980135,
-        "avg_holding_period": 17.53,
-        "weighted_annual_return": 4.91
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 218,
-        "avg_buy_price": 374635,
-        "avg_sell_price": 463248,
-        "avg_holding_period": 2.2,
-        "weighted_annual_return": 11.3
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2011-2015",
-        "transaction_count": 578,
-        "avg_buy_price": 473024,
-        "avg_sell_price": 731864,
-        "avg_holding_period": 5.36,
-        "weighted_annual_return": 9.58
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2016-2020",
-        "transaction_count": 278,
-        "avg_buy_price": 547112,
-        "avg_sell_price": 956716,
-        "avg_holding_period": 9.79,
-        "weighted_annual_return": 6.44
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2021-2025",
-        "transaction_count": 237,
-        "avg_buy_price": 520029,
-        "avg_sell_price": 963506,
-        "avg_holding_period": 14.8,
-        "weighted_annual_return": 4.51
+        "transaction_count": 283,
+        "avg_buy_price": 506415,
+        "avg_sell_price": 966209,
+        "avg_holding_period": 15.24,
+        "weighted_annual_return": 4.57
       },
       {
         "buy_cohort": "2011-2015",
@@ -1495,85 +1270,40 @@
     ],
     "cohort_analysis": [
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2005-",
-        "transaction_count": 15,
-        "avg_buy_price": 553160,
-        "avg_sell_price": 646763,
-        "avg_holding_period": 0.33,
-        "weighted_annual_return": 14.56
+        "buy_cohort": "2005-2010",
+        "sell_cohort": "2005-2010",
+        "transaction_count": 1146,
+        "avg_buy_price": 514571,
+        "avg_sell_price": 690589,
+        "avg_holding_period": 2.52,
+        "weighted_annual_return": 12.78
       },
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 437,
-        "avg_buy_price": 449387,
-        "avg_sell_price": 642183,
-        "avg_holding_period": 2.99,
-        "weighted_annual_return": 14.73
-      },
-      {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2011-2015",
-        "transaction_count": 316,
-        "avg_buy_price": 479875,
-        "avg_sell_price": 946863,
-        "avg_holding_period": 7.61,
-        "weighted_annual_return": 9.91
+        "transaction_count": 1964,
+        "avg_buy_price": 586122,
+        "avg_sell_price": 950279,
+        "avg_holding_period": 5.64,
+        "weighted_annual_return": 10.41
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2016-2020",
-        "transaction_count": 107,
-        "avg_buy_price": 538691,
-        "avg_sell_price": 1119126,
-        "avg_holding_period": 12.89,
-        "weighted_annual_return": 6.25
+        "transaction_count": 821,
+        "avg_buy_price": 646178,
+        "avg_sell_price": 1129258,
+        "avg_holding_period": 10.23,
+        "weighted_annual_return": 6.29
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2021-2025",
-        "transaction_count": 104,
-        "avg_buy_price": 544862,
-        "avg_sell_price": 1293885,
-        "avg_holding_period": 17.78,
-        "weighted_annual_return": 5.19
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 694,
-        "avg_buy_price": 554782,
-        "avg_sell_price": 722017,
-        "avg_holding_period": 2.27,
-        "weighted_annual_return": 11.47
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2011-2015",
-        "transaction_count": 1648,
-        "avg_buy_price": 606495,
-        "avg_sell_price": 950934,
-        "avg_holding_period": 5.27,
-        "weighted_annual_return": 10.51
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2016-2020",
-        "transaction_count": 714,
-        "avg_buy_price": 662286,
-        "avg_sell_price": 1130777,
-        "avg_holding_period": 9.83,
-        "weighted_annual_return": 6.3
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2021-2025",
-        "transaction_count": 644,
-        "avg_buy_price": 656918,
-        "avg_sell_price": 1188473,
-        "avg_holding_period": 14.72,
-        "weighted_annual_return": 4.5
+        "transaction_count": 748,
+        "avg_buy_price": 641338,
+        "avg_sell_price": 1203129,
+        "avg_holding_period": 15.14,
+        "weighted_annual_return": 4.6
       },
       {
         "buy_cohort": "2011-2015",
@@ -1767,85 +1497,40 @@
     ],
     "cohort_analysis": [
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2005-",
-        "transaction_count": 3,
-        "avg_buy_price": 210000,
-        "avg_sell_price": 245983,
-        "avg_holding_period": 0.4,
-        "weighted_annual_return": -29.52
+        "buy_cohort": "2005-2010",
+        "sell_cohort": "2005-2010",
+        "transaction_count": 245,
+        "avg_buy_price": 331562,
+        "avg_sell_price": 415565,
+        "avg_holding_period": 2.72,
+        "weighted_annual_return": 9.4
       },
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 87,
-        "avg_buy_price": 296763,
-        "avg_sell_price": 409591,
-        "avg_holding_period": 3.12,
-        "weighted_annual_return": 11.55
-      },
-      {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2011-2015",
-        "transaction_count": 73,
-        "avg_buy_price": 327498,
-        "avg_sell_price": 582932,
-        "avg_holding_period": 7.61,
-        "weighted_annual_return": 7.95
+        "transaction_count": 454,
+        "avg_buy_price": 370574,
+        "avg_sell_price": 580160,
+        "avg_holding_period": 5.81,
+        "weighted_annual_return": 8.6
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2016-2020",
-        "transaction_count": 40,
-        "avg_buy_price": 339711,
-        "avg_sell_price": 820023,
-        "avg_holding_period": 12.54,
-        "weighted_annual_return": 7.38
+        "transaction_count": 251,
+        "avg_buy_price": 400274,
+        "avg_sell_price": 760789,
+        "avg_holding_period": 10.08,
+        "weighted_annual_return": 6.97
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2021-2025",
-        "transaction_count": 33,
-        "avg_buy_price": 388727,
-        "avg_sell_price": 999045,
-        "avg_holding_period": 17.94,
-        "weighted_annual_return": 5.53
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 155,
-        "avg_buy_price": 353447,
-        "avg_sell_price": 422201,
-        "avg_holding_period": 2.53,
-        "weighted_annual_return": 8.3
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2011-2015",
-        "transaction_count": 381,
-        "avg_buy_price": 378827,
-        "avg_sell_price": 579629,
-        "avg_holding_period": 5.46,
-        "weighted_annual_return": 8.72
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2016-2020",
-        "transaction_count": 211,
-        "avg_buy_price": 411756,
-        "avg_sell_price": 749560,
-        "avg_holding_period": 9.62,
-        "weighted_annual_return": 6.89
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2021-2025",
-        "transaction_count": 179,
-        "avg_buy_price": 428908,
-        "avg_sell_price": 834531,
-        "avg_holding_period": 14.69,
-        "weighted_annual_return": 4.83
+        "transaction_count": 212,
+        "avg_buy_price": 422653,
+        "avg_sell_price": 860139,
+        "avg_holding_period": 15.2,
+        "weighted_annual_return": 4.95
       },
       {
         "buy_cohort": "2011-2015",
@@ -2039,85 +1724,40 @@
     ],
     "cohort_analysis": [
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2005-",
-        "transaction_count": 7,
-        "avg_buy_price": 209921,
-        "avg_sell_price": 244278,
-        "avg_holding_period": 0.43,
-        "weighted_annual_return": 4.04
+        "buy_cohort": "2005-2010",
+        "sell_cohort": "2005-2010",
+        "transaction_count": 416,
+        "avg_buy_price": 275302,
+        "avg_sell_price": 336051,
+        "avg_holding_period": 2.4,
+        "weighted_annual_return": 10.68
       },
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 161,
-        "avg_buy_price": 262996,
-        "avg_sell_price": 341765,
-        "avg_holding_period": 2.7,
-        "weighted_annual_return": 12.2
-      },
-      {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2011-2015",
-        "transaction_count": 146,
-        "avg_buy_price": 275783,
-        "avg_sell_price": 442289,
-        "avg_holding_period": 7.76,
-        "weighted_annual_return": 6.98
+        "transaction_count": 913,
+        "avg_buy_price": 309042,
+        "avg_sell_price": 457095,
+        "avg_holding_period": 5.93,
+        "weighted_annual_return": 7.58
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2016-2020",
-        "transaction_count": 34,
-        "avg_buy_price": 254739,
-        "avg_sell_price": 556570,
-        "avg_holding_period": 12.53,
-        "weighted_annual_return": 6.85
+        "transaction_count": 403,
+        "avg_buy_price": 315774,
+        "avg_sell_price": 566513,
+        "avg_holding_period": 9.88,
+        "weighted_annual_return": 7.01
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2021-2025",
-        "transaction_count": 36,
-        "avg_buy_price": 257547,
-        "avg_sell_price": 584540,
-        "avg_holding_period": 17.68,
-        "weighted_annual_return": 4.91
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 248,
-        "avg_buy_price": 285136,
-        "avg_sell_price": 334932,
-        "avg_holding_period": 2.26,
-        "weighted_annual_return": 9.61
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2011-2015",
-        "transaction_count": 767,
-        "avg_buy_price": 315373,
-        "avg_sell_price": 459914,
-        "avg_holding_period": 5.58,
-        "weighted_annual_return": 7.69
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2016-2020",
-        "transaction_count": 369,
-        "avg_buy_price": 321398,
-        "avg_sell_price": 567430,
-        "avg_holding_period": 9.64,
-        "weighted_annual_return": 7.03
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2021-2025",
-        "transaction_count": 288,
-        "avg_buy_price": 326619,
-        "avg_sell_price": 604175,
-        "avg_holding_period": 14.85,
-        "weighted_annual_return": 4.49
+        "transaction_count": 324,
+        "avg_buy_price": 318944,
+        "avg_sell_price": 601993,
+        "avg_holding_period": 15.16,
+        "weighted_annual_return": 4.53
       },
       {
         "buy_cohort": "2011-2015",
@@ -2311,85 +1951,40 @@
     ],
     "cohort_analysis": [
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2005-",
-        "transaction_count": 8,
-        "avg_buy_price": 249868,
-        "avg_sell_price": 294250,
-        "avg_holding_period": 0.33,
-        "weighted_annual_return": 26.4
+        "buy_cohort": "2005-2010",
+        "sell_cohort": "2005-2010",
+        "transaction_count": 319,
+        "avg_buy_price": 307100,
+        "avg_sell_price": 376499,
+        "avg_holding_period": 2.38,
+        "weighted_annual_return": 10.69
       },
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 103,
-        "avg_buy_price": 269369,
-        "avg_sell_price": 372187,
-        "avg_holding_period": 2.97,
-        "weighted_annual_return": 14.59
-      },
-      {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2011-2015",
-        "transaction_count": 107,
-        "avg_buy_price": 290230,
-        "avg_sell_price": 497467,
-        "avg_holding_period": 7.35,
-        "weighted_annual_return": 7.68
+        "transaction_count": 707,
+        "avg_buy_price": 330476,
+        "avg_sell_price": 488816,
+        "avg_holding_period": 5.66,
+        "weighted_annual_return": 7.97
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2016-2020",
-        "transaction_count": 46,
-        "avg_buy_price": 277089,
-        "avg_sell_price": 625302,
-        "avg_holding_period": 12.89,
-        "weighted_annual_return": 6.67
+        "transaction_count": 323,
+        "avg_buy_price": 335442,
+        "avg_sell_price": 627592,
+        "avg_holding_period": 10.32,
+        "weighted_annual_return": 6.97
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2021-2025",
-        "transaction_count": 40,
-        "avg_buy_price": 351999,
-        "avg_sell_price": 824264,
-        "avg_holding_period": 17.43,
-        "weighted_annual_return": 5.18
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 208,
-        "avg_buy_price": 327986,
-        "avg_sell_price": 381798,
-        "avg_holding_period": 2.17,
-        "weighted_annual_return": 8.19
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2011-2015",
-        "transaction_count": 600,
-        "avg_buy_price": 337653,
-        "avg_sell_price": 487274,
-        "avg_holding_period": 5.35,
-        "weighted_annual_return": 8.03
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2016-2020",
-        "transaction_count": 277,
-        "avg_buy_price": 345133,
-        "avg_sell_price": 627973,
-        "avg_holding_period": 9.89,
-        "weighted_annual_return": 7.02
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2021-2025",
-        "transaction_count": 198,
-        "avg_buy_price": 370394,
-        "avg_sell_price": 715422,
-        "avg_holding_period": 14.63,
-        "weighted_annual_return": 5.07
+        "transaction_count": 238,
+        "avg_buy_price": 367302,
+        "avg_sell_price": 733715,
+        "avg_holding_period": 15.1,
+        "weighted_annual_return": 5.09
       },
       {
         "buy_cohort": "2011-2015",
@@ -2583,85 +2178,40 @@
     ],
     "cohort_analysis": [
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2005-",
-        "transaction_count": 3,
-        "avg_buy_price": 153333,
-        "avg_sell_price": 184000,
-        "avg_holding_period": 0.14,
-        "weighted_annual_return": null
+        "buy_cohort": "2005-2010",
+        "sell_cohort": "2005-2010",
+        "transaction_count": 306,
+        "avg_buy_price": 485511,
+        "avg_sell_price": 605056,
+        "avg_holding_period": 2.53,
+        "weighted_annual_return": 11.6
       },
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 112,
-        "avg_buy_price": 396744,
-        "avg_sell_price": 543849,
-        "avg_holding_period": 3.02,
-        "weighted_annual_return": 11.35
-      },
-      {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2011-2015",
-        "transaction_count": 82,
-        "avg_buy_price": 373612,
-        "avg_sell_price": 662878,
-        "avg_holding_period": 7.69,
-        "weighted_annual_return": 7.77
+        "transaction_count": 529,
+        "avg_buy_price": 517655,
+        "avg_sell_price": 767640,
+        "avg_holding_period": 5.6,
+        "weighted_annual_return": 8.22
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2016-2020",
-        "transaction_count": 33,
-        "avg_buy_price": 532451,
-        "avg_sell_price": 1283037,
-        "avg_holding_period": 13.01,
-        "weighted_annual_return": 7.35
+        "transaction_count": 214,
+        "avg_buy_price": 595758,
+        "avg_sell_price": 1053231,
+        "avg_holding_period": 10.11,
+        "weighted_annual_return": 6.24
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2021-2025",
-        "transaction_count": 27,
-        "avg_buy_price": 466090,
-        "avg_sell_price": 1101522,
-        "avg_holding_period": 17.95,
-        "weighted_annual_return": 5.09
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 191,
-        "avg_buy_price": 542780,
-        "avg_sell_price": 647561,
-        "avg_holding_period": 2.28,
-        "weighted_annual_return": 11.74
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2011-2015",
-        "transaction_count": 447,
-        "avg_buy_price": 544079,
-        "avg_sell_price": 786859,
-        "avg_holding_period": 5.21,
-        "weighted_annual_return": 8.29
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2016-2020",
-        "transaction_count": 181,
-        "avg_buy_price": 607300,
-        "avg_sell_price": 1011332,
-        "avg_holding_period": 9.58,
-        "weighted_annual_return": 5.99
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2021-2025",
-        "transaction_count": 182,
-        "avg_buy_price": 539766,
-        "avg_sell_price": 1019331,
-        "avg_holding_period": 14.79,
-        "weighted_annual_return": 4.66
+        "transaction_count": 209,
+        "avg_buy_price": 530248,
+        "avg_sell_price": 1029949,
+        "avg_holding_period": 15.2,
+        "weighted_annual_return": 4.72
       },
       {
         "buy_cohort": "2011-2015",
@@ -2855,85 +2405,40 @@
     ],
     "cohort_analysis": [
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2005-",
-        "transaction_count": 5,
-        "avg_buy_price": 227000,
-        "avg_sell_price": 253000,
-        "avg_holding_period": 0.52,
-        "weighted_annual_return": 17.39
+        "buy_cohort": "2005-2010",
+        "sell_cohort": "2005-2010",
+        "transaction_count": 481,
+        "avg_buy_price": 261828,
+        "avg_sell_price": 323920,
+        "avg_holding_period": 2.26,
+        "weighted_annual_return": 11.13
       },
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 167,
-        "avg_buy_price": 246539,
-        "avg_sell_price": 333441,
-        "avg_holding_period": 3.06,
-        "weighted_annual_return": 12.24
-      },
-      {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2011-2015",
-        "transaction_count": 146,
-        "avg_buy_price": 243023,
-        "avg_sell_price": 443159,
-        "avg_holding_period": 7.85,
+        "transaction_count": 953,
+        "avg_buy_price": 297863,
+        "avg_sell_price": 467315,
+        "avg_holding_period": 5.96,
+        "weighted_annual_return": 8.52
+      },
+      {
+        "buy_cohort": "2005-2010",
+        "sell_cohort": "2016-2020",
+        "transaction_count": 536,
+        "avg_buy_price": 320273,
+        "avg_sell_price": 667022,
+        "avg_holding_period": 10.21,
         "weighted_annual_return": 8.09
       },
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2016-2020",
-        "transaction_count": 83,
-        "avg_buy_price": 296575,
-        "avg_sell_price": 743238,
-        "avg_holding_period": 12.77,
-        "weighted_annual_return": 7.73
-      },
-      {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2021-2025",
-        "transaction_count": 51,
-        "avg_buy_price": 278258,
-        "avg_sell_price": 775281,
-        "avg_holding_period": 17.7,
-        "weighted_annual_return": 6.25
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 309,
-        "avg_buy_price": 270654,
-        "avg_sell_price": 319922,
-        "avg_holding_period": 1.86,
-        "weighted_annual_return": 10.27
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2011-2015",
-        "transaction_count": 807,
-        "avg_buy_price": 307784,
-        "avg_sell_price": 471685,
-        "avg_holding_period": 5.61,
-        "weighted_annual_return": 8.6
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2016-2020",
-        "transaction_count": 453,
-        "avg_buy_price": 324615,
-        "avg_sell_price": 653057,
-        "avg_holding_period": 9.74,
-        "weighted_annual_return": 8.17
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2021-2025",
-        "transaction_count": 357,
-        "avg_buy_price": 338830,
-        "avg_sell_price": 707457,
-        "avg_holding_period": 14.73,
-        "weighted_annual_return": 5.58
+        "transaction_count": 408,
+        "avg_buy_price": 331258,
+        "avg_sell_price": 715935,
+        "avg_holding_period": 15.1,
+        "weighted_annual_return": 5.67
       },
       {
         "buy_cohort": "2011-2015",
@@ -3127,85 +2632,40 @@
     ],
     "cohort_analysis": [
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2005-",
-        "transaction_count": 33,
-        "avg_buy_price": 251695,
-        "avg_sell_price": 290165,
-        "avg_holding_period": 0.25,
-        "weighted_annual_return": 8.88
+        "buy_cohort": "2005-2010",
+        "sell_cohort": "2005-2010",
+        "transaction_count": 1013,
+        "avg_buy_price": 304815,
+        "avg_sell_price": 364983,
+        "avg_holding_period": 2.24,
+        "weighted_annual_return": 9.33
       },
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 331,
-        "avg_buy_price": 274955,
-        "avg_sell_price": 347399,
-        "avg_holding_period": 2.93,
-        "weighted_annual_return": 9.79
-      },
-      {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2011-2015",
-        "transaction_count": 282,
-        "avg_buy_price": 307457,
-        "avg_sell_price": 478327,
-        "avg_holding_period": 7.9,
-        "weighted_annual_return": 6.02
+        "transaction_count": 1810,
+        "avg_buy_price": 328111,
+        "avg_sell_price": 451204,
+        "avg_holding_period": 5.99,
+        "weighted_annual_return": 6.19
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2016-2020",
-        "transaction_count": 110,
-        "avg_buy_price": 314317,
-        "avg_sell_price": 650522,
-        "avg_holding_period": 12.35,
-        "weighted_annual_return": 6.35
+        "transaction_count": 951,
+        "avg_buy_price": 367120,
+        "avg_sell_price": 629740,
+        "avg_holding_period": 10.07,
+        "weighted_annual_return": 6.11
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2021-2025",
-        "transaction_count": 107,
-        "avg_buy_price": 307147,
-        "avg_sell_price": 714963,
-        "avg_holding_period": 17.61,
-        "weighted_annual_return": 5.32
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 649,
-        "avg_buy_price": 322746,
-        "avg_sell_price": 377756,
-        "avg_holding_period": 1.99,
-        "weighted_annual_return": 9.08
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2011-2015",
-        "transaction_count": 1528,
-        "avg_buy_price": 331923,
-        "avg_sell_price": 446199,
-        "avg_holding_period": 5.63,
-        "weighted_annual_return": 6.22
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2016-2020",
-        "transaction_count": 841,
-        "avg_buy_price": 374027,
-        "avg_sell_price": 627021,
-        "avg_holding_period": 9.77,
-        "weighted_annual_return": 6.07
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2021-2025",
-        "transaction_count": 666,
-        "avg_buy_price": 391014,
-        "avg_sell_price": 734427,
-        "avg_holding_period": 14.78,
-        "weighted_annual_return": 4.63
+        "transaction_count": 773,
+        "avg_buy_price": 379405,
+        "avg_sell_price": 731733,
+        "avg_holding_period": 15.17,
+        "weighted_annual_return": 4.72
       },
       {
         "buy_cohort": "2011-2015",
@@ -3399,85 +2859,40 @@
     ],
     "cohort_analysis": [
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2005-",
-        "transaction_count": 7,
-        "avg_buy_price": 293350,
-        "avg_sell_price": 302928,
-        "avg_holding_period": 0.35,
-        "weighted_annual_return": -2.88
+        "buy_cohort": "2005-2010",
+        "sell_cohort": "2005-2010",
+        "transaction_count": 243,
+        "avg_buy_price": 336877,
+        "avg_sell_price": 420767,
+        "avg_holding_period": 2.17,
+        "weighted_annual_return": 11.66
       },
       {
-        "buy_cohort": "2005-",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 72,
-        "avg_buy_price": 317102,
-        "avg_sell_price": 413114,
-        "avg_holding_period": 2.86,
-        "weighted_annual_return": 11.59
-      },
-      {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2011-2015",
-        "transaction_count": 56,
-        "avg_buy_price": 329449,
-        "avg_sell_price": 539881,
-        "avg_holding_period": 8.09,
-        "weighted_annual_return": 6.46
+        "transaction_count": 386,
+        "avg_buy_price": 370746,
+        "avg_sell_price": 527753,
+        "avg_holding_period": 5.92,
+        "weighted_annual_return": 6.89
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2016-2020",
-        "transaction_count": 23,
-        "avg_buy_price": 345656,
-        "avg_sell_price": 687619,
-        "avg_holding_period": 12.77,
-        "weighted_annual_return": 5.8
+        "transaction_count": 220,
+        "avg_buy_price": 381744,
+        "avg_sell_price": 654689,
+        "avg_holding_period": 10.27,
+        "weighted_annual_return": 5.89
       },
       {
-        "buy_cohort": "2005-",
+        "buy_cohort": "2005-2010",
         "sell_cohort": "2021-2025",
-        "transaction_count": 26,
-        "avg_buy_price": 415092,
-        "avg_sell_price": 972000,
-        "avg_holding_period": 17.7,
-        "weighted_annual_return": 5.22
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2006-2010",
-        "transaction_count": 164,
-        "avg_buy_price": 347417,
-        "avg_sell_price": 429156,
-        "avg_holding_period": 1.94,
-        "weighted_annual_return": 12.09
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2011-2015",
-        "transaction_count": 330,
-        "avg_buy_price": 377754,
-        "avg_sell_price": 525695,
-        "avg_holding_period": 5.55,
-        "weighted_annual_return": 6.97
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2016-2020",
-        "transaction_count": 197,
-        "avg_buy_price": 385958,
-        "avg_sell_price": 650844,
-        "avg_holding_period": 9.98,
-        "weighted_annual_return": 5.9
-      },
-      {
-        "buy_cohort": "2006-2010",
-        "sell_cohort": "2021-2025",
-        "transaction_count": 157,
-        "avg_buy_price": 430081,
-        "avg_sell_price": 786370,
-        "avg_holding_period": 14.85,
-        "weighted_annual_return": 4.36
+        "transaction_count": 183,
+        "avg_buy_price": 427951,
+        "avg_sell_price": 812743,
+        "avg_holding_period": 15.26,
+        "weighted_annual_return": 4.51
       },
       {
         "buy_cohort": "2011-2015",
