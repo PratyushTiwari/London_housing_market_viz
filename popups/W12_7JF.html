@@ -1,0 +1,1334 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W12 7JF</h3>
+            <div class="header-stats">
+                <span><strong>81</strong> transactions</span>
+                <span><strong>79</strong> properties</span>
+                <span>Avg: <strong>£998,910</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W12-7JF')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W12-7JF')">
+                Sector (W12 7)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W12-7JF')">
+                District (W12)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W12-7JF" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W12-7JF', 'W12-7JF')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W12-7JF', 'W12-7JF')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W12-7JF', 'W12-7JF')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W12-7JF" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W12-7JF" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "26, Belvedere Row Apartments, Fountain Park Way", "dates": ["2021-03-31", "2021-12-06"], "prices": [1068000, 1200000], "hover_texts": ["<b>26, Belvedere Row Apartments, Fountain Park Way</b><br>Transaction 1 of 2<br>Date: 2021-03-31<br>Sale Price: \u00a31,068,000", "<b>26, Belvedere Row Apartments, Fountain Park Way</b><br>Transaction 2 of 2<br>Date: 2021-12-06<br>Sale Price: \u00a31,200,000<br>Previous Purchase: \u00a31,068,000<br>Previous Date: 2021-03-31<br>Annual Return: +18.6%/yr<br>Held for: 0.7 years"], "transaction_count": 2}, {"address": "24, Belvedere Row Apartments, Fountain Park Way", "dates": ["2020-12-14", "2021-05-05"], "prices": [772800, 716300], "hover_texts": ["<b>24, Belvedere Row Apartments, Fountain Park Way</b><br>Transaction 1 of 2<br>Date: 2020-12-14<br>Sale Price: \u00a3772,800", "<b>24, Belvedere Row Apartments, Fountain Park Way</b><br>Transaction 2 of 2<br>Date: 2021-05-05<br>Sale Price: \u00a3716,300<br>Previous Purchase: \u00a3772,800<br>Previous Date: 2020-12-14<br>Annual Return: -17.7%/yr<br>Held for: 0.4 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2021-04-26", "address": "38, Belvedere Row Apartments, Fountain Park Way", "price": 980500, "price_display": "\u00a3980,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-09", "address": "28, Belvedere Row Apartments, Fountain Park Way", "price": 1120650, "price_display": "\u00a31,120,650", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-09-30", "address": "78, Belvedere Row Apartments, Fountain Park Way", "price": 1031375, "price_display": "\u00a31,031,375", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-29", "address": "35, Belvedere Row Apartments, Fountain Park Way", "price": 810000, "price_display": "\u00a3810,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-18", "address": "46, Belvedere Row Apartments, Fountain Park Way", "price": 989000, "price_display": "\u00a3989,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-30", "address": "80, Belvedere Row Apartments, Fountain Park Way", "price": 828000, "price_display": "\u00a3828,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-31", "address": "17, Belvedere Row Apartments, Fountain Park Way", "price": 1075000, "price_display": "\u00a31,075,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-12-11", "address": "27, Belvedere Row Apartments, Fountain Park Way", "price": 802750, "price_display": "\u00a3802,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-17", "address": "44, Belvedere Row Apartments, Fountain Park Way", "price": 1139193, "price_display": "\u00a31,139,193", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-01", "address": "23, Belvedere Row Apartments, Fountain Park Way", "price": 1055000, "price_display": "\u00a31,055,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-02", "address": "30, Belvedere Row Apartments, Fountain Park Way", "price": 966000, "price_display": "\u00a3966,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-31", "address": "37, Belvedere Row Apartments, Fountain Park Way", "price": 1000000, "price_display": "\u00a31,000,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-17", "address": "70, Belvedere Row Apartments, Fountain Park Way", "price": 1015500, "price_display": "\u00a31,015,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-22", "address": "3, Belvedere Row Apartments, Fountain Park Way", "price": 785010, "price_display": "\u00a3785,010", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-09", "address": "33, Belvedere Row Apartments, Fountain Park Way", "price": 1070000, "price_display": "\u00a31,070,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-30", "address": "39, Belvedere Row Apartments, Fountain Park Way", "price": 1035000, "price_display": "\u00a31,035,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-08", "address": "41, Belvedere Row Apartments, Fountain Park Way", "price": 1040445, "price_display": "\u00a31,040,445", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-04-19", "address": "53, Belvedere Row Apartments, Fountain Park Way", "price": 1005000, "price_display": "\u00a31,005,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-05", "address": "42, Belvedere Row Apartments, Fountain Park Way", "price": 1080000, "price_display": "\u00a31,080,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-04-16", "address": "7, Belvedere Row Apartments, Fountain Park Way", "price": 1015000, "price_display": "\u00a31,015,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-04-30", "address": "47, Belvedere Row Apartments, Fountain Park Way", "price": 1082900, "price_display": "\u00a31,082,900", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-17", "address": "62, Belvedere Row Apartments, Fountain Park Way", "price": 1004640, "price_display": "\u00a31,004,640", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-03-16", "address": "77, Belvedere Row Apartments, Fountain Park Way", "price": 1087450, "price_display": "\u00a31,087,450", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-26", "address": "6, Belvedere Row Apartments, Fountain Park Way", "price": 938875, "price_display": "\u00a3938,875", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-03", "address": "71, Belvedere Row Apartments, Fountain Park Way", "price": 1075000, "price_display": "\u00a31,075,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-16", "address": "63, Belvedere Row Apartments, Fountain Park Way", "price": 1098320, "price_display": "\u00a31,098,320", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-17", "address": "58, Belvedere Row Apartments, Fountain Park Way", "price": 1200000, "price_display": "\u00a31,200,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-30", "address": "48, Belvedere Row Apartments, Fountain Park Way", "price": 806400, "price_display": "\u00a3806,400", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-12-17", "address": "31, Belvedere Row Apartments, Fountain Park Way", "price": 1099507, "price_display": "\u00a31,099,507", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-05-28", "address": "72, Belvedere Row Apartments, Fountain Park Way", "price": 821750, "price_display": "\u00a3821,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-04", "address": "67, Belvedere Row Apartments, Fountain Park Way", "price": 847200, "price_display": "\u00a3847,200", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-10", "address": "59, Belvedere Row Apartments, Fountain Park Way", "price": 830000, "price_display": "\u00a3830,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-05", "address": "34, Belvedere Row Apartments, Fountain Park Way", "price": 1109290, "price_display": "\u00a31,109,290", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-08-13", "address": "15, Belvedere Row Apartments, Fountain Park Way", "price": 982800, "price_display": "\u00a3982,800", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-06-11", "address": "51, Belvedere Row Apartments, Fountain Park Way", "price": 838585, "price_display": "\u00a3838,585", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-12-10", "address": "20, Belvedere Row Apartments, Fountain Park Way", "price": 1050000, "price_display": "\u00a31,050,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-18", "address": "66, Belvedere Row Apartments, Fountain Park Way", "price": 1170070, "price_display": "\u00a31,170,070", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-04", "address": "79, Belvedere Row Apartments, Fountain Park Way", "price": 1118130, "price_display": "\u00a31,118,130", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-15", "address": "61, Belvedere Row Apartments, Fountain Park Way", "price": 1069250, "price_display": "\u00a31,069,250", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-26", "address": "54, Belvedere Row Apartments, Fountain Park Way", "price": 992000, "price_display": "\u00a3992,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-26", "address": "8, Belvedere Row Apartments, Fountain Park Way", "price": 758100, "price_display": "\u00a3758,100", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-10", "address": "50, Belvedere Row Apartments, Fountain Park Way", "price": 1095000, "price_display": "\u00a31,095,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-08", "address": "16, Belvedere Row Apartments, Fountain Park Way", "price": 774060, "price_display": "\u00a3774,060", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-17", "address": "68, Belvedere Row Apartments, Fountain Park Way", "price": 1161468, "price_display": "\u00a31,161,468", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-12-10", "address": "13, Belvedere Row Apartments, Fountain Park Way", "price": 965978, "price_display": "\u00a3965,978", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-19", "address": "65, Belvedere Row Apartments, Fountain Park Way", "price": 1161105, "price_display": "\u00a31,161,105", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-31", "address": "60, Belvedere Row Apartments, Fountain Park Way", "price": 1169891, "price_display": "\u00a31,169,891", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-05", "address": "1, Belvedere Row Apartments, Fountain Park Way", "price": 1058920, "price_display": "\u00a31,058,920", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-04", "address": "45, Belvedere Row Apartments, Fountain Park Way", "price": 1050000, "price_display": "\u00a31,050,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-03", "address": "2, Belvedere Row Apartments, Fountain Park Way", "price": 1045750, "price_display": "\u00a31,045,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-26", "address": "5, Belvedere Row Apartments, Fountain Park Way", "price": 955000, "price_display": "\u00a3955,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-01", "address": "40, Belvedere Row Apartments, Fountain Park Way", "price": 802000, "price_display": "\u00a3802,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-01-29", "address": "32, Belvedere Row Apartments, Fountain Park Way", "price": 788640, "price_display": "\u00a3788,640", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-12-10", "address": "12, Belvedere Row Apartments, Fountain Park Way", "price": 1122705, "price_display": "\u00a31,122,705", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-18", "address": "69, Belvedere Row Apartments, Fountain Park Way", "price": 1078350, "price_display": "\u00a31,078,350", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-22", "address": "22, Belvedere Row Apartments, Fountain Park Way", "price": 941850, "price_display": "\u00a3941,850", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-04-28", "address": "14, Belvedere Row Apartments, Fountain Park Way", "price": 929110, "price_display": "\u00a3929,110", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-17", "address": "36, Belvedere Row Apartments, Fountain Park Way", "price": 1127089, "price_display": "\u00a31,127,089", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-04", "address": "18, Belvedere Row Apartments, Fountain Park Way", "price": 1092000, "price_display": "\u00a31,092,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-17", "address": "76, Belvedere Row Apartments, Fountain Park Way", "price": 1180377, "price_display": "\u00a31,180,377", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-01-29", "address": "43, Belvedere Row Apartments, Fountain Park Way", "price": 821300, "price_display": "\u00a3821,300", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-30", "address": "21, Belvedere Row Apartments, Fountain Park Way", "price": 975200, "price_display": "\u00a3975,200", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-25", "address": "64, Belvedere Row Apartments, Fountain Park Way", "price": 820800, "price_display": "\u00a3820,800", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-04-16", "address": "74, Belvedere Row Apartments, Fountain Park Way", "price": 1132740, "price_display": "\u00a31,132,740", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-25", "address": "73, Belvedere Row Apartments, Fountain Park Way", "price": 1148480, "price_display": "\u00a31,148,480", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-31", "address": "55, Belvedere Row Apartments, Fountain Park Way", "price": 1047000, "price_display": "\u00a31,047,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-31", "address": "56, Belvedere Row Apartments, Fountain Park Way", "price": 806000, "price_display": "\u00a3806,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-12-14", "address": "29, Belvedere Row Apartments, Fountain Park Way", "price": 994000, "price_display": "\u00a3994,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-18", "address": "57, Belvedere Row Apartments, Fountain Park Way", "price": 1155000, "price_display": "\u00a31,155,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-12-11", "address": "11, Belvedere Row Apartments, Fountain Park Way", "price": 794880, "price_display": "\u00a3794,880", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-03", "address": "10, Belvedere Row Apartments, Fountain Park Way", "price": 1100000, "price_display": "\u00a31,100,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-02-17", "address": "25, Belvedere Row Apartments, Fountain Park Way", "price": 1061225, "price_display": "\u00a31,061,225", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-06-04", "address": "75, Belvedere Row Apartments, Fountain Park Way", "price": 847400, "price_display": "\u00a3847,400", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-17", "address": "52, Belvedere Row Apartments, Fountain Park Way", "price": 1148103, "price_display": "\u00a31,148,103", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-12-10", "address": "19, Belvedere Row Apartments, Fountain Park Way", "price": 801600, "price_display": "\u00a3801,600", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-12-14", "address": "4, Belvedere Row Apartments, Fountain Park Way", "price": 1152920, "price_display": "\u00a31,152,920", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2021-03-15", "address": "9, Belvedere Row Apartments, Fountain Park Way", "price": 1025000, "price_display": "\u00a31,025,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W12-7JF', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W12-7JF');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W12-7JF', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W12-7JF', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W12-7JF" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2021-04-26</td>
+            <td>38, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£980,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-09</td>
+            <td>28, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,120,650</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-12-06</td>
+            <td>26, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,200,000</td>
+        <td class="positive" title="Previous: £1,068,000 (2021-03-31)">+18.6%/yr</td></tr>
+
+        <tr>
+            <td>2021-03-31</td>
+            <td>26, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,068,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-09-30</td>
+            <td>78, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,031,375</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-29</td>
+            <td>35, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£810,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-18</td>
+            <td>46, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£989,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-30</td>
+            <td>80, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£828,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-31</td>
+            <td>17, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,075,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-12-11</td>
+            <td>27, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£802,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-17</td>
+            <td>44, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,139,193</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-01</td>
+            <td>23, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,055,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-02</td>
+            <td>30, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£966,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-31</td>
+            <td>37, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,000,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-17</td>
+            <td>70, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,015,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-05-05</td>
+            <td>24, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£716,300</td>
+        <td class="negative" title="Previous: £772,800 (2020-12-14)">-17.7%/yr</td></tr>
+
+        <tr>
+            <td>2020-12-14</td>
+            <td>24, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£772,800</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-22</td>
+            <td>3, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£785,010</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-09</td>
+            <td>33, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,070,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-30</td>
+            <td>39, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,035,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-08</td>
+            <td>41, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,040,445</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-04-19</td>
+            <td>53, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,005,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-05</td>
+            <td>42, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,080,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-04-16</td>
+            <td>7, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,015,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-04-30</td>
+            <td>47, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,082,900</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-17</td>
+            <td>62, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,004,640</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-16</td>
+            <td>77, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,087,450</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-26</td>
+            <td>6, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£938,875</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-03</td>
+            <td>71, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,075,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-16</td>
+            <td>63, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,098,320</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-17</td>
+            <td>58, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,200,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-30</td>
+            <td>48, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£806,400</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-12-17</td>
+            <td>31, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,099,507</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-05-28</td>
+            <td>72, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£821,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-04</td>
+            <td>67, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£847,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-10</td>
+            <td>59, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£830,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-05</td>
+            <td>34, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,109,290</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-08-13</td>
+            <td>15, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£982,800</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-11</td>
+            <td>51, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£838,585</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-12-10</td>
+            <td>20, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,050,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-18</td>
+            <td>66, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,170,070</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-04</td>
+            <td>79, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,118,130</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-15</td>
+            <td>61, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,069,250</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-26</td>
+            <td>54, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£992,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-26</td>
+            <td>8, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£758,100</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-10</td>
+            <td>50, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,095,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-08</td>
+            <td>16, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£774,060</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-17</td>
+            <td>68, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,161,468</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-12-10</td>
+            <td>13, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£965,978</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-19</td>
+            <td>65, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,161,105</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-31</td>
+            <td>60, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,169,891</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-05</td>
+            <td>1, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,058,920</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-04</td>
+            <td>45, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,050,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-03</td>
+            <td>2, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,045,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-26</td>
+            <td>5, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£955,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-01</td>
+            <td>40, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£802,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-01-29</td>
+            <td>32, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£788,640</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-12-10</td>
+            <td>12, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,122,705</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-18</td>
+            <td>69, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,078,350</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-22</td>
+            <td>22, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£941,850</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-04-28</td>
+            <td>14, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£929,110</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-17</td>
+            <td>36, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,127,089</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-04</td>
+            <td>18, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,092,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-17</td>
+            <td>76, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,180,377</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-01-29</td>
+            <td>43, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£821,300</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-30</td>
+            <td>21, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£975,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-25</td>
+            <td>64, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£820,800</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-04-16</td>
+            <td>74, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,132,740</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-25</td>
+            <td>73, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,148,480</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-31</td>
+            <td>55, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,047,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-31</td>
+            <td>56, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£806,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-12-14</td>
+            <td>29, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£994,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-18</td>
+            <td>57, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,155,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-12-11</td>
+            <td>11, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£794,880</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-03</td>
+            <td>10, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,100,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-17</td>
+            <td>25, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,061,225</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-04</td>
+            <td>75, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£847,400</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-17</td>
+            <td>52, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,148,103</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-12-10</td>
+            <td>19, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£801,600</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-12-14</td>
+            <td>4, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,152,920</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-03-15</td>
+            <td>9, Belvedere Row Apartments, Fountain Park Way</td>
+            <td class="price">£1,025,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W12-7JF" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W12-7JF" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2020, 2021, 2022],
+            y: [955714, 1003816, 1087450],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2020, 2021, 2022],
+            y: [994000, 1040445, 1087450],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W12 7JF',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W12-7JF', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 81</p>
+                    <p><strong>Unique Properties:</strong> 79</p>
+                    <p><strong>Average Price:</strong> £998,910</p>
+                    <p><strong>Median Price:</strong> £1,035,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W12-7JF" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W12 7 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W12 7</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W12-7JF', 'W12-7JF')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W12-7JF', 'W12-7JF')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W12-7JF" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W12-7JF" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [274489, 322203, 339510, 367772, 331366, 418563, 450747, 444914, 404279, 460033, 640074, 652161, 645532, 980826, 898026, 1038068, 884744, 909354, 988553, 1058692, 665323],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [232000, 267500, 278075, 300000, 267500, 335000, 328250, 325000, 300000, 382500, 475945, 513000, 567000, 960400, 939100, 1020840, 848075, 760000, 867500, 1037850, 575000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W12 7 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W12-7JF', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W12-7JF" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="4" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £221,681</div>
+                        <div class="cell-sell">Sell: £302,649</div>
+                        <div class="cell-return">+11.4%/yr</div>
+                        <div class="cell-count">(11 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £251,026</div>
+                        <div class="cell-sell">Sell: £495,392</div>
+                        <div class="cell-return">+10.1%/yr</div>
+                        <div class="cell-count">(19 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £259,095</div>
+                        <div class="cell-sell">Sell: £598,000</div>
+                        <div class="cell-return">+7.4%/yr</div>
+                        <div class="cell-count">(10 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £377,988</div>
+                        <div class="cell-sell">Sell: £884,444</div>
+                        <div class="cell-return">+5.2%/yr</div>
+                        <div class="cell-count">(9 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £285,514</div>
+                        <div class="cell-sell">Sell: £351,342</div>
+                        <div class="cell-return">+11.0%/yr</div>
+                        <div class="cell-count">(27 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £342,669</div>
+                        <div class="cell-sell">Sell: £518,118</div>
+                        <div class="cell-return">+8.5%/yr</div>
+                        <div class="cell-count">(84 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £385,230</div>
+                        <div class="cell-sell">Sell: £732,995</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(51 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £384,780</div>
+                        <div class="cell-sell">Sell: £698,250</div>
+                        <div class="cell-return">+4.4%/yr</div>
+                        <div class="cell-count">(48 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £302,442</div>
+                        <div class="cell-sell">Sell: £424,555</div>
+                        <div class="cell-return">+18.9%/yr</div>
+                        <div class="cell-count">(35 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £426,370</div>
+                        <div class="cell-sell">Sell: £577,967</div>
+                        <div class="cell-return">+7.6%/yr</div>
+                        <div class="cell-count">(59 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £605,677</div>
+                        <div class="cell-sell">Sell: £791,564</div>
+                        <div class="cell-return">+3.3%/yr</div>
+                        <div class="cell-count">(54 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £784,986</div>
+                        <div class="cell-sell">Sell: £803,436</div>
+                        <div class="cell-return">+1.0%/yr</div>
+                        <div class="cell-count">(25 sales)</div>
+                    </div>
+                    </td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £935,575</div>
+                        <div class="cell-sell">Sell: £875,145</div>
+                        <div class="cell-return">-1.2%/yr</div>
+                        <div class="cell-count">(119 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £740,392</div>
+                        <div class="cell-sell">Sell: £841,908</div>
+                        <div class="cell-return">+6.6%/yr</div>
+                        <div class="cell-count">(33 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W12-7JF" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W12 Analysis</h4>
+                <p class="area-info">Viewing data for entire W12 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W12-7JF', 'W12-7JF')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W12-7JF', 'W12-7JF')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W12-7JF" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W12-7JF" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [308209, 340844, 420407, 415247, 418090, 459765, 462692, 504650, 541517, 586133, 705340, 714489, 773708, 869422, 834283, 881958, 817769, 820310, 873734, 847040, 717062],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [250000, 285000, 330000, 333500, 330000, 365000, 360000, 397000, 420000, 475000, 560000, 590000, 620000, 748500, 687500, 774600, 735000, 660000, 790000, 654975, 579000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W12 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W12-7JF', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W12-7JF" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £228,500</div>
+                        <div class="cell-sell">Sell: £283,880</div>
+                        <div class="cell-return">+29.7%/yr</div>
+                        <div class="cell-count">(5 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £285,517</div>
+                        <div class="cell-sell">Sell: £393,334</div>
+                        <div class="cell-return">+11.7%/yr</div>
+                        <div class="cell-count">(115 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £303,879</div>
+                        <div class="cell-sell">Sell: £539,265</div>
+                        <div class="cell-return">+8.0%/yr</div>
+                        <div class="cell-count">(131 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £289,824</div>
+                        <div class="cell-sell">Sell: £648,760</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(48 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £363,246</div>
+                        <div class="cell-sell">Sell: £847,589</div>
+                        <div class="cell-return">+5.0%/yr</div>
+                        <div class="cell-count">(33 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £312,606</div>
+                        <div class="cell-sell">Sell: £399,676</div>
+                        <div class="cell-return">+10.7%/yr</div>
+                        <div class="cell-count">(203 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £370,206</div>
+                        <div class="cell-sell">Sell: £554,911</div>
+                        <div class="cell-return">+8.7%/yr</div>
+                        <div class="cell-count">(601 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £401,588</div>
+                        <div class="cell-sell">Sell: £751,789</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(259 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £457,731</div>
+                        <div class="cell-sell">Sell: £845,379</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(212 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £415,616</div>
+                        <div class="cell-sell">Sell: £613,080</div>
+                        <div class="cell-return">+21.1%/yr</div>
+                        <div class="cell-count">(222 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £533,115</div>
+                        <div class="cell-sell">Sell: £705,024</div>
+                        <div class="cell-return">+7.6%/yr</div>
+                        <div class="cell-count">(445 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £585,573</div>
+                        <div class="cell-sell">Sell: £773,149</div>
+                        <div class="cell-return">+3.4%/yr</div>
+                        <div class="cell-count">(404 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £783,222</div>
+                        <div class="cell-sell">Sell: £887,341</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(102 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £745,098</div>
+                        <div class="cell-sell">Sell: £780,005</div>
+                        <div class="cell-return">+1.4%/yr</div>
+                        <div class="cell-count">(438 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £607,783</div>
+                        <div class="cell-sell">Sell: £691,379</div>
+                        <div class="cell-return">+8.6%/yr</div>
+                        <div class="cell-count">(124 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W12 7'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W12'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

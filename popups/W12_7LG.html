@@ -1,0 +1,1328 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W12 7LG</h3>
+            <div class="header-stats">
+                <span><strong>80</strong> transactions</span>
+                <span><strong>72</strong> properties</span>
+                <span>Avg: <strong>£1,076,296</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W12-7LG')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W12-7LG')">
+                Sector (W12 7)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W12-7LG')">
+                District (W12)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W12-7LG" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W12-7LG', 'W12-7LG')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W12-7LG', 'W12-7LG')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W12-7LG', 'W12-7LG')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W12-7LG" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W12-7LG" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "95, Lincoln Apartments, Fountain Park Way", "dates": ["2019-11-29", "2023-12-15"], "prices": [1066520, 925000], "hover_texts": ["<b>95, Lincoln Apartments, Fountain Park Way</b><br>Transaction 1 of 2<br>Date: 2019-11-29<br>Sale Price: \u00a31,066,520", "<b>95, Lincoln Apartments, Fountain Park Way</b><br>Transaction 2 of 2<br>Date: 2023-12-15<br>Sale Price: \u00a3925,000<br>Previous Purchase: \u00a31,066,520<br>Previous Date: 2019-11-29<br>Annual Return: -3.5%/yr<br>Held for: 4.0 years"], "transaction_count": 2}, {"address": "81, Lincoln Apartments, Fountain Park Way", "dates": ["2019-11-29", "2023-12-14"], "prices": [1046500, 925000], "hover_texts": ["<b>81, Lincoln Apartments, Fountain Park Way</b><br>Transaction 1 of 2<br>Date: 2019-11-29<br>Sale Price: \u00a31,046,500", "<b>81, Lincoln Apartments, Fountain Park Way</b><br>Transaction 2 of 2<br>Date: 2023-12-14<br>Sale Price: \u00a3925,000<br>Previous Purchase: \u00a31,046,500<br>Previous Date: 2019-11-29<br>Annual Return: -3.0%/yr<br>Held for: 4.0 years"], "transaction_count": 2}, {"address": "64, Lincoln Apartments, Fountain Park Way", "dates": ["2019-10-28", "2024-08-09"], "prices": [625000, 560000], "hover_texts": ["<b>64, Lincoln Apartments, Fountain Park Way</b><br>Transaction 1 of 2<br>Date: 2019-10-28<br>Sale Price: \u00a3625,000", "<b>64, Lincoln Apartments, Fountain Park Way</b><br>Transaction 2 of 2<br>Date: 2024-08-09<br>Sale Price: \u00a3560,000<br>Previous Purchase: \u00a3625,000<br>Previous Date: 2019-10-28<br>Annual Return: -2.3%/yr<br>Held for: 4.8 years"], "transaction_count": 2}, {"address": "53, Lincoln Apartments, Fountain Park Way", "dates": ["2020-03-03", "2023-11-21"], "prices": [1005125, 650000], "hover_texts": ["<b>53, Lincoln Apartments, Fountain Park Way</b><br>Transaction 1 of 2<br>Date: 2020-03-03<br>Sale Price: \u00a31,005,125", "<b>53, Lincoln Apartments, Fountain Park Way</b><br>Transaction 2 of 2<br>Date: 2023-11-21<br>Sale Price: \u00a3650,000<br>Previous Purchase: \u00a31,005,125<br>Previous Date: 2020-03-03<br>Annual Return: -11.1%/yr<br>Held for: 3.7 years"], "transaction_count": 2}, {"address": "88, Lincoln Apartments, Fountain Park Way", "dates": ["2019-11-29", "2023-08-18"], "prices": [1056510, 985000], "hover_texts": ["<b>88, Lincoln Apartments, Fountain Park Way</b><br>Transaction 1 of 2<br>Date: 2019-11-29<br>Sale Price: \u00a31,056,510", "<b>88, Lincoln Apartments, Fountain Park Way</b><br>Transaction 2 of 2<br>Date: 2023-08-18<br>Sale Price: \u00a3985,000<br>Previous Purchase: \u00a31,056,510<br>Previous Date: 2019-11-29<br>Annual Return: -1.9%/yr<br>Held for: 3.7 years"], "transaction_count": 2}, {"address": "74, Lincoln Apartments, Fountain Park Way", "dates": ["2019-11-29", "2023-11-17"], "prices": [1036490, 950000], "hover_texts": ["<b>74, Lincoln Apartments, Fountain Park Way</b><br>Transaction 1 of 2<br>Date: 2019-11-29<br>Sale Price: \u00a31,036,490", "<b>74, Lincoln Apartments, Fountain Park Way</b><br>Transaction 2 of 2<br>Date: 2023-11-17<br>Sale Price: \u00a3950,000<br>Previous Purchase: \u00a31,036,490<br>Previous Date: 2019-11-29<br>Annual Return: -2.2%/yr<br>Held for: 4.0 years"], "transaction_count": 2}, {"address": "66, Lincoln Apartments, Fountain Park Way", "dates": ["2019-09-26", "2024-04-04"], "prices": [1059375, 770000], "hover_texts": ["<b>66, Lincoln Apartments, Fountain Park Way</b><br>Transaction 1 of 2<br>Date: 2019-09-26<br>Sale Price: \u00a31,059,375", "<b>66, Lincoln Apartments, Fountain Park Way</b><br>Transaction 2 of 2<br>Date: 2024-04-04<br>Sale Price: \u00a3770,000<br>Previous Purchase: \u00a31,059,375<br>Previous Date: 2019-09-26<br>Annual Return: -6.8%/yr<br>Held for: 4.5 years"], "transaction_count": 2}, {"address": "73, Lincoln Apartments, Fountain Park Way", "dates": ["2019-10-25", "2019-10-25"], "prices": [1002900, 1002900], "hover_texts": ["<b>73, Lincoln Apartments, Fountain Park Way</b><br>Transaction 1 of 2<br>Date: 2019-10-25<br>Sale Price: \u00a31,002,900", "<b>73, Lincoln Apartments, Fountain Park Way</b><br>Transaction 2 of 2<br>Date: 2019-10-25<br>Sale Price: \u00a31,002,900"], "transaction_count": 2}];
+            var singleSales = [{"date": "2020-04-21", "address": "118, Lincoln Apartments, Fountain Park Way", "price": 3707000, "price_display": "\u00a33,707,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-31", "address": "48, Lincoln Apartments, Fountain Park Way", "price": 1175750, "price_display": "\u00a31,175,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-09", "address": "55, Lincoln Apartments, Fountain Park Way", "price": 1176815, "price_display": "\u00a31,176,815", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-30", "address": "90, Lincoln Apartments, Fountain Park Way", "price": 1287800, "price_display": "\u00a31,287,800", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-03-27", "address": "116, Lincoln Apartments, Fountain Park Way", "price": 1189000, "price_display": "\u00a31,189,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-31", "address": "106, Lincoln Apartments, Fountain Park Way", "price": 656600, "price_display": "\u00a3656,600", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-21", "address": "57, Lincoln Apartments, Fountain Park Way", "price": 625000, "price_display": "\u00a3625,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-10", "address": "69, Lincoln Apartments, Fountain Park Way", "price": 1260080, "price_display": "\u00a31,260,080", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-21", "address": "86, Lincoln Apartments, Fountain Park Way", "price": 732350, "price_display": "\u00a3732,350", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-04", "address": "82, Lincoln Apartments, Fountain Park Way", "price": 1157475, "price_display": "\u00a31,157,475", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-15", "address": "78, Lincoln Apartments, Fountain Park Way", "price": 642500, "price_display": "\u00a3642,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-30", "address": "97, Lincoln Apartments, Fountain Park Way", "price": 1245500, "price_display": "\u00a31,245,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-02-25", "address": "114, Lincoln Apartments, Fountain Park Way", "price": 1104500, "price_display": "\u00a31,104,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-31", "address": "105, Lincoln Apartments, Fountain Park Way", "price": 1308980, "price_display": "\u00a31,308,980", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-10", "address": "79, Lincoln Apartments, Fountain Park Way", "price": 722650, "price_display": "\u00a3722,650", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-17", "address": "65, Lincoln Apartments, Fountain Park Way", "price": 708100, "price_display": "\u00a3708,100", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-29", "address": "85, Lincoln Apartments, Fountain Park Way", "price": 641025, "price_display": "\u00a3641,025", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-02-21", "address": "111, Lincoln Apartments, Fountain Park Way", "price": 1298840, "price_display": "\u00a31,298,840", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-31", "address": "103, Lincoln Apartments, Fountain Park Way", "price": 1165600, "price_display": "\u00a31,165,600", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-28", "address": "93, Lincoln Apartments, Fountain Park Way", "price": 741000, "price_display": "\u00a3741,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-15", "address": "70, Lincoln Apartments, Fountain Park Way", "price": 1260750, "price_display": "\u00a31,260,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-07-31", "address": "96, Lincoln Apartments, Fountain Park Way", "price": 1156200, "price_display": "\u00a31,156,200", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-09-24", "address": "68, Lincoln Apartments, Fountain Park Way", "price": 1155000, "price_display": "\u00a31,155,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-01-29", "address": "46, Lincoln Apartments, Fountain Park Way", "price": 996400, "price_display": "\u00a3996,400", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-10", "address": "58, Lincoln Apartments, Fountain Park Way", "price": 700340, "price_display": "\u00a3700,340", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-11-25", "address": "67, Lincoln Apartments, Fountain Park Way", "price": 1030240, "price_display": "\u00a31,030,240", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-02-12", "address": "110, Lincoln Apartments, Fountain Park Way", "price": 1237520, "price_display": "\u00a31,237,520", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-17", "address": "80, Lincoln Apartments, Fountain Park Way", "price": 994520, "price_display": "\u00a3994,520", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-03-04", "address": "107, Lincoln Apartments, Fountain Park Way", "price": 762440, "price_display": "\u00a3762,440", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-12-05", "address": "92, Lincoln Apartments, Fountain Park Way", "price": 645000, "price_display": "\u00a3645,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-18", "address": "63, Lincoln Apartments, Fountain Park Way", "price": 1216375, "price_display": "\u00a31,216,375", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-01-31", "address": "60, Lincoln Apartments, Fountain Park Way", "price": 1020840, "price_display": "\u00a31,020,840", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-04-15", "address": "115, Lincoln Apartments, Fountain Park Way", "price": 1111550, "price_display": "\u00a31,111,550", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-10", "address": "72, Lincoln Apartments, Fountain Park Way", "price": 715860, "price_display": "\u00a3715,860", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-08", "address": "59, Lincoln Apartments, Fountain Park Way", "price": 982300, "price_display": "\u00a3982,300", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-02-19", "address": "112, Lincoln Apartments, Fountain Park Way", "price": 1338400, "price_display": "\u00a31,338,400", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-03", "address": "71, Lincoln Apartments, Fountain Park Way", "price": 625000, "price_display": "\u00a3625,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-01-30", "address": "108, Lincoln Apartments, Fountain Park Way", "price": 1087870, "price_display": "\u00a31,087,870", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-18", "address": "77, Lincoln Apartments, Fountain Park Way", "price": 1315000, "price_display": "\u00a31,315,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-08-05", "address": "117, Lincoln Apartments, Fountain Park Way", "price": 2236500, "price_display": "\u00a32,236,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-25", "address": "87, Lincoln Apartments, Fountain Park Way", "price": 1115000, "price_display": "\u00a31,115,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-02-03", "address": "49, Lincoln Apartments, Fountain Park Way", "price": 1197875, "price_display": "\u00a31,197,875", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-31", "address": "104, Lincoln Apartments, Fountain Park Way", "price": 1255840, "price_display": "\u00a31,255,840", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-02-28", "address": "75, Lincoln Apartments, Fountain Park Way", "price": 1149120, "price_display": "\u00a31,149,120", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-07-13", "address": "109, Lincoln Apartments, Fountain Park Way", "price": 1095100, "price_display": "\u00a31,095,100", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-01-27", "address": "101, Lincoln Apartments, Fountain Park Way", "price": 1020840, "price_display": "\u00a31,020,840", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-11-27", "address": "84, Lincoln Apartments, Fountain Park Way", "price": 1377120, "price_display": "\u00a31,377,120", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-16", "address": "50, Lincoln Apartments, Fountain Park Way", "price": 615000, "price_display": "\u00a3615,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-31", "address": "98, Lincoln Apartments, Fountain Park Way", "price": 1301700, "price_display": "\u00a31,301,700", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-03", "address": "61, Lincoln Apartments, Fountain Park Way", "price": 1162000, "price_display": "\u00a31,162,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-02", "address": "54, Lincoln Apartments, Fountain Park Way", "price": 1095100, "price_display": "\u00a31,095,100", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-09-24", "address": "51, Lincoln Apartments, Fountain Park Way", "price": 710000, "price_display": "\u00a3710,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-12-03", "address": "102, Lincoln Apartments, Fountain Park Way", "price": 1081000, "price_display": "\u00a31,081,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-15", "address": "89, Lincoln Apartments, Fountain Park Way", "price": 1134600, "price_display": "\u00a31,134,600", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-07-13", "address": "113, Lincoln Apartments, Fountain Park Way", "price": 2350000, "price_display": "\u00a32,350,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-01-23", "address": "99, Lincoln Apartments, Fountain Park Way", "price": 657500, "price_display": "\u00a3657,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-30", "address": "91, Lincoln Apartments, Fountain Park Way", "price": 1413000, "price_display": "\u00a31,413,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-30", "address": "56, Lincoln Apartments, Fountain Park Way", "price": 1225000, "price_display": "\u00a31,225,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-09-24", "address": "52, Lincoln Apartments, Fountain Park Way", "price": 980400, "price_display": "\u00a3980,400", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-12-02", "address": "94, Lincoln Apartments, Fountain Park Way", "price": 1061000, "price_display": "\u00a31,061,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-11-25", "address": "47, Lincoln Apartments, Fountain Park Way", "price": 1080000, "price_display": "\u00a31,080,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-11-15", "address": "100, Lincoln Apartments, Fountain Park Way", "price": 752640, "price_display": "\u00a3752,640", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-16", "address": "83, Lincoln Apartments, Fountain Park Way", "price": 1255600, "price_display": "\u00a31,255,600", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-10-07", "address": "76, Lincoln Apartments, Fountain Park Way", "price": 1217300, "price_display": "\u00a31,217,300", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W12-7LG', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W12-7LG');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W12-7LG', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W12-7LG', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W12-7LG" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2023-12-15</td>
+            <td>95, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£925,000</td>
+        <td class="negative" title="Previous: £1,066,520 (2019-11-29)">-3.5%/yr</td></tr>
+
+        <tr>
+            <td>2019-11-29</td>
+            <td>95, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,066,520</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-04-21</td>
+            <td>118, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£3,707,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-31</td>
+            <td>48, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,175,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-09</td>
+            <td>55, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,176,815</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-12-14</td>
+            <td>81, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£925,000</td>
+        <td class="negative" title="Previous: £1,046,500 (2019-11-29)">-3.0%/yr</td></tr>
+
+        <tr>
+            <td>2019-11-29</td>
+            <td>81, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,046,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-30</td>
+            <td>90, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,287,800</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-03-27</td>
+            <td>116, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,189,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-31</td>
+            <td>106, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£656,600</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-21</td>
+            <td>57, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£625,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-10</td>
+            <td>69, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,260,080</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-21</td>
+            <td>86, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£732,350</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-04</td>
+            <td>82, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,157,475</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-15</td>
+            <td>78, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£642,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-30</td>
+            <td>97, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,245,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-02-25</td>
+            <td>114, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,104,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-31</td>
+            <td>105, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,308,980</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-10</td>
+            <td>79, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£722,650</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-08-09</td>
+            <td>64, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£560,000</td>
+        <td class="negative" title="Previous: £625,000 (2019-10-28)">-2.3%/yr</td></tr>
+
+        <tr>
+            <td>2019-10-28</td>
+            <td>64, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£625,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-17</td>
+            <td>65, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£708,100</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-29</td>
+            <td>85, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£641,025</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-02-21</td>
+            <td>111, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,298,840</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-31</td>
+            <td>103, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,165,600</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-21</td>
+            <td>53, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£650,000</td>
+        <td class="negative" title="Previous: £1,005,125 (2020-03-03)">-11.1%/yr</td></tr>
+
+        <tr>
+            <td>2020-03-03</td>
+            <td>53, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,005,125</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-28</td>
+            <td>93, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£741,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-15</td>
+            <td>70, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,260,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-07-31</td>
+            <td>96, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,156,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-24</td>
+            <td>68, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,155,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-01-29</td>
+            <td>46, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£996,400</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-10</td>
+            <td>58, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£700,340</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-11-25</td>
+            <td>67, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,030,240</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-02-12</td>
+            <td>110, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,237,520</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-17</td>
+            <td>80, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£994,520</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-03-04</td>
+            <td>107, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£762,440</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-12-05</td>
+            <td>92, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£645,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-18</td>
+            <td>63, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,216,375</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-01-31</td>
+            <td>60, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,020,840</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-04-15</td>
+            <td>115, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,111,550</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-10</td>
+            <td>72, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£715,860</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-08</td>
+            <td>59, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£982,300</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-02-19</td>
+            <td>112, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,338,400</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-03</td>
+            <td>71, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£625,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-01-30</td>
+            <td>108, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,087,870</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-18</td>
+            <td>77, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,315,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-08-05</td>
+            <td>117, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£2,236,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-25</td>
+            <td>87, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,115,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-02-03</td>
+            <td>49, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,197,875</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-31</td>
+            <td>104, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,255,840</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-02-28</td>
+            <td>75, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,149,120</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-07-13</td>
+            <td>109, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,095,100</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-08-18</td>
+            <td>88, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£985,000</td>
+        <td class="negative" title="Previous: £1,056,510 (2019-11-29)">-1.9%/yr</td></tr>
+
+        <tr>
+            <td>2019-11-29</td>
+            <td>88, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,056,510</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-17</td>
+            <td>74, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£950,000</td>
+        <td class="negative" title="Previous: £1,036,490 (2019-11-29)">-2.2%/yr</td></tr>
+
+        <tr>
+            <td>2019-11-29</td>
+            <td>74, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,036,490</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-01-27</td>
+            <td>101, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,020,840</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-11-27</td>
+            <td>84, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,377,120</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-16</td>
+            <td>50, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£615,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-31</td>
+            <td>98, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,301,700</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-03</td>
+            <td>61, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,162,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-02</td>
+            <td>54, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,095,100</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-04-04</td>
+            <td>66, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£770,000</td>
+        <td class="negative" title="Previous: £1,059,375 (2019-09-26)">-6.8%/yr</td></tr>
+
+        <tr>
+            <td>2019-09-26</td>
+            <td>66, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,059,375</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-24</td>
+            <td>51, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£710,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-12-03</td>
+            <td>102, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,081,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-15</td>
+            <td>89, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,134,600</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-07-13</td>
+            <td>113, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£2,350,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-01-23</td>
+            <td>99, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£657,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-30</td>
+            <td>91, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,413,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-30</td>
+            <td>56, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,225,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-25</td>
+            <td>73, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,002,900</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-25</td>
+            <td>73, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,002,900</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-24</td>
+            <td>52, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£980,400</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-12-02</td>
+            <td>94, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,061,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-11-25</td>
+            <td>47, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,080,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-11-15</td>
+            <td>100, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£752,640</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-16</td>
+            <td>83, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,255,600</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-10-07</td>
+            <td>76, Lincoln Apartments, Fountain Park Way</td>
+            <td class="price">£1,217,300</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W12-7LG" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W12-7LG" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2019, 2020, 2023, 2024],
+            y: [1011624, 1336131, 887000, 665000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2019, 2020, 2023, 2024],
+            y: [1061000, 1149120, 925000, 770000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W12 7LG',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W12-7LG', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 80</p>
+                    <p><strong>Unique Properties:</strong> 72</p>
+                    <p><strong>Average Price:</strong> £1,076,296</p>
+                    <p><strong>Median Price:</strong> £1,063,760</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W12-7LG" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W12 7 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W12 7</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W12-7LG', 'W12-7LG')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W12-7LG', 'W12-7LG')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W12-7LG" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W12-7LG" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [274489, 322203, 339510, 367772, 331366, 418563, 450747, 444914, 404279, 460033, 640074, 652161, 645532, 980826, 898026, 1038068, 884744, 909354, 988553, 1058692, 665323],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [232000, 267500, 278075, 300000, 267500, 335000, 328250, 325000, 300000, 382500, 475945, 513000, 567000, 960400, 939100, 1020840, 848075, 760000, 867500, 1037850, 575000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W12 7 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W12-7LG', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W12-7LG" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="4" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £221,681</div>
+                        <div class="cell-sell">Sell: £302,649</div>
+                        <div class="cell-return">+11.4%/yr</div>
+                        <div class="cell-count">(11 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £251,026</div>
+                        <div class="cell-sell">Sell: £495,392</div>
+                        <div class="cell-return">+10.1%/yr</div>
+                        <div class="cell-count">(19 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £259,095</div>
+                        <div class="cell-sell">Sell: £598,000</div>
+                        <div class="cell-return">+7.4%/yr</div>
+                        <div class="cell-count">(10 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £377,988</div>
+                        <div class="cell-sell">Sell: £884,444</div>
+                        <div class="cell-return">+5.2%/yr</div>
+                        <div class="cell-count">(9 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £285,514</div>
+                        <div class="cell-sell">Sell: £351,342</div>
+                        <div class="cell-return">+11.0%/yr</div>
+                        <div class="cell-count">(27 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £342,669</div>
+                        <div class="cell-sell">Sell: £518,118</div>
+                        <div class="cell-return">+8.5%/yr</div>
+                        <div class="cell-count">(84 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £385,230</div>
+                        <div class="cell-sell">Sell: £732,995</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(51 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £384,780</div>
+                        <div class="cell-sell">Sell: £698,250</div>
+                        <div class="cell-return">+4.4%/yr</div>
+                        <div class="cell-count">(48 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £302,442</div>
+                        <div class="cell-sell">Sell: £424,555</div>
+                        <div class="cell-return">+18.9%/yr</div>
+                        <div class="cell-count">(35 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £426,370</div>
+                        <div class="cell-sell">Sell: £577,967</div>
+                        <div class="cell-return">+7.6%/yr</div>
+                        <div class="cell-count">(59 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £605,677</div>
+                        <div class="cell-sell">Sell: £791,564</div>
+                        <div class="cell-return">+3.3%/yr</div>
+                        <div class="cell-count">(54 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £784,986</div>
+                        <div class="cell-sell">Sell: £803,436</div>
+                        <div class="cell-return">+1.0%/yr</div>
+                        <div class="cell-count">(25 sales)</div>
+                    </div>
+                    </td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £935,575</div>
+                        <div class="cell-sell">Sell: £875,145</div>
+                        <div class="cell-return">-1.2%/yr</div>
+                        <div class="cell-count">(119 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £740,392</div>
+                        <div class="cell-sell">Sell: £841,908</div>
+                        <div class="cell-return">+6.6%/yr</div>
+                        <div class="cell-count">(33 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W12-7LG" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W12 Analysis</h4>
+                <p class="area-info">Viewing data for entire W12 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W12-7LG', 'W12-7LG')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W12-7LG', 'W12-7LG')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W12-7LG" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W12-7LG" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [308209, 340844, 420407, 415247, 418090, 459765, 462692, 504650, 541517, 586133, 705340, 714489, 773708, 869422, 834283, 881958, 817769, 820310, 873734, 847040, 717062],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [250000, 285000, 330000, 333500, 330000, 365000, 360000, 397000, 420000, 475000, 560000, 590000, 620000, 748500, 687500, 774600, 735000, 660000, 790000, 654975, 579000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W12 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W12-7LG', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W12-7LG" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £228,500</div>
+                        <div class="cell-sell">Sell: £283,880</div>
+                        <div class="cell-return">+29.7%/yr</div>
+                        <div class="cell-count">(5 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £285,517</div>
+                        <div class="cell-sell">Sell: £393,334</div>
+                        <div class="cell-return">+11.7%/yr</div>
+                        <div class="cell-count">(115 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £303,879</div>
+                        <div class="cell-sell">Sell: £539,265</div>
+                        <div class="cell-return">+8.0%/yr</div>
+                        <div class="cell-count">(131 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £289,824</div>
+                        <div class="cell-sell">Sell: £648,760</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(48 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £363,246</div>
+                        <div class="cell-sell">Sell: £847,589</div>
+                        <div class="cell-return">+5.0%/yr</div>
+                        <div class="cell-count">(33 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £312,606</div>
+                        <div class="cell-sell">Sell: £399,676</div>
+                        <div class="cell-return">+10.7%/yr</div>
+                        <div class="cell-count">(203 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £370,206</div>
+                        <div class="cell-sell">Sell: £554,911</div>
+                        <div class="cell-return">+8.7%/yr</div>
+                        <div class="cell-count">(601 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £401,588</div>
+                        <div class="cell-sell">Sell: £751,789</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(259 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £457,731</div>
+                        <div class="cell-sell">Sell: £845,379</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(212 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £415,616</div>
+                        <div class="cell-sell">Sell: £613,080</div>
+                        <div class="cell-return">+21.1%/yr</div>
+                        <div class="cell-count">(222 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £533,115</div>
+                        <div class="cell-sell">Sell: £705,024</div>
+                        <div class="cell-return">+7.6%/yr</div>
+                        <div class="cell-count">(445 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £585,573</div>
+                        <div class="cell-sell">Sell: £773,149</div>
+                        <div class="cell-return">+3.4%/yr</div>
+                        <div class="cell-count">(404 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £783,222</div>
+                        <div class="cell-sell">Sell: £887,341</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(102 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £745,098</div>
+                        <div class="cell-sell">Sell: £780,005</div>
+                        <div class="cell-return">+1.4%/yr</div>
+                        <div class="cell-count">(438 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £607,783</div>
+                        <div class="cell-sell">Sell: £691,379</div>
+                        <div class="cell-return">+8.6%/yr</div>
+                        <div class="cell-count">(124 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W12 7'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W12'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

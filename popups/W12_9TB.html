@@ -1,0 +1,1076 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W12 9TB</h3>
+            <div class="header-stats">
+                <span><strong>38</strong> transactions</span>
+                <span><strong>21</strong> properties</span>
+                <span>Avg: <strong>£477,464</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W12-9TB')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W12-9TB')">
+                Sector (W12 9)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W12-9TB')">
+                District (W12)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W12-9TB" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W12-9TB', 'W12-9TB')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W12-9TB', 'W12-9TB')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W12-9TB', 'W12-9TB')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W12-9TB" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W12-9TB" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "152, Emlyn Road", "dates": ["2015-02-11", "2016-02-12", "2021-06-29"], "prices": [458000, 590000, 607500], "hover_texts": ["<b>152, Emlyn Road</b><br>Transaction 1 of 3<br>Date: 2015-02-11<br>Sale Price: \u00a3458,000", "<b>152, Emlyn Road</b><br>Transaction 2 of 3<br>Date: 2016-02-12<br>Sale Price: \u00a3590,000<br>Previous Purchase: \u00a3458,000<br>Previous Date: 2015-02-11<br>Annual Return: +28.8%/yr<br>Held for: 1.0 years", "<b>152, Emlyn Road</b><br>Transaction 3 of 3<br>Date: 2021-06-29<br>Sale Price: \u00a3607,500<br>Previous Purchase: \u00a3590,000<br>Previous Date: 2016-02-12<br>Annual Return: +0.6%/yr<br>Held for: 5.4 years"], "transaction_count": 3}, {"address": "154, Emlyn Road", "dates": ["2023-02-03", "2024-03-28"], "prices": [255000, 590000], "hover_texts": ["<b>154, Emlyn Road</b><br>Transaction 1 of 2<br>Date: 2023-02-03<br>Sale Price: \u00a3255,000", "<b>154, Emlyn Road</b><br>Transaction 2 of 2<br>Date: 2024-03-28<br>Sale Price: \u00a3590,000<br>Previous Purchase: \u00a3255,000<br>Previous Date: 2023-02-03<br>Annual Return: +107.8%/yr<br>Held for: 1.1 years"], "transaction_count": 2}, {"address": "194, Emlyn Road", "dates": ["2007-02-22", "2010-12-21"], "prices": [295000, 370000], "hover_texts": ["<b>194, Emlyn Road</b><br>Transaction 1 of 2<br>Date: 2007-02-22<br>Sale Price: \u00a3295,000", "<b>194, Emlyn Road</b><br>Transaction 2 of 2<br>Date: 2010-12-21<br>Sale Price: \u00a3370,000<br>Previous Purchase: \u00a3295,000<br>Previous Date: 2007-02-22<br>Annual Return: +6.1%/yr<br>Held for: 3.8 years"], "transaction_count": 2}, {"address": "164, Emlyn Road", "dates": ["2022-01-28", "2025-12-08"], "prices": [555000, 590000], "hover_texts": ["<b>164, Emlyn Road</b><br>Transaction 1 of 2<br>Date: 2022-01-28<br>Sale Price: \u00a3555,000", "<b>164, Emlyn Road</b><br>Transaction 2 of 2<br>Date: 2025-12-08<br>Sale Price: \u00a3590,000<br>Previous Purchase: \u00a3555,000<br>Previous Date: 2022-01-28<br>Annual Return: +1.6%/yr<br>Held for: 3.9 years"], "transaction_count": 2}, {"address": "158, Emlyn Road", "dates": ["2007-10-01", "2025-12-01"], "prices": [393000, 642000], "hover_texts": ["<b>158, Emlyn Road</b><br>Transaction 1 of 2<br>Date: 2007-10-01<br>Sale Price: \u00a3393,000", "<b>158, Emlyn Road</b><br>Transaction 2 of 2<br>Date: 2025-12-01<br>Sale Price: \u00a3642,000<br>Previous Purchase: \u00a3393,000<br>Previous Date: 2007-10-01<br>Annual Return: +2.7%/yr<br>Held for: 18.2 years"], "transaction_count": 2}, {"address": "182, Emlyn Road", "dates": ["2010-09-03", "2016-06-24", "2020-03-31"], "prices": [382000, 570000, 875000], "hover_texts": ["<b>182, Emlyn Road</b><br>Transaction 1 of 3<br>Date: 2010-09-03<br>Sale Price: \u00a3382,000", "<b>182, Emlyn Road</b><br>Transaction 2 of 3<br>Date: 2016-06-24<br>Sale Price: \u00a3570,000<br>Previous Purchase: \u00a3382,000<br>Previous Date: 2010-09-03<br>Annual Return: +7.1%/yr<br>Held for: 5.8 years", "<b>182, Emlyn Road</b><br>Transaction 3 of 3<br>Date: 2020-03-31<br>Sale Price: \u00a3875,000<br>Previous Purchase: \u00a3570,000<br>Previous Date: 2016-06-24<br>Annual Return: +12.1%/yr<br>Held for: 3.8 years"], "transaction_count": 3}, {"address": "Ground Floor Maisonette, 138, Emlyn Road", "dates": ["2011-07-29", "2017-05-12"], "prices": [378000, 565000], "hover_texts": ["<b>Ground Floor Maisonette, 138, Emlyn Road</b><br>Transaction 1 of 2<br>Date: 2011-07-29<br>Sale Price: \u00a3378,000", "<b>Ground Floor Maisonette, 138, Emlyn Road</b><br>Transaction 2 of 2<br>Date: 2017-05-12<br>Sale Price: \u00a3565,000<br>Previous Purchase: \u00a3378,000<br>Previous Date: 2011-07-29<br>Annual Return: +7.2%/yr<br>Held for: 5.8 years"], "transaction_count": 2}, {"address": "192, Emlyn Road", "dates": ["2012-04-03", "2018-07-09"], "prices": [407500, 550000], "hover_texts": ["<b>192, Emlyn Road</b><br>Transaction 1 of 2<br>Date: 2012-04-03<br>Sale Price: \u00a3407,500", "<b>192, Emlyn Road</b><br>Transaction 2 of 2<br>Date: 2018-07-09<br>Sale Price: \u00a3550,000<br>Previous Purchase: \u00a3407,500<br>Previous Date: 2012-04-03<br>Annual Return: +4.9%/yr<br>Held for: 6.3 years"], "transaction_count": 2}, {"address": "144, Emlyn Road", "dates": ["2009-09-14", "2013-04-19", "2018-08-10", "2021-11-18"], "prices": [320000, 425000, 550000, 575000], "hover_texts": ["<b>144, Emlyn Road</b><br>Transaction 1 of 4<br>Date: 2009-09-14<br>Sale Price: \u00a3320,000", "<b>144, Emlyn Road</b><br>Transaction 2 of 4<br>Date: 2013-04-19<br>Sale Price: \u00a3425,000<br>Previous Purchase: \u00a3320,000<br>Previous Date: 2009-09-14<br>Annual Return: +8.2%/yr<br>Held for: 3.6 years", "<b>144, Emlyn Road</b><br>Transaction 3 of 4<br>Date: 2018-08-10<br>Sale Price: \u00a3550,000<br>Previous Purchase: \u00a3425,000<br>Previous Date: 2013-04-19<br>Annual Return: +5.0%/yr<br>Held for: 5.3 years", "<b>144, Emlyn Road</b><br>Transaction 4 of 4<br>Date: 2021-11-18<br>Sale Price: \u00a3575,000<br>Previous Purchase: \u00a3550,000<br>Previous Date: 2018-08-10<br>Annual Return: +1.4%/yr<br>Held for: 3.3 years"], "transaction_count": 4}, {"address": "200, Emlyn Road", "dates": ["2006-12-20", "2010-07-16", "2024-04-26"], "prices": [299950, 399950, 565000], "hover_texts": ["<b>200, Emlyn Road</b><br>Transaction 1 of 3<br>Date: 2006-12-20<br>Sale Price: \u00a3299,950", "<b>200, Emlyn Road</b><br>Transaction 2 of 3<br>Date: 2010-07-16<br>Sale Price: \u00a3399,950<br>Previous Purchase: \u00a3299,950<br>Previous Date: 2006-12-20<br>Annual Return: +8.4%/yr<br>Held for: 3.6 years", "<b>200, Emlyn Road</b><br>Transaction 3 of 3<br>Date: 2024-04-26<br>Sale Price: \u00a3565,000<br>Previous Purchase: \u00a3399,950<br>Previous Date: 2010-07-16<br>Annual Return: +2.5%/yr<br>Held for: 13.8 years"], "transaction_count": 3}, {"address": "160, Emlyn Road", "dates": ["2005-08-12", "2014-08-05"], "prices": [272000, 610000], "hover_texts": ["<b>160, Emlyn Road</b><br>Transaction 1 of 2<br>Date: 2005-08-12<br>Sale Price: \u00a3272,000", "<b>160, Emlyn Road</b><br>Transaction 2 of 2<br>Date: 2014-08-05<br>Sale Price: \u00a3610,000<br>Previous Purchase: \u00a3272,000<br>Previous Date: 2005-08-12<br>Annual Return: +9.4%/yr<br>Held for: 9.0 years"], "transaction_count": 2}, {"address": "166, Emlyn Road", "dates": ["2011-03-08", "2018-06-22"], "prices": [450000, 649000], "hover_texts": ["<b>166, Emlyn Road</b><br>Transaction 1 of 2<br>Date: 2011-03-08<br>Sale Price: \u00a3450,000", "<b>166, Emlyn Road</b><br>Transaction 2 of 2<br>Date: 2018-06-22<br>Sale Price: \u00a3649,000<br>Previous Purchase: \u00a3450,000<br>Previous Date: 2011-03-08<br>Annual Return: +5.2%/yr<br>Held for: 7.3 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2011-03-08", "address": "168, Emlyn Road", "price": 450000, "price_display": "\u00a3450,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2010-06-18", "address": "140, Emlyn Road", "price": 365000, "price_display": "\u00a3365,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-12-09", "address": "196, Emlyn Road", "price": 420000, "price_display": "\u00a3420,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2007-09-28", "address": "138, Emlyn Road", "price": 340000, "price_display": "\u00a3340,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2005-04-07", "address": "172, Emlyn Road", "price": 287500, "price_display": "\u00a3287,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-03-16", "address": "178, Emlyn Road", "price": 560000, "price_display": "\u00a3560,000", "property_type": "T", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2011-11-07", "address": "174, Emlyn Road", "price": 380000, "price_display": "\u00a3380,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2014-06-30", "address": "180, Emlyn Road", "price": 600000, "price_display": "\u00a3600,000", "property_type": "T", "tenure": "F", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-30", "address": "190, Emlyn Road", "price": 552255, "price_display": "\u00a3552,255", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W12-9TB', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W12-9TB');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W12-9TB', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W12-9TB', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W12-9TB" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2011-03-08</td>
+            <td>168, Emlyn Road</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-29</td>
+            <td>152, Emlyn Road</td>
+            <td class="price">£607,500</td>
+        <td class="positive" title="Previous: £590,000 (2016-02-12)">+0.6%/yr</td></tr>
+
+        <tr>
+            <td>2016-02-12</td>
+            <td>152, Emlyn Road</td>
+            <td class="price">£590,000</td>
+        <td class="positive" title="Previous: £458,000 (2015-02-11)">+28.8%/yr</td></tr>
+
+        <tr>
+            <td>2015-02-11</td>
+            <td>152, Emlyn Road</td>
+            <td class="price">£458,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-03-28</td>
+            <td>154, Emlyn Road</td>
+            <td class="price">£590,000</td>
+        <td class="positive" title="Previous: £255,000 (2023-02-03)">+107.8%/yr</td></tr>
+
+        <tr>
+            <td>2023-02-03</td>
+            <td>154, Emlyn Road</td>
+            <td class="price">£255,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-12-21</td>
+            <td>194, Emlyn Road</td>
+            <td class="price">£370,000</td>
+        <td class="positive" title="Previous: £295,000 (2007-02-22)">+6.1%/yr</td></tr>
+
+        <tr>
+            <td>2007-02-22</td>
+            <td>194, Emlyn Road</td>
+            <td class="price">£295,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2010-06-18</td>
+            <td>140, Emlyn Road</td>
+            <td class="price">£365,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-12-08</td>
+            <td>164, Emlyn Road</td>
+            <td class="price">£590,000</td>
+        <td class="positive" title="Previous: £555,000 (2022-01-28)">+1.6%/yr</td></tr>
+
+        <tr>
+            <td>2022-01-28</td>
+            <td>164, Emlyn Road</td>
+            <td class="price">£555,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-12-01</td>
+            <td>158, Emlyn Road</td>
+            <td class="price">£642,000</td>
+        <td class="positive" title="Previous: £393,000 (2007-10-01)">+2.7%/yr</td></tr>
+
+        <tr>
+            <td>2007-10-01</td>
+            <td>158, Emlyn Road</td>
+            <td class="price">£393,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-12-09</td>
+            <td>196, Emlyn Road</td>
+            <td class="price">£420,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-03-31</td>
+            <td>182, Emlyn Road</td>
+            <td class="price">£875,000</td>
+        <td class="positive" title="Previous: £570,000 (2016-06-24)">+12.1%/yr</td></tr>
+
+        <tr>
+            <td>2016-06-24</td>
+            <td>182, Emlyn Road</td>
+            <td class="price">£570,000</td>
+        <td class="positive" title="Previous: £382,000 (2010-09-03)">+7.1%/yr</td></tr>
+
+        <tr>
+            <td>2010-09-03</td>
+            <td>182, Emlyn Road</td>
+            <td class="price">£382,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-05-12</td>
+            <td>Ground Floor Maisonette, 138, Emlyn Road</td>
+            <td class="price">£565,000</td>
+        <td class="positive" title="Previous: £378,000 (2011-07-29)">+7.2%/yr</td></tr>
+
+        <tr>
+            <td>2011-07-29</td>
+            <td>Ground Floor Maisonette, 138, Emlyn Road</td>
+            <td class="price">£378,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2007-09-28</td>
+            <td>138, Emlyn Road</td>
+            <td class="price">£340,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2005-04-07</td>
+            <td>172, Emlyn Road</td>
+            <td class="price">£287,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-07-09</td>
+            <td>192, Emlyn Road</td>
+            <td class="price">£550,000</td>
+        <td class="positive" title="Previous: £407,500 (2012-04-03)">+4.9%/yr</td></tr>
+
+        <tr>
+            <td>2012-04-03</td>
+            <td>192, Emlyn Road</td>
+            <td class="price">£407,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-03-16</td>
+            <td>178, Emlyn Road</td>
+            <td class="price">£560,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2011-11-07</td>
+            <td>174, Emlyn Road</td>
+            <td class="price">£380,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-06-30</td>
+            <td>180, Emlyn Road</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-11-18</td>
+            <td>144, Emlyn Road</td>
+            <td class="price">£575,000</td>
+        <td class="positive" title="Previous: £550,000 (2018-08-10)">+1.4%/yr</td></tr>
+
+        <tr>
+            <td>2018-08-10</td>
+            <td>144, Emlyn Road</td>
+            <td class="price">£550,000</td>
+        <td class="positive" title="Previous: £425,000 (2013-04-19)">+5.0%/yr</td></tr>
+
+        <tr>
+            <td>2013-04-19</td>
+            <td>144, Emlyn Road</td>
+            <td class="price">£425,000</td>
+        <td class="positive" title="Previous: £320,000 (2009-09-14)">+8.2%/yr</td></tr>
+
+        <tr>
+            <td>2009-09-14</td>
+            <td>144, Emlyn Road</td>
+            <td class="price">£320,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-04-26</td>
+            <td>200, Emlyn Road</td>
+            <td class="price">£565,000</td>
+        <td class="positive" title="Previous: £399,950 (2010-07-16)">+2.5%/yr</td></tr>
+
+        <tr>
+            <td>2010-07-16</td>
+            <td>200, Emlyn Road</td>
+            <td class="price">£399,950</td>
+        <td class="positive" title="Previous: £299,950 (2006-12-20)">+8.4%/yr</td></tr>
+
+        <tr>
+            <td>2006-12-20</td>
+            <td>200, Emlyn Road</td>
+            <td class="price">£299,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2014-08-05</td>
+            <td>160, Emlyn Road</td>
+            <td class="price">£610,000</td>
+        <td class="positive" title="Previous: £272,000 (2005-08-12)">+9.4%/yr</td></tr>
+
+        <tr>
+            <td>2005-08-12</td>
+            <td>160, Emlyn Road</td>
+            <td class="price">£272,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-06-22</td>
+            <td>166, Emlyn Road</td>
+            <td class="price">£649,000</td>
+        <td class="positive" title="Previous: £450,000 (2011-03-08)">+5.2%/yr</td></tr>
+
+        <tr>
+            <td>2011-03-08</td>
+            <td>166, Emlyn Road</td>
+            <td class="price">£450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-30</td>
+            <td>190, Emlyn Road</td>
+            <td class="price">£552,255</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W12-9TB" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W12-9TB" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [279750, 299950, 342666, 320000, 379237, 415600, 407500, 425000, 605000, 458000, 580000, 565000, 577250, 875000, 591250, 555000, 403627, 577500, 616000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [287500, 299950, 340000, 320000, 382000, 420000, 407500, 425000, 610000, 458000, 590000, 565000, 560000, 875000, 607500, 555000, 552255, 590000, 642000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W12 9TB',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W12-9TB', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 38</p>
+                    <p><strong>Unique Properties:</strong> 21</p>
+                    <p><strong>Average Price:</strong> £477,464</p>
+                    <p><strong>Median Price:</strong> £454,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W12-9TB" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W12 9 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W12 9</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W12-9TB', 'W12-9TB')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W12-9TB', 'W12-9TB')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W12-9TB" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W12-9TB" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [334247, 395442, 496271, 472278, 495465, 543756, 511033, 560628, 599987, 714708, 755855, 774659, 909509, 809866, 987738, 878752, 862070, 809680, 860350, 783489, 805558],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [269950, 314000, 352500, 360000, 350000, 390000, 408750, 407000, 450000, 555000, 585000, 591500, 712500, 635500, 681250, 682500, 680000, 697500, 675000, 585000, 620000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W12 9 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W12-9TB', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W12-9TB" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £291,130</div>
+                        <div class="cell-sell">Sell: £392,323</div>
+                        <div class="cell-return">+8.9%/yr</div>
+                        <div class="cell-count">(49 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £337,132</div>
+                        <div class="cell-sell">Sell: £561,316</div>
+                        <div class="cell-return">+7.2%/yr</div>
+                        <div class="cell-count">(52 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £340,046</div>
+                        <div class="cell-sell">Sell: £750,004</div>
+                        <div class="cell-return">+6.4%/yr</div>
+                        <div class="cell-count">(16 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £347,604</div>
+                        <div class="cell-sell">Sell: £825,083</div>
+                        <div class="cell-return">+5.2%/yr</div>
+                        <div class="cell-count">(12 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £384,653</div>
+                        <div class="cell-sell">Sell: £473,523</div>
+                        <div class="cell-return">+10.9%/yr</div>
+                        <div class="cell-count">(72 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £389,357</div>
+                        <div class="cell-sell">Sell: £585,200</div>
+                        <div class="cell-return">+8.8%/yr</div>
+                        <div class="cell-count">(235 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £453,468</div>
+                        <div class="cell-sell">Sell: £824,083</div>
+                        <div class="cell-return">+7.1%/yr</div>
+                        <div class="cell-count">(101 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £592,863</div>
+                        <div class="cell-sell">Sell: £1,129,049</div>
+                        <div class="cell-return">+4.7%/yr</div>
+                        <div class="cell-count">(73 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £434,565</div>
+                        <div class="cell-sell">Sell: £639,738</div>
+                        <div class="cell-return">+19.8%/yr</div>
+                        <div class="cell-count">(90 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £584,014</div>
+                        <div class="cell-sell">Sell: £798,001</div>
+                        <div class="cell-return">+8.2%/yr</div>
+                        <div class="cell-count">(180 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £610,736</div>
+                        <div class="cell-sell">Sell: £828,179</div>
+                        <div class="cell-return">+3.8%/yr</div>
+                        <div class="cell-count">(179 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £719,559</div>
+                        <div class="cell-sell">Sell: £805,899</div>
+                        <div class="cell-return">+10.0%/yr</div>
+                        <div class="cell-count">(42 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £728,068</div>
+                        <div class="cell-sell">Sell: £833,971</div>
+                        <div class="cell-return">+3.4%/yr</div>
+                        <div class="cell-count">(150 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £525,489</div>
+                        <div class="cell-sell">Sell: £611,311</div>
+                        <div class="cell-return">+11.8%/yr</div>
+                        <div class="cell-count">(48 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W12-9TB" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W12 Analysis</h4>
+                <p class="area-info">Viewing data for entire W12 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W12-9TB', 'W12-9TB')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W12-9TB', 'W12-9TB')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W12-9TB" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W12-9TB" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [308209, 340844, 420407, 415247, 418090, 459765, 462692, 504650, 541517, 586133, 705340, 714489, 773708, 869422, 834283, 881958, 817769, 820310, 873734, 847040, 717062],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [250000, 285000, 330000, 333500, 330000, 365000, 360000, 397000, 420000, 475000, 560000, 590000, 620000, 748500, 687500, 774600, 735000, 660000, 790000, 654975, 579000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W12 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W12-9TB', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W12-9TB" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £228,500</div>
+                        <div class="cell-sell">Sell: £283,880</div>
+                        <div class="cell-return">+29.7%/yr</div>
+                        <div class="cell-count">(5 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £285,517</div>
+                        <div class="cell-sell">Sell: £393,334</div>
+                        <div class="cell-return">+11.7%/yr</div>
+                        <div class="cell-count">(115 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £303,879</div>
+                        <div class="cell-sell">Sell: £539,265</div>
+                        <div class="cell-return">+8.0%/yr</div>
+                        <div class="cell-count">(131 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £289,824</div>
+                        <div class="cell-sell">Sell: £648,760</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(48 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £363,246</div>
+                        <div class="cell-sell">Sell: £847,589</div>
+                        <div class="cell-return">+5.0%/yr</div>
+                        <div class="cell-count">(33 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £312,606</div>
+                        <div class="cell-sell">Sell: £399,676</div>
+                        <div class="cell-return">+10.7%/yr</div>
+                        <div class="cell-count">(203 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £370,206</div>
+                        <div class="cell-sell">Sell: £554,911</div>
+                        <div class="cell-return">+8.7%/yr</div>
+                        <div class="cell-count">(601 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £401,588</div>
+                        <div class="cell-sell">Sell: £751,789</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(259 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £457,731</div>
+                        <div class="cell-sell">Sell: £845,379</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(212 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £415,616</div>
+                        <div class="cell-sell">Sell: £613,080</div>
+                        <div class="cell-return">+21.1%/yr</div>
+                        <div class="cell-count">(222 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £533,115</div>
+                        <div class="cell-sell">Sell: £705,024</div>
+                        <div class="cell-return">+7.6%/yr</div>
+                        <div class="cell-count">(445 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £585,573</div>
+                        <div class="cell-sell">Sell: £773,149</div>
+                        <div class="cell-return">+3.4%/yr</div>
+                        <div class="cell-count">(404 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £783,222</div>
+                        <div class="cell-sell">Sell: £887,341</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(102 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £745,098</div>
+                        <div class="cell-sell">Sell: £780,005</div>
+                        <div class="cell-return">+1.4%/yr</div>
+                        <div class="cell-count">(438 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £607,783</div>
+                        <div class="cell-sell">Sell: £691,379</div>
+                        <div class="cell-return">+8.6%/yr</div>
+                        <div class="cell-count">(124 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W12 9'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W12'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

@@ -1,0 +1,1256 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W12 7RF</h3>
+            <div class="header-stats">
+                <span><strong>68</strong> transactions</span>
+                <span><strong>68</strong> properties</span>
+                <span>Avg: <strong>£1,060,173</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W12-7RF')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W12-7RF')">
+                Sector (W12 7)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W12-7RF')">
+                District (W12)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W12-7RF" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W12-7RF', 'W12-7RF')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W12-7RF', 'W12-7RF')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W12-7RF', 'W12-7RF')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W12-7RF" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W12-7RF" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [];
+            var singleSales = [{"date": "2023-10-24", "address": "74, Cassini Apartments, Cascade Way", "price": 837000, "price_display": "\u00a3837,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-23", "address": "21, Cassini Apartments, Cascade Way", "price": 773500, "price_display": "\u00a3773,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-02-29", "address": "60, Cassini Apartments, Cascade Way", "price": 808000, "price_display": "\u00a3808,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-12-15", "address": "71, Cassini Apartments, Cascade Way", "price": 1288000, "price_display": "\u00a31,288,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-18", "address": "39, Cassini Apartments, Cascade Way", "price": 1264900, "price_display": "\u00a31,264,900", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-17", "address": "24, Cassini Apartments, Cascade Way", "price": 1297000, "price_display": "\u00a31,297,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-20", "address": "37, Cassini Apartments, Cascade Way", "price": 788000, "price_display": "\u00a3788,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-27", "address": "1, Cascade Apartments, Cascade Way", "price": 1210000, "price_display": "\u00a31,210,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-16", "address": "9, Cassini Apartments, Cascade Way", "price": 1274200, "price_display": "\u00a31,274,200", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-20", "address": "45, Cassini Apartments, Cascade Way", "price": 796000, "price_display": "\u00a3796,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-01", "address": "4, Cassini Apartments, Cascade Way", "price": 736250, "price_display": "\u00a3736,250", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-12-08", "address": "26, Cassini Apartments, Cascade Way", "price": 845000, "price_display": "\u00a3845,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-20", "address": "69, Cassini Apartments, Cascade Way", "price": 1292000, "price_display": "\u00a31,292,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-23", "address": "70, Cassini Apartments, Cascade Way", "price": 1350500, "price_display": "\u00a31,350,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-20", "address": "67, Cassini Apartments, Cascade Way", "price": 805800, "price_display": "\u00a3805,800", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-26", "address": "54, Cassini Apartments, Cascade Way", "price": 1207125, "price_display": "\u00a31,207,125", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-12-06", "address": "77, Cassini Apartments, Cascade Way", "price": 1365000, "price_display": "\u00a31,365,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-01", "address": "49, Cassini Apartments, Cascade Way", "price": 1258000, "price_display": "\u00a31,258,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-20", "address": "3, Cassini Apartments, Cascade Way", "price": 845175, "price_display": "\u00a3845,175", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-24", "address": "17, Cassini Apartments, Cascade Way", "price": 1272360, "price_display": "\u00a31,272,360", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-19", "address": "53, Cassini Apartments, Cascade Way", "price": 802750, "price_display": "\u00a3802,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-01", "address": "63, Cassini Apartments, Cascade Way", "price": 1387000, "price_display": "\u00a31,387,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-27", "address": "32, Cassini Apartments, Cascade Way", "price": 1324600, "price_display": "\u00a31,324,600", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-28", "address": "10, Cassini Apartments, Cascade Way", "price": 820000, "price_display": "\u00a3820,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-16", "address": "12, Cassini Apartments, Cascade Way", "price": 744990, "price_display": "\u00a3744,990", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-19", "address": "16, Cassini Apartments, Cascade Way", "price": 1292000, "price_display": "\u00a31,292,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-01", "address": "20, Cassini Apartments, Cascade Way", "price": 746500, "price_display": "\u00a3746,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-12-01", "address": "66, Cassini Apartments, Cascade Way", "price": 798000, "price_display": "\u00a3798,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-02", "address": "61, Cassini Apartments, Cascade Way", "price": 1208460, "price_display": "\u00a31,208,460", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-23", "address": "76, Cassini Apartments, Cascade Way", "price": 1320480, "price_display": "\u00a31,320,480", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-01-15", "address": "40, Cassini Apartments, Cascade Way", "price": 1274200, "price_display": "\u00a31,274,200", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-08", "address": "75, Cassini Apartments, Cascade Way", "price": 1234037, "price_display": "\u00a31,234,037", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-17", "address": "35, Cassini Apartments, Cascade Way", "price": 824820, "price_display": "\u00a3824,820", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-03-05", "address": "46, Cassini Apartments, Cascade Way", "price": 1193800, "price_display": "\u00a31,193,800", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-19", "address": "56, Cassini Apartments, Cascade Way", "price": 1290375, "price_display": "\u00a31,290,375", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-12-14", "address": "33, Cassini Apartments, Cascade Way", "price": 1297200, "price_display": "\u00a31,297,200", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-19", "address": "41, Cassini Apartments, Cascade Way", "price": 1306200, "price_display": "\u00a31,306,200", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-12-19", "address": "62, Cassini Apartments, Cascade Way", "price": 1275000, "price_display": "\u00a31,275,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-19", "address": "57, Cassini Apartments, Cascade Way", "price": 1246900, "price_display": "\u00a31,246,900", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-01-30", "address": "28, Cassini Apartments, Cascade Way", "price": 758100, "price_display": "\u00a3758,100", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-16", "address": "5, Cassini Apartments, Cascade Way", "price": 760000, "price_display": "\u00a3760,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-04-05", "address": "51, Cassini Apartments, Cascade Way", "price": 828000, "price_display": "\u00a3828,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-17", "address": "22, Cassini Apartments, Cascade Way", "price": 1207800, "price_display": "\u00a31,207,800", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-12-14", "address": "47, Cassini Apartments, Cascade Way", "price": 1230250, "price_display": "\u00a31,230,250", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-23", "address": "48, Cassini Apartments, Cascade Way", "price": 1280000, "price_display": "\u00a31,280,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-16", "address": "13, Cassini Apartments, Cascade Way", "price": 763560, "price_display": "\u00a3763,560", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-01-18", "address": "15, Cassini Apartments, Cascade Way", "price": 1194075, "price_display": "\u00a31,194,075", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-18", "address": "43, Cassini Apartments, Cascade Way", "price": 825000, "price_display": "\u00a3825,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-01", "address": "55, Cassini Apartments, Cascade Way", "price": 1276760, "price_display": "\u00a31,276,760", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-12-08", "address": "52, Cassini Apartments, Cascade Way", "price": 787875, "price_display": "\u00a3787,875", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-16", "address": "11, Cassini Apartments, Cascade Way", "price": 815850, "price_display": "\u00a3815,850", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-17", "address": "31, Cassini Apartments, Cascade Way", "price": 1300000, "price_display": "\u00a31,300,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-16", "address": "18, Cassini Apartments, Cascade Way", "price": 805125, "price_display": "\u00a3805,125", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-27", "address": "72, Cassini Apartments, Cascade Way", "price": 1239500, "price_display": "\u00a31,239,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-17", "address": "23, Cassini Apartments, Cascade Way", "price": 1188625, "price_display": "\u00a31,188,625", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-20", "address": "65, Cassini Apartments, Cascade Way", "price": 1207800, "price_display": "\u00a31,207,800", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2024-01-05", "address": "58, Cassini Apartments, Cascade Way", "price": 1190000, "price_display": "\u00a31,190,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-08", "address": "42, Cassini Apartments, Cascade Way", "price": 844800, "price_display": "\u00a3844,800", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-17", "address": "27, Cassini Apartments, Cascade Way", "price": 822760, "price_display": "\u00a3822,760", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-25", "address": "34, Cassini Apartments, Cascade Way", "price": 826500, "price_display": "\u00a3826,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-26", "address": "25, Cassini Apartments, Cascade Way", "price": 1297000, "price_display": "\u00a31,297,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2025-02-07", "address": "44, Cassini Apartments, Cascade Way", "price": 802200, "price_display": "\u00a3802,200", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-17", "address": "19, Cassini Apartments, Cascade Way", "price": 900000, "price_display": "\u00a3900,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-17", "address": "36, Cassini Apartments, Cascade Way", "price": 764000, "price_display": "\u00a3764,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-11-08", "address": "73, Cassini Apartments, Cascade Way", "price": 804440, "price_display": "\u00a3804,440", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-23", "address": "64, Cassini Apartments, Cascade Way", "price": 1260000, "price_display": "\u00a31,260,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-12-21", "address": "68, Cassini Apartments, Cascade Way", "price": 1230675, "price_display": "\u00a31,230,675", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-10-20", "address": "38, Cassini Apartments, Cascade Way", "price": 1180000, "price_display": "\u00a31,180,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W12-7RF', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W12-7RF');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W12-7RF', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W12-7RF', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W12-7RF" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2023-10-24</td>
+            <td>74, Cassini Apartments, Cascade Way</td>
+            <td class="price">£837,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-23</td>
+            <td>21, Cassini Apartments, Cascade Way</td>
+            <td class="price">£773,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-02-29</td>
+            <td>60, Cassini Apartments, Cascade Way</td>
+            <td class="price">£808,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-12-15</td>
+            <td>71, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,288,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-18</td>
+            <td>39, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,264,900</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-17</td>
+            <td>24, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,297,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-20</td>
+            <td>37, Cassini Apartments, Cascade Way</td>
+            <td class="price">£788,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-27</td>
+            <td>1, Cascade Apartments, Cascade Way</td>
+            <td class="price">£1,210,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-16</td>
+            <td>9, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,274,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-20</td>
+            <td>45, Cassini Apartments, Cascade Way</td>
+            <td class="price">£796,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-01</td>
+            <td>4, Cassini Apartments, Cascade Way</td>
+            <td class="price">£736,250</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-12-08</td>
+            <td>26, Cassini Apartments, Cascade Way</td>
+            <td class="price">£845,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-20</td>
+            <td>69, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,292,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-23</td>
+            <td>70, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,350,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-20</td>
+            <td>67, Cassini Apartments, Cascade Way</td>
+            <td class="price">£805,800</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-26</td>
+            <td>54, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,207,125</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-12-06</td>
+            <td>77, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,365,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-01</td>
+            <td>49, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,258,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-20</td>
+            <td>3, Cassini Apartments, Cascade Way</td>
+            <td class="price">£845,175</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-24</td>
+            <td>17, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,272,360</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-19</td>
+            <td>53, Cassini Apartments, Cascade Way</td>
+            <td class="price">£802,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-01</td>
+            <td>63, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,387,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-27</td>
+            <td>32, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,324,600</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-28</td>
+            <td>10, Cassini Apartments, Cascade Way</td>
+            <td class="price">£820,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-16</td>
+            <td>12, Cassini Apartments, Cascade Way</td>
+            <td class="price">£744,990</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-19</td>
+            <td>16, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,292,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-01</td>
+            <td>20, Cassini Apartments, Cascade Way</td>
+            <td class="price">£746,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-12-01</td>
+            <td>66, Cassini Apartments, Cascade Way</td>
+            <td class="price">£798,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-02</td>
+            <td>61, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,208,460</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-23</td>
+            <td>76, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,320,480</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-01-15</td>
+            <td>40, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,274,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-08</td>
+            <td>75, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,234,037</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-17</td>
+            <td>35, Cassini Apartments, Cascade Way</td>
+            <td class="price">£824,820</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-03-05</td>
+            <td>46, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,193,800</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-19</td>
+            <td>56, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,290,375</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-12-14</td>
+            <td>33, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,297,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-19</td>
+            <td>41, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,306,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-12-19</td>
+            <td>62, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,275,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-19</td>
+            <td>57, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,246,900</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-01-30</td>
+            <td>28, Cassini Apartments, Cascade Way</td>
+            <td class="price">£758,100</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-16</td>
+            <td>5, Cassini Apartments, Cascade Way</td>
+            <td class="price">£760,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-04-05</td>
+            <td>51, Cassini Apartments, Cascade Way</td>
+            <td class="price">£828,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-17</td>
+            <td>22, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,207,800</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-12-14</td>
+            <td>47, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,230,250</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-23</td>
+            <td>48, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,280,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-16</td>
+            <td>13, Cassini Apartments, Cascade Way</td>
+            <td class="price">£763,560</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-01-18</td>
+            <td>15, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,194,075</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-18</td>
+            <td>43, Cassini Apartments, Cascade Way</td>
+            <td class="price">£825,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-01</td>
+            <td>55, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,276,760</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-12-08</td>
+            <td>52, Cassini Apartments, Cascade Way</td>
+            <td class="price">£787,875</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-16</td>
+            <td>11, Cassini Apartments, Cascade Way</td>
+            <td class="price">£815,850</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-17</td>
+            <td>31, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,300,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-16</td>
+            <td>18, Cassini Apartments, Cascade Way</td>
+            <td class="price">£805,125</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-27</td>
+            <td>72, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,239,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-17</td>
+            <td>23, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,188,625</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-20</td>
+            <td>65, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,207,800</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-01-05</td>
+            <td>58, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,190,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-08</td>
+            <td>42, Cassini Apartments, Cascade Way</td>
+            <td class="price">£844,800</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-17</td>
+            <td>27, Cassini Apartments, Cascade Way</td>
+            <td class="price">£822,760</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-25</td>
+            <td>34, Cassini Apartments, Cascade Way</td>
+            <td class="price">£826,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-26</td>
+            <td>25, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,297,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-02-07</td>
+            <td>44, Cassini Apartments, Cascade Way</td>
+            <td class="price">£802,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-17</td>
+            <td>19, Cassini Apartments, Cascade Way</td>
+            <td class="price">£900,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-17</td>
+            <td>36, Cassini Apartments, Cascade Way</td>
+            <td class="price">£764,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-08</td>
+            <td>73, Cassini Apartments, Cascade Way</td>
+            <td class="price">£804,440</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-23</td>
+            <td>64, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,260,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-12-21</td>
+            <td>68, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,230,675</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-10-20</td>
+            <td>38, Cassini Apartments, Cascade Way</td>
+            <td class="price">£1,180,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W12-7RF" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W12-7RF" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2023, 2024, 2025],
+            y: [1067390, 1035167, 802200],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2023, 2024, 2025],
+            y: [1207800, 1190000, 802200],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W12 7RF',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W12-7RF', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 68</p>
+                    <p><strong>Unique Properties:</strong> 68</p>
+                    <p><strong>Average Price:</strong> £1,060,173</p>
+                    <p><strong>Median Price:</strong> £1,193,937</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W12-7RF" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W12 7 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W12 7</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W12-7RF', 'W12-7RF')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W12-7RF', 'W12-7RF')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W12-7RF" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W12-7RF" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [274489, 322203, 339510, 367772, 331366, 418563, 450747, 444914, 404279, 460033, 640074, 652161, 645532, 980826, 898026, 1038068, 884744, 909354, 988553, 1058692, 665323],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [232000, 267500, 278075, 300000, 267500, 335000, 328250, 325000, 300000, 382500, 475945, 513000, 567000, 960400, 939100, 1020840, 848075, 760000, 867500, 1037850, 575000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W12 7 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W12-7RF', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W12-7RF" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="4" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £221,681</div>
+                        <div class="cell-sell">Sell: £302,649</div>
+                        <div class="cell-return">+11.4%/yr</div>
+                        <div class="cell-count">(11 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £251,026</div>
+                        <div class="cell-sell">Sell: £495,392</div>
+                        <div class="cell-return">+10.1%/yr</div>
+                        <div class="cell-count">(19 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £259,095</div>
+                        <div class="cell-sell">Sell: £598,000</div>
+                        <div class="cell-return">+7.4%/yr</div>
+                        <div class="cell-count">(10 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £377,988</div>
+                        <div class="cell-sell">Sell: £884,444</div>
+                        <div class="cell-return">+5.2%/yr</div>
+                        <div class="cell-count">(9 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £285,514</div>
+                        <div class="cell-sell">Sell: £351,342</div>
+                        <div class="cell-return">+11.0%/yr</div>
+                        <div class="cell-count">(27 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £342,669</div>
+                        <div class="cell-sell">Sell: £518,118</div>
+                        <div class="cell-return">+8.5%/yr</div>
+                        <div class="cell-count">(84 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £385,230</div>
+                        <div class="cell-sell">Sell: £732,995</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(51 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £384,780</div>
+                        <div class="cell-sell">Sell: £698,250</div>
+                        <div class="cell-return">+4.4%/yr</div>
+                        <div class="cell-count">(48 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £302,442</div>
+                        <div class="cell-sell">Sell: £424,555</div>
+                        <div class="cell-return">+18.9%/yr</div>
+                        <div class="cell-count">(35 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £426,370</div>
+                        <div class="cell-sell">Sell: £577,967</div>
+                        <div class="cell-return">+7.6%/yr</div>
+                        <div class="cell-count">(59 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £605,677</div>
+                        <div class="cell-sell">Sell: £791,564</div>
+                        <div class="cell-return">+3.3%/yr</div>
+                        <div class="cell-count">(54 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £784,986</div>
+                        <div class="cell-sell">Sell: £803,436</div>
+                        <div class="cell-return">+1.0%/yr</div>
+                        <div class="cell-count">(25 sales)</div>
+                    </div>
+                    </td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £935,575</div>
+                        <div class="cell-sell">Sell: £875,145</div>
+                        <div class="cell-return">-1.2%/yr</div>
+                        <div class="cell-count">(119 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £740,392</div>
+                        <div class="cell-sell">Sell: £841,908</div>
+                        <div class="cell-return">+6.6%/yr</div>
+                        <div class="cell-count">(33 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W12-7RF" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W12 Analysis</h4>
+                <p class="area-info">Viewing data for entire W12 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W12-7RF', 'W12-7RF')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W12-7RF', 'W12-7RF')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W12-7RF" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W12-7RF" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [308209, 340844, 420407, 415247, 418090, 459765, 462692, 504650, 541517, 586133, 705340, 714489, 773708, 869422, 834283, 881958, 817769, 820310, 873734, 847040, 717062],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [250000, 285000, 330000, 333500, 330000, 365000, 360000, 397000, 420000, 475000, 560000, 590000, 620000, 748500, 687500, 774600, 735000, 660000, 790000, 654975, 579000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W12 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W12-7RF', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W12-7RF" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £228,500</div>
+                        <div class="cell-sell">Sell: £283,880</div>
+                        <div class="cell-return">+29.7%/yr</div>
+                        <div class="cell-count">(5 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £285,517</div>
+                        <div class="cell-sell">Sell: £393,334</div>
+                        <div class="cell-return">+11.7%/yr</div>
+                        <div class="cell-count">(115 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £303,879</div>
+                        <div class="cell-sell">Sell: £539,265</div>
+                        <div class="cell-return">+8.0%/yr</div>
+                        <div class="cell-count">(131 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £289,824</div>
+                        <div class="cell-sell">Sell: £648,760</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(48 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £363,246</div>
+                        <div class="cell-sell">Sell: £847,589</div>
+                        <div class="cell-return">+5.0%/yr</div>
+                        <div class="cell-count">(33 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £312,606</div>
+                        <div class="cell-sell">Sell: £399,676</div>
+                        <div class="cell-return">+10.7%/yr</div>
+                        <div class="cell-count">(203 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £370,206</div>
+                        <div class="cell-sell">Sell: £554,911</div>
+                        <div class="cell-return">+8.7%/yr</div>
+                        <div class="cell-count">(601 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £401,588</div>
+                        <div class="cell-sell">Sell: £751,789</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(259 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £457,731</div>
+                        <div class="cell-sell">Sell: £845,379</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(212 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £415,616</div>
+                        <div class="cell-sell">Sell: £613,080</div>
+                        <div class="cell-return">+21.1%/yr</div>
+                        <div class="cell-count">(222 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £533,115</div>
+                        <div class="cell-sell">Sell: £705,024</div>
+                        <div class="cell-return">+7.6%/yr</div>
+                        <div class="cell-count">(445 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £585,573</div>
+                        <div class="cell-sell">Sell: £773,149</div>
+                        <div class="cell-return">+3.4%/yr</div>
+                        <div class="cell-count">(404 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £783,222</div>
+                        <div class="cell-sell">Sell: £887,341</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(102 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £745,098</div>
+                        <div class="cell-sell">Sell: £780,005</div>
+                        <div class="cell-return">+1.4%/yr</div>
+                        <div class="cell-count">(438 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £607,783</div>
+                        <div class="cell-sell">Sell: £691,379</div>
+                        <div class="cell-return">+8.6%/yr</div>
+                        <div class="cell-count">(124 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W12 7'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W12'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

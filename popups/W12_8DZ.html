@@ -1,0 +1,1196 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W12 8DZ</h3>
+            <div class="header-stats">
+                <span><strong>58</strong> transactions</span>
+                <span><strong>47</strong> properties</span>
+                <span>Avg: <strong>£639,911</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W12-8DZ')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W12-8DZ')">
+                Sector (W12 8)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W12-8DZ')">
+                District (W12)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W12-8DZ" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W12-8DZ', 'W12-8DZ')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W12-8DZ', 'W12-8DZ')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W12-8DZ', 'W12-8DZ')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W12-8DZ" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W12-8DZ" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Flat 40, Sharp House, 91, Goldhawk Road", "dates": ["2017-02-24", "2021-06-07"], "prices": [650750, 625000], "hover_texts": ["<b>Flat 40, Sharp House, 91, Goldhawk Road</b><br>Transaction 1 of 2<br>Date: 2017-02-24<br>Sale Price: \u00a3650,750", "<b>Flat 40, Sharp House, 91, Goldhawk Road</b><br>Transaction 2 of 2<br>Date: 2021-06-07<br>Sale Price: \u00a3625,000<br>Previous Purchase: \u00a3650,750<br>Previous Date: 2017-02-24<br>Annual Return: -0.9%/yr<br>Held for: 4.3 years"], "transaction_count": 2}, {"address": "Flat 62, Sharp House, 91, Goldhawk Road", "dates": ["2016-02-08", "2019-08-30", "2023-06-20"], "prices": [965000, 770000, 950000], "hover_texts": ["<b>Flat 62, Sharp House, 91, Goldhawk Road</b><br>Transaction 1 of 3<br>Date: 2016-02-08<br>Sale Price: \u00a3965,000", "<b>Flat 62, Sharp House, 91, Goldhawk Road</b><br>Transaction 2 of 3<br>Date: 2019-08-30<br>Sale Price: \u00a3770,000<br>Previous Purchase: \u00a3965,000<br>Previous Date: 2016-02-08<br>Annual Return: -6.2%/yr<br>Held for: 3.6 years", "<b>Flat 62, Sharp House, 91, Goldhawk Road</b><br>Transaction 3 of 3<br>Date: 2023-06-20<br>Sale Price: \u00a3950,000<br>Previous Purchase: \u00a3770,000<br>Previous Date: 2019-08-30<br>Annual Return: +5.7%/yr<br>Held for: 3.8 years"], "transaction_count": 3}, {"address": "Flat 8, Sharp House, 87, Goldhawk Road", "dates": ["2016-10-21", "2021-05-21"], "prices": [805000, 740000], "hover_texts": ["<b>Flat 8, Sharp House, 87, Goldhawk Road</b><br>Transaction 1 of 2<br>Date: 2016-10-21<br>Sale Price: \u00a3805,000", "<b>Flat 8, Sharp House, 87, Goldhawk Road</b><br>Transaction 2 of 2<br>Date: 2021-05-21<br>Sale Price: \u00a3740,000<br>Previous Purchase: \u00a3805,000<br>Previous Date: 2016-10-21<br>Annual Return: -1.8%/yr<br>Held for: 4.6 years"], "transaction_count": 2}, {"address": "Flat 31, Sharp House, 91, Goldhawk Road", "dates": ["2016-02-09", "2023-02-20"], "prices": [532500, 422000], "hover_texts": ["<b>Flat 31, Sharp House, 91, Goldhawk Road</b><br>Transaction 1 of 2<br>Date: 2016-02-09<br>Sale Price: \u00a3532,500", "<b>Flat 31, Sharp House, 91, Goldhawk Road</b><br>Transaction 2 of 2<br>Date: 2023-02-20<br>Sale Price: \u00a3422,000<br>Previous Purchase: \u00a3532,500<br>Previous Date: 2016-02-09<br>Annual Return: -3.2%/yr<br>Held for: 7.0 years"], "transaction_count": 2}, {"address": "Flat 43, Sharp House, 91, Goldhawk Road", "dates": ["2016-02-17", "2021-02-19"], "prices": [535000, 495000], "hover_texts": ["<b>Flat 43, Sharp House, 91, Goldhawk Road</b><br>Transaction 1 of 2<br>Date: 2016-02-17<br>Sale Price: \u00a3535,000", "<b>Flat 43, Sharp House, 91, Goldhawk Road</b><br>Transaction 2 of 2<br>Date: 2021-02-19<br>Sale Price: \u00a3495,000<br>Previous Purchase: \u00a3535,000<br>Previous Date: 2016-02-17<br>Annual Return: -1.5%/yr<br>Held for: 5.0 years"], "transaction_count": 2}, {"address": "Flat 52, Sharp House, 91, Goldhawk Road", "dates": ["2016-01-06", "2023-01-06"], "prices": [770000, 670000], "hover_texts": ["<b>Flat 52, Sharp House, 91, Goldhawk Road</b><br>Transaction 1 of 2<br>Date: 2016-01-06<br>Sale Price: \u00a3770,000", "<b>Flat 52, Sharp House, 91, Goldhawk Road</b><br>Transaction 2 of 2<br>Date: 2023-01-06<br>Sale Price: \u00a3670,000<br>Previous Purchase: \u00a3770,000<br>Previous Date: 2016-01-06<br>Annual Return: -2.0%/yr<br>Held for: 7.0 years"], "transaction_count": 2}, {"address": "Flat 5, Sharp House, 87, Goldhawk Road", "dates": ["2017-01-09", "2021-06-30"], "prices": [741000, 735000], "hover_texts": ["<b>Flat 5, Sharp House, 87, Goldhawk Road</b><br>Transaction 1 of 2<br>Date: 2017-01-09<br>Sale Price: \u00a3741,000", "<b>Flat 5, Sharp House, 87, Goldhawk Road</b><br>Transaction 2 of 2<br>Date: 2021-06-30<br>Sale Price: \u00a3735,000<br>Previous Purchase: \u00a3741,000<br>Previous Date: 2017-01-09<br>Annual Return: -0.2%/yr<br>Held for: 4.5 years"], "transaction_count": 2}, {"address": "Flat 44, Sharp House, 91, Goldhawk Road", "dates": ["2016-02-10", "2017-10-06"], "prices": [545000, 495000], "hover_texts": ["<b>Flat 44, Sharp House, 91, Goldhawk Road</b><br>Transaction 1 of 2<br>Date: 2016-02-10<br>Sale Price: \u00a3545,000", "<b>Flat 44, Sharp House, 91, Goldhawk Road</b><br>Transaction 2 of 2<br>Date: 2017-10-06<br>Sale Price: \u00a3495,000<br>Previous Purchase: \u00a3545,000<br>Previous Date: 2016-02-10<br>Annual Return: -5.7%/yr<br>Held for: 1.6 years"], "transaction_count": 2}, {"address": "Flat 14, Sharp House, 91, Goldhawk Road", "dates": ["2016-02-09", "2021-04-21"], "prices": [520750, 485000], "hover_texts": ["<b>Flat 14, Sharp House, 91, Goldhawk Road</b><br>Transaction 1 of 2<br>Date: 2016-02-09<br>Sale Price: \u00a3520,750", "<b>Flat 14, Sharp House, 91, Goldhawk Road</b><br>Transaction 2 of 2<br>Date: 2021-04-21<br>Sale Price: \u00a3485,000<br>Previous Purchase: \u00a3520,750<br>Previous Date: 2016-02-09<br>Annual Return: -1.4%/yr<br>Held for: 5.2 years"], "transaction_count": 2}, {"address": "Flat 61, Sharp House, 91, Goldhawk Road", "dates": ["2016-03-31", "2025-03-25"], "prices": [940000, 874000], "hover_texts": ["<b>Flat 61, Sharp House, 91, Goldhawk Road</b><br>Transaction 1 of 2<br>Date: 2016-03-31<br>Sale Price: \u00a3940,000", "<b>Flat 61, Sharp House, 91, Goldhawk Road</b><br>Transaction 2 of 2<br>Date: 2025-03-25<br>Sale Price: \u00a3874,000<br>Previous Purchase: \u00a3940,000<br>Previous Date: 2016-03-31<br>Annual Return: -0.8%/yr<br>Held for: 9.0 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2016-02-10", "address": "Flat 30, Sharp House, 91, Goldhawk Road", "price": 740000, "price_display": "\u00a3740,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-22", "address": "Flat 45, Sharp House, 91, Goldhawk Road", "price": 545000, "price_display": "\u00a3545,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-11", "address": "Flat 55, Sharp House, 91, Goldhawk Road", "price": 800000, "price_display": "\u00a3800,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-18", "address": "Flat 50, Sharp House, 91, Goldhawk Road", "price": 595000, "price_display": "\u00a3595,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-07", "address": "Flat 51, Sharp House, 91, Goldhawk Road", "price": 655500, "price_display": "\u00a3655,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-03-17", "address": "Flat 54, Sharp House, 91, Goldhawk Road", "price": 695000, "price_display": "\u00a3695,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-08-26", "address": "Flat 34, Sharp House, 91, Goldhawk Road", "price": 510000, "price_display": "\u00a3510,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-06-15", "address": "Flat 39, Sharp House, 91, Goldhawk Road", "price": 538650, "price_display": "\u00a3538,650", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-12", "address": "Flat 32, Sharp House, 91, Goldhawk Road", "price": 530000, "price_display": "\u00a3530,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-01-23", "address": "Flat 11, Sharp House, 91, Goldhawk Road", "price": 550000, "price_display": "\u00a3550,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-12", "address": "Flat 46, Sharp House, 91, Goldhawk Road", "price": 535000, "price_display": "\u00a3535,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-12-22", "address": "Flat 6, Sharp House, 87, Goldhawk Road", "price": 765000, "price_display": "\u00a3765,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-07-20", "address": "Flat 1, Sharp House, 87, Goldhawk Road", "price": 600000, "price_display": "\u00a3600,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-02-15", "address": "Flat 19, Sharp House, 91, Goldhawk Road", "price": 650750, "price_display": "\u00a3650,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-12", "address": "Flat 63, Sharp House, 91, Goldhawk Road", "price": 1033000, "price_display": "\u00a31,033,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-07-24", "address": "Flat 27, Sharp House, 91, Goldhawk Road", "price": 112500, "price_display": "\u00a3112,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-15", "address": "Flat 12, Sharp House, 91, Goldhawk Road", "price": 525000, "price_display": "\u00a3525,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-07-20", "address": "Flat 4, Sharp House, 87, Goldhawk Road", "price": 790000, "price_display": "\u00a3790,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-10", "address": "Flat 37, Sharp House, 91, Goldhawk Road", "price": 530000, "price_display": "\u00a3530,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-12", "address": "Flat 48, Sharp House, 91, Goldhawk Road", "price": 533000, "price_display": "\u00a3533,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-03-03", "address": "Flat 58, Sharp House, 91, Goldhawk Road", "price": 725000, "price_display": "\u00a3725,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-09", "address": "Flat 3, Sharp House, 87, Goldhawk Road", "price": 809250, "price_display": "\u00a3809,250", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-09", "address": "Flat 36, Sharp House, 91, Goldhawk Road", "price": 520000, "price_display": "\u00a3520,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-09", "address": "Flat 47, Sharp House, 91, Goldhawk Road", "price": 535000, "price_display": "\u00a3535,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-11", "address": "Flat 35, Sharp House, 91, Goldhawk Road", "price": 517500, "price_display": "\u00a3517,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-11-26", "address": "Flat 33, Sharp House, 91, Goldhawk Road", "price": 166250, "price_display": "\u00a3166,250", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-07-21", "address": "Flat 59, Sharp House, 91, Goldhawk Road", "price": 560000, "price_display": "\u00a3560,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-11", "address": "Flat 13, Sharp House, 91, Goldhawk Road", "price": 527000, "price_display": "\u00a3527,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-03-30", "address": "Flat 60, Sharp House, 91, Goldhawk Road", "price": 885000, "price_display": "\u00a3885,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-11", "address": "Flat 56, Sharp House, 91, Goldhawk Road", "price": 610000, "price_display": "\u00a3610,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-05", "address": "Flat 53, Sharp House, 91, Goldhawk Road", "price": 780000, "price_display": "\u00a3780,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-06-07", "address": "Flat 41, Sharp House, 91, Goldhawk Road", "price": 675000, "price_display": "\u00a3675,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-15", "address": "Flat 42, Sharp House, 91, Goldhawk Road", "price": 546500, "price_display": "\u00a3546,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2017-05-31", "address": "Flat 2, Sharp House, 87, Goldhawk Road", "price": 670000, "price_display": "\u00a3670,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-07-25", "address": "Flat 7, Sharp House, 87, Goldhawk Road", "price": 790000, "price_display": "\u00a3790,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-08-31", "address": "Flat 49, Sharp House, 91, Goldhawk Road", "price": 518950, "price_display": "\u00a3518,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2016-02-15", "address": "Flat 57, Sharp House, 91, Goldhawk Road", "price": 780000, "price_display": "\u00a3780,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W12-8DZ', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W12-8DZ');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W12-8DZ', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W12-8DZ', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W12-8DZ" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2016-02-10</td>
+            <td>Flat 30, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£740,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-22</td>
+            <td>Flat 45, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£545,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-11</td>
+            <td>Flat 55, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£800,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-07</td>
+            <td>Flat 40, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£625,000</td>
+        <td class="negative" title="Previous: £650,750 (2017-02-24)">-0.9%/yr</td></tr>
+
+        <tr>
+            <td>2017-02-24</td>
+            <td>Flat 40, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£650,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-06-20</td>
+            <td>Flat 62, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£950,000</td>
+        <td class="positive" title="Previous: £770,000 (2019-08-30)">+5.7%/yr</td></tr>
+
+        <tr>
+            <td>2019-08-30</td>
+            <td>Flat 62, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£770,000</td>
+        <td class="negative" title="Previous: £965,000 (2016-02-08)">-6.2%/yr</td></tr>
+
+        <tr>
+            <td>2016-02-08</td>
+            <td>Flat 62, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£965,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-05-21</td>
+            <td>Flat 8, Sharp House, 87, Goldhawk Road</td>
+            <td class="price">£740,000</td>
+        <td class="negative" title="Previous: £805,000 (2016-10-21)">-1.8%/yr</td></tr>
+
+        <tr>
+            <td>2016-10-21</td>
+            <td>Flat 8, Sharp House, 87, Goldhawk Road</td>
+            <td class="price">£805,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-18</td>
+            <td>Flat 50, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£595,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-07</td>
+            <td>Flat 51, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£655,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-02-20</td>
+            <td>Flat 31, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£422,000</td>
+        <td class="negative" title="Previous: £532,500 (2016-02-09)">-3.2%/yr</td></tr>
+
+        <tr>
+            <td>2016-02-09</td>
+            <td>Flat 31, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£532,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-03-17</td>
+            <td>Flat 54, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£695,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-08-26</td>
+            <td>Flat 34, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£510,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-06-15</td>
+            <td>Flat 39, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£538,650</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-02-19</td>
+            <td>Flat 43, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£495,000</td>
+        <td class="negative" title="Previous: £535,000 (2016-02-17)">-1.5%/yr</td></tr>
+
+        <tr>
+            <td>2016-02-17</td>
+            <td>Flat 43, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£535,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-12</td>
+            <td>Flat 32, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£530,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-01-23</td>
+            <td>Flat 11, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£550,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-01-06</td>
+            <td>Flat 52, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£670,000</td>
+        <td class="negative" title="Previous: £770,000 (2016-01-06)">-2.0%/yr</td></tr>
+
+        <tr>
+            <td>2016-01-06</td>
+            <td>Flat 52, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£770,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-12</td>
+            <td>Flat 46, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£535,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-12-22</td>
+            <td>Flat 6, Sharp House, 87, Goldhawk Road</td>
+            <td class="price">£765,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-07-20</td>
+            <td>Flat 1, Sharp House, 87, Goldhawk Road</td>
+            <td class="price">£600,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-02-15</td>
+            <td>Flat 19, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£650,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-12</td>
+            <td>Flat 63, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£1,033,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-07-24</td>
+            <td>Flat 27, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£112,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-15</td>
+            <td>Flat 12, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£525,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-06-30</td>
+            <td>Flat 5, Sharp House, 87, Goldhawk Road</td>
+            <td class="price">£735,000</td>
+        <td class="negative" title="Previous: £741,000 (2017-01-09)">-0.2%/yr</td></tr>
+
+        <tr>
+            <td>2017-01-09</td>
+            <td>Flat 5, Sharp House, 87, Goldhawk Road</td>
+            <td class="price">£741,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-07-20</td>
+            <td>Flat 4, Sharp House, 87, Goldhawk Road</td>
+            <td class="price">£790,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-10</td>
+            <td>Flat 37, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£530,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-12</td>
+            <td>Flat 48, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£533,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-03-03</td>
+            <td>Flat 58, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£725,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-09</td>
+            <td>Flat 3, Sharp House, 87, Goldhawk Road</td>
+            <td class="price">£809,250</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-10-06</td>
+            <td>Flat 44, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£495,000</td>
+        <td class="negative" title="Previous: £545,000 (2016-02-10)">-5.7%/yr</td></tr>
+
+        <tr>
+            <td>2016-02-10</td>
+            <td>Flat 44, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£545,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-09</td>
+            <td>Flat 36, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£520,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-09</td>
+            <td>Flat 47, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£535,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-11</td>
+            <td>Flat 35, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£517,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-11-26</td>
+            <td>Flat 33, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£166,250</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2021-04-21</td>
+            <td>Flat 14, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£485,000</td>
+        <td class="negative" title="Previous: £520,750 (2016-02-09)">-1.4%/yr</td></tr>
+
+        <tr>
+            <td>2016-02-09</td>
+            <td>Flat 14, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£520,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-07-21</td>
+            <td>Flat 59, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£560,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-03-25</td>
+            <td>Flat 61, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£874,000</td>
+        <td class="negative" title="Previous: £940,000 (2016-03-31)">-0.8%/yr</td></tr>
+
+        <tr>
+            <td>2016-03-31</td>
+            <td>Flat 61, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£940,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-11</td>
+            <td>Flat 13, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£527,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-03-30</td>
+            <td>Flat 60, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£885,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-11</td>
+            <td>Flat 56, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£610,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-05</td>
+            <td>Flat 53, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£780,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-06-07</td>
+            <td>Flat 41, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£675,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-15</td>
+            <td>Flat 42, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£546,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2017-05-31</td>
+            <td>Flat 2, Sharp House, 87, Goldhawk Road</td>
+            <td class="price">£670,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-07-25</td>
+            <td>Flat 7, Sharp House, 87, Goldhawk Road</td>
+            <td class="price">£790,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-08-31</td>
+            <td>Flat 49, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£518,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2016-02-15</td>
+            <td>Flat 57, Sharp House, 91, Goldhawk Road</td>
+            <td class="price">£780,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W12-8DZ" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W12-8DZ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2016, 2017, 2019, 2020, 2021, 2023, 2025],
+            y: [660689, 633887, 770000, 139375, 616000, 680666, 874000],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2016, 2017, 2019, 2020, 2021, 2023, 2025],
+            y: [595000, 655500, 770000, 166250, 625000, 670000, 874000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W12 8DZ',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W12-8DZ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 58</p>
+                    <p><strong>Unique Properties:</strong> 47</p>
+                    <p><strong>Average Price:</strong> £639,911</p>
+                    <p><strong>Median Price:</strong> £617,500</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W12-8DZ" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W12 8 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W12 8</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W12-8DZ', 'W12-8DZ')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W12-8DZ', 'W12-8DZ')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W12-8DZ" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W12-8DZ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [294065, 324455, 408254, 398136, 383097, 396507, 409301, 463604, 565024, 553822, 703116, 692092, 718911, 632787, 668820, 681698, 659451, 828881, 662803, 697836, 637980],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [229475, 254000, 320000, 310000, 292500, 324250, 316250, 344975, 409000, 460500, 538888, 570000, 565000, 492500, 492500, 505000, 518750, 570000, 522500, 500000, 525000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W12 8 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W12-8DZ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W12-8DZ" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="4" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £281,869</div>
+                        <div class="cell-sell">Sell: £403,739</div>
+                        <div class="cell-return">+15.2%/yr</div>
+                        <div class="cell-count">(26 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £286,851</div>
+                        <div class="cell-sell">Sell: £507,058</div>
+                        <div class="cell-return">+8.1%/yr</div>
+                        <div class="cell-count">(34 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £256,037</div>
+                        <div class="cell-sell">Sell: £588,250</div>
+                        <div class="cell-return">+6.9%/yr</div>
+                        <div class="cell-count">(12 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £403,000</div>
+                        <div class="cell-sell">Sell: £916,056</div>
+                        <div class="cell-return">+4.8%/yr</div>
+                        <div class="cell-count">(8 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £301,723</div>
+                        <div class="cell-sell">Sell: £373,823</div>
+                        <div class="cell-return">+10.5%/yr</div>
+                        <div class="cell-count">(46 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £352,745</div>
+                        <div class="cell-sell">Sell: £531,576</div>
+                        <div class="cell-return">+9.0%/yr</div>
+                        <div class="cell-count">(142 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £362,144</div>
+                        <div class="cell-sell">Sell: £674,923</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(56 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £400,502</div>
+                        <div class="cell-sell">Sell: £691,516</div>
+                        <div class="cell-return">+4.2%/yr</div>
+                        <div class="cell-count">(46 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £413,156</div>
+                        <div class="cell-sell">Sell: £625,154</div>
+                        <div class="cell-return">+24.5%/yr</div>
+                        <div class="cell-count">(65 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £480,711</div>
+                        <div class="cell-sell">Sell: £607,824</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(123 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £547,845</div>
+                        <div class="cell-sell">Sell: £666,296</div>
+                        <div class="cell-return">+2.3%/yr</div>
+                        <div class="cell-count">(92 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £976,795</div>
+                        <div class="cell-sell">Sell: £1,131,815</div>
+                        <div class="cell-return">+7.7%/yr</div>
+                        <div class="cell-count">(22 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £622,849</div>
+                        <div class="cell-sell">Sell: £650,241</div>
+                        <div class="cell-return">+1.4%/yr</div>
+                        <div class="cell-count">(103 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £699,189</div>
+                        <div class="cell-sell">Sell: £751,631</div>
+                        <div class="cell-return">+3.9%/yr</div>
+                        <div class="cell-count">(22 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W12-8DZ" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W12 Analysis</h4>
+                <p class="area-info">Viewing data for entire W12 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W12-8DZ', 'W12-8DZ')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W12-8DZ', 'W12-8DZ')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W12-8DZ" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W12-8DZ" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [308209, 340844, 420407, 415247, 418090, 459765, 462692, 504650, 541517, 586133, 705340, 714489, 773708, 869422, 834283, 881958, 817769, 820310, 873734, 847040, 717062],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [250000, 285000, 330000, 333500, 330000, 365000, 360000, 397000, 420000, 475000, 560000, 590000, 620000, 748500, 687500, 774600, 735000, 660000, 790000, 654975, 579000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W12 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W12-8DZ', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W12-8DZ" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £228,500</div>
+                        <div class="cell-sell">Sell: £283,880</div>
+                        <div class="cell-return">+29.7%/yr</div>
+                        <div class="cell-count">(5 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £285,517</div>
+                        <div class="cell-sell">Sell: £393,334</div>
+                        <div class="cell-return">+11.7%/yr</div>
+                        <div class="cell-count">(115 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £303,879</div>
+                        <div class="cell-sell">Sell: £539,265</div>
+                        <div class="cell-return">+8.0%/yr</div>
+                        <div class="cell-count">(131 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £289,824</div>
+                        <div class="cell-sell">Sell: £648,760</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(48 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £363,246</div>
+                        <div class="cell-sell">Sell: £847,589</div>
+                        <div class="cell-return">+5.0%/yr</div>
+                        <div class="cell-count">(33 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £312,606</div>
+                        <div class="cell-sell">Sell: £399,676</div>
+                        <div class="cell-return">+10.7%/yr</div>
+                        <div class="cell-count">(203 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £370,206</div>
+                        <div class="cell-sell">Sell: £554,911</div>
+                        <div class="cell-return">+8.7%/yr</div>
+                        <div class="cell-count">(601 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £401,588</div>
+                        <div class="cell-sell">Sell: £751,789</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(259 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £457,731</div>
+                        <div class="cell-sell">Sell: £845,379</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(212 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £415,616</div>
+                        <div class="cell-sell">Sell: £613,080</div>
+                        <div class="cell-return">+21.1%/yr</div>
+                        <div class="cell-count">(222 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £533,115</div>
+                        <div class="cell-sell">Sell: £705,024</div>
+                        <div class="cell-return">+7.6%/yr</div>
+                        <div class="cell-count">(445 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £585,573</div>
+                        <div class="cell-sell">Sell: £773,149</div>
+                        <div class="cell-return">+3.4%/yr</div>
+                        <div class="cell-count">(404 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £783,222</div>
+                        <div class="cell-sell">Sell: £887,341</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(102 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £745,098</div>
+                        <div class="cell-sell">Sell: £780,005</div>
+                        <div class="cell-return">+1.4%/yr</div>
+                        <div class="cell-count">(438 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £607,783</div>
+                        <div class="cell-sell">Sell: £691,379</div>
+                        <div class="cell-return">+8.6%/yr</div>
+                        <div class="cell-count">(124 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W12 8'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W12'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>

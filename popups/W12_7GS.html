@@ -1,0 +1,1346 @@
+<!DOCTYPE html><html><head><meta charset='utf-8'></head><body>
+    <script src="https://cdn.plot.ly/plotly-2.27.0.min.js"></script>
+    <style>
+        .trans-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 20px 0;
+            font-size: 12px;
+        }
+        .trans-table th {
+            background: #f5f5f5;
+            padding: 8px 12px;
+            text-align: left;
+            font-weight: 600;
+            border: 1px solid #ddd;
+            border-bottom: 2px solid #ddd;
+        }
+        .trans-table td {
+            padding: 6px 12px;
+            border: 1px solid #eee;
+        }
+        .trans-table .price {
+            text-align: right;
+            font-weight: 500;
+        }
+        .trans-table .positive {
+            color: #06A77D;
+            font-weight: 500;
+        }
+        .trans-table .negative {
+            color: #C73E1D;
+            font-weight: 500;
+        }
+        .trans-table .single-sale {
+            color: #999;
+            text-align: center;
+        }
+
+        /* Cohort table spacing */
+        .cohort-table {
+            width: 100%;
+            border-collapse: separate;
+            border-spacing: 15px 0;
+            font-size: 10px;
+            margin: 10px 0;
+        }
+        .cohort-table th {
+            background: #f5f5f5;
+            padding: 6px 8px;
+            border: 1px solid #ddd;
+            font-weight: 600;
+            font-size: 9px;
+        }
+        .cohort-table th.center {
+            text-align: center;
+        }
+        .cohort-table td {
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 9px;
+        }
+        .cohort-table .cohort-label {
+            text-align: left;
+            font-weight: 500;
+            background: #f9f9f9;
+        }
+        .cohort-table .cell-content {
+            line-height: 1.3;
+        }
+        .cohort-table .cell-buy {
+            font-size: 9px;
+            color: #666;
+        }
+        .cohort-table .cell-sell {
+            font-size: 9px;
+            color: #333;
+            font-weight: 500;
+        }
+        .cohort-table .cell-return {
+            font-size: 10px;
+            font-weight: 600;
+            margin: 2px 0;
+        }
+        .cohort-table .cell-count {
+            font-size: 8px;
+            color: #999;
+        }
+        .cohort-table .high-return {
+            background: #06A77D;
+            color: white;
+        }
+        .cohort-table .high-return .cell-buy,
+        .cohort-table .high-return .cell-sell,
+        .cohort-table .high-return .cell-count {
+            color: white;
+        }
+        .cohort-table .med-return {
+            background: #A8DADC;
+            color: #333;
+        }
+        .cohort-table .low-return {
+            background: #F1FAEE;
+            color: #333;
+        }
+        .cohort-table .negative-return {
+            background: #FFCCD5;
+            color: #C73E1D;
+        }
+        .cohort-table .no-data {
+            background: #f9f9f9;
+            color: #ccc;
+        }
+
+        /* Area highlight banner */
+        .area-highlight {
+            background: linear-gradient(135deg, #2E86AB 0%, #06A77D 100%);
+            color: white;
+            padding: 15px 20px;
+            margin: -20px -20px 15px -20px;
+            border-radius: 0;
+        }
+        .area-highlight h4 {
+            margin: 0 0 5px 0;
+            font-size: 18px;
+            font-weight: 600;
+        }
+        .area-info {
+            margin: 0;
+            font-size: 12px;
+            opacity: 0.9;
+        }
+    </style>
+    <div class="tabbed-popup" style="width: 800px; max-height: 600px;">
+        <div class="popup-header">
+            <h3>W12 7GS</h3>
+            <div class="header-stats">
+                <span><strong>83</strong> transactions</span>
+                <span><strong>70</strong> properties</span>
+                <span>Avg: <strong>£1,079,467</strong></span>
+            </div>
+        </div>
+
+        <!-- Main tabs -->
+        <div class="main-tabs">
+            <button class="tab-button active" onclick="openMainTab(event, 'postcode-tab-W12-7GS')">
+                Postcode
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'sector-tab-W12-7GS')">
+                Sector (W12 7)
+            </button>
+            <button class="tab-button" onclick="openMainTab(event, 'district-tab-W12-7GS')">
+                District (W12)
+            </button>
+        </div>
+
+        <!-- Postcode tab content -->
+        <div id="postcode-tab-W12-7GS" class="main-tab-content" style="display: block;">
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'plot-content-W12-7GS', 'W12-7GS')">
+                    Transaction History Plot
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'list-content-W12-7GS', 'W12-7GS')">
+                    Transaction History List
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'summary-content-W12-7GS', 'W12-7GS')">
+                    Transaction Summary
+                </button>
+            </div>
+
+            <!-- Sub-tab: Transaction History Plot -->
+            <div id="plot-content-W12-7GS" class="sub-tab-content" style="display: block;">
+                
+    <div id="plot-W12-7GS" style="height: 350px;"></div>
+    <script>
+        (function() {
+            var repeatSales = [{"address": "Apartment 603, 6, Wood Crescent", "dates": ["2019-06-28", "2022-06-08"], "prices": [1043400, 965000], "hover_texts": ["<b>Apartment 603, 6, Wood Crescent</b><br>Transaction 1 of 2<br>Date: 2019-06-28<br>Sale Price: \u00a31,043,400", "<b>Apartment 603, 6, Wood Crescent</b><br>Transaction 2 of 2<br>Date: 2022-06-08<br>Sale Price: \u00a3965,000<br>Previous Purchase: \u00a31,043,400<br>Previous Date: 2019-06-28<br>Annual Return: -2.6%/yr<br>Held for: 3.0 years"], "transaction_count": 2}, {"address": "Apartment 602, 6, Wood Crescent", "dates": ["2018-10-05", "2022-04-12"], "prices": [1617500, 1454277], "hover_texts": ["<b>Apartment 602, 6, Wood Crescent</b><br>Transaction 1 of 2<br>Date: 2018-10-05<br>Sale Price: \u00a31,617,500", "<b>Apartment 602, 6, Wood Crescent</b><br>Transaction 2 of 2<br>Date: 2022-04-12<br>Sale Price: \u00a31,454,277<br>Previous Purchase: \u00a31,617,500<br>Previous Date: 2018-10-05<br>Annual Return: -3.0%/yr<br>Held for: 3.5 years"], "transaction_count": 2}, {"address": "Apartment 2, 6, Wood Crescent", "dates": ["2018-10-05", "2020-01-10"], "prices": [1010000, 950000], "hover_texts": ["<b>Apartment 2, 6, Wood Crescent</b><br>Transaction 1 of 2<br>Date: 2018-10-05<br>Sale Price: \u00a31,010,000", "<b>Apartment 2, 6, Wood Crescent</b><br>Transaction 2 of 2<br>Date: 2020-01-10<br>Sale Price: \u00a3950,000<br>Previous Purchase: \u00a31,010,000<br>Previous Date: 2018-10-05<br>Annual Return: -4.7%/yr<br>Held for: 1.3 years"], "transaction_count": 2}, {"address": "Apartment 202, 6, Wood Crescent", "dates": ["2018-09-27", "2022-08-01"], "prices": [1576000, 1600000], "hover_texts": ["<b>Apartment 202, 6, Wood Crescent</b><br>Transaction 1 of 2<br>Date: 2018-09-27<br>Sale Price: \u00a31,576,000", "<b>Apartment 202, 6, Wood Crescent</b><br>Transaction 2 of 2<br>Date: 2022-08-01<br>Sale Price: \u00a31,600,000<br>Previous Purchase: \u00a31,576,000<br>Previous Date: 2018-09-27<br>Annual Return: +0.4%/yr<br>Held for: 3.8 years"], "transaction_count": 2}, {"address": "Apartment 205, 6, Wood Crescent", "dates": ["2018-09-27", "2019-09-05"], "prices": [550000, 615000], "hover_texts": ["<b>Apartment 205, 6, Wood Crescent</b><br>Transaction 1 of 2<br>Date: 2018-09-27<br>Sale Price: \u00a3550,000", "<b>Apartment 205, 6, Wood Crescent</b><br>Transaction 2 of 2<br>Date: 2019-09-05<br>Sale Price: \u00a3615,000<br>Previous Purchase: \u00a3550,000<br>Previous Date: 2018-09-27<br>Annual Return: +12.6%/yr<br>Held for: 0.9 years"], "transaction_count": 2}, {"address": "Apartment 207, 6, Wood Crescent", "dates": ["2018-09-28", "2024-06-26"], "prices": [715000, 540000], "hover_texts": ["<b>Apartment 207, 6, Wood Crescent</b><br>Transaction 1 of 2<br>Date: 2018-09-28<br>Sale Price: \u00a3715,000", "<b>Apartment 207, 6, Wood Crescent</b><br>Transaction 2 of 2<br>Date: 2024-06-26<br>Sale Price: \u00a3540,000<br>Previous Purchase: \u00a3715,000<br>Previous Date: 2018-09-28<br>Annual Return: -4.8%/yr<br>Held for: 5.7 years"], "transaction_count": 2}, {"address": "Apartment 204, 6, Wood Crescent", "dates": ["2018-11-09", "2023-03-29"], "prices": [685000, 625000], "hover_texts": ["<b>Apartment 204, 6, Wood Crescent</b><br>Transaction 1 of 2<br>Date: 2018-11-09<br>Sale Price: \u00a3685,000", "<b>Apartment 204, 6, Wood Crescent</b><br>Transaction 2 of 2<br>Date: 2023-03-29<br>Sale Price: \u00a3625,000<br>Previous Purchase: \u00a3685,000<br>Previous Date: 2018-11-09<br>Annual Return: -2.1%/yr<br>Held for: 4.4 years"], "transaction_count": 2}, {"address": "Apartment 402, 6, Wood Crescent", "dates": ["2018-10-01", "2023-11-15"], "prices": [1650000, 1490000], "hover_texts": ["<b>Apartment 402, 6, Wood Crescent</b><br>Transaction 1 of 2<br>Date: 2018-10-01<br>Sale Price: \u00a31,650,000", "<b>Apartment 402, 6, Wood Crescent</b><br>Transaction 2 of 2<br>Date: 2023-11-15<br>Sale Price: \u00a31,490,000<br>Previous Purchase: \u00a31,650,000<br>Previous Date: 2018-10-01<br>Annual Return: -2.0%/yr<br>Held for: 5.1 years"], "transaction_count": 2}, {"address": "Apartment 511, 6, Wood Crescent", "dates": ["2018-10-05", "2025-01-31"], "prices": [745000, 600000], "hover_texts": ["<b>Apartment 511, 6, Wood Crescent</b><br>Transaction 1 of 2<br>Date: 2018-10-05<br>Sale Price: \u00a3745,000", "<b>Apartment 511, 6, Wood Crescent</b><br>Transaction 2 of 2<br>Date: 2025-01-31<br>Sale Price: \u00a3600,000<br>Previous Purchase: \u00a3745,000<br>Previous Date: 2018-10-05<br>Annual Return: -3.4%/yr<br>Held for: 6.3 years"], "transaction_count": 2}, {"address": "Apartment 311, 6, Wood Crescent", "dates": ["2018-09-28", "2025-09-05"], "prices": [715000, 625000], "hover_texts": ["<b>Apartment 311, 6, Wood Crescent</b><br>Transaction 1 of 2<br>Date: 2018-09-28<br>Sale Price: \u00a3715,000", "<b>Apartment 311, 6, Wood Crescent</b><br>Transaction 2 of 2<br>Date: 2025-09-05<br>Sale Price: \u00a3625,000<br>Previous Purchase: \u00a3715,000<br>Previous Date: 2018-09-28<br>Annual Return: -1.9%/yr<br>Held for: 6.9 years"], "transaction_count": 2}, {"address": "Apartment 208, 6, Wood Crescent", "dates": ["2018-10-11", "2024-09-05"], "prices": [900000, 800000], "hover_texts": ["<b>Apartment 208, 6, Wood Crescent</b><br>Transaction 1 of 2<br>Date: 2018-10-11<br>Sale Price: \u00a3900,000", "<b>Apartment 208, 6, Wood Crescent</b><br>Transaction 2 of 2<br>Date: 2024-09-05<br>Sale Price: \u00a3800,000<br>Previous Purchase: \u00a3900,000<br>Previous Date: 2018-10-11<br>Annual Return: -2.0%/yr<br>Held for: 5.9 years"], "transaction_count": 2}, {"address": "Apartment 507, 6, Wood Crescent", "dates": ["2018-11-02", "2018-11-02"], "prices": [750000, 750000], "hover_texts": ["<b>Apartment 507, 6, Wood Crescent</b><br>Transaction 1 of 2<br>Date: 2018-11-02<br>Sale Price: \u00a3750,000", "<b>Apartment 507, 6, Wood Crescent</b><br>Transaction 2 of 2<br>Date: 2018-11-02<br>Sale Price: \u00a3750,000"], "transaction_count": 2}, {"address": "Apartment 701, 6, Wood Crescent", "dates": ["2018-10-26", "2020-11-18"], "prices": [1375000, 1350000], "hover_texts": ["<b>Apartment 701, 6, Wood Crescent</b><br>Transaction 1 of 2<br>Date: 2018-10-26<br>Sale Price: \u00a31,375,000", "<b>Apartment 701, 6, Wood Crescent</b><br>Transaction 2 of 2<br>Date: 2020-11-18<br>Sale Price: \u00a31,350,000<br>Previous Purchase: \u00a31,375,000<br>Previous Date: 2018-10-26<br>Annual Return: -0.9%/yr<br>Held for: 2.1 years"], "transaction_count": 2}];
+            var singleSales = [{"date": "2019-08-01", "address": "Apartment 302, 6, Wood Crescent", "price": 745000, "price_display": "\u00a3745,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-18", "address": "Apartment 610, 6, Wood Crescent", "price": 960400, "price_display": "\u00a3960,400", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-26", "address": "Apartment 312, 6, Wood Crescent", "price": 700000, "price_display": "\u00a3700,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-17", "address": "Apartment 510, 6, Wood Crescent", "price": 715000, "price_display": "\u00a3715,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-14", "address": "Apartment 513, 6, Wood Crescent", "price": 740000, "price_display": "\u00a3740,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-06-12", "address": "Apartment 206, 6, Wood Crescent", "price": 2450000, "price_display": "\u00a32,450,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2023-01-30", "address": "Apartment 703, 6, Wood Crescent", "price": 3821000, "price_display": "\u00a33,821,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-03-22", "address": "Apartment 801, 6, Wood Crescent", "price": 3335000, "price_display": "\u00a33,335,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2022-03-10", "address": "Apartment 802, 6, Wood Crescent", "price": 4700000, "price_display": "\u00a34,700,000", "property_type": "O", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-04", "address": "Apartment 310, 6, Wood Crescent", "price": 680000, "price_display": "\u00a3680,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-08-14", "address": "Apartment 307, 6, Wood Crescent", "price": 2472950, "price_display": "\u00a32,472,950", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-08-23", "address": "Apartment 403, 6, Wood Crescent", "price": 990000, "price_display": "\u00a3990,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-25", "address": "Apartment 505, 6, Wood Crescent", "price": 795000, "price_display": "\u00a3795,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-21", "address": "Apartment 305, 6, Wood Crescent", "price": 755000, "price_display": "\u00a3755,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-01", "address": "Apartment 508, 6, Wood Crescent", "price": 750000, "price_display": "\u00a3750,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-02", "address": "Apartment 306, 6, Wood Crescent", "price": 565000, "price_display": "\u00a3565,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-03-19", "address": "Apartment 407, 6, Wood Crescent", "price": 785000, "price_display": "\u00a3785,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-03", "address": "Apartment 412, 6, Wood Crescent", "price": 780000, "price_display": "\u00a3780,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-26", "address": "Apartment 604, 6, Wood Crescent", "price": 805000, "price_display": "\u00a3805,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-04", "address": "Apartment 308, 6, Wood Crescent", "price": 730000, "price_display": "\u00a3730,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-02-28", "address": "Apartment 411, 6, Wood Crescent", "price": 1015200, "price_display": "\u00a31,015,200", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-09-04", "address": "Apartment 304, 6, Wood Crescent", "price": 970000, "price_display": "\u00a3970,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-11", "address": "Apartment 102, 6, Wood Crescent", "price": 690000, "price_display": "\u00a3690,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-03", "address": "Apartment 608, 6, Wood Crescent", "price": 760000, "price_display": "\u00a3760,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-08-02", "address": "Apartment 611, 6, Wood Crescent", "price": 1065000, "price_display": "\u00a31,065,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-30", "address": "Apartment 201, 6, Wood Crescent", "price": 1072500, "price_display": "\u00a31,072,500", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-03", "address": "Apartment 609, 6, Wood Crescent", "price": 980000, "price_display": "\u00a3980,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-11-06", "address": "Apartment 605, 6, Wood Crescent", "price": 760000, "price_display": "\u00a3760,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-02", "address": "Apartment 512, 6, Wood Crescent", "price": 745000, "price_display": "\u00a3745,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-05", "address": "Apartment 303, 6, Wood Crescent", "price": 1250000, "price_display": "\u00a31,250,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-03-04", "address": "Apartment 1, 6, Wood Crescent", "price": 924200, "price_display": "\u00a3924,200", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-17", "address": "Apartment 601, 6, Wood Crescent", "price": 1263750, "price_display": "\u00a31,263,750", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-28", "address": "Apartment 503, 6, Wood Crescent", "price": 1310000, "price_display": "\u00a31,310,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-08-16", "address": "Apartment 104, 6, Wood Crescent", "price": 985000, "price_display": "\u00a3985,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-11-11", "address": "Apartment 504, 6, Wood Crescent", "price": 1060000, "price_display": "\u00a31,060,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-04", "address": "Apartment 309, 6, Wood Crescent", "price": 680000, "price_display": "\u00a3680,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-16", "address": "Apartment 607, 6, Wood Crescent", "price": 760000, "price_display": "\u00a3760,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-11-20", "address": "Apartment 405, 6, Wood Crescent", "price": 725000, "price_display": "\u00a3725,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-07", "address": "Apartment 103, 6, Wood Crescent", "price": 1100000, "price_display": "\u00a31,100,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-12-14", "address": "Apartment 506, 6, Wood Crescent", "price": 735000, "price_display": "\u00a3735,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-04-05", "address": "Apartment 406, 6, Wood Crescent", "price": 655000, "price_display": "\u00a3655,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-16", "address": "Apartment 101, 6, Wood Crescent", "price": 875000, "price_display": "\u00a3875,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-18", "address": "Apartment 606, 6, Wood Crescent", "price": 740000, "price_display": "\u00a3740,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-06-12", "address": "Apartment 409, 6, Wood Crescent", "price": 990000, "price_display": "\u00a3990,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-16", "address": "Apartment 3, 6, Wood Crescent", "price": 705000, "price_display": "\u00a3705,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-07", "address": "Apartment 502, 6, Wood Crescent", "price": 760000, "price_display": "\u00a3760,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-05-31", "address": "Apartment 203, 6, Wood Crescent", "price": 921200, "price_display": "\u00a3921,200", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-28", "address": "Apartment 401, 6, Wood Crescent", "price": 1200000, "price_display": "\u00a31,200,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2019-09-26", "address": "Apartment 702, 6, Wood Crescent", "price": 2302375, "price_display": "\u00a32,302,375", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-01", "address": "Apartment 301, 6, Wood Crescent", "price": 700000, "price_display": "\u00a3700,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-28", "address": "Apartment 209, 6, Wood Crescent", "price": 890000, "price_display": "\u00a3890,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-10-23", "address": "Apartment 704, 6, Wood Crescent", "price": 1925000, "price_display": "\u00a31,925,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-26", "address": "Apartment 501, 6, Wood Crescent", "price": 730000, "price_display": "\u00a3730,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2020-01-13", "address": "Apartment 210, 6, Wood Crescent", "price": 970000, "price_display": "\u00a3970,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-19", "address": "Apartment 408, 6, Wood Crescent", "price": 734080, "price_display": "\u00a3734,080", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-26", "address": "Apartment 509, 6, Wood Crescent", "price": 750000, "price_display": "\u00a3750,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}, {"date": "2018-09-14", "address": "Apartment 410, 6, Wood Crescent", "price": 927000, "price_display": "\u00a3927,000", "property_type": "F", "tenure": "L", "new_build": true, "is_repeat_sale": false}];
+            var traces = [];
+
+            // Add repeat sales with connecting lines (translucent by default)
+            repeatSales.forEach(function(prop, idx) {
+                traces.push({
+                    x: prop.dates,
+                    y: prop.prices,
+                    mode: 'lines+markers',
+                    name: prop.address,
+                    line: {width: 2, color: undefined},  // Auto color
+                    marker: {size: 8},
+                    opacity: 0.4,  // Translucent by default
+                    showlegend: false,
+                    text: prop.hover_texts,
+                    hovertemplate: '%{text}<extra></extra>',
+                    customdata: [idx]  // Store trace index for hover events
+                });
+            });
+
+            // Add single sales (also translucent)
+            if (singleSales.length > 0) {
+                var singleDates = singleSales.map(t => t.date);
+                var singlePrices = singleSales.map(t => t.price);
+                var singleHovers = singleSales.map(t =>
+                    '<b>' + t.address + '</b><br>Date: ' + t.date + '<br>Price: £' + t.price.toLocaleString() + '<br>Single Sale'
+                );
+
+                traces.push({
+                    x: singleDates,
+                    y: singlePrices,
+                    mode: 'markers',
+                    name: 'Single Sale',
+                    marker: {size: 8, color: '#888'},
+                    opacity: 0.4,
+                    showlegend: false,
+                    text: singleHovers,
+                    hovertemplate: '%{text}<extra></extra>'
+                });
+            }
+
+            var layout = {
+                title: 'Transaction History (Hover over lines to highlight)',
+                showlegend: false,
+                margin: {l: 60, r: 20, t: 40, b: 40},
+                height: 400,
+                xaxis: {title: 'Date'},
+                yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+                hovermode: 'closest'
+            };
+
+            var config = {responsive: true, displayModeBar: false};
+
+            Plotly.newPlot('plot-W12-7GS', traces, layout, config);
+
+            // Add hover event listeners for interactive highlighting
+            var chartDiv = document.getElementById('plot-W12-7GS');
+
+            chartDiv.on('plotly_hover', function(data) {
+                var curveNumber = data.points[0].curveNumber;
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Set all traces to low opacity and thin lines
+                for (var i = 0; i < traces.length; i++) {
+                    if (i === curveNumber) {
+                        // Hovered trace: full opacity, thick line, large markers
+                        updates.opacity.push(1.0);
+                        updates['line.width'].push(4);
+                        updates['marker.size'].push(10);
+                    } else {
+                        // Other traces: very faint
+                        updates.opacity.push(0.1);
+                        updates['line.width'].push(1);
+                        updates['marker.size'].push(6);
+                    }
+                }
+
+                Plotly.restyle('plot-W12-7GS', updates);
+            });
+
+            chartDiv.on('plotly_unhover', function(data) {
+                var updates = {
+                    opacity: [],
+                    'line.width': [],
+                    'marker.size': []
+                };
+
+                // Restore all traces to default translucent state
+                for (var i = 0; i < traces.length; i++) {
+                    updates.opacity.push(0.4);
+                    updates['line.width'].push(2);
+                    updates['marker.size'].push(8);
+                }
+
+                Plotly.restyle('plot-W12-7GS', updates);
+            });
+        })();
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Transaction History List -->
+            <div id="list-content-W12-7GS" class="sub-tab-content" style="display: none;">
+                <div class="transaction-list">
+                    <table class="trans-table">
+                        <thead>
+                            <tr>
+                                <th>Date</th>
+                                <th>Address</th>
+                                <th>Price</th>
+                                <th>Annual Return</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            
+        <tr>
+            <td>2019-08-01</td>
+            <td>Apartment 302, 6, Wood Crescent</td>
+            <td class="price">£745,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-18</td>
+            <td>Apartment 610, 6, Wood Crescent</td>
+            <td class="price">£960,400</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-26</td>
+            <td>Apartment 312, 6, Wood Crescent</td>
+            <td class="price">£700,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-17</td>
+            <td>Apartment 510, 6, Wood Crescent</td>
+            <td class="price">£715,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-14</td>
+            <td>Apartment 513, 6, Wood Crescent</td>
+            <td class="price">£740,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-06-12</td>
+            <td>Apartment 206, 6, Wood Crescent</td>
+            <td class="price">£2,450,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-01-30</td>
+            <td>Apartment 703, 6, Wood Crescent</td>
+            <td class="price">£3,821,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-22</td>
+            <td>Apartment 801, 6, Wood Crescent</td>
+            <td class="price">£3,335,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-03-10</td>
+            <td>Apartment 802, 6, Wood Crescent</td>
+            <td class="price">£4,700,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-04</td>
+            <td>Apartment 310, 6, Wood Crescent</td>
+            <td class="price">£680,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-08-14</td>
+            <td>Apartment 307, 6, Wood Crescent</td>
+            <td class="price">£2,472,950</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-23</td>
+            <td>Apartment 403, 6, Wood Crescent</td>
+            <td class="price">£990,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-06-08</td>
+            <td>Apartment 603, 6, Wood Crescent</td>
+            <td class="price">£965,000</td>
+        <td class="negative" title="Previous: £1,043,400 (2019-06-28)">-2.6%/yr</td></tr>
+
+        <tr>
+            <td>2019-06-28</td>
+            <td>Apartment 603, 6, Wood Crescent</td>
+            <td class="price">£1,043,400</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-04-12</td>
+            <td>Apartment 602, 6, Wood Crescent</td>
+            <td class="price">£1,454,277</td>
+        <td class="negative" title="Previous: £1,617,500 (2018-10-05)">-3.0%/yr</td></tr>
+
+        <tr>
+            <td>2018-10-05</td>
+            <td>Apartment 602, 6, Wood Crescent</td>
+            <td class="price">£1,617,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-01-10</td>
+            <td>Apartment 2, 6, Wood Crescent</td>
+            <td class="price">£950,000</td>
+        <td class="negative" title="Previous: £1,010,000 (2018-10-05)">-4.7%/yr</td></tr>
+
+        <tr>
+            <td>2018-10-05</td>
+            <td>Apartment 2, 6, Wood Crescent</td>
+            <td class="price">£1,010,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-25</td>
+            <td>Apartment 505, 6, Wood Crescent</td>
+            <td class="price">£795,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-21</td>
+            <td>Apartment 305, 6, Wood Crescent</td>
+            <td class="price">£755,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2022-08-01</td>
+            <td>Apartment 202, 6, Wood Crescent</td>
+            <td class="price">£1,600,000</td>
+        <td class="positive" title="Previous: £1,576,000 (2018-09-27)">+0.4%/yr</td></tr>
+
+        <tr>
+            <td>2018-09-27</td>
+            <td>Apartment 202, 6, Wood Crescent</td>
+            <td class="price">£1,576,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-01</td>
+            <td>Apartment 508, 6, Wood Crescent</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-02</td>
+            <td>Apartment 306, 6, Wood Crescent</td>
+            <td class="price">£565,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-03-19</td>
+            <td>Apartment 407, 6, Wood Crescent</td>
+            <td class="price">£785,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-03</td>
+            <td>Apartment 412, 6, Wood Crescent</td>
+            <td class="price">£780,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-26</td>
+            <td>Apartment 604, 6, Wood Crescent</td>
+            <td class="price">£805,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-04</td>
+            <td>Apartment 308, 6, Wood Crescent</td>
+            <td class="price">£730,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-02-28</td>
+            <td>Apartment 411, 6, Wood Crescent</td>
+            <td class="price">£1,015,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-04</td>
+            <td>Apartment 304, 6, Wood Crescent</td>
+            <td class="price">£970,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-11</td>
+            <td>Apartment 102, 6, Wood Crescent</td>
+            <td class="price">£690,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-05</td>
+            <td>Apartment 205, 6, Wood Crescent</td>
+            <td class="price">£615,000</td>
+        <td class="positive" title="Previous: £550,000 (2018-09-27)">+12.6%/yr</td></tr>
+
+        <tr>
+            <td>2018-09-27</td>
+            <td>Apartment 205, 6, Wood Crescent</td>
+            <td class="price">£550,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-03</td>
+            <td>Apartment 608, 6, Wood Crescent</td>
+            <td class="price">£760,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-02</td>
+            <td>Apartment 611, 6, Wood Crescent</td>
+            <td class="price">£1,065,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-30</td>
+            <td>Apartment 201, 6, Wood Crescent</td>
+            <td class="price">£1,072,500</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-03</td>
+            <td>Apartment 609, 6, Wood Crescent</td>
+            <td class="price">£980,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-06</td>
+            <td>Apartment 605, 6, Wood Crescent</td>
+            <td class="price">£760,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-02</td>
+            <td>Apartment 512, 6, Wood Crescent</td>
+            <td class="price">£745,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-05</td>
+            <td>Apartment 303, 6, Wood Crescent</td>
+            <td class="price">£1,250,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-03-04</td>
+            <td>Apartment 1, 6, Wood Crescent</td>
+            <td class="price">£924,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-17</td>
+            <td>Apartment 601, 6, Wood Crescent</td>
+            <td class="price">£1,263,750</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-28</td>
+            <td>Apartment 503, 6, Wood Crescent</td>
+            <td class="price">£1,310,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-08-16</td>
+            <td>Apartment 104, 6, Wood Crescent</td>
+            <td class="price">£985,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-11-11</td>
+            <td>Apartment 504, 6, Wood Crescent</td>
+            <td class="price">£1,060,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-04</td>
+            <td>Apartment 309, 6, Wood Crescent</td>
+            <td class="price">£680,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-06-26</td>
+            <td>Apartment 207, 6, Wood Crescent</td>
+            <td class="price">£540,000</td>
+        <td class="negative" title="Previous: £715,000 (2018-09-28)">-4.8%/yr</td></tr>
+
+        <tr>
+            <td>2018-09-28</td>
+            <td>Apartment 207, 6, Wood Crescent</td>
+            <td class="price">£715,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-16</td>
+            <td>Apartment 607, 6, Wood Crescent</td>
+            <td class="price">£760,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-20</td>
+            <td>Apartment 405, 6, Wood Crescent</td>
+            <td class="price">£725,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-07</td>
+            <td>Apartment 103, 6, Wood Crescent</td>
+            <td class="price">£1,100,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-12-14</td>
+            <td>Apartment 506, 6, Wood Crescent</td>
+            <td class="price">£735,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-04-05</td>
+            <td>Apartment 406, 6, Wood Crescent</td>
+            <td class="price">£655,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-03-29</td>
+            <td>Apartment 204, 6, Wood Crescent</td>
+            <td class="price">£625,000</td>
+        <td class="negative" title="Previous: £685,000 (2018-11-09)">-2.1%/yr</td></tr>
+
+        <tr>
+            <td>2018-11-09</td>
+            <td>Apartment 204, 6, Wood Crescent</td>
+            <td class="price">£685,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-16</td>
+            <td>Apartment 101, 6, Wood Crescent</td>
+            <td class="price">£875,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-18</td>
+            <td>Apartment 606, 6, Wood Crescent</td>
+            <td class="price">£740,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-06-12</td>
+            <td>Apartment 409, 6, Wood Crescent</td>
+            <td class="price">£990,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2023-11-15</td>
+            <td>Apartment 402, 6, Wood Crescent</td>
+            <td class="price">£1,490,000</td>
+        <td class="negative" title="Previous: £1,650,000 (2018-10-01)">-2.0%/yr</td></tr>
+
+        <tr>
+            <td>2018-10-01</td>
+            <td>Apartment 402, 6, Wood Crescent</td>
+            <td class="price">£1,650,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-16</td>
+            <td>Apartment 3, 6, Wood Crescent</td>
+            <td class="price">£705,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-01-31</td>
+            <td>Apartment 511, 6, Wood Crescent</td>
+            <td class="price">£600,000</td>
+        <td class="negative" title="Previous: £745,000 (2018-10-05)">-3.4%/yr</td></tr>
+
+        <tr>
+            <td>2018-10-05</td>
+            <td>Apartment 511, 6, Wood Crescent</td>
+            <td class="price">£745,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-07</td>
+            <td>Apartment 502, 6, Wood Crescent</td>
+            <td class="price">£760,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2025-09-05</td>
+            <td>Apartment 311, 6, Wood Crescent</td>
+            <td class="price">£625,000</td>
+        <td class="negative" title="Previous: £715,000 (2018-09-28)">-1.9%/yr</td></tr>
+
+        <tr>
+            <td>2018-09-28</td>
+            <td>Apartment 311, 6, Wood Crescent</td>
+            <td class="price">£715,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-05-31</td>
+            <td>Apartment 203, 6, Wood Crescent</td>
+            <td class="price">£921,200</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-28</td>
+            <td>Apartment 401, 6, Wood Crescent</td>
+            <td class="price">£1,200,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2019-09-26</td>
+            <td>Apartment 702, 6, Wood Crescent</td>
+            <td class="price">£2,302,375</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-01</td>
+            <td>Apartment 301, 6, Wood Crescent</td>
+            <td class="price">£700,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-28</td>
+            <td>Apartment 209, 6, Wood Crescent</td>
+            <td class="price">£890,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2024-09-05</td>
+            <td>Apartment 208, 6, Wood Crescent</td>
+            <td class="price">£800,000</td>
+        <td class="negative" title="Previous: £900,000 (2018-10-11)">-2.0%/yr</td></tr>
+
+        <tr>
+            <td>2018-10-11</td>
+            <td>Apartment 208, 6, Wood Crescent</td>
+            <td class="price">£900,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-10-23</td>
+            <td>Apartment 704, 6, Wood Crescent</td>
+            <td class="price">£1,925,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-02</td>
+            <td>Apartment 507, 6, Wood Crescent</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-11-02</td>
+            <td>Apartment 507, 6, Wood Crescent</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-26</td>
+            <td>Apartment 501, 6, Wood Crescent</td>
+            <td class="price">£730,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-01-13</td>
+            <td>Apartment 210, 6, Wood Crescent</td>
+            <td class="price">£970,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-19</td>
+            <td>Apartment 408, 6, Wood Crescent</td>
+            <td class="price">£734,080</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2020-11-18</td>
+            <td>Apartment 701, 6, Wood Crescent</td>
+            <td class="price">£1,350,000</td>
+        <td class="negative" title="Previous: £1,375,000 (2018-10-26)">-0.9%/yr</td></tr>
+
+        <tr>
+            <td>2018-10-26</td>
+            <td>Apartment 701, 6, Wood Crescent</td>
+            <td class="price">£1,375,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-26</td>
+            <td>Apartment 509, 6, Wood Crescent</td>
+            <td class="price">£750,000</td>
+        <td class="single-sale">-</td></tr>
+
+        <tr>
+            <td>2018-09-14</td>
+            <td>Apartment 410, 6, Wood Crescent</td>
+            <td class="price">£927,000</td>
+        <td class="single-sale">-</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Sub-tab: Transaction Summary -->
+            <div id="summary-content-W12-7GS" class="sub-tab-content" style="display: none;">
+                
+    <div id="summary-W12-7GS" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2018, 2019, 2020, 2022, 2023, 2024, 2025],
+            y: [897671, 1009767, 1447478, 2410855, 1978666, 670000, 612500],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2018, 2019, 2020, 2022, 2023, 2024, 2025],
+            y: [755000, 985000, 1015200, 1600000, 1490000, 800000, 625000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Average Price by Year - W12 7GS',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('summary-W12-7GS', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+                <div class="summary-stats">
+                    <p><strong>Total Transactions:</strong> 83</p>
+                    <p><strong>Unique Properties:</strong> 70</p>
+                    <p><strong>Average Price:</strong> £1,079,467</p>
+                    <p><strong>Median Price:</strong> £805,000</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Sector tab content -->
+        <div id="sector-tab-W12-7GS" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 Sector W12 7 Analysis</h4>
+                <p class="area-info">Viewing data for postcode sector W12 7</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'sector-chart-W12-7GS', 'W12-7GS')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'sector-cohort-W12-7GS', 'W12-7GS')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="sector-chart-W12-7GS" class="sub-tab-content" style="display: block;">
+                
+    <div id="sector-W12-7GS" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [274489, 322203, 339510, 367772, 331366, 418563, 450747, 444914, 404279, 460033, 640074, 652161, 645532, 980826, 898026, 1038068, 884744, 909354, 988553, 1058692, 665323],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [232000, 267500, 278075, 300000, 267500, 335000, 328250, 325000, 300000, 382500, 475945, 513000, 567000, 960400, 939100, 1020840, 848075, 760000, 867500, 1037850, 575000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'Sector W12 7 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('sector-W12-7GS', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="sector-cohort-W12-7GS" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="4" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £221,681</div>
+                        <div class="cell-sell">Sell: £302,649</div>
+                        <div class="cell-return">+11.4%/yr</div>
+                        <div class="cell-count">(11 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £251,026</div>
+                        <div class="cell-sell">Sell: £495,392</div>
+                        <div class="cell-return">+10.1%/yr</div>
+                        <div class="cell-count">(19 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £259,095</div>
+                        <div class="cell-sell">Sell: £598,000</div>
+                        <div class="cell-return">+7.4%/yr</div>
+                        <div class="cell-count">(10 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £377,988</div>
+                        <div class="cell-sell">Sell: £884,444</div>
+                        <div class="cell-return">+5.2%/yr</div>
+                        <div class="cell-count">(9 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £285,514</div>
+                        <div class="cell-sell">Sell: £351,342</div>
+                        <div class="cell-return">+11.0%/yr</div>
+                        <div class="cell-count">(27 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £342,669</div>
+                        <div class="cell-sell">Sell: £518,118</div>
+                        <div class="cell-return">+8.5%/yr</div>
+                        <div class="cell-count">(84 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £385,230</div>
+                        <div class="cell-sell">Sell: £732,995</div>
+                        <div class="cell-return">+7.0%/yr</div>
+                        <div class="cell-count">(51 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £384,780</div>
+                        <div class="cell-sell">Sell: £698,250</div>
+                        <div class="cell-return">+4.4%/yr</div>
+                        <div class="cell-count">(48 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £302,442</div>
+                        <div class="cell-sell">Sell: £424,555</div>
+                        <div class="cell-return">+18.9%/yr</div>
+                        <div class="cell-count">(35 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £426,370</div>
+                        <div class="cell-sell">Sell: £577,967</div>
+                        <div class="cell-return">+7.6%/yr</div>
+                        <div class="cell-count">(59 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £605,677</div>
+                        <div class="cell-sell">Sell: £791,564</div>
+                        <div class="cell-return">+3.3%/yr</div>
+                        <div class="cell-count">(54 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £784,986</div>
+                        <div class="cell-sell">Sell: £803,436</div>
+                        <div class="cell-return">+1.0%/yr</div>
+                        <div class="cell-count">(25 sales)</div>
+                    </div>
+                    </td><td class="negative-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £935,575</div>
+                        <div class="cell-sell">Sell: £875,145</div>
+                        <div class="cell-return">-1.2%/yr</div>
+                        <div class="cell-count">(119 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £740,392</div>
+                        <div class="cell-sell">Sell: £841,908</div>
+                        <div class="cell-return">+6.6%/yr</div>
+                        <div class="cell-count">(33 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+
+        <!-- District tab content -->
+        <div id="district-tab-W12-7GS" class="main-tab-content" style="display: none;">
+            <div class="area-highlight">
+                <h4>📍 District W12 Analysis</h4>
+                <p class="area-info">Viewing data for entire W12 district</p>
+            </div>
+
+            <div class="sub-tabs">
+                <button class="sub-tab-button active" onclick="openSubTab(event, 'district-chart-W12-7GS', 'W12-7GS')">
+                    Yearly Price Chart
+                </button>
+                <button class="sub-tab-button" onclick="openSubTab(event, 'district-cohort-W12-7GS', 'W12-7GS')">
+                    Cohort Analysis
+                </button>
+            </div>
+
+            <!-- Sub-tab: Yearly Chart -->
+            <div id="district-chart-W12-7GS" class="sub-tab-content" style="display: block;">
+                
+    <div id="district-W12-7GS" style="height: 300px;"></div>
+    <script>
+        var trace1 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [308209, 340844, 420407, 415247, 418090, 459765, 462692, 504650, 541517, 586133, 705340, 714489, 773708, 869422, 834283, 881958, 817769, 820310, 873734, 847040, 717062],
+            name: 'Average',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#2E86AB', width: 2},
+            marker: {size: 6}
+        };
+
+        var trace2 = {
+            x: [2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020, 2021, 2022, 2023, 2024, 2025],
+            y: [250000, 285000, 330000, 333500, 330000, 365000, 360000, 397000, 420000, 475000, 560000, 590000, 620000, 748500, 687500, 774600, 735000, 660000, 790000, 654975, 579000],
+            name: 'Median',
+            type: 'scatter',
+            mode: 'lines+markers',
+            line: {color: '#A23B72', width: 2, dash: 'dot'},
+            marker: {size: 6}
+        };
+
+        var layout = {
+            title: 'District W12 - Average Price by Year',
+            showlegend: true,
+            legend: {
+                x: 0.02,
+                y: 0.98,
+                xanchor: 'left',
+                yanchor: 'top',
+                bgcolor: 'rgba(255, 255, 255, 0.8)',
+                bordercolor: '#ccc',
+                borderwidth: 1
+            },
+            margin: {l: 60, r: 20, t: 40, b: 40},
+            height: 350,
+            xaxis: {title: 'Year'},
+            yaxis: {title: 'Price (£)', tickformat: ',.0f'},
+            hovermode: 'closest'
+        };
+
+        Plotly.newPlot('district-W12-7GS', [trace1, trace2], layout, {responsive: true, displayModeBar: false});
+    </script>
+    
+            </div>
+
+            <!-- Sub-tab: Cohort Analysis -->
+            <div id="district-cohort-W12-7GS" class="sub-tab-content" style="display: none;">
+                
+    <div class="cohort-crosstab">
+        <h4>Average Purchase and Sale Prices by Period</h4>
+        <table class="cohort-table">
+            <thead>
+                <tr>
+                    <th rowspan="2">Purchase Period</th>
+                    <th colspan="5" class="center">Sale Period</th>
+                </tr>
+                <tr>
+                    <th>2005-</th><th>2006-2010</th><th>2011-2015</th><th>2016-2020</th><th>2021-2025</th>
+                </tr>
+            </thead>
+            <tbody>
+    <tr><td class="cohort-label">2005-</td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £228,500</div>
+                        <div class="cell-sell">Sell: £283,880</div>
+                        <div class="cell-return">+29.7%/yr</div>
+                        <div class="cell-count">(5 sales)</div>
+                    </div>
+                    </td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £285,517</div>
+                        <div class="cell-sell">Sell: £393,334</div>
+                        <div class="cell-return">+11.7%/yr</div>
+                        <div class="cell-count">(115 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £303,879</div>
+                        <div class="cell-sell">Sell: £539,265</div>
+                        <div class="cell-return">+8.0%/yr</div>
+                        <div class="cell-count">(131 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £289,824</div>
+                        <div class="cell-sell">Sell: £648,760</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(48 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £363,246</div>
+                        <div class="cell-sell">Sell: £847,589</div>
+                        <div class="cell-return">+5.0%/yr</div>
+                        <div class="cell-count">(33 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2006-2010</td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £312,606</div>
+                        <div class="cell-sell">Sell: £399,676</div>
+                        <div class="cell-return">+10.7%/yr</div>
+                        <div class="cell-count">(203 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £370,206</div>
+                        <div class="cell-sell">Sell: £554,911</div>
+                        <div class="cell-return">+8.7%/yr</div>
+                        <div class="cell-count">(601 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £401,588</div>
+                        <div class="cell-sell">Sell: £751,789</div>
+                        <div class="cell-return">+7.3%/yr</div>
+                        <div class="cell-count">(259 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £457,731</div>
+                        <div class="cell-sell">Sell: £845,379</div>
+                        <div class="cell-return">+4.5%/yr</div>
+                        <div class="cell-count">(212 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2011-2015</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="high-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £415,616</div>
+                        <div class="cell-sell">Sell: £613,080</div>
+                        <div class="cell-return">+21.1%/yr</div>
+                        <div class="cell-count">(222 sales)</div>
+                    </div>
+                    </td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £533,115</div>
+                        <div class="cell-sell">Sell: £705,024</div>
+                        <div class="cell-return">+7.6%/yr</div>
+                        <div class="cell-count">(445 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £585,573</div>
+                        <div class="cell-sell">Sell: £773,149</div>
+                        <div class="cell-return">+3.4%/yr</div>
+                        <div class="cell-count">(404 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2016-2020</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £783,222</div>
+                        <div class="cell-sell">Sell: £887,341</div>
+                        <div class="cell-return">+6.7%/yr</div>
+                        <div class="cell-count">(102 sales)</div>
+                    </div>
+                    </td><td class="low-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £745,098</div>
+                        <div class="cell-sell">Sell: £780,005</div>
+                        <div class="cell-return">+1.4%/yr</div>
+                        <div class="cell-count">(438 sales)</div>
+                    </div>
+                    </td></tr><tr><td class="cohort-label">2021-2025</td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="no-data"><div class="cell-content">-</div></td><td class="med-return">
+                    <div class="cell-content">
+                        <div class="cell-buy">Buy: £607,783</div>
+                        <div class="cell-sell">Sell: £691,379</div>
+                        <div class="cell-return">+8.6%/yr</div>
+                        <div class="cell-count">(124 sales)</div>
+                    </div>
+                    </td></tr>
+            </tbody>
+        </table>
+        <div class="cohort-legend">
+            <span class="legend-item">
+                <span class="legend-color high-return"></span> >10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color med-return"></span> 5-10%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color low-return"></span> 0-5%/yr
+            </span>
+            <span class="legend-item">
+                <span class="legend-color negative-return"></span> <0%/yr
+            </span>
+        </div>
+    </div>
+    
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Tab switching functions - scoped to this popup
+        function openMainTab(evt, tabName) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all main tab contents in this popup
+            var tabContents = popup.getElementsByClassName('main-tab-content');
+            for (var i = 0; i < tabContents.length; i++) {
+                tabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all main tab buttons in this popup
+            var tabButtons = popup.querySelector('.main-tabs').getElementsByClassName('tab-button');
+            for (var i = 0; i < tabButtons.length; i++) {
+                tabButtons[i].className = tabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected tab content
+            var selectedTab = popup.querySelector('#' + tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+
+            // Send message to parent map to highlight area
+            var highlightInfo = null;
+            if (tabName.includes('sector-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'sector',
+                    value: 'W12 7'
+                };
+            } else if (tabName.includes('district-tab')) {
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'district',
+                    value: 'W12'
+                };
+            } else {
+                // Postcode tab - clear highlights
+                highlightInfo = {
+                    type: 'highlight',
+                    area: 'none'
+                };
+            }
+
+            // Send message to parent window to highlight area
+            if (highlightInfo && window.parent) {
+                window.parent.postMessage(highlightInfo, '*');
+            }
+        }
+
+        function openSubTab(evt, tabName, postcodeId) {
+            // Get the popup container
+            var popup = evt.currentTarget.closest('.tabbed-popup');
+
+            // Hide all sub-tab contents in this popup
+            var subTabContents = popup.getElementsByClassName('sub-tab-content');
+            for (var i = 0; i < subTabContents.length; i++) {
+                subTabContents[i].style.display = 'none';
+            }
+
+            // Remove active class from all sub-tab buttons in this popup
+            var subTabButtons = popup.querySelector('.sub-tabs').getElementsByClassName('sub-tab-button');
+            for (var i = 0; i < subTabButtons.length; i++) {
+                subTabButtons[i].className = subTabButtons[i].className.replace(' active', '');
+            }
+
+            // Show the selected sub-tab content
+            var selectedSubTab = popup.querySelector('#' + tabName);
+            if (selectedSubTab) {
+                selectedSubTab.style.display = 'block';
+            }
+
+            // Add active class to the clicked button
+            evt.currentTarget.className += ' active';
+        }
+    </script>
+    </body></html>
